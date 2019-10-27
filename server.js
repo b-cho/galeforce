@@ -39,6 +39,20 @@ const app = express(); // Create Express app.
 /* API call queue for rate limiting */
 var api_queue = [];
 
+/* Upon server setup... */
+// Taken from https://stackoverflow.com/questions/11944932/how-to-download-a-file-with-node-js-without-using-third-party-libraries
+
+console.log("Downloading data from Data Dragon...");
+config.startup.forEach((inp) => {
+    let fl = inp[0];
+    let url = inp[1];
+    console.log("Fetching from", url);
+    let file = fs.createWriteStream(fl);
+    let request = http.get(url, function(response) {
+      response.pipe(file);
+    });
+});
+
 /* Express Request Handlers */
 app.get("/summoner/update", (request, response) => {
     console.log("GET", request.url);
@@ -97,8 +111,8 @@ app.get("/summoner/get", (request, response) => {
 
         MongoClient.connect(URI, (err, db) => {
             if (err) reject(err);
-            let summoner_db = db.collection("summoner-data"); // Create database "references"
-            let match_db = db.collection("match-data"); // ^^
+            let summoner_db = db.db("test").collection("summoner-data"); // Create database "references"
+            let match_db = db.db("test").collection("match-data"); // ^^
             let fetchDataPromise = new Promise(async (resolve, reject) => {
                 console.log("QUERY summoner_db", request.query);
                 return_data.summoner = await summoner_db.find({"custom.unique_name": request.query.username.replace(/\s/g, "").toLowerCase(), "summoner.server": request.query.server}).toArray();

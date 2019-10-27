@@ -4,6 +4,7 @@ const uuid       = require("uuid");
 const async      = require("async");
 const request    = require("request");
 const Bottleneck = require("bottleneck");
+const fs         = require("fs");
 
 const config = require("./config.json");
 const endpoints = require("./endpoints.json");
@@ -14,6 +15,9 @@ const LIMIT_CONFIG = config.bottleneck.parameters;
 var   MongoClient  = MongoDB.MongoClient;
 
 const limiter = new Bottleneck(LIMIT_CONFIG);
+
+/* Define game data */
+const championData = require("../data/champion.json");
 
 // Modified slightly from https://stackoverflow.com/questions/29182244/convert-a-string-to-a-template-string
 var generateTemplateString = (function() {
@@ -85,6 +89,14 @@ class RiotAPI {
         return return_promise;
     }
 
+    /**
+     * Fetches information from the Riot API given a list of endpoints.
+     * This method is rate limited using the limiter defined above.
+     * 
+     * @param {[String]} endpoints Endpoints to fetch information from
+     * 
+     * @return {Promise} Return JSON data as a promise (because request completion is not instantaneous).
+     */
     static get(endpoints) {
         return limiter.wrap(RiotAPI._get)(endpoints);
     }
@@ -104,8 +116,8 @@ class Rubidium {
         return new Promise((resolve, reject) => {
             MongoClient.connect(URI, (err, db) => {
                 if(err) return err; // Return error if exists.
-                let summoner_db = db.collection("summoner-data"); // Create database "references"
-                let match_db    = db.collection("match-data"); // ^^
+                let summoner_db = db.db("test").collection("summoner-data"); // Create database "references"
+                let match_db    = db.db("test").collection("match-data"); // ^^
                 // First, get summoner data for the given server/username pair.
                 let summoner_endpoint = RiotAPI.generateEndpointURLs(endpoints.summoner.summoner_name, {"server": params.server, "summoner-name": params["summoner-name"]});
                 RiotAPI.get(summoner_endpoint).then((summoner) => { // note the result is the summoner data.
@@ -173,6 +185,92 @@ class Rubidium {
                 });
             });
         });
+    }
+
+    /** 
+     * Fetch the relevant data from the MongoDB database and return specific information
+     * 
+     * @static
+     * @param {Object} filter MongoDB filter dictionary.
+     * @param {Object} select Data to select from using keys using a separate dictionary.
+     * 
+     * @return {Promise} Returns a Promise object with a return value of the resulting data.
+    */
+    static filterData(filter={}, select={}) {
+        return new Promise((resolve, reject) => {
+            MongoClient.connect(URI, async (err, db) => {
+                if(err) {
+                    reject(err);
+                    return;
+                }
+                let summoner_db = db.db("test").collection("summoner-data"); // Create database "references"
+                let match_db = db.db("test").collection("match-data"); // ^^
+
+                let select_dict = {"_id": 0};
+                Object.values(select).forEach((sel) => { // Convert select to a dictionary to get certain values from db.collection.find()
+                    select_dict[sel] = 1;
+                });
+
+                let selected_data = await match_db.find(filter).project(select_dict).toArray(); // Fetch relevant data from MongoDB
+                
+                let select_split = Object.assign({}, select); // Create a modified version of select with period-split array for dot notation
+                Object.keys(select_split).map((key, index) => {
+                    select_split[key] = select_split[key].split(".");
+                });
+
+                let flat_data = []; // Create a new array of "flattened" data
+
+                selected_data.forEach((data) => { // For each match in selected_data...
+                    let fd_push = {}; // Create a new temporary dictionary
+                    Object.keys(select_split).forEach((key) => { // For each select-key in select_split...
+                        fd_push[key] = data; // Copy the data from selected_data at the new key (key in select)
+                        select_split[key].forEach((spl) => { // Begin to flatten hierarchy in dictionary for selected_data; for each key in select_split...
+                            if(Array.isArray(fd_push[key])) fd_push[key] = fd_push[key].reduce((result, element) => { // If an array, reduce every element and reduce one layer of nested dict
+                                if(element == null) result.push(null); // Ignore null values
+                                else result.push(element[spl]);
+                                return result; // Use an accumulator array instead of directly using Array.map();
+                            }, []);
+                            else fd_push[key] = fd_push[key][spl]; // Otherwise, just remove one key-layer in nested dictionary
+                        });
+                    });
+                    flat_data.push(fd_push); // Add the flattened version to flat_data
+                });
+
+                resolve({data: selected_data, refs: select_split, comb: flat_data}); // Return results
+            });
+        });
+    }
+
+    /** 
+     * Convert integer to champion name.
+     * 
+     * @static
+     * @param {Number} cid The id of the champion in question.
+     * 
+     * @return {String} The corresponding champion name.
+    */
+    static idToChampion(cid) {
+        let ret = null;
+        Object.keys(championData.data).forEach((k) => {
+            if(parseInt(championData.data[k].key) == cid) {
+                ret = k;
+                return;
+            }
+        });
+        return ret;
+    }
+
+    /** 
+     * Convert champion name to integer.
+     * 
+     * @static
+     * @param {Number} name The name of the champion in question.
+     * 
+     * @return {String} The corresponding champion ID.
+    */
+    static championToId(name) {
+        name = name.replace(/[^A-Za-z]/g, '')
+        return parseInt(championData.data[name].key);
     }
 }
 
