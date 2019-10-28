@@ -1,14 +1,15 @@
 /* require() calls */
-const http    = require("http");
-const https   = require("https");
-const os      = require("os");
-const process = require("process");
-const fs      = require("fs");
-const express = require("express");
-const async   = require("async");
-const MongoDB = require("mongodb");
-const ip      = require("ip");
-const XRegExp = require("xregexp");
+const http       = require("http");
+const https      = require("https");
+const os         = require("os");
+const process    = require("process");
+const fs         = require("fs");
+const express    = require("express");
+const async      = require("async");
+const MongoDB    = require("mongodb");
+const ip         = require("ip");
+const XRegExp    = require("xregexp");
+const bodyParser = require("body-parser");
 
 const Rubidium = require("./rubidium-engine").Rubidium;
 const config   = require("./config.json");
@@ -35,23 +36,26 @@ function getTime(){
 
 /* Express Variables */
 const app = express(); // Create Express app.
-
-/* API call queue for rate limiting */
-var api_queue = [];
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json()); // Use body-parser in JSON middleware.
 
 /* Upon server setup... */
 // Taken from https://stackoverflow.com/questions/11944932/how-to-download-a-file-with-node-js-without-using-third-party-libraries
 
-console.log("Downloading data from Data Dragon...");
+console.log("Downloading data from Riot CDNs...");
 config.startup.forEach((inp) => {
     let fl = inp[0];
     let url = inp[1];
-    console.log("Fetching from", url);
-    let file = fs.createWriteStream(fl);
-    let request = http.get(url, function(response) {
-      response.pipe(file);
-    });
+    console.log("Fetching from", url, "->", fl);
+    // let file = fs.createWriteStream(fl);
+    // let request = http.request(url, (response) => {
+    //     response.pipe(file);
+    // });
 });
+
+Rubidium.init();
 
 /* Express Request Handlers */
 app.get("/summoner/update", (request, response) => {
@@ -138,15 +142,42 @@ app.get("/summoner/get", (request, response) => {
         response.send(JSON.stringify(responseJSON)); // Write HTTP response.
     }).catch((error) => {
         let data = {};
-        if(!error.body) error.body = {};
-        if(!error.response) error.response = {};
         response.status(500);
-        requestInfo.error = error; // Pass error along into requestInfo.
         requestInfo.statusCode = response.statusCode; // Pass status code as well.
         requestInfo.time = {"recv": timeRecv, "sent": getTime()}; // Return timing.
         delete error.headers;
         const responseJSON = {requestInfo, data}; // Create response body
         response.send(JSON.stringify(responseJSON)); // Write HTTP response.
+    });
+});
+
+app.post("/filter", (request, response) => {
+    console.log("POST", request.url, request.body);
+    response.set("Content-Type", "application/json"); // Set response header to JSON.
+    response.set("Access-Control-Allow-Origin", "*"); // Set Access-Control header.
+
+    let requestInfo = {};
+    let timeRecv = getTime();
+
+    Object.keys(request.body.filter).forEach((key) => { // convert stringed floats/ints to original type
+        if(/^\d+$/.test(request.body.filter[key]) == true) request.body.filter[key] = parseInt(request.body.filter[key]);
+        if(/^\d+\.\d+$/.test(request.body.filter[key]) == true) request.body.filter[key] = parseFloat(request.body.filter[key])
+    });
+
+    Rubidium.filterData(filter=request.body.filter, select=request.body.select).then((ts) => {
+        requestInfo.error = {}; // No error.
+        requestInfo.statusCode = response.statusCode; // Set requestInfo status code.
+        requestInfo.time = {"recv": timeRecv, "sent": getTime()}; // Return timing.
+        let responseJSON = {requestInfo, "data": ts.comb};
+        response.send(JSON.stringify(responseJSON));
+    }).catch((error) => {
+        response.status(500);
+        requestInfo.error = error; // Pass error along into requestInfo.
+        requestInfo.statusCode = response.statusCode; // Pass status code as well.
+        requestInfo.time = {"recv": timeRecv, "sent": getTime()}; // Return timing.
+        let data = {};
+        let responseJSON = {requestInfo, data};
+        response.send(JSON.stringify(responseJSON));
     });
 });
 
@@ -175,15 +206,3 @@ if(USE_HTTPS) https.createServer(HTTPS_OPTIONS, app).listen(HTTPS_PORT); // List
 process.on("unhandledRejection", (reason, p) => {
     console.error("Unhandled promise rejection at promise", p, "with reason", reason);
 });
-
-// /* API processing loop w/ rate limit handling */
-// async.forever((next) => {
-//     if(api_queue.length == 0) next();
-//     console.log(api_queue.length);
-//     api_queue[0]().catch((error) => {
-//         console.log(error);
-//     });
-//     next();
-// }, (error) => {
-//     console.log(error);
-// });

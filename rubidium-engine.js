@@ -17,7 +17,7 @@ var   MongoClient  = MongoDB.MongoClient;
 const limiter = new Bottleneck(LIMIT_CONFIG);
 
 /* Define game data */
-const championData = require("../data/champion.json");
+var championData = {};
 
 // Modified slightly from https://stackoverflow.com/questions/29182244/convert-a-string-to-a-template-string
 var generateTemplateString = (function() {
@@ -104,6 +104,10 @@ class RiotAPI {
 
 // Data analysis and database-push functions
 class Rubidium {
+    static init() {
+        championData = require("../data/champion.json");
+    }
+
     /** 
      * Fetch the data for the given parameters from the Riot API and update the MongoDB database online.
      * 
@@ -212,7 +216,7 @@ class Rubidium {
                 });
 
                 let selected_data = await match_db.find(filter).project(select_dict).toArray(); // Fetch relevant data from MongoDB
-                
+
                 let select_split = Object.assign({}, select); // Create a modified version of select with period-split array for dot notation
                 Object.keys(select_split).map((key, index) => {
                     select_split[key] = select_split[key].split(".");
@@ -220,21 +224,25 @@ class Rubidium {
 
                 let flat_data = []; // Create a new array of "flattened" data
 
-                selected_data.forEach((data) => { // For each match in selected_data...
-                    let fd_push = {}; // Create a new temporary dictionary
-                    Object.keys(select_split).forEach((key) => { // For each select-key in select_split...
-                        fd_push[key] = data; // Copy the data from selected_data at the new key (key in select)
-                        select_split[key].forEach((spl) => { // Begin to flatten hierarchy in dictionary for selected_data; for each key in select_split...
-                            if(Array.isArray(fd_push[key])) fd_push[key] = fd_push[key].reduce((result, element) => { // If an array, reduce every element and reduce one layer of nested dict
-                                if(element == null) result.push(null); // Ignore null values
-                                else result.push(element[spl]);
-                                return result; // Use an accumulator array instead of directly using Array.map();
-                            }, []);
-                            else fd_push[key] = fd_push[key][spl]; // Otherwise, just remove one key-layer in nested dictionary
+                if(Object.keys(select).length >= 1) {
+                    selected_data.forEach((data) => { // For each match in selected_data...
+                        let fd_push = {}; // Create a new temporary dictionary
+                        Object.keys(select_split).forEach((key) => { // For each select-key in select_split...
+                            fd_push[key] = data; // Copy the data from selected_data at the new key (key in select)
+                            select_split[key].forEach((spl) => { // Begin to flatten hierarchy in dictionary for selected_data; for each key in select_split...
+                                if(Array.isArray(fd_push[key])) fd_push[key] = fd_push[key].reduce((result, element) => { // If an array, reduce every element and reduce one layer of nested dict
+                                    if(element == null) result.push(null); // Ignore null values
+                                    else result.push(element[spl]);
+                                    return result; // Use an accumulator array instead of directly using Array.map();
+                                }, []);
+                                else fd_push[key] = fd_push[key][spl]; // Otherwise, just remove one key-layer in nested dictionary
+                            });
                         });
+                        flat_data.push(fd_push); // Add the flattened version to flat_data
                     });
-                    flat_data.push(fd_push); // Add the flattened version to flat_data
-                });
+                } else {
+                    flat_data = selected_data;
+                }
 
                 resolve({data: selected_data, refs: select_split, comb: flat_data}); // Return results
             });
