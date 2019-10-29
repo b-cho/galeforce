@@ -11,7 +11,7 @@ const ip         = require("ip");
 const XRegExp    = require("xregexp");
 const bodyParser = require("body-parser");
 
-const Rubidium = require("./rubidium-engine").Rubidium;
+const Rubidium = require("./rubidium-engine");
 const config   = require("./config.json");
 
 const SERVER_IP  = config.system.host == null ? ip.address() : config.system.host; // set to local IP if null.
@@ -32,6 +32,29 @@ var summoner_regex = XRegExp("^[0-9\\p{L} _\\.]+$");
 /* Get datetime as a string */
 function getTime(){
 	return new Date().getTime();
+}
+
+/* Recursively convert all valid fields in inp to their integer variants */
+function ObjectToInt(inp) {
+    if(Array.isArray(inp)) {
+        let ret = []
+        inp.forEach((elem) => {
+            if(Array.isArray(elem)) elem.map(x => ObjectToInt(x));
+            else if (typeof elem == "object") elem = ObjectToInt(elem);
+            else if(/^\d+$/.test(elem)) elem = parseInt(elem);
+            else if(/^\d+\.\d+$/.test(elem)) elem = parseFloat(elem);
+            ret.push(elem);
+        });
+        return ret;
+    } else {
+        Object.keys(inp).forEach((key) => { // convert stringed floats/ints to original type
+            if(Array.isArray(inp[key])) inp[key] = inp[key].map(x => ObjectToInt(x));
+            else if (typeof inp[key] == "object") inp[key] = ObjectToInt(inp[key]);
+            else if(/^\d+$/.test(inp[key])) inp[key] = parseInt(inp[key]);
+            else if(/^\d+\.\d+$/.test(inp[key])) inp[key] = parseFloat(inp[key]);
+        });
+        return inp;
+    }
 }
 
 /* Express Variables */
@@ -159,10 +182,8 @@ app.post("/filter", (request, response) => {
     let requestInfo = {};
     let timeRecv = getTime();
 
-    Object.keys(request.body.filter).forEach((key) => { // convert stringed floats/ints to original type
-        if(/^\d+$/.test(request.body.filter[key]) == true) request.body.filter[key] = parseInt(request.body.filter[key]);
-        if(/^\d+\.\d+$/.test(request.body.filter[key]) == true) request.body.filter[key] = parseFloat(request.body.filter[key])
-    });
+    // TODO: Make explicit method in rubidium-engine.js
+    request.body.filter = ObjectToInt(request.body.filter);
 
     Rubidium.filterData(filter=request.body.filter, select=request.body.select).then((ts) => {
         requestInfo.error = {}; // No error.

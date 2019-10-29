@@ -100,6 +100,38 @@ class RiotAPI {
     static get(endpoints) {
         return limiter.wrap(RiotAPI._get)(endpoints);
     }
+
+    /** 
+     * Convert integer to champion name.
+     * 
+     * @static
+     * @param {Number} cid The id of the champion in question.
+     * 
+     * @return {String} The corresponding champion name.
+    */
+    static idToChampion(cid) {
+        let ret = null;
+        Object.keys(championData.data).forEach((k) => {
+            if(parseInt(championData.data[k].key) == cid) {
+                ret = k;
+                return;
+            }
+        });
+        return ret;
+    }
+
+    /** 
+     * Convert champion name to integer.
+     * 
+     * @static
+     * @param {Number} name The name of the champion in question.
+     * 
+     * @return {String} The corresponding champion ID.
+    */
+    static championToId(name) {
+        name = name.replace(/[^A-Za-z]/g, '')
+        return parseInt(championData.data[name].key);
+    }
 }
 
 // Data analysis and database-push functions
@@ -248,42 +280,6 @@ class Rubidium {
             });
         });
     }
-
-    /** 
-     * Convert integer to champion name.
-     * 
-     * @static
-     * @param {Number} cid The id of the champion in question.
-     * 
-     * @return {String} The corresponding champion name.
-    */
-    static idToChampion(cid) {
-        let ret = null;
-        Object.keys(championData.data).forEach((k) => {
-            if(parseInt(championData.data[k].key) == cid) {
-                ret = k;
-                return;
-            }
-        });
-        return ret;
-    }
-
-    /** 
-     * Convert champion name to integer.
-     * 
-     * @static
-     * @param {Number} name The name of the champion in question.
-     * 
-     * @return {String} The corresponding champion ID.
-    */
-    static championToId(name) {
-        name = name.replace(/[^A-Za-z]/g, '')
-        return parseInt(championData.data[name].key);
-    }
 }
 
-module.exports = {
-    "endpoints": endpoints,
-    "RiotAPI": RiotAPI,
-    "Rubidium": Rubidium
-};
+module.exports = Rubidium;
