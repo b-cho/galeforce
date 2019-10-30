@@ -10,6 +10,7 @@ const MongoDB    = require("mongodb");
 const ip         = require("ip");
 const XRegExp    = require("xregexp");
 const bodyParser = require("body-parser");
+const request    = require("request");
 
 const Rubidium = require("./rubidium-engine");
 const config   = require("./config.json");
@@ -68,17 +69,18 @@ app.use(bodyParser.json()); // Use body-parser in JSON middleware.
 // Taken from https://stackoverflow.com/questions/11944932/how-to-download-a-file-with-node-js-without-using-third-party-libraries
 
 console.log("Downloading data from Riot CDNs...");
-config.startup.forEach((inp) => {
-    let fl = inp[0];
-    let url = inp[1];
-    console.log("Fetching from", url, "->", fl);
-    // let file = fs.createWriteStream(fl);
-    // let request = http.request(url, (response) => {
-    //     response.pipe(file);
-    // });
+async.each(config.startup, (link, callback) => {
+    let fl = link[0];
+    let url = link[1];
+    let stream = request.get(url).on('response', (response) => {
+        console.log("Downloading", url, "->", fl);
+        console.log(response.statusCode);
+    }).pipe(fs.createWriteStream(fl));  
+    stream.on('finish', callback);
+}, (err) => {
+    if(err) console.log(err);
+    Rubidium.init();
 });
-
-Rubidium.init();
 
 /* Express Request Handlers */
 app.get("/summoner/update", (request, response) => {
