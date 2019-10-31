@@ -11,6 +11,7 @@ const ip         = require("ip");
 const XRegExp    = require("xregexp");
 const bodyParser = require("body-parser");
 const request    = require("request");
+const helmet     = require("helmet");
 
 const Rubidium = require("./rubidium-engine");
 const config   = require("./config.json");
@@ -64,6 +65,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json()); // Use body-parser in JSON middleware.
+app.use(helmet());
 
 /* Upon server setup... */
 // Taken from https://stackoverflow.com/questions/11944932/how-to-download-a-file-with-node-js-without-using-third-party-libraries

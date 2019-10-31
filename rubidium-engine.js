@@ -143,6 +143,7 @@ class Rubidium {
      * 
      * @static
      * @param {Object} params Argument for parameters like server, username, etc.
+     *     {server: <server>, "summoner-name": <summoner name>}
      * 
      * @return {Promise} Returns a Promise object that has no return value.
     */
