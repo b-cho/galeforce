@@ -41,6 +41,11 @@
             "match_id": [
                 "https://${server}.api.riotgames.com/lol/match/v4/matches/${match-id}"
             ]
+        },
+        "timeline": {
+            "match_id": [
+                "https://${server}.api.riotgames.com/lol/match/v4/timelines/by-match/${match-id}"
+            ]
         }
     }
 }

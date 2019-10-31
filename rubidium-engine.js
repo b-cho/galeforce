@@ -64,7 +64,7 @@ class RiotAPI {
      */
     static _get(endpoints) {
         let return_promise = new Promise((resolve, reject) => {
-            async.eachSeries(endpoints, (endpoint, callback) => { // fetch from API for each endpoint in list.
+            async.mapSeries(endpoints, (endpoint, callback) => { // fetch from API for each endpoint in list.
                 let options = {
                     url: endpoint,
                     headers: {
@@ -73,15 +73,13 @@ class RiotAPI {
                     json: true
                 };
                 request.get(options, (err, response, body) => {
-                    if(err) {
-                        reject(err);
-                        return;
-                    }
+                    if(err) return callback(err, null);
                     console.log(response.statusCode, !([200,404].includes(response.statusCode)), options.url);
-                    if(!([200,404].includes(response.statusCode))) reject({"body": {"statusCode": response.statusCode, "reason": response.statusMessage, "retry-after": response.headers["Retry-After"]}});
-                    callback(body);
+                    if(!([200,404].includes(response.statusCode))) return callback({"body": {"statusCode": response.statusCode, "reason": response.statusMessage, "retry-after": response.headers["Retry-After"]}}, null);
+                    return callback(null, body);
                 });
-            }, (result) => {
+            }, (err, result) => {
+                if(err) return reject(err);
                 if(result.length == 1) resolve(result[0]);
                 else resolve(result);
             });
@@ -166,47 +164,69 @@ class Rubidium {
                     async.parallel(async.reflectAll({
                         "summoner": (callback) => {
                             summoner_db.update({"summoner.id": summoner.id}, {$set: {"summoner": summoner}}, {"upsert": true});
-                            callback(null, null);
+                            callback(null);
                         },
                         "league": (callback) => {
                             RiotAPI.get(league_endpoint).then((result) => {
                                 summoner_db.update({"summoner.id": summoner.id}, {$set: {"league": result}}, {"upsert": true});
-                                callback(null, null);
-                            }).catch((err) => callback(err, null));
+                                callback(null);
+                            }).catch((err) => callback(err));
                         },
                         "spectator": (callback) => {
                             RiotAPI.get(spectator_endpoint).then((result) => {
                                 summoner_db.update({"summoner.id": summoner.id}, {$set: {"spectator": result}}, {"upsert": true});
-                                callback(null, null);
-                            }).catch((err) => callback(err, null));
+                                callback(null);
+                            }).catch((err) => callback(err));
                         },
                         "matches": (callback) => {
-                            RiotAPI.get(matchlist_endpoint).then((result) => {
+                            RiotAPI.get(matchlist_endpoint)
+                            .then((result) => {
                                 summoner_db.update({"summoner.id": summoner.id}, {$set: {"matches": result}}, {"upsert": true});
-                                async.each(result.matches, (match, callback) => {
-                                    let match_endpoint = RiotAPI.generateEndpointURLs(endpoints.match.match.match_id, {"server": match.platformId.toLowerCase(), "match-id": match.gameId});
-                                    RiotAPI.get(match_endpoint).then((match_data) => {
-                                        if(!match_data.status) match_db.update({"gameId": match_data.gameId}, match_data, {"upsert": true});
-                                    }).catch((err) => callback(err, null));
+                                async.each(result.matches, (match, callback2) => {
+                                    let match_endpoint     = RiotAPI.generateEndpointURLs(endpoints.match.match.match_id, {"server": match.platformId.toLowerCase(), "match-id": match.gameId});
+                                    let timeline_endpoint  = RiotAPI.generateEndpointURLs(endpoints.match.timeline.match_id, {"server": match.platformId.toLowerCase(), "match-id": match.gameId});
+                                    async.parallel([
+                                        (callback3) => {
+                                            RiotAPI.get(match_endpoint)
+                                            .then((match_data) => {
+                                                match_db.update({"gameId": match.gameId}, {$set: match_data}, {"upsert": true});
+                                                callback3(null);
+                                            }, (err) => callback3(err));
+                                        },
+                                        (callback3) => {
+                                            RiotAPI.get(timeline_endpoint)
+                                            .then((timeline_data) => {
+                                                match_db.update({"gameId": match.gameId}, {$set: {"timeline": timeline_data}}, {"upsert": true});
+                                                callback3(null);
+                                            }, (err) => callback3(err));
+                                        }
+                                    ], (err) => {
+                                        if(err) return callback2(err);
+                                        callback2(null);
+                                    });
+                                }, (err) => {
+                                    if(err) return callback(err);
+                                    callback(null);
                                 });
-                                callback(null, null);
-                            }).catch((err) => callback(err, null));
+                            }, (err) => callback(err));
                         },
                         "mastery": (callback) => {
                             RiotAPI.get(mastery_endpoint).then((result) => {
                                 summoner_db.update({"summoner.id": summoner.id}, {$set: {"mastery": result}}, {"upsert": true})
-                                callback(null, null);
-                            }).catch((err) => callback(err, null));
+                                callback(null);
+                            }).catch((err) => callback(err));
                         },
                         "custom": (callback) => {
                             summoner_db.update({"summoner.id": summoner.id}, 
-                            {$set: {
-                                "custom.unique_name": summoner.name.replace(/\s/g, "").toLowerCase(),
-                            }}, 
+                            {
+                                $set: {
+                                    "custom.unique_name": summoner.name.replace(/\s/g, "").toLowerCase(),
+                                }
+                            }, 
                             {"upsert": true});
-                            callback(null, null);
+                            callback(null);
                         }
-                    }), (err, result) => {
+                    }), (err) => {
                         if(err) {
                             console.log(err);
                             reject(err);
@@ -239,8 +259,8 @@ class Rubidium {
                     reject(err);
                     return;
                 }
-                let summoner_db = db.db("test").collection("summoner-data"); // Create database "references"
-                let match_db = db.db("test").collection("match-data"); // ^^
+                
+                let match_db = db.db("test").collection("match-data"); // Create database "references"
 
                 let select_dict = {"_id": 0};
                 Object.values(select).forEach((sel) => { // Convert select to a dictionary to get certain values from db.collection.find()
