@@ -12,9 +12,10 @@ const XRegExp    = require("xregexp");
 const bodyParser = require("body-parser");
 const request    = require("request");
 const helmet     = require("helmet");
+const argv       = require("minimist")(process.argv.slice(2)); // Take the actual arguments to the file
 
 const Rubidium = require("./rubidium-engine");
-const config   = require("./config.json");
+const config   = JSON.parse(fs.readFileSync(argv.config));
 
 const SERVER_IP  = config.system.host == null ? ip.address() : config.system.host; // set to local IP if null.
 const HTTP_PORT  = config.system.http_port; // HTTP port
@@ -81,26 +82,24 @@ async.each(config.startup, (link, callback) => {
     stream.on('finish', callback);
 }, (err) => {
     if(err) console.log(err);
-    Rubidium.init();
+    Rubidium.init(argv.config);
 });
 
 /* Express Request Handlers */
-app.get("/summoner/update", (request, response) => {
+app.get("/v1/summoner/update", (request, response) => {
     console.log("GET", request.url);
     /* Initialize GET variables */
     response.set("Content-Type", "application/json"); // Set response header to JSON.
-    response.set("Access-Control-Allow-Origin", "*"); // Set Access-Control header.
+    response.set("Access-Control-Allow-Origin", "*"); // Set response header to JSON.
     let requestInfo = {};
     let timeRecv = getTime();
 
     let updatePromise = new Promise((resolve, reject) => {
         if(!(config.riotAPI.servers.includes(request.query.server)) || request.query.username == null || !(summoner_regex.test(request.query.username))){ // Verify parameters are correct and defined
             response.status(400); // Invalid query parameters.
-            reject({"body": {"statusCode": 400, "reason": "Invalid parameters"}});
-            return;
+            return reject({"body": {"statusCode": 400, "reason": "Invalid parameters"}});
         }
-
-        Rubidium.update({"server": request.query.server, "summoner-name": request.query.username}).then((data) => {
+        Rubidium.update({"server": request.query.server, "summoner-name": request.query.username}).then(() => {
             resolve(); // Resolve promise.
         }).catch((reason) => {
             reject(reason); // If error, reject promise with reason.
@@ -115,6 +114,7 @@ app.get("/summoner/update", (request, response) => {
         if(!error.body) error.body = {};
         if(!error.response) error.response = {};
         response.status(500);
+        console.log(error);
         requestInfo.error = error; // Pass error along into requestInfo.
         requestInfo.statusCode = response.statusCode; // Pass status code as well.
         requestInfo.time = {"recv": timeRecv, "sent": getTime()}; // Return timing.
@@ -124,10 +124,10 @@ app.get("/summoner/update", (request, response) => {
     });
 });
 
-app.get("/summoner/get", (request, response) => {
+app.get("/v1/summoner/get", (request, response) => {
     console.log("GET", request.url);
     response.set("Content-Type", "application/json"); // Set response header to JSON.
-    response.set("Access-Control-Allow-Origin", "*"); // Set Access-Control header.
+    response.set("Access-Control-Allow-Origin", "*"); // Set response header to JSON.
 
     let requestInfo = {};
     let timeRecv = getTime();
@@ -146,13 +146,13 @@ app.get("/summoner/get", (request, response) => {
             let match_db = db.db("test").collection("match-data"); // ^^
             let fetchDataPromise = new Promise(async (resolve, reject) => {
                 console.log("QUERY summoner_db", request.query);
-                return_data.summoner = await summoner_db.find({"custom.unique_name": request.query.username.replace(/\s/g, "").toLowerCase(), "summoner.server": request.query.server}).toArray();
+                return_data.summoner = await summoner_db.find({"custom.unique_name": request.query.username.replace(/\s/g, "").toLowerCase(), "summoner.server": request.query.server}).project({_id: 0}).toArray();
                 resolve();
             }).then(async () => {
                 for(const summoner_iter of return_data.summoner) { // For async support
                     for(const match of summoner_iter.matches.matches) {
                         console.log("QUERY match_db   ", {'gameId': match.gameId});
-                        let match_data = await match_db.find({"gameId": match.gameId}).toArray();
+                        let match_data = await match_db.find({"gameId": match.gameId}).project({_id: 0}).toArray();
                         return_data.match = return_data.match.concat(match_data);
                     };
                 };
@@ -178,10 +178,10 @@ app.get("/summoner/get", (request, response) => {
     });
 });
 
-app.post("/filter", (request, response) => {
+app.post("/v1/filter", (request, response) => {
     console.log("POST", request.url, request.body);
     response.set("Content-Type", "application/json"); // Set response header to JSON.
-    response.set("Access-Control-Allow-Origin", "*"); // Set Access-Control header.
+    response.set("Access-Control-Allow-Origin", "*"); // Set response header to JSON.
 
     let requestInfo = {};
     let timeRecv = getTime();
@@ -208,7 +208,6 @@ app.post("/filter", (request, response) => {
 
 app.all("*", (request, response) => {
     console.log("GET", request.url);
-    response.set("Access-Control-Allow-Origin", "*"); // Set Access-Control header.
 	response.sendStatus(404); // Default router -- send 404 because it doesn't exist.
 });
 

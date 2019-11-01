@@ -6,15 +6,11 @@ const request    = require("request");
 const Bottleneck = require("bottleneck");
 const fs         = require("fs");
 
-const config = require("./config.json");
 const endpoints = require("./endpoints.json");
 
-const KEY          = config.riotAPI.key;
-var   URI          = config.mongoDB.uri;
-const LIMIT_CONFIG = config.bottleneck.parameters;
-var   MongoClient  = MongoDB.MongoClient;
-
-const limiter = new Bottleneck(LIMIT_CONFIG);
+var config;
+var KEY, URI, LIMIT_CONFIG, MongoClient;
+var limiter;
 
 /* Define game data */
 var championData = {};
@@ -134,9 +130,18 @@ class RiotAPI {
 
 // Data analysis and database-push functions
 class Rubidium {
-    static init() {
+    static init(config_path) {
         championData = require("../data/champion.json");
-    }
+
+        config       = JSON.parse(fs.readFileSync(config_path));
+
+        KEY          = config.riotAPI.key;
+        URI          = config.mongoDB.uri;
+        LIMIT_CONFIG = config.bottleneck.parameters;
+        MongoClient  = MongoDB.MongoClient;
+
+        limiter = new Bottleneck(LIMIT_CONFIG);
+    }  
 
     /** 
      * Fetch the data for the given parameters from the Riot API and update the MongoDB database online.
@@ -150,7 +155,8 @@ class Rubidium {
     static update(params) {
         return new Promise((resolve, reject) => {
             MongoClient.connect(URI, (err, db) => {
-                if(err) return err; // Return error if exists.
+                console.log(err);
+                if(err) return reject(err); // Return error if exists.
                 let summoner_db = db.db("test").collection("summoner-data"); // Create database "references"
                 let match_db    = db.db("test").collection("match-data"); // ^^
                 // First, get summoner data for the given server/username pair.
@@ -164,25 +170,25 @@ class Rubidium {
                     // Run all API queries simultaneously.
                     async.parallel(async.reflectAll({
                         "summoner": (callback) => {
-                            summoner_db.update({"summoner.id": summoner.id}, {$set: {"summoner": summoner}}, {"upsert": true});
+                            summoner_db.updateOne({"summoner.id": summoner.id}, {$set: {"summoner": summoner}}, {"upsert": true});
                             callback(null);
                         },
                         "league": (callback) => {
                             RiotAPI.get(league_endpoint).then((result) => {
-                                summoner_db.update({"summoner.id": summoner.id}, {$set: {"league": result}}, {"upsert": true});
+                                summoner_db.updateOne({"summoner.id": summoner.id}, {$set: {"league": result}}, {"upsert": true});
                                 callback(null);
                             }).catch((err) => callback(err));
                         },
                         "spectator": (callback) => {
                             RiotAPI.get(spectator_endpoint).then((result) => {
-                                summoner_db.update({"summoner.id": summoner.id}, {$set: {"spectator": result}}, {"upsert": true});
+                                summoner_db.updateOne({"summoner.id": summoner.id}, {$set: {"spectator": result}}, {"upsert": true});
                                 callback(null);
                             }).catch((err) => callback(err));
                         },
                         "matches": (callback) => {
                             RiotAPI.get(matchlist_endpoint)
                             .then((result) => {
-                                summoner_db.update({"summoner.id": summoner.id}, {$set: {"matches": result}}, {"upsert": true});
+                                summoner_db.updateOne({"summoner.id": summoner.id}, {$set: {"matches": result}}, {"upsert": true});
                                 async.each(result.matches, (match, callback2) => {
                                     let match_endpoint     = RiotAPI.generateEndpointURLs(endpoints.match.match.match_id, {"server": match.platformId.toLowerCase(), "match-id": match.gameId});
                                     let timeline_endpoint  = RiotAPI.generateEndpointURLs(endpoints.match.timeline.match_id, {"server": match.platformId.toLowerCase(), "match-id": match.gameId});
@@ -190,14 +196,14 @@ class Rubidium {
                                         (callback3) => {
                                             RiotAPI.get(match_endpoint)
                                             .then((match_data) => {
-                                                match_db.update({"gameId": match.gameId}, {$set: match_data}, {"upsert": true});
+                                                match_db.updateOne({"gameId": match.gameId}, {$set: match_data}, {"upsert": true});
                                                 callback3(null);
                                             }, (err) => callback3(err));
                                         },
                                         (callback3) => {
                                             RiotAPI.get(timeline_endpoint)
                                             .then((timeline_data) => {
-                                                match_db.update({"gameId": match.gameId}, {$set: {"timeline": timeline_data}}, {"upsert": true});
+                                                match_db.updateOne({"gameId": match.gameId}, {$set: {"timeline": timeline_data}}, {"upsert": true});
                                                 callback3(null);
                                             }, (err) => callback3(err));
                                         }
@@ -213,12 +219,12 @@ class Rubidium {
                         },
                         "mastery": (callback) => {
                             RiotAPI.get(mastery_endpoint).then((result) => {
-                                summoner_db.update({"summoner.id": summoner.id}, {$set: {"mastery": result}}, {"upsert": true})
+                                summoner_db.updateOne({"summoner.id": summoner.id}, {$set: {"mastery": result}}, {"upsert": true})
                                 callback(null);
                             }).catch((err) => callback(err));
                         },
                         "custom": (callback) => {
-                            summoner_db.update({"summoner.id": summoner.id}, 
+                            summoner_db.updateOne({"summoner.id": summoner.id}, 
                             {
                                 $set: {
                                     "custom.unique_name": summoner.name.replace(/\s/g, "").toLowerCase(),
@@ -237,7 +243,6 @@ class Rubidium {
                 }).then(() => {
                    resolve();  
                 }).catch((err) => { // If summoner data does not return properly.
-                    console.log(err);
                     reject(err);
                 });
             });

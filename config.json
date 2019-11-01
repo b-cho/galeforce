@@ -1,0 +1,39 @@
+{
+    "system": {
+        "host": null,
+        "http_port": 8080,
+        "https_port": 8081,
+        "use_http": true,
+        "use_https": false
+    },
+    "riotAPI": {
+        "key": "",
+        "servers": ["br1", "eun1", "euw1", "jp1", "kr1", "la1", "la2", "na1", "oc1", "tr1", "ru1"]
+    },
+    "mongoDB": {
+        "uri": ""
+    },
+    "query": {
+        "match": {
+            "beginIndex": 0,
+            "endIndex": 6
+        }
+    },
+    "bottleneck": {
+        "parameters": {
+            "maxConcurrent": 15,
+            "minTime": 51,
+            "reservoir": 100,
+            "reservoirRefreshAmount": 100,
+            "reservoirRefreshInterval": 120500
+        }
+    },
+    "startup": [
+        ["../data/champion.json", "http://ddragon.leagueoflegends.com/cdn/9.21.1/data/en_US/champion.json"],
+        ["../data/seasons.json", "http://static.developer.riotgames.com/docs/lol/seasons.json"],
+        ["../data/queues.json", "http://static.developer.riotgames.com/docs/lol/queues.json"],
+        ["../data/maps.json", "http://static.developer.riotgames.com/docs/lol/maps.json"],
+        ["../data/gameModes.json", "http://static.developer.riotgames.com/docs/lol/gameModes.json"],
+        ["../data/gameTypes.json", "http://static.developer.riotgames.com/docs/lol/gameTypes.json"]
+    ]
+}
