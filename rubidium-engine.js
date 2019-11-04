@@ -6,9 +6,7 @@ const request    = require("request");
 const Bottleneck = require("bottleneck");
 const fs         = require("fs");
 
-const endpoints = require("./endpoints.json");
-
-var config;
+var config, endpoints;
 var KEY, URI, LIMIT_CONFIG, MongoClient;
 var limiter;
 
@@ -134,6 +132,8 @@ class Rubidium {
         championData = require("../data/champion.json");
 
         config       = JSON.parse(fs.readFileSync(config_path));
+        endpoints    = JSON.parse(fs.readFileSync(config.system.endpoints_json));
+
 
         KEY          = config.riotAPI.key;
         URI          = config.mongoDB.uri;
@@ -155,7 +155,6 @@ class Rubidium {
     static update(params) {
         return new Promise((resolve, reject) => {
             MongoClient.connect(URI, (err, db) => {
-                console.log(err);
                 if(err) return reject(err); // Return error if exists.
                 let summoner_db = db.db("test").collection("summoner-data"); // Create database "references"
                 let match_db    = db.db("test").collection("match-data"); // ^^
