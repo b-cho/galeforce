@@ -186,9 +186,15 @@ class Rubidium {
                         },
                         "matches": (callback) => {
                             RiotAPI.get(matchlist_endpoint)
-                            .then((result) => {
-                                summoner_db.updateOne({"summoner.id": summoner.id}, {$set: {"matches": result}}, {"upsert": true});
-                                async.each(result.matches, (match, callback2) => {
+                            .then(async (result) => {
+                                let already_updated = await match_db.find({"participantIdentities.player.summonerId": summoner.id}).project({"gameId": 1, "_id": 0}).toArray();
+                                already_updated = already_updated.map(x => x.gameId);
+                                let result_gameid = result.matches.map(x => x.gameId);
+                                let match_diff = result_gameid.filter(x => !already_updated.includes(x)); // Find elements in result_gameid that are not already in the database
+                                let result_diff = result.matches.filter(x => match_diff.includes(x.gameId)); // Convert back into object format for below.
+                                // First, we only update the matches that are not already in the database
+                                summoner_db.updateOne({"summoner.id": summoner.id}, {$addToSet: {"matches.matches": result.matches}, $set: {"matches.totalGames": result.totalGames}}, {"upsert": true}); // Add matches to ever-growing list
+                                async.each(result_diff, (match, callback2) => {
                                     let match_endpoint     = RiotAPI.generateEndpointURLs(endpoints.match.match.match_id, {"server": match.platformId.toLowerCase(), "match-id": match.gameId});
                                     let timeline_endpoint  = RiotAPI.generateEndpointURLs(endpoints.match.timeline.match_id, {"server": match.platformId.toLowerCase(), "match-id": match.gameId});
                                     async.parallel([
