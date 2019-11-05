@@ -66,7 +66,7 @@ class RiotAPI {
                     },
                     json: true
                 };
-                request.get(options, (err, response, body) => {
+                limiter.submit(request.get, options, (err, response, body) => { // Directly rate limit the API call
                     if(err) return callback(err, null);
                     console.log(response.statusCode, !([200,404].includes(response.statusCode)), options.url);
                     if(!([200,404].includes(response.statusCode))) return callback({"body": {"statusCode": response.statusCode, "reason": response.statusMessage, "retry-after": response.headers["Retry-After"]}}, null);

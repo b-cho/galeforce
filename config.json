@@ -5,7 +5,11 @@
         "https_port": 8081,
         "use_http": true,
         "use_https": false,
-        "endpoints_json": ""
+        "endpoints_json": "",
+        "certificates": {
+            "key": null,
+            "cert": null
+        }
     },
     "riotAPI": {
         "key": "",

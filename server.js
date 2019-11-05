@@ -25,8 +25,8 @@ const USE_HTTPS  = config.system.use_https; // Use HTTPS at all?
 var   URI        = config.mongoDB.uri;
 
 const HTTPS_OPTIONS = {
-	key: fs.readFileSync("./cert/key.pem"),
-	cert: fs.readFileSync("./cert/cert.pem")
+	key: config.system.certificates.key ? fs.readFileSync(config.system.certificates.key) : null,
+	cert: config.system.certificates.cert ? fs.readFileSync(config.system.certificates.cert) : null
 };
 
 var MongoClient = MongoDB.MongoClient;
@@ -38,12 +38,12 @@ function getTime(){
 }
 
 /* Recursively convert all valid fields in inp to their integer variants */
-function ObjectToInt(inp) {
+function objectToInt(inp) {
     if(Array.isArray(inp)) {
         let ret = []
         inp.forEach((elem) => {
-            if(Array.isArray(elem)) elem.map(x => ObjectToInt(x));
-            else if (typeof elem == "object") elem = ObjectToInt(elem);
+            if(Array.isArray(elem)) elem.map(x => objectToInt(x));
+            else if (typeof elem == "object") elem = objectToInt(elem);
             else if(/^\d+$/.test(elem)) elem = parseInt(elem);
             else if(/^\d+\.\d+$/.test(elem)) elem = parseFloat(elem);
             ret.push(elem);
@@ -51,8 +51,8 @@ function ObjectToInt(inp) {
         return ret;
     } else {
         Object.keys(inp).forEach((key) => { // convert stringed floats/ints to original type
-            if(Array.isArray(inp[key])) inp[key] = inp[key].map(x => ObjectToInt(x));
-            else if (typeof inp[key] == "object") inp[key] = ObjectToInt(inp[key]);
+            if(Array.isArray(inp[key])) inp[key] = inp[key].map(x => objectToInt(x));
+            else if (typeof inp[key] == "object") inp[key] = objectToInt(inp[key]);
             else if(/^\d+$/.test(inp[key])) inp[key] = parseInt(inp[key]);
             else if(/^\d+\.\d+$/.test(inp[key])) inp[key] = parseFloat(inp[key]);
         });
@@ -99,11 +99,13 @@ app.get("/v1/summoner/update", (request, response) => {
             response.status(400); // Invalid query parameters.
             return reject({"body": {"statusCode": 400, "reason": "Invalid parameters"}});
         }
-        Rubidium.update({"server": request.query.server, "summoner-name": request.query.username}).then(() => {
-            resolve(); // Resolve promise.
-        }).catch((reason) => {
-            reject(reason); // If error, reject promise with reason.
-        });
+        // Rubidium.update({"server": request.query.server, "summoner-name": request.query.username}).then(() => {
+        //     resolve(); // Resolve promise.
+        // }).catch((reason) => {
+        //     reject(reason); // If error, reject promise with reason.
+        // });
+        Rubidium.update({"server": request.query.server, "summoner-name": request.query.username}); // Simply initiate promise without waiting.
+        resolve();
     }).then(() => {
         requestInfo.error = {}; // No error.
         requestInfo.statusCode = response.statusCode; // Set requestInfo status code.
@@ -187,7 +189,7 @@ app.post("/v1/filter", (request, response) => {
     let timeRecv = getTime();
 
     // TODO: Make explicit method in rubidium-engine.js
-    request.body.filter = ObjectToInt(request.body.filter);
+    request.body.filter = objectToInt(request.body.filter);
 
     Rubidium.filterData(filter=request.body.filter, select=request.body.select).then((ts) => {
         requestInfo.error = {}; // No error.
@@ -216,8 +218,8 @@ console.log("--- Node.js Info ---");
 console.log(`Current time: ${getTime()}`); // Print datetime
 console.log("Node version:", process.version); // Print node version
 console.log("Server IP:", SERVER_IP);
-USE_HTTP ? console.log("HTTP port:", HTTP_PORT) : console.log("HTTP port: N/A"); // Print port
-USE_HTTPS ? console.log("HTTPS port:", HTTPS_PORT) : console.log("HTTPS port: N/A"); // Print port
+console.log("HTTP port:", HTTP_PORT); // Print port
+console.log("HTTPS port:", HTTPS_PORT);
 console.log("--- System Info ---");
 console.log("OS Version:", os.type(), os.release());
 console.log("--- Console Output ---");
