@@ -12,6 +12,9 @@ bottleneck:
   reservoir: 100 # (integer) Number of requests to put in the "reservoir"
   refresh-interval: 120500 # Number of milliseconds between reservoir refreshes
 startup:
+  mkdir: [ # Make these directories upon startup if they do not exist:
+    "./data"
+  ]
   download: [ # Download these files into the given locations upon startup:
         ["./data/champion.json", "http://ddragon.leagueoflegends.com/cdn/9.21.1/data/en_US/champion.json"],
         ["./data/seasons.json", "http://static.developer.riotgames.com/docs/lol/seasons.json"],

@@ -2,6 +2,7 @@
 const os         = require("os");
 const process    = require("process");
 const fs         = require("fs");
+const path       = require("path");
 const express    = require("express");
 const async      = require("async");
 const MongoDB    = require("mongodb");
@@ -102,6 +103,13 @@ if(cluster.isMaster) {
 
     /* Upon server setup... */
     // Taken from https://stackoverflow.com/questions/11944932/how-to-download-a-file-with-node-js-without-using-third-party-libraries
+
+    config.startup.mkdir.forEach((dirpath) => {
+        fs.mkdir(dirpath, { recursive: true }, (err) => {
+            if (err) throw err;
+        });
+    });
+    
 
     console.log("Downloading data from Riot CDNs..."); // Download the data in config.startup.download to its relevant file.
     async.each(config.startup.download, (link, callback) => {
