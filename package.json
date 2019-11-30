@@ -1,5 +1,5 @@
 {
-  "name": "rubidium-web",
+  "name": "rubidium-api",
   "author": "Brandon Cho",
   "description": "A League of Legends statistical analyzer.",
   "repository": "https://github.com/bcho04/rubidium-api",
@@ -23,6 +23,6 @@
     "yaml": "^1.7.2"
   },
   "scripts": {
-    "run": "node ./src/server.js --config=./config-dev.yaml --endpoints=./src/endpoints.json"
+    "start": "node ./src/server.js --config=./config-dev.yaml --endpoints=./src/endpoints.json"
   }
 }

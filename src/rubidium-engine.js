@@ -8,13 +8,14 @@ const fs         = require("fs");
 const yaml       = require("yaml");
 
 var config, endpoints;
-var KEY, URI, LIMIT_CONFIG, MongoClient;
+var KEY, URI, MongoClient;
 var limiter;
 
 /* Define game data */
 var championData = {};
 
 // Modified slightly from https://stackoverflow.com/questions/29182244/convert-a-string-to-a-template-string
+// Converts the provided string to a template string.
 var generateTemplateString = (function() {
     var cache = {};
     function generateTemplate(template) {
@@ -98,7 +99,7 @@ class RiotAPI {
      * Convert integer to champion name.
      * 
      * @static
-     * @param {Number} cid The id of the champion in question.
+     * @param {Number} cid The ID of the champion in question.
      * 
      * @return {String} The corresponding champion name.
     */
@@ -129,6 +130,13 @@ class RiotAPI {
 
 // Data analysis and database-push functions
 class Rubidium {
+    /** 
+     * Initialize the Rubidium program with the relevant configuration and endpoints. There is no return value.
+     * 
+     * @static
+     * @param {String} config_path The path to the config.yaml file
+     * @param {String} endpoints_path The path to the endpoints.json file
+    */
     static init(config_path, endpoints_path) {
         championData = require("../data/champion.json");
 
@@ -139,14 +147,14 @@ class Rubidium {
         URI          = config["mongo-db"].uri;
         MongoClient  = MongoDB.MongoClient;
 
-        let LIMIT_CONFIG = {};
-        LIMIT_CONFIG["maxConcurrent"] = config.bottleneck["max-concurrent"];
-        LIMIT_CONFIG["minTime"] = config.bottleneck["min-time"];
-        LIMIT_CONFIG["reservoir"] = config.bottleneck["reservoir"];
-        LIMIT_CONFIG["reservoirRefreshAmount"] = config.bottleneck["reservoir"];
-        LIMIT_CONFIG["reservoirRefreshInterval"] = config.bottleneck["refresh-interval"];
+        let bottleneck_config = {};
+        bottleneck_config["maxConcurrent"] = config.bottleneck["max-concurrent"];
+        bottleneck_config["minTime"] = config.bottleneck["min-time"];
+        bottleneck_config["reservoir"] = config.bottleneck["reservoir"];
+        bottleneck_config["reservoirRefreshAmount"] = config.bottleneck["reservoir"];
+        bottleneck_config["reservoirRefreshInterval"] = config.bottleneck["refresh-interval"];
 
-        limiter = new Bottleneck(LIMIT_CONFIG);
+        limiter = new Bottleneck(bottleneck_config);
     }  
 
     /** 
