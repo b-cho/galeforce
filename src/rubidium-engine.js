@@ -16,7 +16,7 @@ var championData = {};
 
 // Modified slightly from https://stackoverflow.com/questions/29182244/convert-a-string-to-a-template-string
 // Converts the provided string to a template string.
-var generateTemplateString = (function() {
+const generateTemplateString = (function() {
     var cache = {};
     function generateTemplate(template) {
         var fn = cache[template];

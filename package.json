@@ -9,6 +9,7 @@
     "async": "^3.1.0",
     "body-parser": "^1.19.0",
     "bottleneck": "^2.19.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^3.21.2",
     "ip": "^1.1.5",
@@ -23,6 +24,6 @@
     "yaml": "^1.7.2"
   },
   "scripts": {
-    "start": "node ./src/server.js --config=./config-dev.yaml --endpoints=./src/endpoints.json"
+    "start": "node ./src/server.js --config=./config.yaml --endpoints=./src/endpoints.json"
   }
 }

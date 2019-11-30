@@ -13,17 +13,57 @@ const helmet     = require("helmet");
 const yaml       = require("yaml");
 const cluster    = require("cluster");
 const argv       = require("minimist")(process.argv.slice(2)); // Take the actual arguments to the file
+require("dotenv").config(); // Add environment variables from .env if necessary
 
 const Rubidium = require("./rubidium-engine");
-const config   = yaml.parse(fs.readFileSync(argv.config, "utf8"));
+var config     = yaml.parse(fs.readFileSync(argv.config, "utf8"));
+
+var MongoClient = MongoDB.MongoClient;
+
+var summoner_regex = XRegExp("^[0-9\\p{L} _\\.]+$"); // The regex to check inputted summoner names against
+
+// Modified slightly from https://stackoverflow.com/questions/29182244/convert-a-string-to-a-template-string
+// Converts the provided string to a template string.
+const generateTemplateString = (function() {
+    var cache = {};
+    function generateTemplate(template) {
+        var fn = cache[template];
+        if (!fn) {
+            // Replace ${expressions} (etc) with ${map["expressions"]}.
+            var sanitized = template
+                            .replace(/\$\{([\s]*[^;\s\{]+[\s]*)\}/g, function(_, match) {
+                                return `\$\{map\["${match.trim()}"\]\}`;
+                            })
+                            // Afterwards, replace anything that's not ${map["expressions"]}' (etc) with a blank string.
+                             .replace(/(\$\{(?!map\[")[^\}]+"\]\})/g, '');
+    
+            fn = Function('map', `return \`${sanitized}\``);
+        }
+        return fn;
+    }
+    return generateTemplate;
+})();
+
+// Adapted from https://stackoverflow.com/questions/8085004/iterate-through-nested-javascript-objects
+const iterateReplace = (obj) => {
+    Object.keys(obj).forEach(key => {
+        if(typeof obj[key] == 'string') {
+            obj[key] = generateTemplateString(obj[key])(process.env);
+        }
+
+        if (typeof obj[key] == 'object') {
+            iterateReplace(obj[key]);
+        }
+    });
+    return obj;
+}
+
+config = iterateReplace(config);
 
 const SERVER_IP  = config.system.host ? config.system.host : ip.address(); // set to local IP if null/undefined.
 const HTTP_PORT  = config.system.port; // HTTP port
 var   URI        = config["mongo-db"].uri;
 
-var MongoClient = MongoDB.MongoClient;
-
-var summoner_regex = XRegExp("^[0-9\\p{L} _\\.]+$"); // The regex to check inputted summoner names against
 
 /* Get datetime as a string */
 function getTime(){
@@ -56,7 +96,7 @@ function objectToInt(inp) {
 if(cluster.isMaster) {
     const cpuCount = os.cpus().length;
     for (let i = 0; i < cpuCount; i++) {
-        console.log("Creating a fork with id", i);
+        console.log("Creating a worker process with id", i);
         cluster.fork();
     }
 

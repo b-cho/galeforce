@@ -1,11 +1,11 @@
 system:
-  host: "" # (string) What IP to host the server at
-  port: 8080 # (integer) What port to run the server on
+  host: "0.0.0.0" # (string) What IP to host the server at
+  port: ${PORT} # (integer) What port to run the server on
 riot-api:
-  key: "" # (string) Your Riot API key from https://developer.riotgames.com
+  key: ${RIOT_KEY} # (string) Your Riot API key from https://developer.riotgames.com
   query: 4 # (integer) Number of games to return from the Riot API
 mongo-db:
-  uri: "" # (string) MongoDB URI connection string
+  uri: ${MONGODB_URI} # (string) MongoDB URI connection string
 bottleneck:
   max-concurrent: 15 # (integer) Maximum concurrent connections to the Riot API
   min-time: 51 # (integer) Minimum number of milliseconds between requests
