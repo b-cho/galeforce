@@ -1,0 +1,28 @@
+{
+  "name": "rubidium-web",
+  "author": "Brandon Cho",
+  "description": "A League of Legends statistical analyzer.",
+  "repository": "https://github.com/bcho04/rubidium-api",
+  "version": "1.0.0",
+  "main": "./src/server.js",
+  "dependencies": {
+    "async": "^3.1.0",
+    "body-parser": "^1.19.0",
+    "bottleneck": "^2.19.5",
+    "express": "^4.17.1",
+    "helmet": "^3.21.2",
+    "ip": "^1.1.5",
+    "limiter": "^1.1.4",
+    "minimist": "^1.2.0",
+    "mongodb": "^3.3.4",
+    "node": "^12.13.0",
+    "request": "^2.88.0",
+    "three": "^0.109.0",
+    "uuid": "^3.3.3",
+    "xregexp": "^4.2.4",
+    "yaml": "^1.7.2"
+  },
+  "scripts": {
+    "run": "node ./src/server.js --config=./config-dev.yaml --endpoints=./src/endpoints.json"
+  }
+}

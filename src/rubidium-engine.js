@@ -5,6 +5,7 @@ const async      = require("async");
 const request    = require("request");
 const Bottleneck = require("bottleneck");
 const fs         = require("fs");
+const yaml       = require("yaml");
 
 var config, endpoints;
 var KEY, URI, LIMIT_CONFIG, MongoClient;
@@ -58,7 +59,7 @@ class RiotAPI {
      */
     static _get(endpoints) {
         let return_promise = new Promise((resolve, reject) => {
-            async.mapSeries(endpoints, (endpoint, callback) => { // fetch from API for each endpoint in list.
+            async.map(endpoints, (endpoint, callback) => { // fetch from API for each endpoint in list.
                 let options = {
                     url: endpoint,
                     headers: {
@@ -68,7 +69,7 @@ class RiotAPI {
                 };
                 limiter.submit(request.get, options, (err, response, body) => { // Directly rate limit the API call
                     if(err) return callback(err, null);
-                    console.log(response.statusCode, !([200,404].includes(response.statusCode)), options.url);
+                    console.log(response.statusCode, options.url);
                     if(!([200,404].includes(response.statusCode))) return callback({"body": {"statusCode": response.statusCode, "reason": response.statusMessage, "retry-after": response.headers["Retry-After"]}}, null);
                     return callback(null, body);
                 });
@@ -128,17 +129,22 @@ class RiotAPI {
 
 // Data analysis and database-push functions
 class Rubidium {
-    static init(config_path) {
+    static init(config_path, endpoints_path) {
         championData = require("../data/champion.json");
 
-        config       = JSON.parse(fs.readFileSync(config_path));
-        endpoints    = JSON.parse(fs.readFileSync(config.system.endpoints_json));
+        config       = yaml.parse(fs.readFileSync(config_path, "utf8"));
+        endpoints    = JSON.parse(fs.readFileSync(endpoints_path));
 
-
-        KEY          = config.riotAPI.key;
-        URI          = config.mongoDB.uri;
-        LIMIT_CONFIG = config.bottleneck.parameters;
+        KEY          = config["riot-api"].key;
+        URI          = config["mongo-db"].uri;
         MongoClient  = MongoDB.MongoClient;
+
+        let LIMIT_CONFIG = {};
+        LIMIT_CONFIG["maxConcurrent"] = config.bottleneck["max-concurrent"];
+        LIMIT_CONFIG["minTime"] = config.bottleneck["min-time"];
+        LIMIT_CONFIG["reservoir"] = config.bottleneck["reservoir"];
+        LIMIT_CONFIG["reservoirRefreshAmount"] = config.bottleneck["reservoir"];
+        LIMIT_CONFIG["reservoirRefreshInterval"] = config.bottleneck["refresh-interval"];
 
         limiter = new Bottleneck(LIMIT_CONFIG);
     }  
@@ -193,8 +199,10 @@ class Rubidium {
                                 let match_diff = result_gameid.filter(x => !already_updated.includes(x)); // Find elements in result_gameid that are not already in the database
                                 let result_diff = result.matches.filter(x => match_diff.includes(x.gameId)); // Convert back into object format for below.
                                 // First, we only update the matches that are not already in the database
-                                summoner_db.updateOne({"summoner.id": summoner.id}, {$addToSet: {"matches.matches": result.matches}, $set: {"matches.totalGames": result.totalGames}}, {"upsert": true}); // Add matches to ever-growing list
-                                async.each(result_diff, (match, callback2) => {
+                                result_diff.forEach((uniq_match) => {
+                                    summoner_db.updateOne({"summoner.id": summoner.id}, {$addToSet: {"matches.matches": uniq_match}, $set: {"matches.totalGames": result.totalGames}}, {"upsert": true}); // Add matches to ever-growing list
+                                });
+                                async.eachLimit(result_diff, 3, (match, callback2) => {
                                     let match_endpoint     = RiotAPI.generateEndpointURLs(endpoints.match.match.match_id, {"server": match.platformId.toLowerCase(), "match-id": match.gameId});
                                     let timeline_endpoint  = RiotAPI.generateEndpointURLs(endpoints.match.timeline.match_id, {"server": match.platformId.toLowerCase(), "match-id": match.gameId});
                                     async.parallel([

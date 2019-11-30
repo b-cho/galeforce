@@ -1,6 +1,5 @@
 /* require() calls */
 const http       = require("http");
-const https      = require("https");
 const os         = require("os");
 const process    = require("process");
 const fs         = require("fs");
@@ -12,22 +11,15 @@ const XRegExp    = require("xregexp");
 const bodyParser = require("body-parser");
 const request    = require("request");
 const helmet     = require("helmet");
+const yaml       = require("yaml");
 const argv       = require("minimist")(process.argv.slice(2)); // Take the actual arguments to the file
 
 const Rubidium = require("./rubidium-engine");
-const config   = JSON.parse(fs.readFileSync(argv.config));
+const config   = yaml.parse(fs.readFileSync(argv.config, "utf8"));
 
-const SERVER_IP  = config.system.host == null ? ip.address() : config.system.host; // set to local IP if null.
-const HTTP_PORT  = config.system.http_port; // HTTP port
-const HTTPS_PORT = config.system.https_port; // HTTPS port
-const USE_HTTP   = config.system.use_http; // Use HTTP at all?
-const USE_HTTPS  = config.system.use_https; // Use HTTPS at all?
-var   URI        = config.mongoDB.uri;
-
-const HTTPS_OPTIONS = {
-	key: config.system.certificates.key ? fs.readFileSync(config.system.certificates.key) : null,
-	cert: config.system.certificates.cert ? fs.readFileSync(config.system.certificates.cert) : null
-};
+const SERVER_IP  = config.system.host; // set to local IP if null.
+const HTTP_PORT  = config.system.port; // HTTP port
+var   URI        = config["mongo-db"].uri;
 
 var MongoClient = MongoDB.MongoClient;
 
@@ -72,7 +64,7 @@ app.use(helmet());
 // Taken from https://stackoverflow.com/questions/11944932/how-to-download-a-file-with-node-js-without-using-third-party-libraries
 
 console.log("Downloading data from Riot CDNs...");
-async.each(config.startup, (link, callback) => {
+async.each(config.startup.download, (link, callback) => {
     let fl = link[0];
     let url = link[1];
     let stream = request.get(url).on('response', (response) => {
@@ -82,7 +74,7 @@ async.each(config.startup, (link, callback) => {
     stream.on('finish', callback);
 }, (err) => {
     if(err) console.log(err);
-    Rubidium.init(argv.config);
+    Rubidium.init(argv.config, argv.endpoints);
 });
 
 /* Express Request Handlers */
@@ -135,32 +127,31 @@ app.get("/v1/summoner/get", (request, response) => {
     let timeRecv = getTime();
     let getPromise = new Promise((resolve, reject) => {
         if(!(config.riotAPI.servers.includes(request.query.server)) || request.query.username == null || !(summoner_regex.test(request.query.username))){ // Verify parameters are correct and defined
-            response.status(400); // Invalid query parameters.
-            reject({"body": {"statusCode": 400, "reason": "Invalid parameters"}});
-            return;
+            return reject(400);
         }
 
-        let return_data = {"summoner": null, "match": []}; // Default values
+        let ret_summoner_data;
+        let ret_match_data = [];
 
         MongoClient.connect(URI, (err, db) => {
-            if (err) reject(err);
+            if (err) reject(500);
             let summoner_db = db.db("test").collection("summoner-data"); // Create database "references"
             let match_db = db.db("test").collection("match-data"); // ^^
             let fetchDataPromise = new Promise(async (resolve, reject) => {
                 console.log("QUERY summoner_db", request.query);
-                return_data.summoner = await summoner_db.find({"custom.unique_name": request.query.username.replace(/\s/g, "").toLowerCase(), "summoner.server": request.query.server}).project({_id: 0}).toArray();
+                ret_summoner_data = await summoner_db.find({"custom.unique_name": request.query.username.replace(/\s/g, "").toLowerCase(), "summoner.server": request.query.server}).project({_id: 0}).toArray();
                 resolve();
             }).then(async () => {
-                for(const summoner_iter of return_data.summoner) { // For async support
+                for(const summoner_iter of ret_summoner_data) { // For async support
                     for(const match of summoner_iter.matches.matches) {
                         console.log("QUERY match_db   ", {'gameId': match.gameId});
                         let match_data = await match_db.find({"gameId": match.gameId}).project({_id: 0}).toArray();
-                        return_data.match = return_data.match.concat(match_data);
+                        ret_match_data = ret_match_data.concat(match_data);
                     };
                 };
                 return;
             }).then(() => {
-                resolve(return_data);
+                resolve({...ret_summoner_data[0], full_matches: ret_match_data});
             });
         });
     }).then((data) => {
@@ -171,7 +162,7 @@ app.get("/v1/summoner/get", (request, response) => {
         response.send(JSON.stringify(responseJSON)); // Write HTTP response.
     }).catch((error) => {
         let data = {};
-        response.status(500);
+        response.status(error ? error : 500);
         requestInfo.statusCode = response.statusCode; // Pass status code as well.
         requestInfo.time = {"recv": timeRecv, "sent": getTime()}; // Return timing.
         delete error.headers;
@@ -219,14 +210,12 @@ console.log(`Current time: ${getTime()}`); // Print datetime
 console.log("Node version:", process.version); // Print node version
 console.log("Server IP:", SERVER_IP);
 console.log("HTTP port:", HTTP_PORT); // Print port
-console.log("HTTPS port:", HTTPS_PORT);
 console.log("--- System Info ---");
 console.log("OS Version:", os.type(), os.release());
 console.log("--- Console Output ---");
 
 /* Executed Code */
-if(USE_HTTP)  http.createServer(app).listen(HTTP_PORT); // Listen on port specified.
-if(USE_HTTPS) https.createServer(HTTPS_OPTIONS, app).listen(HTTPS_PORT); // Listen on port specified.
+http.createServer(app).listen(HTTP_PORT); // Listen on port specified.
 
 /* Error handlers */
 process.on("unhandledRejection", (reason, p) => {
