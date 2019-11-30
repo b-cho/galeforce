@@ -36,6 +36,20 @@ const generateTemplateString = (function() {
     return generateTemplate;
 })();
 
+// Adapted from https://stackoverflow.com/questions/8085004/iterate-through-nested-javascript-objects
+const iterateReplace = (obj) => {
+    Object.keys(obj).forEach(key => {
+        if(typeof obj[key] == 'string') {
+            obj[key] = generateTemplateString(obj[key])(process.env);
+        }
+
+        if (typeof obj[key] == 'object') {
+            iterateReplace(obj[key]);
+        }
+    });
+    return obj;
+}
+
 // Riot API direct call functions
 class RiotAPI {
     /**
@@ -140,7 +154,7 @@ class Rubidium {
     static init(config_path, endpoints_path) {
         championData = require("../data/champion.json");
 
-        config       = yaml.parse(fs.readFileSync(config_path, "utf8"));
+        config       = iterateReplace(yaml.parse(fs.readFileSync(config_path, "utf8")));
         endpoints    = JSON.parse(fs.readFileSync(endpoints_path));
 
         KEY          = config["riot-api"].key;
@@ -178,7 +192,7 @@ class Rubidium {
                     summoner.server = params.server; // Note we have to set this to prevent future API calls when getting data from MongoDB.
                     let league_endpoint    = RiotAPI.generateEndpointURLs(endpoints.league.lookup.summoner_id, {"server": params.server, "summoner-id": summoner.id});
                     let spectator_endpoint = RiotAPI.generateEndpointURLs(endpoints.spectator.summoner_id, {"server": params.server, "summoner-id": summoner.id});
-                    let matchlist_endpoint = RiotAPI.generateEndpointURLs(endpoints.match.matchlist.account_id, {"server": params.server, "account-id": summoner.accountId, "end-index": config.query.match.endIndex});
+                    let matchlist_endpoint = RiotAPI.generateEndpointURLs(endpoints.match.matchlist.account_id, {"server": params.server, "account-id": summoner.accountId, "end-index": config["riot-api"].query});
                     let mastery_endpoint   = RiotAPI.generateEndpointURLs(endpoints.champion_mastery.list.summoner_id, {"server": params.server, "summoner-id": summoner.id});
                     // Run all API queries simultaneously.
                     async.parallel(async.reflectAll({

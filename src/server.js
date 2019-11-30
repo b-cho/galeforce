@@ -17,7 +17,6 @@ const argv       = require("minimist")(process.argv.slice(2)); // Take the actua
 require("dotenv").config(); // Add environment variables from .env if necessary
 
 const Rubidium = require("./rubidium-engine");
-var config     = yaml.parse(fs.readFileSync(argv.config, "utf8"));
 
 var MongoClient = MongoDB.MongoClient;
 
@@ -59,8 +58,7 @@ const iterateReplace = (obj) => {
     return obj;
 }
 
-config = iterateReplace(config);
-
+var config       = iterateReplace(yaml.parse(fs.readFileSync(argv.config, "utf8")));
 const SERVER_IP  = config.system.host ? config.system.host : ip.address(); // set to local IP if null/undefined.
 const HTTP_PORT  = config.system.port; // HTTP port
 var   URI        = config["mongo-db"].uri;
@@ -154,7 +152,7 @@ if(cluster.isMaster) {
         let timeRecv = getTime();
 
         let updatePromise = new Promise((resolve, reject) => {
-            if(!(config.riotAPI.servers.includes(request.query.server)) || request.query.username == null || !(summoner_regex.test(request.query.username))){ // Verify parameters are correct and defined
+            if(!(config["riot-api"].servers.includes(request.query.server)) || request.query.username == null || !(summoner_regex.test(request.query.username))){ // Verify parameters are correct and defined
                 response.status(400); // Invalid query parameters.
                 return reject({"body": {"statusCode": 400, "reason": "Invalid parameters"}});
             }
@@ -193,7 +191,7 @@ if(cluster.isMaster) {
         let requestInfo = {};
         let timeRecv = getTime();
         let getPromise = new Promise((resolve, reject) => {
-            if(!(config.riotAPI.servers.includes(request.query.server)) || request.query.username == null || !(summoner_regex.test(request.query.username))){ // Verify parameters are correct and defined
+            if(!(config["riot-api"].servers.includes(request.query.server)) || request.query.username == null || !(summoner_regex.test(request.query.username))){ // Verify parameters are correct and defined
                 return reject(400);
             }
 
