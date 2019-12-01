@@ -133,6 +133,8 @@ if(cluster.isMaster) {
     console.log("OS Version:", os.type(), os.release());
     console.log("--- Console Output ---");
 } else {
+    Rubidium.init(argv.config, argv.endpoints); // Initialize the Rubidium library in every worker process as well
+
     /* Express Variables */
     const app = express(); // Create Express app.
     app.use(bodyParser.urlencoded({ // Use bodyParser

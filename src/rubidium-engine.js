@@ -8,8 +8,9 @@ const fs         = require("fs");
 const yaml       = require("yaml");
 
 var config, endpoints;
-var KEY, URI, MongoClient;
+var KEY, URI;
 var limiter;
+var MongoClient = MongoDB.MongoClient;
 
 /* Define game data */
 var championData = {};
@@ -159,7 +160,6 @@ class Rubidium {
 
         KEY          = config["riot-api"].key;
         URI          = config["mongo-db"].uri;
-        MongoClient  = MongoDB.MongoClient;
 
         let bottleneck_config = {};
         bottleneck_config["maxConcurrent"] = config.bottleneck["max-concurrent"];
