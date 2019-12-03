@@ -176,7 +176,7 @@ class Rubidium {
      * 
      * @static
      * @param {Object} params Argument for parameters like server, username, etc.
-     *     {server: <server>, "summoner-name": <summoner name>}
+     *     {server: <server>, username: <summoner name>}
      * 
      * @return {Promise} Returns a Promise object that has no return value.
     */
@@ -187,7 +187,7 @@ class Rubidium {
                 let summoner_db = db.db("test").collection("summoner-data"); // Create database "references"
                 let match_db    = db.db("test").collection("match-data"); // ^^
                 // First, get summoner data for the given server/username pair.
-                let summoner_endpoint = RiotAPI.generateEndpointURLs(endpoints.summoner.summoner_name, {"server": params.server, "summoner-name": params["summoner-name"]});
+                let summoner_endpoint = RiotAPI.generateEndpointURLs(endpoints.summoner.summoner_name, {"server": params.server, "summoner-name": params.username});
                 RiotAPI.get(summoner_endpoint).then((summoner) => { // note the result is the summoner data.
                     summoner.server = params.server; // Note we have to set this to prevent future API calls when getting data from MongoDB.
                     let league_endpoint    = RiotAPI.generateEndpointURLs(endpoints.league.lookup.summoner_id, {"server": params.server, "summoner-id": summoner.id});
@@ -285,7 +285,42 @@ class Rubidium {
     }
 
     /** 
-     * Fetch the relevant data from the MongoDB database and return specific information
+     * Fetch the data for the given parameters from the MongoDB database and return them.
+     * 
+     * @static
+     * @param {Object} params Argument for parameters like server, username, etc.
+     *     {server: <server>, username: <summoner name>}
+     * 
+     * @return {Promise} Returns a Promise object that has a return value of the desired data.
+    */
+    static get(params) {
+        return new Promise((resolve, reject) => {
+            let ret_summoner_data;
+            let ret_match_data = [];
+
+            MongoClient.connect(URI, (err, db) => {
+                if (err) reject(500);
+                let summoner_db = db.db("test").collection("summoner-data"); // Create database "references"
+                let match_db = db.db("test").collection("match-data"); // ^^
+                let fetchDataPromise = new Promise(async (resolve, reject) => {
+                    ret_summoner_data = await summoner_db.find({"custom.unique_name": params.username.replace(/\s/g, "").toLowerCase(), "summoner.server": params.server}).project({_id: 0}).toArray();
+                    resolve();
+                }).then(async () => {
+                    for(const summoner_iter of ret_summoner_data) { // For async support
+                        for(const match of summoner_iter.matches.matches) {
+                            let match_data = await match_db.find({"gameId": match.gameId}).project({_id: 0}).toArray();
+                            ret_match_data = ret_match_data.concat(match_data);
+                        };
+                    };
+                }).then(() => {
+                    resolve({...ret_summoner_data[0], full_matches: ret_match_data});
+                });
+            });
+        });
+    }
+
+    /** 
+     * Fetch the relevant data from the MongoDB database and return specific information.
      * 
      * @static
      * @param {Object} filter MongoDB filter dictionary.

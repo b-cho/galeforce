@@ -61,7 +61,6 @@ const iterateReplace = (obj) => {
 var config       = iterateReplace(yaml.parse(fs.readFileSync(argv.config, "utf8")));
 const SERVER_IP  = config.system.host ? config.system.host : ip.address(); // set to local IP if null/undefined.
 const HTTP_PORT  = config.system.port; // HTTP port
-var   URI        = config["mongo-db"].uri;
 
 
 /* Get datetime as a string */
@@ -163,7 +162,7 @@ if(cluster.isMaster) {
             // }).catch((reason) => {
             //     reject(reason); // If error, reject promise with reason.
             // });
-            Rubidium.update({"server": request.query.server, "summoner-name": request.query.username}); // Simply initiate promise without waiting.
+            Rubidium.update({"server": request.query.server, "username": request.query.username}); // Simply initiate promise without waiting.
             resolve();
         }).then(() => {
             requestInfo.error = {}; // No error.
@@ -192,35 +191,13 @@ if(cluster.isMaster) {
 
         let requestInfo = {};
         let timeRecv = getTime();
-        let getPromise = new Promise((resolve, reject) => {
+        let getPromise = new Promise(async (resolve, reject) => {
             if(!(config["riot-api"].servers.includes(request.query.server)) || request.query.username == null || !(summoner_regex.test(request.query.username))){ // Verify parameters are correct and defined
                 return reject(400);
             }
 
-            let ret_summoner_data;
-            let ret_match_data = [];
-
-            MongoClient.connect(URI, (err, db) => {
-                if (err) reject(500);
-                let summoner_db = db.db("test").collection("summoner-data"); // Create database "references"
-                let match_db = db.db("test").collection("match-data"); // ^^
-                let fetchDataPromise = new Promise(async (resolve, reject) => {
-                    console.log("QUERY summoner_db", request.query);
-                    ret_summoner_data = await summoner_db.find({"custom.unique_name": request.query.username.replace(/\s/g, "").toLowerCase(), "summoner.server": request.query.server}).project({_id: 0}).toArray();
-                    resolve();
-                }).then(async () => {
-                    for(const summoner_iter of ret_summoner_data) { // For async support
-                        for(const match of summoner_iter.matches.matches) {
-                            console.log("QUERY match_db   ", {'gameId': match.gameId});
-                            let match_data = await match_db.find({"gameId": match.gameId}).project({_id: 0}).toArray();
-                            ret_match_data = ret_match_data.concat(match_data);
-                        };
-                    };
-                    return;
-                }).then(() => {
-                    resolve({...ret_summoner_data[0], full_matches: ret_match_data});
-                });
-            });
+            let ret_data = await Rubidium.get({"server": request.query.server, "username": request.query.username});
+            resolve(ret_data);
         }).then((data) => {
             requestInfo.error = {}; // No error.
             requestInfo.statusCode = response.statusCode; // Set requestInfo status code.
