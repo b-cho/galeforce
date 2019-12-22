@@ -1,27 +1,15 @@
 system:
-  host: "0.0.0.0" # (string) What IP to host the server at
   port: ${PORT} # (integer) What port to run the server on
 riot-api:
   key: ${RIOT_KEY} # (string) Your Riot API key from https://developer.riotgames.com
   query: 4 # (integer) Number of games to return from the Riot API
   servers: ["br1", "eun1", "euw1", "jp1", "kr1", "la1", "la2", "na1", "oc1", "tr1", "ru1"] # ([...string]) A list of valid Riot servers
-mongo-db:
-  uri: ${MONGODB_URI} # (string) MongoDB URI connection string
-bottleneck:
-  max-concurrent: 15 # (integer) Maximum concurrent connections to the Riot API
-  min-time: 51 # (integer) Minimum number of milliseconds between requests
-  reservoir: 100 # (integer) Number of requests to put in the "reservoir"
-  refresh-interval: 120500 # Number of milliseconds between reservoir refreshes
-startup:
-  mkdir: [ # Make these directories upon startup if they do not exist:
-    "./data"
-  ]
-  download: [ # Download these files into the given locations upon startup:
-        ["./data/champion.json", "http://ddragon.leagueoflegends.com/cdn/9.21.1/data/en_US/champion.json"],
-        ["./data/seasons.json", "http://static.developer.riotgames.com/docs/lol/seasons.json"],
-        ["./data/queues.json", "http://static.developer.riotgames.com/docs/lol/queues.json"],
-        ["./data/maps.json", "http://static.developer.riotgames.com/docs/lol/maps.json"],
-        ["./data/gameModes.json", "http://static.developer.riotgames.com/docs/lol/gameModes.json"],
-        ["./data/gameTypes.json", "http://static.developer.riotgames.com/docs/lol/gameTypes.json"]
-    ]
+database:
+  type: ${DATABASE_TYPE} # What kind of database to use
+  uri: ${DATABASE_URI} # (string) Database URI connection string
+# bottleneck:
+#   max-concurrent: 15 # (integer) Maximum concurrent connections to the Riot API
+#   min-time: 51 # (integer) Minimum number of milliseconds between requests
+#   reservoir: 100 # (integer) Number of requests to put in the "reservoir"
+#   refresh-interval: 120500 # Number of milliseconds between reservoir refreshes
 
