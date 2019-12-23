@@ -3,15 +3,15 @@
     request to the Riot API server. It contains a method that can be called to return
     information relevant to that request.
 */
-import Request from "./request";
-import rp, { RequestPromise } from "request-promise";
-import Bluebird from "bluebird";
+import rp from 'request-promise';
+import Bluebird from 'bluebird';
+import Request from './request';
 
 class DataDragonRequest extends Request {
-    public get(): Bluebird<any> {
-        let options = {
+    public get(): Bluebird<object> {
+        const options = {
             url: this.targetURL,
-            json: true
+            json: true,
         };
 
         return rp(options).promise();

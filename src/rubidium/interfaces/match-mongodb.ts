@@ -1,6 +1,6 @@
-import MatchInterface from "./match";
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+import MatchInterface from './match';
 
-interface MongoDBMatchInterface extends MatchInterface, mongoose.Document {};
+interface MongoDBMatchInterface extends MatchInterface, mongoose.Document {}
 
 export default MongoDBMatchInterface;

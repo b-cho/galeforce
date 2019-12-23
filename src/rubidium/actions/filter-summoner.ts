@@ -5,10 +5,10 @@
     the database.
 */
 
-import Action from "./action";
-import SummonerInterface from "../interfaces/summoner";
-import {default as RiotAPIModule} from "../../riot-api";
-import DatabaseInternal from "../databases/database";
+import Action from './action';
+import SummonerInterface from '../interfaces/summoner';
+import RiotAPIModule from '../../riot-api';
+import DatabaseInternal from '../databases/database';
 
 class FilterSummoners extends Action {
     private query: object;

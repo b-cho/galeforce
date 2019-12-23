@@ -5,10 +5,10 @@
     the database.
 */
 
-import Action from "./action";
-import MatchInterface from "../interfaces/match";
-import {default as RiotAPIModule} from "../../riot-api";
-import DatabaseInternal from "../databases/database";
+import Action from './action';
+import MatchInterface from '../interfaces/match';
+import RiotAPIModule from '../../riot-api';
+import DatabaseInternal from '../databases/database';
 
 class FilterMatches extends Action {
     private query: object;

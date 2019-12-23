@@ -2,18 +2,19 @@
     The main RiotAPI object.
 */
 
-import RiotAPIInternal from "./internal/internal";
-import RiotAPIRequest from "./requests/riot-api-request";
+import RiotAPIInternal from './internal/internal';
+import RiotAPIRequest from './requests/riot-api-request';
 
-class RiotAPI {
+class RiotAPIModule {
     private key: string;
+
     public internal: RiotAPIInternal;
 
     constructor(key: string) {
         this.key = key;
         this.internal = new RiotAPIInternal();
     }
-    
+
     public request(stringTemplate: string, parameters: object): RiotAPIRequest {
         return new RiotAPIRequest(stringTemplate, parameters, this.key);
     }
@@ -23,4 +24,4 @@ class RiotAPI {
     }
 }
 
-export default RiotAPI;
+export default RiotAPIModule;

@@ -2,10 +2,10 @@
     The MongoDB schema for match data.
 */
 
-import mongoose, { Schema } from "mongoose";
-import MongoDBMatchInterface from "../interfaces/match-mongodb";
+import mongoose, { Schema } from 'mongoose';
+import MongoDBMatchInterface from '../interfaces/match-mongodb';
 
-let matchSchema = new Schema({
+const matchSchema = new Schema({
     gameId: Number,
     gameCreation: Number,
     gameDuration: Number,
@@ -19,7 +19,7 @@ let matchSchema = new Schema({
     queueId: String,
     seasonId: String,
     teams: [],
-    timeline: []
+    timeline: [],
 });
 
 export default mongoose.model<MongoDBMatchInterface>('Match', matchSchema);

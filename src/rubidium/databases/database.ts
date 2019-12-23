@@ -4,8 +4,8 @@
     database types as well.
 */
 
-import MatchInterface from "../interfaces/match";
-import SummonerInterface from "../interfaces/summoner";
+import MatchInterface from '../interfaces/match';
+import SummonerInterface from '../interfaces/summoner';
 
 abstract class DatabaseInternal {
     protected URI: string;
@@ -15,8 +15,11 @@ abstract class DatabaseInternal {
     }
 
     public abstract getMatch(query: object): Promise<MatchInterface[]>;
+
     public abstract setMatch(data: MatchInterface): Promise<MatchInterface>;
+
     public abstract getSummoner(query: object): Promise<SummonerInterface[]>;
+
     public abstract setSummoner(data: SummonerInterface): Promise<SummonerInterface>;
 }
 

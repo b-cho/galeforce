@@ -3,8 +3,7 @@
     that needs to be implemented by other methods to be effective.
 */
 
-import { RequestPromise } from "request-promise";
-import Bluebird from "bluebird";
+import Bluebird from 'bluebird';
 
 abstract class Request {
     targetURL: string;

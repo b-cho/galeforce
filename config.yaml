@@ -7,9 +7,4 @@ riot-api:
 database:
   type: ${DATABASE_TYPE} # What kind of database to use
   uri: ${DATABASE_URI} # (string) Database URI connection string
-# bottleneck:
-#   max-concurrent: 15 # (integer) Maximum concurrent connections to the Riot API
-#   min-time: 51 # (integer) Minimum number of milliseconds between requests
-#   reservoir: 100 # (integer) Number of requests to put in the "reservoir"
-#   refresh-interval: 120500 # Number of milliseconds between reservoir refreshes
 

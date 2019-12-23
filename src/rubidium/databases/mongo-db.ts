@@ -1,18 +1,19 @@
+/* eslint-disable class-methods-use-this */
 /*
     The MongoDB class saves the relevant information passed into it into
     MongoDB using mongoose.
 */
 
-import DatabaseInternal from "./database";
-import mongoose from "mongoose";
-import MatchModel from "../models/match";
-import SummonerModel from "../models/summoner";
-import MatchInterface from "../interfaces/match";
-import SummonerInterface from "../interfaces/summoner";
+import mongoose from 'mongoose';
+import DatabaseInternal from './database';
+import MatchModel from '../models/match';
+import SummonerModel from '../models/summoner';
+import MatchInterface from '../interfaces/match';
+import SummonerInterface from '../interfaces/summoner';
 
 class MongoDBInternal extends DatabaseInternal {
-    constructor(URI: string){
-        super(URI);   
+    constructor(URI: string) {
+        super(URI);
         mongoose.connect(this.URI);
     }
 
@@ -21,7 +22,7 @@ class MongoDBInternal extends DatabaseInternal {
     }
 
     public async setMatch(data: MatchInterface): Promise<MatchInterface> {
-        let match = new MatchModel(data);
+        const match = new MatchModel(data);
         return match.save();
     }
 
@@ -30,7 +31,7 @@ class MongoDBInternal extends DatabaseInternal {
     }
 
     public async setSummoner(data: SummonerInterface): Promise<SummonerInterface> {
-        let summoner = new SummonerModel(data);
+        const summoner = new SummonerModel(data);
         return summoner.save();
     }
 }

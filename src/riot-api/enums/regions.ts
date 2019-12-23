@@ -9,7 +9,7 @@ const REGIONS = {
     OCEANIA: 'oc1',
     RUSSIA: 'ru',
     TURKEY: 'tr1',
-    JAPAN: 'jp1'
+    JAPAN: 'jp1',
 };
 
 export default REGIONS;
