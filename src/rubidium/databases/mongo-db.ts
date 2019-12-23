@@ -14,6 +14,9 @@ import SummonerInterface from '../interfaces/summoner';
 class MongoDBInternal extends DatabaseInternal {
     constructor(URI: string) {
         super(URI);
+        mongoose.set('useNewUrlParser', true); // Preventing deprecation warnings.
+        mongoose.set('useUnifiedTopology', true);
+        mongoose.set('useFindAndModify', false);
         mongoose.connect(this.URI);
     }
 
@@ -26,6 +29,14 @@ class MongoDBInternal extends DatabaseInternal {
         return match.save();
     }
 
+    public async upsertMatch(data: MatchInterface): Promise<MatchInterface | null> {
+        const query: object = { gameId: data.gameId };
+        const update: MatchInterface = data;
+        const options: object = { upsert: true, new: true, setDefaultsOnInsert: true };
+        const model: Promise<MatchInterface | null> = MatchModel.findOneAndUpdate(query, update, options).exec();
+        return model;
+    }
+
     public async getSummoner(query: object): Promise<SummonerInterface[]> {
         return SummonerModel.find(query).exec();
     }
@@ -33,6 +44,14 @@ class MongoDBInternal extends DatabaseInternal {
     public async setSummoner(data: SummonerInterface): Promise<SummonerInterface> {
         const summoner = new SummonerModel(data);
         return summoner.save();
+    }
+
+    public async upsertSummoner(data: SummonerInterface): Promise<SummonerInterface | null> {
+        const query: object = { 'summoner.puuid': data.summoner.puuid }; // select by unique PUUID
+        const update: SummonerInterface = data;
+        const options: object = { upsert: true, new: true, setDefaultsOnInsert: true };
+        const model: Promise<SummonerInterface | null> = SummonerModel.findOneAndUpdate(query, update, options).exec();
+        return model;
     }
 }
 

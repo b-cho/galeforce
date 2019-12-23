@@ -3,12 +3,14 @@ import getConfig from './configs/default';
 import ConfigInterface from './interfaces/config';
 import DatabaseInternal from './databases/database';
 import MongoDBInternal from './databases/mongo-db';
-import FetchMatchByID from './actions/fetch-matches';
+import FetchMatchByID from './actions/fetch-match';
 import FetchSummonerByName from './actions/fetch-summoner';
-import FilterMatches from './actions/filter-matches';
+import FilterMatches from './actions/filter-match';
 import FilterSummoners from './actions/filter-summoner';
-import SetMatch from './actions/set-matches';
+import SetMatch from './actions/set-match';
 import SetSummoner from './actions/set-summoner';
+import UpsertMatch from './actions/upsert-match';
+import UpsertSummoner from './actions/upsert-summoner';
 import MatchInterface from './interfaces/match';
 import SummonerInterface from './interfaces/summoner';
 
@@ -18,6 +20,7 @@ interface RubidiumSummonerInterface {
     };
     filter: (query: object) => FilterSummoners;
     set: (summoner: SummonerInterface) => SetSummoner;
+    upsert: (summoner: SummonerInterface) => UpsertSummoner;
 }
 
 interface RubidiumMatchInterface {
@@ -26,6 +29,7 @@ interface RubidiumMatchInterface {
     };
     filter: (query: object) => FilterMatches;
     set: (match: MatchInterface) => SetMatch;
+    upsert: (match: MatchInterface) => UpsertMatch;
 }
 
 class Rubidium {
@@ -58,6 +62,7 @@ class Rubidium {
         },
         filter: (query: object): FilterSummoners => new FilterSummoners(this.RiotAPI, this.database, query),
         set: (summoner: SummonerInterface): SetSummoner => new SetSummoner(this.RiotAPI, this.database, summoner),
+        upsert: (summoner: SummonerInterface): UpsertSummoner => new UpsertSummoner(this.RiotAPI, this.database, summoner),
     }
 
     public match: RubidiumMatchInterface = {
@@ -66,6 +71,7 @@ class Rubidium {
         },
         filter: (query: object): FilterMatches => new FilterMatches(this.RiotAPI, this.database, query),
         set: (match: MatchInterface): SetMatch => new SetMatch(this.RiotAPI, this.database, match),
+        upsert: (match: MatchInterface): UpsertMatch => new UpsertMatch(this.RiotAPI, this.database, match),
     }
 }
 

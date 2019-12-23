@@ -8,7 +8,7 @@ import Action from './action';
 import RiotAPIModule from '../../riot-api';
 import DatabaseInternal from '../databases/database';
 
-class SetMatches extends Action {
+class SetMatch extends Action {
     private match: MatchInterface;
 
     constructor(RiotAPI: RiotAPIModule, database: DatabaseInternal, match: MatchInterface) {
@@ -17,8 +17,8 @@ class SetMatches extends Action {
     }
 
     public async run(): Promise<void> {
-        this.database.setMatch(this.match);
+        this.database.upsertMatch(this.match);
     }
 }
 
-export default SetMatches;
+export default SetMatch;

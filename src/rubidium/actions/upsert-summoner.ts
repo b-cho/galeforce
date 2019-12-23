@@ -8,7 +8,7 @@ import Action from './action';
 import RiotAPIModule from '../../riot-api';
 import DatabaseInternal from '../databases/database';
 
-class SetSummoner extends Action {
+class UpsertSummoner extends Action {
     private summoner: SummonerInterface;
 
     constructor(RiotAPI: RiotAPIModule, database: DatabaseInternal, summoner: SummonerInterface) {
@@ -17,8 +17,8 @@ class SetSummoner extends Action {
     }
 
     public async run(): Promise<void> {
-        this.database.setSummoner(this.summoner);
+        this.database.upsertSummoner(this.summoner);
     }
 }
 
-export default SetSummoner;
+export default UpsertSummoner;

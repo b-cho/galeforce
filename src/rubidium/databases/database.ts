@@ -18,9 +18,13 @@ abstract class DatabaseInternal {
 
     public abstract setMatch(data: MatchInterface): Promise<MatchInterface>;
 
+    public abstract upsertMatch(data: MatchInterface): Promise<MatchInterface | null>;
+
     public abstract getSummoner(query: object): Promise<SummonerInterface[]>;
 
     public abstract setSummoner(data: SummonerInterface): Promise<SummonerInterface>;
+
+    public abstract upsertSummoner(data: SummonerInterface): Promise<SummonerInterface | null>;
 }
 
 export default DatabaseInternal;

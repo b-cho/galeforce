@@ -4,7 +4,10 @@
 */
 
 interface SummonerInterface {
-    summoner: object;
+    summoner: {
+        puuid: string; // We assert that the puuid element exists and has type string.
+        [propName: string]: any; // Ignore other types.
+    };
     league: object;
     mastery: object;
     matchlist: object;

@@ -26,6 +26,7 @@ class FetchSummonerByName extends Action {
     }
 
     public async run(): Promise<SummonerInterface> {
+        // TODO: Fix the typing of summonerData (maybe through another interface?)
         const summonerData: any = await this.RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { server: this.server, 'summoner-name': this.username }).get();
 
         const otherData = await Bluebird.promisify(async.parallel)({

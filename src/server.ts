@@ -37,7 +37,7 @@ app.get('/v2/summoner/update', async (request, response) => {
     } else {
         summonerData = await Rubidium.summoner.fetch.byName(server, username).run();
     }
-    await Rubidium.summoner.set(summonerData).run();
+    await Rubidium.summoner.upsert(summonerData).run();
     response.sendStatus(200);
 });
 
