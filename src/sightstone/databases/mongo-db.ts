@@ -20,7 +20,9 @@ class MongoDBInternal extends DatabaseInternal {
         mongoose.connect(this.URI);
     }
 
-    public async getMatch(query: object): Promise<MatchInterface[]> {
+    public async filterMatch(query: object, projection?: object | string[]): Promise<MatchInterface[]> {
+        if (Array.isArray(projection)) return MatchModel.find(query, projection.join(' ')).exec();
+        if (typeof projection === 'object') return MatchModel.find(query, projection).exec();
         return MatchModel.find(query).exec();
     }
 
@@ -37,7 +39,9 @@ class MongoDBInternal extends DatabaseInternal {
         return model;
     }
 
-    public async getSummoner(query: object): Promise<SummonerInterface[]> {
+    public async filterSummoner(query: object, projection?: object | string[]): Promise<SummonerInterface[]> {
+        if (Array.isArray(projection)) return SummonerModel.find(query, projection.join(' ')).exec();
+        if (typeof projection === 'object') return SummonerModel.find(query, projection).exec();
         return SummonerModel.find(query).exec();
     }
 

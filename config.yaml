@@ -7,4 +7,3 @@ riot-api:
 database:
   type: ${DATABASE_TYPE} # What kind of database to use
   uri: ${DATABASE_URI} # (string) Database URI connection string
-

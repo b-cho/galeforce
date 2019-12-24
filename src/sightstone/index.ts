@@ -3,14 +3,15 @@ import getConfig from './configs/default';
 import ConfigInterface from './interfaces/config';
 import DatabaseInternal from './databases/database';
 import MongoDBInternal from './databases/mongo-db';
-import FetchMatchByID from './actions/fetch-match';
-import FetchSummonerByName from './actions/fetch-summoner';
-import FilterMatches from './actions/filter-match';
-import FilterSummoners from './actions/filter-summoner';
-import SetMatch from './actions/set-match';
-import SetSummoner from './actions/set-summoner';
-import UpsertMatch from './actions/upsert-match';
-import UpsertSummoner from './actions/upsert-summoner';
+import FetchMatchByID from './actions/fetch/fetch-match';
+import FetchSummonerByName from './actions/fetch/fetch-summoner';
+import FilterMatches from './actions/filter/filter-match';
+import FilterSummoners from './actions/filter/filter-summoner';
+import SetMatch from './actions/set/set-match';
+import SetSummoner from './actions/set/set-summoner';
+import UpsertMatch from './actions/upsert/upsert-match';
+import UpsertSummoner from './actions/upsert/upsert-summoner';
+import GetMasteryLeaderboard from './actions/analysis/mastery/get-leaderboard';
 import MatchInterface from './interfaces/match';
 import SummonerInterface from './interfaces/summoner';
 
@@ -30,6 +31,12 @@ interface SightstoneMatchInterface {
     filter: (query: object) => FilterMatches;
     set: (match: MatchInterface) => SetMatch;
     upsert: (match: MatchInterface) => UpsertMatch;
+}
+
+interface SightstoneAnalysisInterface {
+    mastery: {
+        getLeaderboard: (champion: number) => GetMasteryLeaderboard;
+    };
 }
 
 class Sightstone {
@@ -72,6 +79,12 @@ class Sightstone {
         filter: (query: object): FilterMatches => new FilterMatches(this.RiotAPI, this.database, query),
         set: (match: MatchInterface): SetMatch => new SetMatch(this.RiotAPI, this.database, match),
         upsert: (match: MatchInterface): UpsertMatch => new UpsertMatch(this.RiotAPI, this.database, match),
+    }
+
+    public analysis: SightstoneAnalysisInterface = {
+        mastery: {
+            getLeaderboard: (champion: number): GetMasteryLeaderboard => new GetMasteryLeaderboard(this.RiotAPI, this.database, champion),
+        },
     }
 }
 

@@ -14,13 +14,13 @@ abstract class DatabaseInternal {
         this.URI = URI;
     }
 
-    public abstract getMatch(query: object): Promise<MatchInterface[]>;
+    public abstract filterMatch(query: object, projection?: object | string[]): Promise<MatchInterface[]>;
 
     public abstract setMatch(data: MatchInterface): Promise<MatchInterface>;
 
     public abstract upsertMatch(data: MatchInterface): Promise<MatchInterface | null>;
 
-    public abstract getSummoner(query: object): Promise<SummonerInterface[]>;
+    public abstract filterSummoner(query: object, projection?: object | string[]): Promise<SummonerInterface[]>;
 
     public abstract setSummoner(data: SummonerInterface): Promise<SummonerInterface>;
 

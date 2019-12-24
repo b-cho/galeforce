@@ -31,14 +31,18 @@ app.get('/v2/summoner/update', async (request, response) => {
         return response.sendStatus(400); // handle bad input data
     }
 
-    let summonerData;
-    if (queryLimit != null) {
-        summonerData = await Sightstone.summoner.fetch.byName(server, username, queryLimit).run();
-    } else {
-        summonerData = await Sightstone.summoner.fetch.byName(server, username).run();
+    try {
+        let summonerData;
+        if (queryLimit != null) {
+            summonerData = await Sightstone.summoner.fetch.byName(server, username, queryLimit).run();
+        } else {
+            summonerData = await Sightstone.summoner.fetch.byName(server, username).run();
+        }
+        await Sightstone.summoner.upsert(summonerData).run();
+        response.sendStatus(200);
+    } catch (e) {
+        response.sendStatus(500);
     }
-    await Sightstone.summoner.upsert(summonerData).run();
-    response.sendStatus(200);
 });
 
 app.get('/v2/summoner/get', async (request, response) => {
@@ -51,11 +55,15 @@ app.get('/v2/summoner/get', async (request, response) => {
         return response.sendStatus(400);
     }
 
-    const summonerData: SummonerInterface[] = await Sightstone.summoner.filter({
-        'summoner.name': username,
-        'summoner.server': server,
-    }).run();
-    response.json(summonerData);
+    try {
+        const summonerData: SummonerInterface[] = await Sightstone.summoner.filter({
+            'summoner.name': username,
+            'summoner.server': server,
+        }).run();
+        response.json(summonerData);
+    } catch (e) {
+        response.sendStatus(500);
+    }
 });
 
 Sightstone.init().then(() => {

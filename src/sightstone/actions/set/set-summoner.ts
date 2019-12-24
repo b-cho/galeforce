@@ -3,10 +3,10 @@
     of summoner objects (determined by the SummonerModel object) in the database.
 */
 
-import SummonerInterface from '../interfaces/summoner';
-import Action from './action';
-import RiotAPIModule from '../../riot-api';
-import DatabaseInternal from '../databases/database';
+import SummonerInterface from '../../interfaces/summoner';
+import Action from '../action';
+import RiotAPIModule from '../../../riot-api';
+import DatabaseInternal from '../../databases/database';
 
 class SetSummoner extends Action {
     private summoner: SummonerInterface;
