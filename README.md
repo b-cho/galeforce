@@ -1,2 +1,2 @@
-# rubidium-api
-The underlying Node.js API behind the Rubidium project.
+# Sightstone
+A Typescript library for League of Legends data analysis.

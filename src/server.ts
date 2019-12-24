@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 /*
-    This is the main server file that is used to make the Rubidium
+    This is the main server file that is used to make the Sightstone
     library forward-facing.
 */
 
@@ -9,14 +9,14 @@ import helmet from 'helmet';
 import minimist from 'minimist';
 import process from 'process';
 import XRegExp from 'xregexp';
-import RubidiumModule, { getConfig } from './rubidium';
-import ConfigInterface from './rubidium/interfaces/config';
-import SummonerInterface from './rubidium/interfaces/summoner';
+import SightstoneModule, { getConfig } from './sightstone';
+import ConfigInterface from './sightstone/interfaces/config';
+import SummonerInterface from './sightstone/interfaces/summoner';
 
 const argv = minimist(process.argv.slice(2));
 const config: ConfigInterface = getConfig(argv.config);
 
-const Rubidium: RubidiumModule = new RubidiumModule(config);
+const Sightstone: SightstoneModule = new SightstoneModule(config);
 const app = express();
 
 app.use(helmet());
@@ -33,11 +33,11 @@ app.get('/v2/summoner/update', async (request, response) => {
 
     let summonerData;
     if (queryLimit != null) {
-        summonerData = await Rubidium.summoner.fetch.byName(server, username, queryLimit).run();
+        summonerData = await Sightstone.summoner.fetch.byName(server, username, queryLimit).run();
     } else {
-        summonerData = await Rubidium.summoner.fetch.byName(server, username).run();
+        summonerData = await Sightstone.summoner.fetch.byName(server, username).run();
     }
-    await Rubidium.summoner.upsert(summonerData).run();
+    await Sightstone.summoner.upsert(summonerData).run();
     response.sendStatus(200);
 });
 
@@ -51,13 +51,13 @@ app.get('/v2/summoner/get', async (request, response) => {
         return response.sendStatus(400);
     }
 
-    const summonerData: SummonerInterface[] = await Rubidium.summoner.filter({
+    const summonerData: SummonerInterface[] = await Sightstone.summoner.filter({
         'summoner.name': username,
         'summoner.server': server,
     }).run();
     response.json(summonerData);
 });
 
-Rubidium.init().then(() => {
-    app.listen(config.system.port); // Don't listen for connections until Rubidium initializes.
+Sightstone.init().then(() => {
+    app.listen(config.system.port); // Don't listen for connections until Sightstone initializes.
 });

@@ -1,10 +1,10 @@
 {
-  "name": "rubidium-api",
+  "name": "sightstone",
   "author": "Brandon Cho",
   "description": "A League of Legends statistical analyzer.",
-  "repository": "https://github.com/bcho04/rubidium-api",
+  "repository": "https://github.com/bcho04/sightstone",
   "version": "1.0.0",
-  "main": "./src/rubidium/index.js",
+  "main": "./src/sightstone/index.js",
   "dependencies": {
     "async": "^3.1.0",
     "bluebird": "^3.7.2",

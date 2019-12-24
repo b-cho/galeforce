@@ -14,7 +14,7 @@ import UpsertSummoner from './actions/upsert-summoner';
 import MatchInterface from './interfaces/match';
 import SummonerInterface from './interfaces/summoner';
 
-interface RubidiumSummonerInterface {
+interface SightstoneSummonerInterface {
     fetch: {
         byName: (server: string, username: string, endIndex?: number) => FetchSummonerByName;
     };
@@ -23,7 +23,7 @@ interface RubidiumSummonerInterface {
     upsert: (summoner: SummonerInterface) => UpsertSummoner;
 }
 
-interface RubidiumMatchInterface {
+interface SightstoneMatchInterface {
     fetch: {
         byId: (server: string, matchId: number) => FetchMatchByID;
     };
@@ -32,7 +32,7 @@ interface RubidiumMatchInterface {
     upsert: (match: MatchInterface) => UpsertMatch;
 }
 
-class Rubidium {
+class Sightstone {
     private config: ConfigInterface;
 
     private RiotAPI: RiotAPIModule;
@@ -56,7 +56,7 @@ class Rubidium {
         await this.RiotAPI.init();
     }
 
-    public summoner: RubidiumSummonerInterface = {
+    public summoner: SightstoneSummonerInterface = {
         fetch: {
             byName: (server: string, username: string, endIndex?: number): FetchSummonerByName => new FetchSummonerByName(this.RiotAPI, this.database, server, username, endIndex),
         },
@@ -65,7 +65,7 @@ class Rubidium {
         upsert: (summoner: SummonerInterface): UpsertSummoner => new UpsertSummoner(this.RiotAPI, this.database, summoner),
     }
 
-    public match: RubidiumMatchInterface = {
+    public match: SightstoneMatchInterface = {
         fetch: {
             byId: (server: string, matchId: number): FetchMatchByID => new FetchMatchByID(this.RiotAPI, this.database, server, matchId),
         },
@@ -76,4 +76,4 @@ class Rubidium {
 }
 
 export { getConfig };
-export default Rubidium;
+export default Sightstone;
