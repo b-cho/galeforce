@@ -8,7 +8,13 @@ import DataDragonRequest from '../requests/data-dragon-request';
 import DataDragonEndpoints from '../enums/data-dragon';
 
 class RiotAPIInternal {
-    private championData: any;
+    private championData: any = null;
+
+    private version: string;
+
+    constructor(version: string) {
+        this.version = version;
+    }
 
     /**
      * Simply initializes the function by making relevant API calls and setting local variables.
@@ -17,7 +23,7 @@ class RiotAPIInternal {
      * @public
     */
     public async init(): Promise<void> {
-        const championRequest: DataDragonRequest = new DataDragonRequest(DataDragonEndpoints.CHAMPION);
+        const championRequest: DataDragonRequest = new DataDragonRequest(DataDragonEndpoints.CHAMPION, this.version);
 
         this.championData = await championRequest.get();
     }
@@ -31,6 +37,12 @@ class RiotAPIInternal {
      * @return {String} The corresponding champion name.
     */
     public idToChampion(cid: number): string {
+        if (this.championData === null) {
+            throw new Error(`
+                [sightstone]: Data Dragon champion data has not been loaded yet.
+                Make sure to call Sightstone.init(() => { /* code */ }). (no-init)
+            `);
+        }
         let ret = '';
 
         Object.keys(this.championData.data).forEach((k) => {
@@ -49,6 +61,12 @@ class RiotAPIInternal {
      * @return {String} The corresponding champion ID.
     */
     public championToId(name: string): number {
+        if (this.championData === null) {
+            throw new Error(`
+                [sightstone]: Data Dragon champion data has not been loaded yet.
+                Make sure to call Sightstone.init(() => { /* code */ }). (no-init)
+            `);
+        }
         return parseInt(this.championData.data[name].key, 10);
     }
 }

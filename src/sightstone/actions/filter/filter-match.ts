@@ -10,6 +10,7 @@ import FilterAction from './filter';
 
 class FilterMatches extends FilterAction {
     public async run(): Promise<MatchInterface[]> {
+        if (typeof this.projection !== 'undefined') return this.database.filterMatch(this.query, this.projection);
         return this.database.filterMatch(this.query);
     }
 }

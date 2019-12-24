@@ -4,9 +4,8 @@
 */
 
 import Action from '../action';
-import ENDPOINTS from '../../../riot-api/enums/endpoints';
 import MatchInterface from '../../interfaces/match';
-import RiotAPIModule from '../../../riot-api';
+import RiotAPIModule, { ENDPOINTS } from '../../../riot-api';
 import DatabaseInternal from '../../databases/database';
 
 class FetchMatchByID extends Action {
@@ -28,7 +27,12 @@ class FetchMatchByID extends Action {
         } catch (e) {
             if (e.name === 'StatusCodeError') {
                 console.error(`Summoner data fetch failed with status code ${e.statusCode}`);
-                if (e.statusCode === 403) console.error('Maybe your Riot API key is invalid?');
+                if (e.statusCode === 403) {
+                    throw new Error(`
+                        [sightstone]: The provided Riot API key is invalid
+                        or has expired. Please verify its authenticity. (403)
+                    `);
+                }
             } else {
                 console.error(`Summoner data fetch failed with error ${e.name}`);
             }

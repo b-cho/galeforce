@@ -10,6 +10,7 @@ import FilterAction from './filter';
 
 class FilterSummoners extends FilterAction {
     public async run(): Promise<SummonerInterface[]> {
+        if (typeof this.projection !== 'undefined') return this.database.filterSummoner(this.query, this.projection);
         return this.database.filterSummoner(this.query);
     }
 }

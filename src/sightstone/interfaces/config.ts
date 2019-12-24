@@ -4,6 +4,7 @@ interface ConfigInterface {
     };
     'riot-api': {
         key: string;
+        ddversion: string;
         query: number;
         servers: string[];
     };

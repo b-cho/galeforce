@@ -6,9 +6,8 @@
 import async from 'async';
 import Bluebird from 'bluebird';
 import Action from '../action';
-import ENDPOINTS from '../../../riot-api/enums/endpoints';
 import SummonerInterface from '../../interfaces/summoner';
-import RiotAPIModule from '../../../riot-api';
+import RiotAPIModule, { ENDPOINTS } from '../../../riot-api';
 import DatabaseInternal from '../../databases/database';
 
 class FetchSummonerByName extends Action {

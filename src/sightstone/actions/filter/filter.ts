@@ -14,9 +14,12 @@ import SummonerInterface from '../../interfaces/summoner';
 abstract class FilterAction extends Action {
     protected query: object;
 
-    constructor(RiotAPI: RiotAPIModule, database: DatabaseInternal, query: object) {
+    protected projection?: object | string[];
+
+    constructor(RiotAPI: RiotAPIModule, database: DatabaseInternal, query: object, projection?: object | string[]) {
         super(RiotAPI, database);
         this.query = query;
+        this.projection = projection;
     }
 
     public abstract async run(): Promise<MatchInterface[] | SummonerInterface[]>;

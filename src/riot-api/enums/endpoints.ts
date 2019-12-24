@@ -34,10 +34,15 @@ const MATCH = {
     },
 };
 
+const THIRD_PARTY = {
+    CODE: 'https://${server}.api.riotgames.com/lol/platform/v4/third-party-code/by-summoner/${summoner-id}',
+};
+
 export default {
     SUMMONER,
     CHAMPION_MASTERY,
     SPECTATOR,
     LEAGUE,
     MATCH,
+    THIRD_PARTY,
 };

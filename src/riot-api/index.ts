@@ -4,15 +4,17 @@
 
 import RiotAPIInternal from './internal/internal';
 import RiotAPIRequest from './requests/riot-api-request';
+import ENDPOINTS from './enums/endpoints';
+import REGIONS from './enums/regions';
 
 class RiotAPIModule {
     private key: string;
 
     public internal: RiotAPIInternal;
 
-    constructor(key: string) {
+    constructor(key: string, version: string) {
         this.key = key;
-        this.internal = new RiotAPIInternal();
+        this.internal = new RiotAPIInternal(version);
     }
 
     public request(stringTemplate: string, parameters: object): RiotAPIRequest {
@@ -24,4 +26,5 @@ class RiotAPIModule {
     }
 }
 
+export { ENDPOINTS, REGIONS };
 export default RiotAPIModule;
