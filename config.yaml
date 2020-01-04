@@ -6,10 +6,10 @@ riot-api:
   query: 5 # (integer) Number of games to return from the Riot API
   servers: ["br1", "eun1", "euw1", "jp1", "kr1", "la1", "la2", "na1", "oc1", "tr1", "ru1"] # ([...string]) A list of valid Riot servers
 database:
-  type: ${DATABASE_TYPE} # What kind of database to use (MongoDB, etc.)
+  type: ${DATABASE_TYPE} # What kind of database to use ('mongodb', etc.)
   uri: ${DATABASE_URI} # (string) Database URI connection string
 cache:
-  type: ${CACHE_TYPE} # What kind of cache to use (Redis, etc.)
+  type: ${CACHE_TYPE} # What kind of cache to use ('redis', 'null', etc.)
   host: ${CACHE_HOST} # The host...
   port: ${CACHE_PORT} #          and port the cache is running on
 rate-limit: # key <secs>: value <number of requests>. Requires a cache to be configured.

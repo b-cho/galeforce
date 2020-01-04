@@ -18,6 +18,7 @@ import VerifyThirdPartyCode from './actions/analysis/verify/verify';
 import Cache from './caches/cache';
 import RedisCache from './caches/redis';
 import SubmoduleMapInterface from './interfaces/submodule-map';
+import NullCache from './caches/null';
 
 interface SightstoneSummonerInterface {
     fetch: {
@@ -71,6 +72,8 @@ class Sightstone {
 
         if (this.config.cache.type === 'redis') {
             cache = new RedisCache(this.config.cache.host, this.config.cache.port, this.config['rate-limit']);
+        } else if (this.config.cache.type === 'null') {
+            cache = new NullCache();
         } else {
             throw new Error('Invalid cache type specified in config.');
         }

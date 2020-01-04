@@ -9,7 +9,6 @@ import helmet from 'helmet';
 import minimist from 'minimist';
 import process from 'process';
 import XRegExp from 'xregexp';
-import Bluebird from 'bluebird';
 import async from 'async';
 import SightstoneModule, { getConfig } from './sightstone';
 import ConfigInterface from './sightstone/interfaces/config';
