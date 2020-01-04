@@ -1,6 +1,6 @@
 import Action from '../../action';
-import RiotAPIModule, { ENDPOINTS } from '../../../../riot-api';
-import DatabaseInternal from '../../../databases/database';
+import { ENDPOINTS } from '../../../../riot-api';
+import SubmoduleMapInterface from '../../../interfaces/submodule-map';
 
 class VerifyThirdPartyCode extends Action {
     private summonerId: string;
@@ -9,8 +9,8 @@ class VerifyThirdPartyCode extends Action {
 
     private verify: string;
 
-    constructor(RiotAPI: RiotAPIModule, database: DatabaseInternal, server: string, summonerId: string, verify: string) {
-        super(RiotAPI, database);
+    constructor(SubmoduleMap: SubmoduleMapInterface, server: string, summonerId: string, verify: string) {
+        super(SubmoduleMap);
         this.server = server;
         this.summonerId = summonerId;
         this.verify = verify;

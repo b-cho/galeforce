@@ -1,11 +1,10 @@
-import Action from '../../action';
-import RiotAPIModule from '../../../../riot-api';
-import DatabaseInternal from '../../../databases/database';
-
 /*
     The GetMasteryLeaderboard action gets the mastery leaderboard/standings
     for the given champion using the database.filterSummoner() function.
 */
+
+import Action from '../../action';
+import SubmoduleMapInterface from '../../../interfaces/submodule-map';
 
 interface LimitedMasteryData {
     championId: number;
@@ -29,8 +28,8 @@ interface FilteredArrayInterface {
 class GetMasteryLeaderboard extends Action {
     private champion: number;
 
-    constructor(RiotAPI: RiotAPIModule, database: DatabaseInternal, champion: number) {
-        super(RiotAPI, database);
+    constructor(SubmoduleMap: SubmoduleMapInterface, champion: number) {
+        super(SubmoduleMap);
         this.champion = champion;
     }
 

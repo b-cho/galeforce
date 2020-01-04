@@ -15,6 +15,9 @@ import UpsertMatch from './actions/upsert/upsert-match';
 import UpsertSummoner from './actions/upsert/upsert-summoner';
 import GetMasteryLeaderboard from './actions/analysis/mastery/get-leaderboard';
 import VerifyThirdPartyCode from './actions/analysis/verify/verify';
+import Cache from './caches/cache';
+import RedisCache from './caches/redis';
+import SubmoduleMapInterface from './interfaces/submodule-map';
 
 interface SightstoneSummonerInterface {
     fetch: {
@@ -49,54 +52,63 @@ interface SightstoneAnalysisInterface {
 class Sightstone {
     private config: ConfigInterface;
 
-    private RiotAPI: RiotAPIModule;
-
-    private database: DatabaseInternal;
+    private SubmoduleMap: SubmoduleMapInterface;
 
     constructor(options: ConfigInterface | string) {
         if (typeof options === 'string') this.config = getConfig(options);
         else this.config = options;
 
-        this.RiotAPI = new RiotAPIModule(this.config['riot-api'].key, this.config['riot-api'].ddversion);
+        let database: DatabaseInternal;
+        let cache: Cache;
+
+        const RiotAPI = new RiotAPIModule(this.config['riot-api'].key, this.config['riot-api'].ddversion);
 
         if (this.config.database.type === 'mongodb') {
-            this.database = new MongoDBInternal(this.config.database.uri);
+            database = new MongoDBInternal(this.config.database.uri);
         } else {
-            throw new Error('Invalid database type selected in config.');
+            throw new Error('Invalid database type specified in config.');
         }
+
+        if (this.config.cache.type === 'redis') {
+            cache = new RedisCache(this.config.cache.host, this.config.cache.port, this.config['rate-limit']);
+        } else {
+            throw new Error('Invalid cache type specified in config.');
+        }
+
+        this.SubmoduleMap = { RiotAPI, database, cache };
     }
 
     public async init(): Promise<void> {
-        await this.RiotAPI.init();
+        await this.SubmoduleMap.RiotAPI.init();
     }
 
     public summoner: SightstoneSummonerInterface = {
         fetch: {
-            byName: (server: string, username: string, endIndex?: number): FetchSummonerByName => new FetchSummonerByName(this.RiotAPI, this.database, server, username, endIndex),
+            byName: (server: string, username: string, endIndex?: number): FetchSummonerByName => new FetchSummonerByName(this.SubmoduleMap, server, username, endIndex),
         },
-        filter: (query: object, projection?: object | string[]): FilterSummoners => new FilterSummoners(this.RiotAPI, this.database, query, projection),
-        set: (summoner: SummonerInterface): SetSummoner => new SetSummoner(this.RiotAPI, this.database, summoner),
-        upsert: (summoner: SummonerInterface): UpsertSummoner => new UpsertSummoner(this.RiotAPI, this.database, summoner),
+        filter: (query: object, projection?: object | string[]): FilterSummoners => new FilterSummoners(this.SubmoduleMap, query, projection),
+        set: (summoner: SummonerInterface): SetSummoner => new SetSummoner(this.SubmoduleMap, summoner),
+        upsert: (summoner: SummonerInterface): UpsertSummoner => new UpsertSummoner(this.SubmoduleMap, summoner),
     }
 
     public match: SightstoneMatchInterface = {
         fetch: {
-            byMatchId: (server: string, matchId: number): FetchMatchByID => new FetchMatchByID(this.RiotAPI, this.database, server, matchId),
+            byMatchId: (server: string, matchId: number): FetchMatchByID => new FetchMatchByID(this.SubmoduleMap, server, matchId),
         },
-        filter: (query: object, projection?: object | string[]): FilterMatches => new FilterMatches(this.RiotAPI, this.database, query, projection),
-        set: (match: MatchInterface): SetMatch => new SetMatch(this.RiotAPI, this.database, match),
-        upsert: (match: MatchInterface): UpsertMatch => new UpsertMatch(this.RiotAPI, this.database, match),
+        filter: (query: object, projection?: object | string[]): FilterMatches => new FilterMatches(this.SubmoduleMap, query, projection),
+        set: (match: MatchInterface): SetMatch => new SetMatch(this.SubmoduleMap, match),
+        upsert: (match: MatchInterface): UpsertMatch => new UpsertMatch(this.SubmoduleMap, match),
     }
 
     public thirdParty: SightstoneThirdPartyInterface = {
         verify: {
-            bySummonerId: (server: string, summonerId: string, verify: string): VerifyThirdPartyCode => new VerifyThirdPartyCode(this.RiotAPI, this.database, server, summonerId, verify),
+            bySummonerId: (server: string, summonerId: string, verify: string): VerifyThirdPartyCode => new VerifyThirdPartyCode(this.SubmoduleMap, server, summonerId, verify),
         },
     }
 
     public analysis: SightstoneAnalysisInterface = {
         mastery: {
-            getLeaderboard: (champion: number): GetMasteryLeaderboard => new GetMasteryLeaderboard(this.RiotAPI, this.database, champion),
+            getLeaderboard: (champion: number): GetMasteryLeaderboard => new GetMasteryLeaderboard(this.SubmoduleMap, champion),
         },
     }
 }

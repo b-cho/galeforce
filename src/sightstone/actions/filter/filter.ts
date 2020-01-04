@@ -7,17 +7,16 @@
 
 import Action from '../action';
 import MatchInterface from '../../interfaces/match';
-import RiotAPIModule from '../../../riot-api';
-import DatabaseInternal from '../../databases/database';
 import SummonerInterface from '../../interfaces/summoner';
+import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 abstract class FilterAction extends Action {
     protected query: object;
 
     protected projection?: object | string[];
 
-    constructor(RiotAPI: RiotAPIModule, database: DatabaseInternal, query: object, projection?: object | string[]) {
-        super(RiotAPI, database);
+    constructor(SubmoduleMap: SubmoduleMapInterface, query: object, projection?: object | string[]) {
+        super(SubmoduleMap);
         this.query = query;
         this.projection = projection;
     }

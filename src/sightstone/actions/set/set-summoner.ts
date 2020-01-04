@@ -5,14 +5,13 @@
 
 import SummonerInterface from '../../interfaces/summoner';
 import Action from '../action';
-import RiotAPIModule from '../../../riot-api';
-import DatabaseInternal from '../../databases/database';
+import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class SetSummoner extends Action {
     private summoner: SummonerInterface;
 
-    constructor(RiotAPI: RiotAPIModule, database: DatabaseInternal, summoner: SummonerInterface) {
-        super(RiotAPI, database);
+    constructor(SubmoduleMap: SubmoduleMapInterface, summoner: SummonerInterface) {
+        super(SubmoduleMap);
         this.summoner = summoner;
     }
 

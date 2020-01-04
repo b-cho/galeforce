@@ -9,9 +9,12 @@ import helmet from 'helmet';
 import minimist from 'minimist';
 import process from 'process';
 import XRegExp from 'xregexp';
+import Bluebird from 'bluebird';
+import async from 'async';
 import SightstoneModule, { getConfig } from './sightstone';
 import ConfigInterface from './sightstone/interfaces/config';
 import SummonerInterface from './sightstone/interfaces/summoner';
+import MatchInterface from './sightstone/interfaces/match';
 
 const argv = minimist(process.argv.slice(2));
 const config: ConfigInterface = getConfig(argv.config);
@@ -32,13 +35,20 @@ app.get('/v2/summoner/update', async (request, response) => {
     }
 
     try {
-        let summonerData;
-        if (queryLimit != null) {
+        let summonerData: SummonerInterface;
+        if (queryLimit !== null) {
             summonerData = await Sightstone.summoner.fetch.byName(server, username, queryLimit).run();
         } else {
             summonerData = await Sightstone.summoner.fetch.byName(server, username).run();
         }
-        await Sightstone.summoner.upsert(summonerData).run();
+        Sightstone.summoner.upsert(summonerData).run();
+
+        // Update matches into database as well
+        async.eachSeries(summonerData.matchlist.matches, async (match, callback) => {
+            const matchData = await Sightstone.match.fetch.byMatchId(match.platformId, match.gameId).run();
+            Sightstone.match.upsert(matchData).run();
+            callback(null);
+        });
         response.sendStatus(200);
     } catch (e) {
         response.sendStatus(500);
@@ -66,6 +76,29 @@ app.get('/v2/summoner/get', async (request, response) => {
     }
 });
 
+app.get('/v2/match/get', async (request, response) => {
+    const server: string | null = request.query.server;
+    const id: string | null = request.query.id;
+
+    // Input checks
+    if (server == null || id == null || !(config['riot-api'].servers.includes(server)) || !(XRegExp('^[0-9]+$').test(id))) {
+        // handle bad input data
+        return response.sendStatus(400);
+    }
+
+    try {
+        const matchData: MatchInterface[] = await Sightstone.match.filter({
+            matchId: id,
+            platformId: server.toUpperCase(),
+        }).run();
+        response.json(matchData);
+    } catch (e) {
+        response.sendStatus(500);
+    }
+});
+
+
 Sightstone.init().then(() => {
+    console.log('[info] Listening on port', config.system.port);
     app.listen(config.system.port); // Don't listen for connections until Sightstone initializes.
 });

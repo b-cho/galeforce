@@ -8,9 +8,20 @@ interface ConfigInterface {
         query: number;
         servers: string[];
     };
-    'database': {
+    database: {
         type: string;
         uri: string;
+    };
+    cache: {
+        type: string;
+        host: string;
+        port: number;
+    };
+    'rate-limit': {
+        prefix: string;
+        intervals: {
+            [key: number]: number;
+        };
     };
 }
 

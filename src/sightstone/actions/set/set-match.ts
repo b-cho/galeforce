@@ -5,14 +5,13 @@
 
 import MatchInterface from '../../interfaces/match';
 import Action from '../action';
-import RiotAPIModule from '../../../riot-api';
-import DatabaseInternal from '../../databases/database';
+import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class SetMatch extends Action {
     private match: MatchInterface;
 
-    constructor(RiotAPI: RiotAPIModule, database: DatabaseInternal, match: MatchInterface) {
-        super(RiotAPI, database);
+    constructor(SubmoduleMap: SubmoduleMapInterface, match: MatchInterface) {
+        super(SubmoduleMap);
         this.match = match;
     }
 
