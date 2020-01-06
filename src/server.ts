@@ -29,7 +29,7 @@ app.get('/v2/summoner/update', async (request, response) => {
     const queryLimit: number | null = config['riot-api'].query;
 
     // Input checks
-    if (server == null || username == null || !(config['riot-api'].servers.includes(server)) || !(XRegExp('^[0-9\\p{L} _\\.]+$').test(username))) {
+    if (server === null || username === null || !(config['riot-api'].servers.includes(server)) || !(XRegExp('^[0-9\\p{L} _\\.]+$').test(username))) {
         return response.sendStatus(400); // handle bad input data
     }
 
@@ -59,7 +59,7 @@ app.get('/v2/summoner/get', async (request, response) => {
     const username: string | null = request.query.username;
 
     // Input checks
-    if (server == null || username == null || !(config['riot-api'].servers.includes(server)) || !(XRegExp('^[0-9\\p{L} _\\.]+$').test(username))) {
+    if (server === null || username === null || !(config['riot-api'].servers.includes(server)) || !(XRegExp('^[0-9\\p{L} _\\.]+$').test(username))) {
         // handle bad input data
         return response.sendStatus(400);
     }
@@ -80,14 +80,14 @@ app.get('/v2/match/get', async (request, response) => {
     const id: string | null = request.query.id;
 
     // Input checks
-    if (server == null || id == null || !(config['riot-api'].servers.includes(server)) || !(XRegExp('^[0-9]+$').test(id))) {
+    if (server === null || id === null || !(config['riot-api'].servers.includes(server)) || !(XRegExp('^[0-9]+$').test(id))) {
         // handle bad input data
         return response.sendStatus(400);
     }
 
     try {
         const matchData: MatchInterface[] = await Sightstone.match.filter({
-            matchId: id,
+            gameId: id,
             platformId: server.toUpperCase(),
         }).run();
         response.json(matchData);
