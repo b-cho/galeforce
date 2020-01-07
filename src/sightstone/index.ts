@@ -14,7 +14,9 @@ import SetSummoner from './actions/set/set-summoner';
 import UpsertMatch from './actions/upsert/upsert-match';
 import UpsertSummoner from './actions/upsert/upsert-summoner';
 import GetMasteryLeaderboard from './actions/analysis/mastery/get-leaderboard';
-import VerifyThirdPartyCode from './actions/analysis/verify/verify';
+import VerifyThirdPartyCode from './actions/verify/verify';
+import ChampionToId from './actions/internal/champion-id';
+import IdToChampion from './actions/internal/id-champion';
 import Cache from './caches/cache';
 import RedisCache from './caches/redis';
 import SubmoduleMapInterface from './interfaces/submodule-map';
@@ -48,6 +50,11 @@ interface SightstoneAnalysisInterface {
     mastery: {
         getLeaderboard: (champion: number) => GetMasteryLeaderboard;
     };
+}
+
+interface SightstoneInternalInterface {
+    championToId: (champion: string) => ChampionToId;
+    idToChampion: (id: number) => IdToChampion;
 }
 
 class Sightstone {
@@ -111,8 +118,13 @@ class Sightstone {
 
     public analysis: SightstoneAnalysisInterface = {
         mastery: {
-            getLeaderboard: (champion: number): GetMasteryLeaderboard => new GetMasteryLeaderboard(this.SubmoduleMap, champion),
+            getLeaderboard: (id: number): GetMasteryLeaderboard => new GetMasteryLeaderboard(this.SubmoduleMap, id),
         },
+    }
+
+    public internal: SightstoneInternalInterface = {
+        idToChampion: (id: number): IdToChampion => new IdToChampion(this.SubmoduleMap, id),
+        championToId: (champion: string): ChampionToId => new ChampionToId(this.SubmoduleMap, champion),
     }
 }
 

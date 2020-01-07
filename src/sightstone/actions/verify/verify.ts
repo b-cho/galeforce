@@ -1,6 +1,6 @@
-import Action from '../../action';
-import { ENDPOINTS } from '../../../../riot-api';
-import SubmoduleMapInterface from '../../../interfaces/submodule-map';
+import Action from '../action';
+import { ENDPOINTS } from '../../../riot-api';
+import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class VerifyThirdPartyCode extends Action {
     private summonerId: string;

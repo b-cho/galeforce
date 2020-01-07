@@ -69,7 +69,7 @@ app.get('/v2/summoner/get', async (request, response) => {
             'summoner.name': username,
             'summoner.server': server,
         }).run();
-        response.json(summonerData);
+        response.status(200).json(summonerData);
     } catch (e) {
         response.sendStatus(500);
     }
@@ -90,14 +90,28 @@ app.get('/v2/match/get', async (request, response) => {
             gameId: id,
             platformId: server.toUpperCase(),
         }).run();
-        response.json(matchData);
+        response.status(200).json(matchData);
     } catch (e) {
         response.sendStatus(500);
     }
 });
 
+app.get('/v2/mastery-leaderboard/', async (request, response) => {
+    const id: number | null = request.query.name ? await Sightstone.internal.championToId(request.query.name).run() : parseInt(request.query.id, 10);
+
+    if (id === null || id === 0 || Number.isNaN(id)) {
+        return response.sendStatus(400);
+    }
+
+    try {
+        const masteryLeaderboard: object[] = await Sightstone.analysis.mastery.getLeaderboard(id).run();
+        response.status(200).json(masteryLeaderboard);
+    } catch (e) {
+        response.sendStatus(500);
+    }
+});
 
 Sightstone.init().then(() => {
-    console.log('[info] Listening on port', config.system.port);
+    console.log('[server]: Listening on port', config.system.port);
     app.listen(config.system.port); // Don't listen for connections until Sightstone initializes.
 });

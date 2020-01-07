@@ -67,6 +67,7 @@ class RiotAPIInternal {
                 Make sure to call Sightstone.init(() => { /* code */ }). (no-init)
             `);
         }
+        if (typeof this.championData.data[name] === 'undefined') return 0; // Default return;
         return parseInt(this.championData.data[name].key, 10);
     }
 }

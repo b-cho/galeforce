@@ -26,22 +26,21 @@ interface FilteredArrayInterface {
 }
 
 class GetMasteryLeaderboard extends Action {
-    private champion: number;
+    private id: number;
 
-    constructor(SubmoduleMap: SubmoduleMapInterface, champion: number) {
+    constructor(SubmoduleMap: SubmoduleMapInterface, id: number) {
         super(SubmoduleMap);
-        this.champion = champion;
+        this.id = id;
     }
 
     public async run(): Promise<object[]> {
-        const query: object = { mastery: { $elemMatch: { championId: this.champion } } };
+        const query: object = { mastery: { $elemMatch: { championId: this.id } } };
         const projection: string[] = ['summoner.server', 'summoner.name', 'mastery.championPoints', 'mastery.championId'];
         const filteredData: LimitedSummonerData[] = await this.database.filterSummoner(query, projection);
-
         // Restructure filteredData to allow for efficient sorting.
         const filteredArray: FilteredArrayInterface[] = [];
         filteredData.forEach((summonerData: LimitedSummonerData) => {
-            const LMDElem: LimitedMasteryData | undefined = summonerData.mastery.find((elem: LimitedMasteryData) => elem.championId === this.champion);
+            const LMDElem: LimitedMasteryData | undefined = summonerData.mastery.find((elem: LimitedMasteryData) => elem.championId === this.id);
             if (typeof LMDElem !== 'undefined') {
                 const points: number = LMDElem.championPoints;
                 filteredArray.push({
@@ -53,7 +52,6 @@ class GetMasteryLeaderboard extends Action {
         });
 
         filteredArray.sort((a: FilteredArrayInterface, b: FilteredArrayInterface) => Math.sign(b.masteryPoints - a.masteryPoints)); // Reverse order
-
         return filteredArray;
     }
 }
