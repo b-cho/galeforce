@@ -10,8 +10,7 @@ database:
   uri: ${DATABASE_URI} # (string) Database URI connection string
 cache:
   type: ${CACHE_TYPE} # What kind of cache to use ('redis', 'null', etc.)
-  host: ${CACHE_HOST} # The host...
-  port: ${CACHE_PORT} #          and port the cache is running on
+  uri: ${REDIS_URL} # The cache URI to connect to
 rate-limit: # key <secs>: value <number of requests>. Requires a cache to be configured.
   prefix: riotapi-ratelimit- # The prefix for the Riot API rate limit keys in the cache.
   intervals:

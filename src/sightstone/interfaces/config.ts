@@ -14,8 +14,7 @@ interface ConfigInterface {
     };
     cache: {
         type: string;
-        host: string;
-        port: number;
+        uri: string;
     };
     'rate-limit': {
         prefix: string;

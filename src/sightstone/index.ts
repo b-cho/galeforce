@@ -81,7 +81,7 @@ class Sightstone {
         }
 
         if (this.config.cache.type === 'redis') {
-            cache = new RedisCache(this.config.cache.host, this.config.cache.port, this.config['rate-limit']);
+            cache = new RedisCache(this.config.cache.uri, this.config['rate-limit']);
         } else if (this.config.cache.type === 'null') {
             cache = new NullCache();
         } else {
