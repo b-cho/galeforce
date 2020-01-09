@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 /*
-    This is the server file used for the Rubidium project.
+    This is the server file used for the sample mastery-leaderboard project.
 */
 
 import express from 'express';
@@ -10,6 +10,7 @@ import minimist from 'minimist';
 import process from 'process';
 import XRegExp from 'xregexp';
 import async from 'async';
+import Bluebird from 'bluebird';
 import SightstoneModule, { getConfig } from '../sightstone';
 import ConfigInterface from '../sightstone/interfaces/config';
 import SummonerInterface from '../sightstone/interfaces/summoner';
@@ -82,20 +83,16 @@ app.get('/mastery/ranking', async (request, response) => {
 });
 
 async function updateGlobalLeaderboard(): Promise<void> {
-    return new Promise((resolve, reject) => {
-        console.log('[server] [global-leaderboard]: Updating global leaderboard...');
-        let champData: any = Sightstone.internal.json.champion() as any;
-        champData = Object.values(champData.data);
-        async.eachLimit(champData, 5, async (val: any, callback: Function) => {
-            console.log('[server] [global-leaderboard]: Updating', val.name, '(', val.key, ')', '...');
-            globalLeaderboard[val.name] = await Sightstone.analysis.mastery.getLeaderboard(parseInt(val.key, 10)).run();
-            callback(null);
-        }, (err) => {
-            if (err) return reject(err);
-            setTimeout(updateGlobalLeaderboard, 2 * 1000); // Update once per minute
-            resolve();
-        });
+    console.log('[server] [global-leaderboard]: Updating global leaderboard...');
+    let champData: any = Sightstone.internal.json.champion() as any;
+    champData = Object.values(champData.data);
+    await Bluebird.promisify(async.eachLimit)(champData, 5, async (val: any, callback: Function) => {
+        console.log('[server] [global-leaderboard]: Updating', val.name, '(', val.key, ')', '...');
+        globalLeaderboard[val.name] = await Sightstone.analysis.mastery.getLeaderboard(parseInt(val.key, 10)).run();
+        callback();
     });
+    console.log('[server] [global-leaderboard]: Finished updating all champions. Setting timer for recalculation.');
+    setTimeout(updateGlobalLeaderboard, 60 * 1000); // Update once per minute
 }
 
 Sightstone.init().then(async () => {

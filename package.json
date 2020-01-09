@@ -44,7 +44,7 @@
   "scripts": {
     "lint": "npx eslint --ext .ts,.tsx,.js,.jsx ./src/",
     "build": "npx tsc --project tsconfig.json",
-    "start": "node ./build/servers/server.js --config=./config.yaml",
-    "rubidium": "node ./build/servers/rubidium.js --config=./config.yaml"
+    "start": "node ./build/servers/main.js --config=./config.yaml",
+    "mastery-leaderboard": "node ./build/servers/mastery-leaderboard.js --config=./config.yaml"
   }
 }
