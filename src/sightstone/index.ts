@@ -55,6 +55,9 @@ interface SightstoneAnalysisInterface {
 interface SightstoneInternalInterface {
     championToId: (champion: string) => ChampionToId;
     idToChampion: (id: number) => IdToChampion;
+    json: {
+        champion: () => object;
+    };
 }
 
 class Sightstone {
@@ -125,6 +128,9 @@ class Sightstone {
     public internal: SightstoneInternalInterface = {
         idToChampion: (id: number): IdToChampion => new IdToChampion(this.SubmoduleMap, id),
         championToId: (champion: string): ChampionToId => new ChampionToId(this.SubmoduleMap, champion),
+        json: {
+            champion: (): object => this.SubmoduleMap.RiotAPI.internal.championJSON(), // simply return the JSON (if loaded)
+        },
     }
 }
 

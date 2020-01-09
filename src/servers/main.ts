@@ -6,14 +6,15 @@
 
 import express from 'express';
 import helmet from 'helmet';
+import cors from 'cors';
 import minimist from 'minimist';
 import process from 'process';
 import XRegExp from 'xregexp';
 import async from 'async';
-import SightstoneModule, { getConfig } from './sightstone';
-import ConfigInterface from './sightstone/interfaces/config';
-import SummonerInterface from './sightstone/interfaces/summoner';
-import MatchInterface from './sightstone/interfaces/match';
+import SightstoneModule, { getConfig } from '../sightstone';
+import ConfigInterface from '../sightstone/interfaces/config';
+import SummonerInterface from '../sightstone/interfaces/summoner';
+import MatchInterface from '../sightstone/interfaces/match';
 
 const argv = minimist(process.argv.slice(2));
 const config: ConfigInterface = getConfig(argv.config);
@@ -22,6 +23,7 @@ const Sightstone: SightstoneModule = new SightstoneModule(config);
 const app = express();
 
 app.use(helmet());
+app.use(cors());
 
 app.get('/v2/summoner/update', async (request, response) => {
     const server: string | null = request.query.server;
