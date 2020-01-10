@@ -68,11 +68,19 @@ app.get('/mastery/ranking', async (request, response) => {
 
         const responseValue: any = {};
         Object.keys(globalLeaderboard).forEach((ls) => {
-            responseValue[ls] = { pos: -1, total: globalLeaderboard[ls].length, points: 0 };
+            responseValue[ls] = {
+                pos: -1,
+                total: globalLeaderboard[ls].length,
+                points: 0,
+                level: 0,
+                time: 0,
+            };
             globalLeaderboard[ls].forEach((item: any, index: number) => {
                 if (item.name === username && item.server === server) {
                     responseValue[ls].pos = index + 1;
                     responseValue[ls].points = item.masteryPoints;
+                    responseValue[ls].level = item.masteryLevel;
+                    responseValue[ls].time = item.lastPlayTime;
                 }
             });
         });

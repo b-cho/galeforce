@@ -6,7 +6,6 @@ import RiotAPIInternal from './internal/internal';
 import RiotAPIRequest from './requests/riot-api-request';
 import ENDPOINTS from './enums/endpoints';
 import REGIONS from './enums/regions';
-import Cache from '../sightstone/caches/cache';
 
 class RiotAPIModule {
     private key: string;

@@ -44,7 +44,7 @@ abstract class Request {
      */
     public get(): Bluebird<object> {
         const options = {
-            url: this.targetURL,
+            url: encodeURI(this.targetURL),
             headers: this.headers,
             json: true,
         };

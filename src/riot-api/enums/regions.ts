@@ -2,7 +2,7 @@ const REGIONS = {
     BRAZIL: 'br1',
     EUROPE_NORTHEAST: 'eun1',
     EUROPE_WEST: 'euw1',
-    KOREA: 'kr1',
+    KOREA: 'kr',
     LATIN_AMERICA_NORTH: 'la1',
     LATIN_AMERICA_SOUTH: 'la2',
     NORTH_AMERICA: 'na1',

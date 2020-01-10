@@ -4,7 +4,7 @@ riot-api:
   key: ${RIOT_KEY} # (string) Your Riot API key from https://developer.riotgames.com
   ddversion: '9.24.2' # (string) The Data Dragon version used by Sightstone
   query: 5 # (integer) Number of games to return from the Riot API
-  servers: ["br1", "eun1", "euw1", "jp1", "kr1", "la1", "la2", "na1", "oc1", "tr1", "ru1"] # ([...string]) A list of valid Riot servers
+  servers: ["br1", "eun1", "euw1", "jp1", "kr", "la1", "la2", "na1", "oc1", "tr1", "ru"] # ([...string]) A list of valid Riot servers
 database:
   type: ${DATABASE_TYPE} # What kind of database to use ('mongodb', etc.)
   uri: ${DATABASE_URI} # (string) Database URI connection string

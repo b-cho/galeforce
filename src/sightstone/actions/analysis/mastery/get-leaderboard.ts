@@ -9,6 +9,8 @@ import SubmoduleMapInterface from '../../../interfaces/submodule-map';
 interface LimitedMasteryData {
     championId: number;
     championPoints: number;
+    championLevel: number;
+    lastPlayTime: number;
 }
 
 interface LimitedSummonerData {
@@ -23,6 +25,8 @@ interface FilteredArrayInterface {
     name: string;
     server: string;
     masteryPoints: number;
+    masteryLevel: number;
+    lastPlayTime: number;
 }
 
 class GetMasteryLeaderboard extends Action {
@@ -35,18 +39,23 @@ class GetMasteryLeaderboard extends Action {
 
     public async run(): Promise<object[]> {
         const query: object = { mastery: { $elemMatch: { championId: this.id } } };
-        const projection: string[] = ['summoner.server', 'summoner.name', 'mastery.championPoints', 'mastery.championId'];
+        const projection: string[] = ['summoner.server', 'summoner.name', 'mastery.championPoints', 'mastery.championId', 'mastery.championLevel', 'mastery.lastPlayTime'];
         const filteredData: LimitedSummonerData[] = await this.database.filterSummoner(query, projection);
         // Restructure filteredData to allow for efficient sorting.
         const filteredArray: FilteredArrayInterface[] = [];
         filteredData.forEach((summonerData: LimitedSummonerData) => {
             const LMDElem: LimitedMasteryData | undefined = summonerData.mastery.find((elem: LimitedMasteryData) => elem.championId === this.id);
             if (typeof LMDElem !== 'undefined') {
-                const points: number = LMDElem.championPoints;
+                const masteryPoints: number = LMDElem.championPoints;
+                const masteryLevel: number = LMDElem.championLevel;
+                const lastPlayTime: number = LMDElem.lastPlayTime;
+
                 filteredArray.push({
                     name: summonerData.summoner.name,
                     server: summonerData.summoner.server,
-                    masteryPoints: points,
+                    masteryPoints,
+                    masteryLevel,
+                    lastPlayTime,
                 });
             }
         });
