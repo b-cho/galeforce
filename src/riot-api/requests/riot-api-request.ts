@@ -4,9 +4,6 @@
     information relevant to that request.
 */
 
-import Bluebird from 'bluebird';
-import rp from 'request-promise';
-import Cache from '../../sightstone/caches/cache';
 import Request from './request';
 
 class RiotAPIRequest extends Request {

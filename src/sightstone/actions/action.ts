@@ -53,12 +53,8 @@ abstract class Action {
         const prefix: string = this.cache.RLConfig.prefix;
         Object.entries(this.cache.RLConfig.intervals).forEach(async ([key, value]) => {
             const queries: number = parseInt(await this.cache.get(prefix + key), 10);
-            if (Number.isNaN(queries)) {
-                await this.cache.set(prefix + key, '1');
-                await this.cache.expire(prefix + key, parseInt(key, 10));
-            } else {
-                await this.cache.incr(prefix + key);
-            }
+            await this.cache.incr(prefix + key);
+            if (Number.isNaN(queries) || queries === 0) await this.cache.expire(prefix + key, parseInt(key, 10));
         });
     }
 }

@@ -38,13 +38,9 @@ app.get('/update', async (request, response) => {
 
     try {
         let summonerData: SummonerInterface;
-        if (queryLimit !== null) {
-            summonerData = await Sightstone.summoner.fetch.byName(server, username, queryLimit).run();
-        } else {
-            summonerData = await Sightstone.summoner.fetch.byName(server, username).run();
-        }
+        if (queryLimit !== null) summonerData = await Sightstone.summoner.fetch.byName(server, username, queryLimit).run();
+        else summonerData = await Sightstone.summoner.fetch.byName(server, username).run();
         Sightstone.summoner.upsert(summonerData).run();
-
         // Update matches into database as well
         async.eachSeries(summonerData.matchlist.matches, async (match, callback) => {
             const matchData = await Sightstone.match.fetch.byMatchId(match.platformId, match.gameId).run();
@@ -83,6 +79,18 @@ app.get('/mastery/ranking', async (request, response) => {
                     responseValue[ls].time = item.lastPlayTime;
                 }
             });
+        });
+        response.status(200).json(responseValue);
+    } catch (e) {
+        response.sendStatus(500);
+    }
+});
+
+app.get('/mastery/leaderboard', async (request, response) => {
+    try {
+        const responseValue: any = {};
+        Object.keys(globalLeaderboard).forEach((key: string) => {
+            responseValue[key] = globalLeaderboard[key].slice(0, 100);
         });
         response.status(200).json(responseValue);
     } catch (e) {

@@ -37,11 +37,8 @@ app.get('/v2/summoner/update', async (request, response) => {
 
     try {
         let summonerData: SummonerInterface;
-        if (queryLimit !== null) {
-            summonerData = await Sightstone.summoner.fetch.byName(server, username, queryLimit).run();
-        } else {
-            summonerData = await Sightstone.summoner.fetch.byName(server, username).run();
-        }
+        if (queryLimit !== null) summonerData = await Sightstone.summoner.fetch.byName(server, username, queryLimit).run();
+        else summonerData = await Sightstone.summoner.fetch.byName(server, username).run();
         Sightstone.summoner.upsert(summonerData).run();
 
         // Update matches into database as well
