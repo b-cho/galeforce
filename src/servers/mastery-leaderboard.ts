@@ -9,7 +9,7 @@ import cors from 'cors';
 import minimist from 'minimist';
 import process from 'process';
 import XRegExp from 'xregexp';
-import async from 'async';
+import async, { mapValues } from 'async';
 import Bluebird from 'bluebird';
 import SightstoneModule, { getConfig } from '../sightstone';
 import ConfigInterface from '../sightstone/interfaces/config';
@@ -102,10 +102,10 @@ async function updateGlobalLeaderboard(): Promise<void> {
     console.log('[server] [global-leaderboard]: Updating global leaderboard...');
     let champData: any = Sightstone.internal.json.champion() as any;
     champData = Object.values(champData.data);
-    await Bluebird.promisify(async.eachLimit)(champData, 5, async (val: any, callback: Function) => {
-        console.log('[server] [global-leaderboard]: Updating', val.name, '(', val.key, ')', '...');
-        globalLeaderboard[val.name] = await Sightstone.analysis.mastery.getLeaderboard(parseInt(val.key, 10)).run();
-        callback();
+    const MLB: object[] = await Sightstone.analysis.mastery.getLeaderboard(champData.map((a: any) => parseInt(a.key, 10))).run();
+
+    champData.map((a: any) => a.name).forEach((name: string, index: number) => {
+        globalLeaderboard[name] = MLB[index];
     });
     console.log('[server] [global-leaderboard]: Finished updating all champions. Setting timer for recalculation.');
     setTimeout(updateGlobalLeaderboard, 60 * 1000); // Update once per minute

@@ -30,38 +30,42 @@ interface FilteredArrayInterface {
 }
 
 class GetMasteryLeaderboard extends Action {
-    private id: number;
+    private ids: number[];
 
-    constructor(SubmoduleMap: SubmoduleMapInterface, id: number) {
+    constructor(SubmoduleMap: SubmoduleMapInterface, ids: number[]) {
         super(SubmoduleMap);
-        this.id = id;
+        this.ids = ids;
     }
 
-    public async run(): Promise<object[]> {
-        const query: object = { mastery: { $elemMatch: { championId: this.id } } };
+    public async run(): Promise<FilteredArrayInterface[][]> {
+        const query: object = { mastery: { $elemMatch: { championId: { $in: this.ids } } } };
         const projection: string[] = ['summoner.server', 'summoner.name', 'mastery.championPoints', 'mastery.championId', 'mastery.championLevel', 'mastery.lastPlayTime'];
         const filteredData: LimitedSummonerData[] = await this.database.filterSummoner(query, projection);
         // Restructure filteredData to allow for efficient sorting.
-        const filteredArray: FilteredArrayInterface[] = [];
-        filteredData.forEach((summonerData: LimitedSummonerData) => {
-            const LMDElem: LimitedMasteryData | undefined = summonerData.mastery.find((elem: LimitedMasteryData) => elem.championId === this.id);
-            if (typeof LMDElem !== 'undefined') {
-                const masteryPoints: number = LMDElem.championPoints;
-                const masteryLevel: number = LMDElem.championLevel;
-                const lastPlayTime: number = LMDElem.lastPlayTime;
+        const combinedFilteredArray: FilteredArrayInterface[][] = [];
+        this.ids.forEach((id) => {
+            const filteredArray: FilteredArrayInterface[] = [];
+            filteredData.forEach((summonerData: LimitedSummonerData) => {
+                const LMDElem: LimitedMasteryData | undefined = summonerData.mastery.find((elem: LimitedMasteryData) => elem.championId === id);
+                if (typeof LMDElem !== 'undefined') {
+                    const masteryPoints: number = LMDElem.championPoints;
+                    const masteryLevel: number = LMDElem.championLevel;
+                    const lastPlayTime: number = LMDElem.lastPlayTime;
 
-                filteredArray.push({
-                    name: summonerData.summoner.name,
-                    server: summonerData.summoner.server,
-                    masteryPoints,
-                    masteryLevel,
-                    lastPlayTime,
-                });
-            }
+                    filteredArray.push({
+                        name: summonerData.summoner.name,
+                        server: summonerData.summoner.server,
+                        masteryPoints,
+                        masteryLevel,
+                        lastPlayTime,
+                    });
+                }
+            });
+
+            filteredArray.sort((a: FilteredArrayInterface, b: FilteredArrayInterface) => Math.sign(b.masteryPoints - a.masteryPoints)); // Reverse order
+            combinedFilteredArray.push(filteredArray);
         });
-
-        filteredArray.sort((a: FilteredArrayInterface, b: FilteredArrayInterface) => Math.sign(b.masteryPoints - a.masteryPoints)); // Reverse order
-        return filteredArray;
+        return combinedFilteredArray;
     }
 }
 

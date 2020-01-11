@@ -103,7 +103,7 @@ app.get('/v2/mastery-leaderboard/', async (request, response) => {
     }
 
     try {
-        const masteryLeaderboard: object[] = await Sightstone.analysis.mastery.getLeaderboard(id).run();
+        const masteryLeaderboard: object[] = await Sightstone.analysis.mastery.getLeaderboard([id]).run();
         response.status(200).json(masteryLeaderboard);
     } catch (e) {
         response.sendStatus(500);

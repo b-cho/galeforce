@@ -48,7 +48,7 @@ interface SightstoneThirdPartyInterface {
 
 interface SightstoneAnalysisInterface {
     mastery: {
-        getLeaderboard: (champion: number) => GetMasteryLeaderboard;
+        getLeaderboard: (id: number[]) => GetMasteryLeaderboard;
     };
 }
 
@@ -121,7 +121,7 @@ class Sightstone {
 
     public analysis: SightstoneAnalysisInterface = {
         mastery: {
-            getLeaderboard: (id: number): GetMasteryLeaderboard => new GetMasteryLeaderboard(this.SubmoduleMap, id),
+            getLeaderboard: (id: number[]): GetMasteryLeaderboard => new GetMasteryLeaderboard(this.SubmoduleMap, id),
         },
     }
 
