@@ -9,8 +9,7 @@ import cors from 'cors';
 import minimist from 'minimist';
 import process from 'process';
 import XRegExp from 'xregexp';
-import async, { mapValues } from 'async';
-import Bluebird from 'bluebird';
+import async from 'async';
 import SightstoneModule, { getConfig } from '../sightstone';
 import ConfigInterface from '../sightstone/interfaces/config';
 import SummonerInterface from '../sightstone/interfaces/summoner';
@@ -42,13 +41,14 @@ app.get('/update', async (request, response) => {
         else summonerData = await Sightstone.summoner.fetch.byName(server, username).run();
         Sightstone.summoner.upsert(summonerData).run();
         // Update matches into database as well
-        async.eachSeries(summonerData.matchlist.matches, async (match, callback) => {
+        async.each(summonerData.matchlist.matches, async (match, callback) => {
             const matchData = await Sightstone.match.fetch.byMatchId(match.platformId, match.gameId).run();
             Sightstone.match.upsert(matchData).run();
             callback(null);
         });
         response.sendStatus(200);
     } catch (e) {
+        console.log('Update failed with error', e);
         response.sendStatus(500);
     }
 });

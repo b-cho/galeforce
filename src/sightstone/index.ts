@@ -1,4 +1,4 @@
-import RiotAPIModule from '../riot-api';
+import RiotAPIModule, { ENDPOINTS, REGIONS } from '../riot-api';
 import getConfig from './configs/default';
 import ConfigInterface from './interfaces/config';
 import DatabaseInternal from './databases/database';
@@ -134,5 +134,5 @@ class Sightstone {
     }
 }
 
-export { getConfig };
+export { getConfig, ENDPOINTS, REGIONS };
 export default Sightstone;

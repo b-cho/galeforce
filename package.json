@@ -18,11 +18,11 @@
     "redis": "^2.8.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.5",
-    "typescript": "^3.7.4",
     "xregexp": "^4.2.4",
     "yaml": "^1.7.2"
   },
   "devDependencies": {
+    "typescript": "^3.7.4",
     "@types/async": "^3.0.3",
     "@types/bluebird": "^3.5.29",
     "@types/cors": "^2.8.6",
