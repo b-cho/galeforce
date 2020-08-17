@@ -3,6 +3,17 @@
     for relevant databases.
 */
 
+interface SummonerSummonerInterface {
+    id: string;
+    accountId: string;
+    puuid: string; // We assert that the puuid element exists and has type string.
+    name: string;
+    profileIconId: number;
+    revisionDate: number;
+    summonerLevel: number;
+    server: string;
+}
+
 interface SummonerLeagueInterface {
     leagueId: string;
     queueType: string;
@@ -43,16 +54,7 @@ interface SummonerMatchInterface {
 }
 
 interface SummonerInterface {
-    summoner: {
-        id: string;
-        accountId: string;
-        puuid: string; // We assert that the puuid element exists and has type string.
-        name: string;
-        profileIconId: number;
-        revisionDate: number;
-        summonerLevel: number;
-        server: string;
-    };
+    summoner: SummonerSummonerInterface;
     league: SummonerLeagueInterface[];
     mastery: SummonerMasteryInterface[];
     matchlist: {

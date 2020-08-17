@@ -6,6 +6,7 @@
 
 import Bluebird from 'bluebird';
 import rp from 'request-promise';
+import axios from 'axios';
 
 abstract class Request {
     protected targetURL: string;
@@ -43,13 +44,9 @@ abstract class Request {
      * @return {Promise} Return JSON data as a promise (due to delayed request completion).
      */
     public get(): Bluebird<object> {
-        const options = {
-            url: encodeURI(this.targetURL),
+        return Bluebird.resolve(axios.get(encodeURI(this.targetURL), {
             headers: this.headers,
-            json: true,
-        };
-
-        return rp(options).promise();
+        }));
     }
 }
 

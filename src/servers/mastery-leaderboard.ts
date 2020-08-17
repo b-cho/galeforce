@@ -26,12 +26,12 @@ app.use(helmet());
 app.use(cors());
 
 app.get('/update', async (request, response) => {
-    const server: string | null = request.query.server;
-    const username: string | null = request.query.username;
+    const server: string | undefined = request.query.server?.toString();
+    const username: string | undefined = request.query.username?.toString();
     const queryLimit: number | null = config['riot-api'].query;
 
     // Input checks
-    if (server === null || username === null || !(config['riot-api'].servers.includes(server)) || !(XRegExp('^[0-9\\p{L} _\\.]+$').test(username))) {
+    if (server === undefined || username === undefined || !(config['riot-api'].servers.includes(server)) || !(XRegExp('^[0-9\\p{L} _\\.]+$').test(username))) {
         return response.sendStatus(400); // handle bad input data
     }
 
@@ -55,10 +55,10 @@ app.get('/update', async (request, response) => {
 
 app.get('/mastery/ranking', async (request, response) => {
     try {
-        const username: string = request.query.username;
-        const server: string = request.query.server;
+        const username: string | undefined = request.query.username?.toString();
+        const server: string | undefined = request.query.server?.toString();
 
-        if (server === null || username === null || !(config['riot-api'].servers.includes(server)) || !(XRegExp('^[0-9\\p{L} _\\.]+$').test(username))) {
+        if (server === undefined || username === undefined || !(config['riot-api'].servers.includes(server)) || !(XRegExp('^[0-9\\p{L} _\\.]+$').test(username))) {
             return response.sendStatus(400); // handle bad input data
         }
 

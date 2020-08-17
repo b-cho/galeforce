@@ -26,12 +26,12 @@ app.use(helmet());
 app.use(cors());
 
 app.get('/v2/summoner/update', async (request, response) => {
-    const server: string | null = request.query.server;
-    const username: string | null = request.query.username;
+    const server: string | undefined = request.query.server?.toString();
+    const username: string | undefined = request.query.username?.toString();
     const queryLimit: number | null = config['riot-api'].query;
 
     // Input checks
-    if (server === null || username === null || !(config['riot-api'].servers.includes(server)) || !(XRegExp('^[0-9\\p{L} _\\.]+$').test(username))) {
+    if (server === undefined || username === undefined || !(config['riot-api'].servers.includes(server)) || !(XRegExp('^[0-9\\p{L} _\\.]+$').test(username))) {
         return response.sendStatus(400); // handle bad input data
     }
 
@@ -54,11 +54,11 @@ app.get('/v2/summoner/update', async (request, response) => {
 });
 
 app.get('/v2/summoner/get', async (request, response) => {
-    const server: string | null = request.query.server;
-    const username: string | null = request.query.username;
+    const server: string | undefined = request.query.server?.toString();
+    const username: string | undefined = request.query.username?.toString();
 
     // Input checks
-    if (server === null || username === null || !(config['riot-api'].servers.includes(server)) || !(XRegExp('^[0-9\\p{L} _\\.]+$').test(username))) {
+    if (server === undefined || username === undefined || !(config['riot-api'].servers.includes(server)) || !(XRegExp('^[0-9\\p{L} _\\.]+$').test(username))) {
         // handle bad input data
         return response.sendStatus(400);
     }
@@ -75,11 +75,11 @@ app.get('/v2/summoner/get', async (request, response) => {
 });
 
 app.get('/v2/match/get', async (request, response) => {
-    const server: string | null = request.query.server;
-    const id: string | null = request.query.id;
+    const server: string | undefined = request.query.server?.toString();
+    const id: string | undefined = request.query.id?.toString();
 
     // Input checks
-    if (server === null || id === null || !(config['riot-api'].servers.includes(server)) || !(XRegExp('^[0-9]+$').test(id))) {
+    if (server === undefined || id === undefined || !(config['riot-api'].servers.includes(server)) || !(XRegExp('^[0-9]+$').test(id))) {
         // handle bad input data
         return response.sendStatus(400);
     }
@@ -96,7 +96,7 @@ app.get('/v2/match/get', async (request, response) => {
 });
 
 app.get('/v2/mastery-leaderboard/', async (request, response) => {
-    const id: number | null = request.query.name ? await Sightstone.internal.championToId(request.query.name).run() : parseInt(request.query.id, 10);
+    const id: number | null = request.query.name ? await Sightstone.internal.championToId(request.query.name.toString()).run() : parseInt(request.query.id?.toString() || "", 10);
 
     if (id === null || id === 0 || Number.isNaN(id)) {
         return response.sendStatus(400);

@@ -23,11 +23,11 @@ class FetchMatchByID extends Action {
         try {
             await this.waitForRateLimit();
             await this.incrementRateLimit();
-            const matchData: object = await this.RiotAPI.request(ENDPOINTS.MATCH.MATCH.MATCH_ID, { server: this.server, 'match-id': this.matchId }).get();
+            const { data: matchData }: any = await this.RiotAPI.request(ENDPOINTS.MATCH.MATCH.MATCH_ID, { server: this.server, 'match-id': this.matchId }).get();
 
             await this.waitForRateLimit();
             await this.incrementRateLimit();
-            const timelineData: object = await this.RiotAPI.request(ENDPOINTS.MATCH.TIMELINE.MATCH_ID, { server: this.server, 'match-id': this.matchId }).get();
+            const { data: timelineData }: any = await this.RiotAPI.request(ENDPOINTS.MATCH.TIMELINE.MATCH_ID, { server: this.server, 'match-id': this.matchId }).get();
 
             return { ...matchData, timeline: timelineData } as MatchInterface;
         } catch (e) {
