@@ -25,7 +25,7 @@ class RiotAPIInternal {
     public async init(): Promise<void> {
         const championRequest: DataDragonRequest = new DataDragonRequest(DataDragonEndpoints.CHAMPION, this.version);
 
-        this.championData = await championRequest.get();
+        this.championData = (await championRequest.get() as any).data;
     }
 
     /**

@@ -2,7 +2,7 @@ system:
   port: ${PORT} # (integer) What port to run the server on
 riot-api:
   key: ${RIOT_KEY} # (string) Your Riot API key from https://developer.riotgames.com
-  ddversion: '9.24.2' # (string) The Data Dragon version used by Sightstone
+  ddversion: '${PATCH}' # (string) The Data Dragon version used by Sightstone
   query: 5 # (integer) Number of games to return from the Riot API
   servers: ["br1", "eun1", "euw1", "jp1", "kr", "la1", "la2", "na1", "oc1", "tr1", "ru"] # ([...string]) A list of valid Riot servers
 database:

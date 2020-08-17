@@ -13,7 +13,6 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-<<<<<<< HEAD
     "helmet": "^4.1.0",
     "minimist": "^1.2.5",
     "mongoose": "^5.10.0",
@@ -21,17 +20,6 @@
     "redis": "^3.0.2",
     "xregexp": "^4.3.0",
     "yaml": "^1.10.0"
-=======
-    "helmet": "^3.21.2",
-    "minimist": "^1.2.3",
-    "mongoose": "^5.8.5",
-    "node": "^13.5.0",
-    "redis": "^2.8.0",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.5",
-    "xregexp": "^4.2.4",
-    "yaml": "^1.7.2"
->>>>>>> a97620b080b2fcf2677172c8c2bf758d45bb6c3e
   },
   "devDependencies": {
     "@types/async": "^3.2.3",
