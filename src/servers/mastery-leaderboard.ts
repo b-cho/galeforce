@@ -53,6 +53,27 @@ app.get('/update', async (request, response) => {
     }
 });
 
+app.get('/mastery/distribution', async (request, response) => {
+    try {
+        let responseValue: any = {};
+
+        Object.keys(globalLeaderboard).forEach((champion: string) => {
+            const masteryPoints: number[] = globalLeaderboard[champion].map((item: any) => item.masteryPoints);
+            const binSize: number = 25000;
+            let masteryHistogram = new Array(1000000/binSize + 1).fill(0);
+
+            masteryPoints.forEach((value: number) => {
+                masteryHistogram[Math.min(Math.floor(value/binSize), 200)] += 1;
+            })
+            responseValue[champion] = masteryHistogram;
+        });
+
+        response.status(200).json(responseValue);
+    } catch (e) {
+        response.sendStatus(500);
+    }
+});
+
 app.get('/mastery/ranking', async (request, response) => {
     try {
         const username: string | undefined = request.query.username?.toString();
