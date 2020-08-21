@@ -65,7 +65,7 @@ app.get('/v2/summoner/get', async (request, response) => {
 
     try {
         const summonerData: SummonerInterface[] = await Sightstone.summoner.filter({
-            'summoner.name': username,
+            'summoner.name': new RegExp(username.split("").join("\\s*"), 'iu'),
             'summoner.server': server,
         }).run();
         response.status(200).json(summonerData);
