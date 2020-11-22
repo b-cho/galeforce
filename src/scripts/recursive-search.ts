@@ -22,8 +22,8 @@ async function update(server: string, username: string) {
 
 Sightstone.init().then(async () => {
     console.log(config);
-    let visited: any = ['PanderPower'];
-    let nextArray: any = await update('na1', 'PanderPower');
+    let visited: any = ['SSG Xayah'];
+    let nextArray: any = await update('na1', 'SSG Xayah');
     while (true) {
         let next = nextArray.shift();
         if(!visited.includes(next)) {

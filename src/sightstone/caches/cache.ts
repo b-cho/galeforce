@@ -17,15 +17,15 @@ abstract class Cache {
         this.RLConfig = RLConfig;
     }
 
-    public abstract async get(key: string): Promise<string>;
+    public abstract get(key: string): Promise<string>;
 
-    public abstract async set(key: string, value: string): Promise<void>;
+    public abstract set(key: string, value: string): Promise<void>;
 
-    public abstract async incr(key: string): Promise<void>;
+    public abstract incr(key: string): Promise<void>;
 
-    public abstract async expire(key: string, ttl: number): Promise<void>;
+    public abstract expire(key: string, ttl: number): Promise<void>;
 
-    public abstract async flush(): Promise<void>;
+    public abstract flush(): Promise<void>;
 }
 
 export { RateLimitConfig };

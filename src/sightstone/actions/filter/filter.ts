@@ -21,7 +21,7 @@ abstract class FilterAction extends Action {
         this.projection = projection;
     }
 
-    public abstract async run(): Promise<MatchInterface[] | SummonerInterface[]>;
+    public abstract run(): Promise<MatchInterface[] | SummonerInterface[]>;
 }
 
 export default FilterAction;

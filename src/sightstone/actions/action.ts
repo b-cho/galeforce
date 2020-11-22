@@ -3,8 +3,6 @@
     inherit from.
 */
 
-import async from 'async';
-import Bluebird from 'bluebird';
 import RiotAPIModule from '../../riot-api';
 import DatabaseInternal from '../databases/database';
 import Cache from '../caches/cache';
@@ -23,15 +21,15 @@ abstract class Action {
         this.cache = SubmoduleMap.cache;
     }
 
-    public abstract async run(): Promise<any>;
+    public abstract run(): Promise<any>;
 
     protected async checkRateLimit(): Promise<boolean> {
         const prefix: string = this.cache.RLConfig.prefix;
 
-        const underLimit: boolean = await Bluebird.promisify(async.every)(Object.entries(this.cache.RLConfig.intervals), async ([key, limit], callback) => {
+        const underLimit: boolean = Object.entries(this.cache.RLConfig.intervals).every(async ([key, limit]: [string, number]) => {
             let queries: number = parseInt(await this.cache.get(prefix + key), 10);
             if (Number.isNaN(queries)) queries = 0; // If key doesn't exist then 0 queries have been executed within the given interval.
-            callback(null, queries < limit);
+            return queries < limit;
         });
 
         return underLimit;

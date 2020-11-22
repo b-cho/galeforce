@@ -42,7 +42,8 @@ class FetchMatchByID extends Action {
             } else {
                 console.error(`[sightstone]: Summoner data fetch failed with error ${e.name}`);
             }
-            throw e;
+            // throw e;
+            throw ReferenceError;
         }
     }
 }
