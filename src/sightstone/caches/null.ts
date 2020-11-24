@@ -8,7 +8,6 @@
     raise errors when it is actually needed for operations.
 */
 
-import Bluebird from 'bluebird';
 import Cache from './cache';
 
 class NullCache extends Cache {
@@ -16,15 +15,15 @@ class NullCache extends Cache {
         super({ prefix: '', intervals: [] });
     }
 
-    public async get(key: string): Bluebird<string> {
+    public async get(key: string): Promise<string> {
         return '';
     }
 
-    public async set(key: string, value: string | object): Bluebird<void> {}
+    public async set(key: string, value: string | object): Promise<void> {}
 
-    public async incr(key: string): Bluebird<void> {}
+    public async incr(key: string): Promise<void> {}
 
-    public async expire(key: string, ttl: number): Bluebird<void> {}
+    public async expire(key: string, ttl: number): Promise<void> {}
 
     public async flush(): Promise<void> {}
 }

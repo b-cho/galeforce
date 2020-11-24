@@ -32,27 +32,27 @@ class FetchSummonerByName extends Action {
             const { data: summonerData }: any = await this.RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { server: this.server, 'summoner-name': this.username }).get();
 
             const otherData: any = await Bluebird.promisify(async.series)({
-                league: async (callback: Function) => {
+                league: async () => {
                     await this.waitForRateLimit();
                     await this.incrementRateLimit();
                     const { data: matchData }: any = await this.RiotAPI.request(ENDPOINTS.LEAGUE.SUMMONER_ID, { server: this.server, 'summoner-id': summonerData.id }).get();
-                    return callback(null, matchData);
+                    return matchData;
                 },
-                mastery: async (callback: Function) => {
+                mastery: async () => {
                     await this.waitForRateLimit();
                     await this.incrementRateLimit();
                     const { data: masteryData }: any = await this.RiotAPI.request(ENDPOINTS.CHAMPION_MASTERY.SUMMONER_ID.LIST, { server: this.server, 'summoner-id': summonerData.id }).get();
-                    return callback(null, masteryData);
+                    return masteryData;
                 },
-                matchlist: async (callback: Function) => {
+                matchlist: async () => {
                     await this.waitForRateLimit();
                     await this.incrementRateLimit();
                     if (typeof this.endIndex === 'number') {
                         const { data: matchlistData }: any = await this.RiotAPI.request(ENDPOINTS.MATCH.MATCHLIST.ACCOUNT_ID_INDEX, { server: this.server, 'account-id': summonerData.accountId, 'end-index': this.endIndex }).get();
-                        return callback(null, matchlistData);
+                        return matchlistData;
                     } else {
                         const { data: matchlistData }: any = await this.RiotAPI.request(ENDPOINTS.MATCH.MATCHLIST.ACCOUNT_ID, { server: this.server, 'account-id': summonerData.accountId }).get();
-                        return callback(null, matchlistData);
+                        return matchlistData;
                     }
                 },
             });
@@ -71,7 +71,7 @@ class FetchSummonerByName extends Action {
             } else {
                 console.error(`[sightstone]: Summoner data fetch failed with error ${e.name}`);
             }
-            // throw e;
+
             throw ReferenceError;
         }
     }

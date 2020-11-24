@@ -10,9 +10,11 @@ import minimist from 'minimist';
 import process from 'process';
 import XRegExp from 'xregexp';
 import async from 'async';
+import _ from 'lodash';
 import SightstoneModule, { getConfig } from '../sightstone';
 import ConfigInterface from '../sightstone/interfaces/config';
 import SummonerInterface from '../sightstone/interfaces/summoner';
+import MatchInterface from '../sightstone/interfaces/match';
 
 const argv = minimist(process.argv.slice(2));
 const config: ConfigInterface = getConfig(argv.config);
@@ -41,10 +43,9 @@ app.get('/update', async (request, response) => {
         else summonerData = await Sightstone.summoner.fetch.byName(server, username).run();
         await Sightstone.summoner.upsert(summonerData).run();
         // Update matches into database as well
-        await async.each(summonerData.matchlist.matches, async (match, callback) => {
+        await async.each(summonerData.matchlist.matches, async (match) => {
             const matchData = await Sightstone.match.fetch.byMatchId(match.platformId, match.gameId).run();
             await Sightstone.match.upsert(matchData).run();
-            callback(null);
         });
         response.sendStatus(200);
     } catch (e) {
@@ -148,8 +149,53 @@ app.get('/mastery/leaderboard', async (request, response) => {
     }
 });
 
+app.get('/social/frequent', async (request, response) => {
+    const server: string | undefined = request.query.server?.toString();
+    const username: string | undefined = request.query.username?.toString();
+
+    if (server === undefined || username === undefined || !(config['riot-api'].servers.includes(server)) || !(XRegExp('^[0-9\\p{L} _\\.]+$').test(username))) {
+        return response.sendStatus(400); // handle bad input data
+    }
+
+    const summonerData: SummonerInterface[] = await Sightstone.summoner.filter({
+        'summoner.name': new RegExp(username.split("").join("\\s*"), 'iu'),
+        'summoner.server': server,
+    }).run();
+
+    const matchData: MatchInterface[] = await Sightstone.match.filter({
+        'participantIdentities.player.accountId': summonerData[0].summoner.accountId,
+    }).run();
+
+    const participantByMatch: any[] = matchData.map((match: MatchInterface) => {
+        return match.participantIdentities;
+    }).flat().map((participant: any) => {
+        return participant.player.summonerName;
+    });
+
+    const frequencies: object = _.countBy(participantByMatch);
+
+    const frequents: string[] = Object.keys(_.pickBy(frequencies, (value: number) => {
+        return value > 1;
+    }));
+
+    response.status(200).json({
+        nodes: frequents.map((key: string) => {
+            return {
+                "id": key,
+                "server": summonerData[0].summoner.server,
+            }
+        }),
+        links: frequents.map((key: string) => {
+            return {
+                "source": summonerData[0].summoner.name,
+                "target": key
+            }
+        }),
+    });
+});
+
 async function updateGlobalLeaderboard(): Promise<void> {
-    console.log('[server] [global-leaderboard]: Updating global leaderboard...');
+    console.log(`[${new Date().toLocaleString()}] [server] [global-leaderboard]: Updating global leaderboard...`);
     let champData: any = Sightstone.internal.json.champion() as any;
     champData = Object.values(champData.data);
     const MLB: any = await Sightstone.analysis.mastery.getLeaderboard(champData.map((a: any) => parseInt(a.key, 10))).run();
@@ -162,7 +208,7 @@ async function updateGlobalLeaderboard(): Promise<void> {
         });
     });
 
-    console.log('[server] [global-leaderboard]: Finished updating all champions. Setting timer for recalculation.');
+    console.log(`[${new Date().toLocaleString()}] [server] [global-leaderboard]: Finished updating all champions. Setting timer for recalculation.`);
     setTimeout(updateGlobalLeaderboard, 20 * 1000); // Update once per 20 seconds
 }
 

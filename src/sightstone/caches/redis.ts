@@ -28,11 +28,11 @@ class RedisCache extends Cache {
         this.client = redis.createClient(uri);
     }
 
-    public async get(key: string): Bluebird<string> {
+    public async get(key: string): Promise<string> {
         return this.client.getAsync(key);
     }
 
-    public async set(key: string, value: string | object): Bluebird<void> {
+    public async set(key: string, value: string | object): Promise<void> {
         let setValue: string;
         if (typeof value === 'object') setValue = JSON.stringify(value);
         else setValue = value;
@@ -40,11 +40,11 @@ class RedisCache extends Cache {
         await this.client.setAsync(key, setValue);
     }
 
-    public async incr(key: string): Bluebird<void> {
+    public async incr(key: string): Promise<void> {
         await this.client.incrAsync(key);
     }
 
-    public async expire(key: string, ttl: number): Bluebird<void> {
+    public async expire(key: string, ttl: number): Promise<void> {
         await this.client.expireAsync(key, ttl);
     }
 

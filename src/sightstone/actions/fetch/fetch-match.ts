@@ -32,7 +32,7 @@ class FetchMatchByID extends Action {
             return { ...matchData, timeline: timelineData } as MatchInterface;
         } catch (e) {
             if (e.name === 'StatusCodeError') {
-                console.error(`[sightstone]: Summoner data fetch failed with status code ${e.statusCode}`);
+                console.error(`[sightstone]: Match data fetch failed with status code ${e.statusCode}`);
                 if (e.statusCode === 403) {
                     throw new Error(`
                         [sightstone]: The provided Riot API key is invalid
@@ -40,9 +40,9 @@ class FetchMatchByID extends Action {
                     `);
                 }
             } else {
-                console.error(`[sightstone]: Summoner data fetch failed with error ${e.name}`);
+                console.error(`[sightstone]: Match data fetch failed with error ${e.name}`);
             }
-            // throw e;
+
             throw ReferenceError;
         }
     }
