@@ -69,10 +69,10 @@ class FetchSummonerByName extends Action {
                     `);
                 }
             } else {
-                console.error(`[sightstone]: Summoner data fetch failed with error ${e.name}`);
+                console.error(`[sightstone]: Summoner data fetch failed with error ${e}`);
             }
 
-            throw ReferenceError;
+            throw e;
         }
     }
 }

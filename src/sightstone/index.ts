@@ -21,6 +21,7 @@ import Cache from './caches/cache';
 import RedisCache from './caches/redis';
 import SubmoduleMapInterface from './interfaces/submodule-map';
 import NullCache from './caches/null';
+import GetRankedLeaderboard from './actions/analysis/ranked/get-leaderboard';
 
 interface SightstoneSummonerInterface {
     fetch: {
@@ -50,6 +51,9 @@ interface SightstoneAnalysisInterface {
     mastery: {
         getLeaderboard: (id: number[]) => GetMasteryLeaderboard;
     };
+    ranked: {
+        getLeaderboard: (queueTypes: string[]) => GetRankedLeaderboard;
+    }
 }
 
 interface SightstoneInternalInterface {
@@ -57,6 +61,7 @@ interface SightstoneInternalInterface {
     idToChampion: (id: number) => IdToChampion;
     json: {
         champion: () => object;
+        
     };
 }
 
@@ -123,6 +128,9 @@ class Sightstone {
         mastery: {
             getLeaderboard: (id: number[]): GetMasteryLeaderboard => new GetMasteryLeaderboard(this.SubmoduleMap, id),
         },
+        ranked: {
+            getLeaderboard: (queueTypes: string[]): GetRankedLeaderboard => new GetRankedLeaderboard(this.SubmoduleMap, queueTypes),
+        }
     }
 
     public internal: SightstoneInternalInterface = {

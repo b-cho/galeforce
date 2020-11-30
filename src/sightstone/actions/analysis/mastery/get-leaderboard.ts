@@ -24,6 +24,7 @@ interface LimitedSummonerData {
 interface FilteredArrayInterface {
     name: string;
     server: string;
+    champion: number;
     masteryPoints: number;
     masteryLevel: number;
     lastPlayTime: number;
@@ -48,6 +49,7 @@ class GetMasteryLeaderboard extends Action {
             filteredData.forEach((summonerData: LimitedSummonerData) => {
                 const LMDElem: LimitedMasteryData | undefined = summonerData.mastery.find((elem: LimitedMasteryData) => elem.championId === id);
                 if (typeof LMDElem !== 'undefined') {
+                    const champion: number = LMDElem.championId;
                     const masteryPoints: number = LMDElem.championPoints;
                     const masteryLevel: number = LMDElem.championLevel;
                     const lastPlayTime: number = LMDElem.lastPlayTime;
@@ -55,6 +57,7 @@ class GetMasteryLeaderboard extends Action {
                     filteredArray.push({
                         name: summonerData.summoner.name,
                         server: summonerData.summoner.server,
+                        champion,
                         masteryPoints,
                         masteryLevel,
                         lastPlayTime,

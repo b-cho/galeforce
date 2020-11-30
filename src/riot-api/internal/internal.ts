@@ -17,7 +17,7 @@ class RiotAPIInternal {
     }
 
     /**
-     * Simply initializes the function by making relevant API calls and setting local variables.
+     * Initializes the function by making relevant API calls and setting local variables.
      *
      * @async
      * @public
