@@ -104,6 +104,71 @@ app.get('/mastery/distribution', async (request, response) => {
     }
 });
 
+function convertToLeaguePoints(tier: string, rank: string, leaguePoints: number) {
+    const tierToLeaguePoints: any = {
+        "IRON": 0,
+        "BRONZE": 400,
+        "SILVER": 800,
+        "GOLD": 1200,
+        "PLATINUM": 1600,
+        "DIAMOND": 2000,
+        "MASTER": 2400,
+        "GRANDMASTER": 2400,
+        "CHALLENGER": 2400,
+    };
+    
+    const rankToLeaguePoints: any = {
+        "IV": 0,
+        "III": 100,
+        "II": 200,
+        "I": 300,
+    }
+
+    if(!["MASTER", "GRANDMASTER", "CHALLENGER"].includes(tier)) {
+        return tierToLeaguePoints[tier] + rankToLeaguePoints[rank] + leaguePoints;
+    } else {
+        return tierToLeaguePoints[tier] + leaguePoints;
+    }
+}
+
+app.get('/league/distribution', async (request, response) => {
+    try {
+        const server: string | undefined = request.query.server?.toString();
+
+        if (server === undefined || !(config['riot-api'].servers.includes(server))) {
+            // handle bad input data
+            return response.sendStatus(400);
+        }
+
+        let responseValue: any = {};
+        let binSize = 50;
+        let maxValue = 4500;
+
+        Object.keys(globalRankedLeaderboard).forEach((queueType: string) => {
+            const masteryPoints: number[] = globalRankedLeaderboard[queueType].filter((x: any) => x.server == server).map((item: any) => convertToLeaguePoints(item.tier, item.rank, item.leaguePoints));
+            let masteryHistogram = new Array(maxValue/binSize + 1).fill(0);
+
+            masteryPoints.forEach((value: number) => {
+                masteryHistogram[Math.min(Math.floor(value/binSize), masteryHistogram.length-1)] += 1;
+            });
+            let xAxis = Array.from(Array(maxValue/binSize + 1).keys()).map(x => binSize*x);
+
+            let data = xAxis.map((value, index) => {
+                return {
+                    x: value,
+                    y: masteryHistogram[index],
+                }
+            });
+
+            responseValue[queueType] = data;
+        });
+
+        response.status(200).json(responseValue);
+    } catch (e) {
+        response.sendStatus(500);
+    }
+});
+
 app.get('/mastery/ranking', async (request, response) => {
     try {
         const username: string | undefined = request.query.username?.toString().toLowerCase().replace(/\s/g, '');
@@ -154,6 +219,7 @@ app.get('/league/ranking', async (request, response) => {
                 tier: "",
                 rank: "",
                 leaguePoints: 0,
+                equivalentRank: 0,
             };
             globalRankedLeaderboard[ls].filter((x: any) => x.server == server).forEach((item: any, index: number) => {
                 if (item.lowerName === username && item.server === server) {
@@ -161,6 +227,7 @@ app.get('/league/ranking', async (request, response) => {
                     responseValue[ls].tier = item.tier;
                     responseValue[ls].rank = item.rank;
                     responseValue[ls].leaguePoints = item.leaguePoints;
+                    responseValue[ls].equivalentRank = convertToLeaguePoints(item.tier, item.rank, item.leaguePoints);
                 }
             });
         });
@@ -197,7 +264,8 @@ app.get('/social/frequent', async (request, response) => {
 
     const matchData: MatchInterface[] = await Sightstone.match.filter({
         'participantIdentities.player.accountId': summonerData[0].summoner.accountId,
-    }).run();
+        queueId: { $nin: [800, 810, 820, 830, 840, 850] }, // exclude bot games
+    }, ['participantIdentities.player.summonerName']).run();
 
     const participantByMatch: any[] = matchData.map((match: MatchInterface) => {
         return match.participantIdentities;
@@ -240,8 +308,9 @@ async function updateGlobalLeaderboards(): Promise<void> {
     console.log(`[${new Date().toLocaleString()}] [server] [global-leaderboard]: Updating global mastery leaderboards...`);
     let champData: any = Sightstone.internal.json.champion() as any;
     champData = Object.values(champData.data);
-    const MLB: any = await Sightstone.analysis.mastery.getLeaderboard(champData.map((a: any) => parseInt(a.key, 10))).run();
 
+    const MLB: any = await Sightstone.analysis.mastery.getLeaderboard(champData.map((a: any) => parseInt(a.key, 10))).run();
+    
     champData.map((a: any) => a.name).forEach((name: string, index: number) => {
         //console.log(MLB[index]);
         globalMasteryLeaderboard[name] = MLB[index].map((entry: any) => {
@@ -251,7 +320,7 @@ async function updateGlobalLeaderboards(): Promise<void> {
     });
 
     console.log(`[${new Date().toLocaleString()}] [server] [global-leaderboard]: Finished updating all leaderboards. Setting timer for recalculation.`);
-    setTimeout(updateGlobalLeaderboards, 20 * 1000); // Update once per 20 seconds
+    setTimeout(updateGlobalLeaderboards, 1 * 1000); // Wait 1 second to recalculate leaderboard.
 }
 
 Sightstone.init().then(async () => {
