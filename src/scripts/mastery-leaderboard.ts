@@ -265,15 +265,15 @@ app.get('/social/frequent', async (request, response) => {
     const matchData: MatchInterface[] = await Sightstone.match.filter({
         'participantIdentities.player.accountId': summonerData[0].summoner.accountId,
         queueId: { $nin: [800, 810, 820, 830, 840, 850] }, // exclude bot games
-    }, ['participantIdentities.player.summonerName']).run();
+    }, ['participantIdentities.player.summonerName', 'participantIdentities.player.accountId']).run();
 
     const participantByMatch: any[] = matchData.map((match: MatchInterface) => {
         return match.participantIdentities;
     }).flat().map((participant: any) => {
-        return participant.player.summonerName;
+        return participant.player;
     });
 
-    const frequencies: object = _.countBy(participantByMatch);
+    const frequencies: object = _.countBy(participantByMatch.map((player) => player.accountId));
 
     const frequents: string[] = Object.keys(_.pickBy(frequencies, (value: number) => {
         return value > 1;
@@ -282,14 +282,15 @@ app.get('/social/frequent', async (request, response) => {
     response.status(200).json({
         nodes: frequents.map((key: string) => {
             return {
-                "id": key,
-                "server": summonerData[0].summoner.server,
+                id: key,
+                name: participantByMatch.find((player) => player.accountId == key).summonerName,
+                server: summonerData[0].summoner.server,
             }
         }),
         links: frequents.map((key: string) => {
             return {
-                "source": summonerData[0].summoner.name,
-                "target": key
+                source: summonerData[0].summoner.accountId,
+                target: key,
             }
         }),
     });
