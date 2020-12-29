@@ -24,6 +24,7 @@ const app = express();
 
 const globalMasteryLeaderboard: any = {};
 const globalRankedLeaderboard: any = {};
+const updateHistory: any = {};
 
 app.use(helmet());
 app.use(cors());
@@ -38,6 +39,11 @@ app.get('/update', async (request, response) => {
         return response.sendStatus(400); // handle bad input data
     }
 
+    // Check if previously updated
+    if (Date.now() - (updateHistory[username + ' ' + server] || 0) < 15 * 60 * 1000) {
+        return response.status(200).json({timeLeft: 15 * 60 * 1000 - (Date.now() - (updateHistory[username + ' ' + server] || 0))}); // rate limiting updates
+    }
+
     try {
         let summonerData: SummonerInterface;
         if (queryLimit !== null) summonerData = await Sightstone.summoner.fetch.byName(server, username, queryLimit).run();
@@ -49,6 +55,7 @@ app.get('/update', async (request, response) => {
             await Sightstone.match.upsert(matchData).run();
         });
         response.sendStatus(200);
+        updateHistory[username + ' ' + server] = Date.now();
     } catch (e) {
         response.sendStatus(e.response?.status || 500);
     }
