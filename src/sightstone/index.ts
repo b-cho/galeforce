@@ -1,4 +1,4 @@
-import RiotAPIModule, { ENDPOINTS, REGIONS } from '../riot-api';
+import RiotAPIModule, { Region } from '../riot-api';
 import getConfig from './configs/default';
 import ConfigInterface from './interfaces/config';
 import DatabaseInternal from './databases/database';
@@ -53,7 +53,7 @@ interface SightstoneAnalysisInterface {
     };
     ranked: {
         getLeaderboard: (queueTypes: string[]) => GetRankedLeaderboard;
-    }
+    };
 }
 
 interface SightstoneInternalInterface {
@@ -61,12 +61,11 @@ interface SightstoneInternalInterface {
     idToChampion: (id: number) => IdToChampion;
     json: {
         champion: () => object;
-        
     };
 }
 
 class Sightstone {
-    private config: ConfigInterface;
+    readonly config: ConfigInterface;
 
     private SubmoduleMap: SubmoduleMapInterface;
 
@@ -130,7 +129,7 @@ class Sightstone {
         },
         ranked: {
             getLeaderboard: (queueTypes: string[]): GetRankedLeaderboard => new GetRankedLeaderboard(this.SubmoduleMap, queueTypes),
-        }
+        },
     }
 
     public internal: SightstoneInternalInterface = {
@@ -140,7 +139,8 @@ class Sightstone {
             champion: (): object => this.SubmoduleMap.RiotAPI.internal.championJSON(), // simply return the JSON (if loaded)
         },
     }
+
+    public regions: { [key: string]: string } = Region;
 }
 
-export { getConfig, ENDPOINTS, REGIONS };
 export default Sightstone;

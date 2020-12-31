@@ -32,23 +32,24 @@ interface FilteredArrayInterface {
 
 class GetRankedLeaderboard extends Action {
     private queueTypes: string[];
-    private tierToLeaguePoints: any = {
-        "IRON": 0,
-        "BRONZE": 400,
-        "SILVER": 800,
-        "GOLD": 1200,
-        "PLATINUM": 1600,
-        "DIAMOND": 2000,
-        "MASTER": 2400,
-        "GRANDMASTER": 2400,
-        "CHALLENGER": 2400,
+
+    private tierToLeaguePoints: { [key: string]: number } = {
+        IRON: 0,
+        BRONZE: 400,
+        SILVER: 800,
+        GOLD: 1200,
+        PLATINUM: 1600,
+        DIAMOND: 2000,
+        MASTER: 2400,
+        GRANDMASTER: 2400,
+        CHALLENGER: 2400,
     };
 
-    private rankToLeaguePoints: any = {
-        "IV": 0,
-        "III": 100,
-        "II": 200,
-        "I": 300,
+    private rankToLeaguePoints: { [key: string]: number } = {
+        IV: 0,
+        III: 100,
+        II: 200,
+        I: 300,
     }
 
     constructor(SubmoduleMap: SubmoduleMapInterface, queueTypes: string[]) {
@@ -56,12 +57,11 @@ class GetRankedLeaderboard extends Action {
         this.queueTypes = queueTypes;
     }
 
-    private convertToLeaguePoints(filteredArrayInterface: FilteredArrayInterface) {
-        if(!["MASTER", "GRANDMASTER", "CHALLENGER"].includes(filteredArrayInterface.tier)) {
+    private convertToLeaguePoints(filteredArrayInterface: FilteredArrayInterface): number {
+        if (!['MASTER', 'GRANDMASTER', 'CHALLENGER'].includes(filteredArrayInterface.tier)) {
             return this.tierToLeaguePoints[filteredArrayInterface.tier] + this.rankToLeaguePoints[filteredArrayInterface.rank] + filteredArrayInterface.leaguePoints;
-        } else {
-            return this.tierToLeaguePoints[filteredArrayInterface.tier] + filteredArrayInterface.leaguePoints;
         }
+        return this.tierToLeaguePoints[filteredArrayInterface.tier] + filteredArrayInterface.leaguePoints;
     }
 
     public async run(): Promise<FilteredArrayInterface[][]> {
@@ -75,10 +75,7 @@ class GetRankedLeaderboard extends Action {
             filteredData.forEach((summonerData: LimitedSummonerData) => {
                 const LMDElem: LimitedLeagueData | undefined = summonerData.league.find((elem: LimitedLeagueData) => elem.queueType === queueType);
                 if (typeof LMDElem !== 'undefined') {
-                    const queueType: string = LMDElem.queueType;
-                    const tier: string = LMDElem.tier;
-                    const rank: string = LMDElem.rank;
-                    const leaguePoints: number = LMDElem.leaguePoints;
+                    const { queueType, tier, rank, leaguePoints }: LimitedLeagueData = LMDElem;
 
                     filteredArray.push({
                         name: summonerData.summoner.name,
@@ -91,7 +88,7 @@ class GetRankedLeaderboard extends Action {
                 }
             });
 
-            filteredArray.sort((a: FilteredArrayInterface, b: FilteredArrayInterface) => Math.sign(this.convertToLeaguePoints(b)  - this.convertToLeaguePoints(a))); // Reverse order
+            filteredArray.sort((a: FilteredArrayInterface, b: FilteredArrayInterface) => Math.sign(this.convertToLeaguePoints(b) - this.convertToLeaguePoints(a))); // Reverse order
             combinedFilteredArray.push(filteredArray);
         });
         return combinedFilteredArray;

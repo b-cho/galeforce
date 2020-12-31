@@ -1,16 +1,13 @@
-system:
-  port: ${PORT} # (integer) What port to run the server on
 riot-api:
   key: ${RIOT_KEY} # (string) Your Riot API key from https://developer.riotgames.com
   ddversion: '${PATCH}' # (string) The Data Dragon version used by Sightstone
-  query: 5 # (integer) Number of games to return from the Riot API
-  servers: ["br1", "eun1", "euw1", "jp1", "kr", "la1", "la2", "na1", "oc1", "tr1", "ru"] # ([...string]) A list of valid Riot servers
+  query: ${QUERY_SIZE} # (integer) Number of games to return from the Riot API
 database:
-  type: ${DATABASE_TYPE} # What kind of database to use ('mongodb', etc.)
+  type: ${DATABASE_TYPE} # (string) What kind of database to use ('mongodb', etc.)
   uri: ${DATABASE_URI} # (string) Database URI connection string
 cache:
-  type: ${CACHE_TYPE} # What kind of cache to use ('redis', 'null', etc.)
-  uri: ${REDIS_URL} # The cache URI to connect to
+  type: ${CACHE_TYPE} # (string) What kind of cache to use ('redis', 'null', etc.)
+  uri: ${REDIS_URL} # (string) The cache URI to connect to
 rate-limit: # key <secs>: value <number of requests>. Requires a cache to be configured.
   prefix: riotapi-ratelimit- # The prefix for the Riot API rate limit keys in the cache.
   intervals:

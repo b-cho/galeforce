@@ -4,8 +4,6 @@
     that needs to be implemented by other methods to be effective.
 */
 
-import Bluebird from 'bluebird';
-import rp from 'request-promise';
 import axios from 'axios';
 
 abstract class Request {
@@ -43,10 +41,10 @@ abstract class Request {
      *
      * @return {Promise} Return JSON data as a promise (due to delayed request completion).
      */
-    public get(): Bluebird<object> {
-        return Bluebird.resolve(axios.get(encodeURI(this.targetURL), {
+    public get(): Promise<object> {
+        return axios.get(encodeURI(this.targetURL), {
             headers: this.headers,
-        }));
+        });
     }
 }
 

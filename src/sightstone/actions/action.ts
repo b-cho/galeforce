@@ -3,6 +3,7 @@
     inherit from.
 */
 
+import async from 'async';
 import RiotAPIModule from '../../riot-api';
 import DatabaseInternal from '../databases/database';
 import Cache from '../caches/cache';
@@ -26,17 +27,13 @@ abstract class Action {
     protected async checkRateLimit(): Promise<boolean> {
         const prefix: string = this.cache.RLConfig.prefix;
 
-        const promises: Promise<boolean>[] = Object.entries(this.cache.RLConfig.intervals).map(async ([key, limit]: [string, number]) => {
-            return new Promise(async (resolve, reject) => {
-                let queries: number = parseInt(await this.cache.get(prefix + key), 10);
-                if (Number.isNaN(queries)) queries = 0; // If key doesn't exist then 0 queries have been executed within the given interval.
+        return (await Promise.all(Object.entries(this.cache.RLConfig.intervals).map(async ([key, limit]: [string, number]): Promise<boolean> => {
+            let queries: number = parseInt(await this.cache.get(prefix + key), 10);
+            if (Number.isNaN(queries)) queries = 0; // If key doesn't exist then 0 queries have been executed within the given interval.
 
-                if(queries < limit) resolve(true);
-                else resolve(false);
-            });
-        });
-
-        return (await Promise.all(promises)).every(Boolean);
+            if (queries < limit) return true;
+            else return false;
+        }))).every(Boolean);
     }
 
     protected async waitForRateLimit(): Promise<void> {

@@ -4,10 +4,10 @@
 */
 
 import async from 'async';
-import Bluebird from 'bluebird';
+import util from 'util';
 import Action from '../action';
 import SummonerInterface from '../../interfaces/summoner';
-import { ENDPOINTS } from '../../../riot-api';
+import { ENDPOINTS, Region } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchSummonerByName extends Action {
@@ -26,12 +26,17 @@ class FetchSummonerByName extends Action {
 
     public async run(): Promise<SummonerInterface> {
         try {
+            // Region check
+            if (!(<any>Object).values(Region).includes(this.server.toLowerCase())) {
+                throw new Error('Invalid server region provided.');
+            }
+
             // TODO: Fix the typing of summonerData (maybe through another interface?)
             await this.waitForRateLimit();
             await this.incrementRateLimit();
             const { data: summonerData }: any = await this.RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { server: this.server, 'summoner-name': this.username }).get();
 
-            const otherData: any = await Bluebird.promisify(async.series)({
+            const otherData: any = await util.promisify(async.parallel)({
                 league: async () => {
                     await this.waitForRateLimit();
                     await this.incrementRateLimit();
@@ -69,7 +74,7 @@ class FetchSummonerByName extends Action {
                     `);
                 }
             } else {
-                console.error(`[sightstone]: Summoner data fetch failed with error ${e}`);
+                console.error(`[sightstone]: Match data fetch failed with error ${e.name || ''}.`);
             }
 
             throw e;

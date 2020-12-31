@@ -8,7 +8,7 @@ import DataDragonRequest from '../requests/data-dragon-request';
 import DataDragonEndpoints from '../enums/data-dragon';
 
 class RiotAPIInternal {
-    private championData: any = {};
+    private championData: { [key: string]: any } = {};
 
     private version: string;
 

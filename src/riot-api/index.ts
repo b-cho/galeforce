@@ -5,7 +5,7 @@
 import RiotAPIInternal from './internal/internal';
 import RiotAPIRequest from './requests/riot-api-request';
 import ENDPOINTS from './enums/endpoints';
-import REGIONS from './enums/regions';
+import Region from './enums/regions';
 
 class RiotAPIModule {
     private key: string;
@@ -26,5 +26,5 @@ class RiotAPIModule {
     }
 }
 
-export { ENDPOINTS, REGIONS };
+export { ENDPOINTS, Region };
 export default RiotAPIModule;

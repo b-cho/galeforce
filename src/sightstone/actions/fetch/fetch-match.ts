@@ -5,7 +5,7 @@
 
 import Action from '../action';
 import MatchInterface from '../../interfaces/match';
-import { ENDPOINTS } from '../../../riot-api';
+import { ENDPOINTS, Region } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchMatchByID extends Action {
@@ -21,6 +21,11 @@ class FetchMatchByID extends Action {
 
     public async run(): Promise<MatchInterface> {
         try {
+            // Region check
+            if (!(<any>Object).values(Region).includes(this.server.toLowerCase())) {
+                throw new Error('Invalid server region provided.');
+            }
+            
             await this.waitForRateLimit();
             await this.incrementRateLimit();
             const { data: matchData }: any = await this.RiotAPI.request(ENDPOINTS.MATCH.MATCH.MATCH_ID, { server: this.server, 'match-id': this.matchId }).get();
@@ -31,7 +36,7 @@ class FetchMatchByID extends Action {
 
             return { ...matchData, timeline: timelineData } as MatchInterface;
         } catch (e) {
-            if (e.name === 'StatusCodeError') {
+            if (e.response?.status) {
                 console.error(`[sightstone]: Match data fetch failed with status code ${e.statusCode}`);
                 if (e.statusCode === 403) {
                     throw new Error(`
@@ -40,7 +45,7 @@ class FetchMatchByID extends Action {
                     `);
                 }
             } else {
-                console.error(`[sightstone]: Match data fetch failed with error ${e}`);
+                console.error(`[sightstone]: Match data fetch failed with error ${e.name || ''}.`);
             }
 
             throw e;

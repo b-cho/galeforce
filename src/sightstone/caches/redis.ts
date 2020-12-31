@@ -7,6 +7,7 @@ import redis, { RedisClient } from 'redis';
 import Bluebird from 'bluebird';
 import Cache, { RateLimitConfig } from './cache';
 
+// Promisify node-redis functions before v4
 Bluebird.promisifyAll(redis.RedisClient.prototype);
 Bluebird.promisifyAll(redis.Multi.prototype);
 
