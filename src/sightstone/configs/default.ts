@@ -4,9 +4,18 @@ import yaml from 'yaml';
 import fs from 'fs';
 import process from 'process';
 import dotenv from 'dotenv';
-import ConfigInterface from '../interfaces/config';
+import Ajv, { JSONSchemaType } from 'ajv';
+import * as TJS from 'typescript-json-schema';
+import { resolve } from 'path';
+import { ConfigInterface } from '../interfaces/config';
 
 dotenv.config(); // Add environment variables from .env (root directory) if necessary
+
+const program: TJS.Program = TJS.getProgramFromFiles([resolve('./src/sightstone/interfaces/config.ts')]);
+const ConfigSchema = TJS.generateSchema(program, 'ConfigInterface', { required: true }) as JSONSchemaType<ConfigInterface>;
+
+const ajv = new Ajv();
+const validate = ajv.compile(ConfigSchema);
 
 /**
  * @private
@@ -59,7 +68,9 @@ function iterateReplace(obj: any): object {
  * @return {ConfigInterface} The corresponding config object.
  */
 function getConfig(filename: string): ConfigInterface {
-    return iterateReplace(yaml.parse(fs.readFileSync(filename, 'utf8'))) as ConfigInterface;
+    const configObject = iterateReplace(yaml.parse(fs.readFileSync(filename, 'utf8')));
+    if(validate(configObject)) return configObject;
+    else throw new Error('Invalid config provided (config failed JSON schema validation).');
 }
 
 export default getConfig;

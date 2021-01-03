@@ -36,13 +36,14 @@ abstract class Request {
 
     /**
      * @public
+     * @async
      *
      * @param {[String]} endpoint Endpoints to fetch information from
      *
      * @return {Promise} Return JSON data as a promise (due to delayed request completion).
      */
-    public get(): Promise<object> {
-        return axios.get(encodeURI(this.targetURL), {
+    public async get(): Promise<object> {
+        return await axios.get(encodeURI(this.targetURL), {
             headers: this.headers,
         });
     }

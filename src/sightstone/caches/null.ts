@@ -15,8 +15,8 @@ class NullCache extends Cache {
         super({ prefix: '', intervals: [] });
     }
 
-    public async get(key: string): Promise<string> {
-        return '';
+    public async get(key: string): Promise<string | null> {
+        return null;
     }
 
     public async set(key: string, value: string | object): Promise<void> {}

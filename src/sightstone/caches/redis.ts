@@ -24,12 +24,14 @@ declare module 'redis' { // Async definitions for Redis
 class RedisCache extends Cache {
     private client: RedisClient;
 
-    constructor(uri: string, RLConfig?: RateLimitConfig) {
+    constructor(uri: string, RLConfig?: RateLimitConfig, client?: RedisClient) {
         super(typeof RLConfig !== 'undefined' ? RLConfig : { prefix: '', intervals: {} });
-        this.client = redis.createClient(uri);
+        if(client !== undefined) this.client = client;
+        else this.client = redis.createClient(uri);
+        Bluebird.promisifyAll(this.client);
     }
 
-    public async get(key: string): Promise<string> {
+    public async get(key: string): Promise<string | null> {
         return this.client.getAsync(key);
     }
 

@@ -17,7 +17,7 @@ abstract class Cache {
         this.RLConfig = RLConfig;
     }
 
-    public abstract get(key: string): Promise<string>;
+    public abstract get(key: string): Promise<string | null>;
 
     public abstract set(key: string, value: string): Promise<void>;
 

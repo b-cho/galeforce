@@ -1,0 +1,4 @@
+cache:
+  type: redis # (string) What kind of cache to use ('redis', 'null', etc.)
+rate-limit: # key <secs>: value <number of requests>. Requires a cache to be configured.
+  prefix: riotapi-ratelimit- # The prefix for the Riot API rate limit keys in the cache.

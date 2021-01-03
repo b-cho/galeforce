@@ -38,6 +38,15 @@ const THIRD_PARTY = {
     CODE: 'https://${server}.api.riotgames.com/lol/platform/v4/third-party-code/by-summoner/${summoner-id}',
 };
 
+const DATA_DRAGON = {
+    CHAMPION: 'http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json',
+    SEASONS: 'http://static.developer.riotgames.com/docs/lol/seasons.json',
+    QUEUES: 'http://static.developer.riotgames.com/docs/lol/queues.json',
+    MAPS: 'http://static.developer.riotgames.com/docs/lol/maps.json',
+    GAME_MODES: 'http://static.developer.riotgames.com/docs/lol/gameModes.json',
+    GAME_TYPES: 'http://static.developer.riotgames.com/docs/lol/gameTypes.json',
+}
+
 export default {
     SUMMONER,
     CHAMPION_MASTERY,
@@ -45,4 +54,5 @@ export default {
     LEAGUE,
     MATCH,
     THIRD_PARTY,
+    DATA_DRAGON,
 };

@@ -1,22 +1,12 @@
-interface ConfigInterface {
-    system: {
-        port: number;
-    };
+export type ConfigType = {
     'riot-api': {
         key: string;
-        ddversion: string;
-        query: number;
-        servers: string[];
     };
-    database: {
+    cache?: {
         type: string;
         uri: string;
     };
-    cache: {
-        type: string;
-        uri: string;
-    };
-    'rate-limit': {
+    'rate-limit'?: {
         prefix: string;
         intervals: {
             [key: number]: number;
@@ -24,4 +14,18 @@ interface ConfigInterface {
     };
 }
 
-export default ConfigInterface;
+export interface ConfigInterface {
+    'riot-api': {
+        key: string;
+    };
+    cache?: {
+        type: string;
+        uri: string;
+    };
+    'rate-limit'?: {
+        prefix: string;
+        intervals: {
+            [key: number]: number;
+        };
+    };
+}
