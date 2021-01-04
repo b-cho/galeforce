@@ -15,7 +15,7 @@ const program: TJS.Program = TJS.getProgramFromFiles([resolve('./src/sightstone/
 const ConfigSchema = TJS.generateSchema(program, 'ConfigInterface', { required: true }) as JSONSchemaType<ConfigInterface>;
 
 const ajv = new Ajv();
-const validate = ajv.compile(ConfigSchema);
+export const validate = ajv.compile(ConfigSchema);
 
 /**
  * @private

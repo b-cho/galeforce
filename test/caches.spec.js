@@ -7,7 +7,6 @@ const expect = chai.expect;
 
 const RedisCache = require('../dist/sightstone/caches/redis').default;
 const NullCache = require('../dist/sightstone/caches/null').default;
-const { doesNotMatch } = require('assert');
 
 const client = redis.createClient();
 const MockRedisCache = new RedisCache('', {}, client);
@@ -45,7 +44,7 @@ describe('/sightstone/caches', () => {
                 });
             });
         });
-        it('should correctly flush keys', () => {
+        it('should correctly set and flush keys', () => {
             return MockRedisCache.set('c', 'forever').then(() => {
                 return MockRedisCache.flush().then(() => {
                     return MockRedisCache.get('c').then((val) => {

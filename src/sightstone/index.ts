@@ -1,5 +1,5 @@
 import RiotAPIModule, { Region } from '../riot-api';
-import getConfig from './configs/default';
+import getConfig, { validate } from './configs/default';
 import { ConfigInterface } from './interfaces/config';
 import FetchMatchByID from './actions/match/match-by-match-id';
 import FetchSummonerByName from './actions/summoner/by-name';
@@ -12,7 +12,6 @@ import FetchTimelineByMatchID from './actions/match/timeline-by-match-id';
 import FetchMatchlistByAccountID from './actions/match/matchlist-by-account-id';
 import FetchMasteryBySummonerID from './actions/mastery/by-summoner-id';
 import FetchLeagueEntriesBySummonerID from './actions/league/entries-by-summoner-id';
-import { stringify } from 'yaml';
 
 interface SightstoneSummonerInterface {
     name: (server: string, name: string) => FetchSummonerByName;
@@ -52,17 +51,22 @@ export default class Sightstone {
     constructor(options: ConfigInterface | string) {
         if (typeof options === 'string') this.config = getConfig(options);
         else this.config = options;
+        if (!validate(this.config)) throw new Error('Invalid config provided (config failed JSON schema validation).');
 
         let cache: Cache;
 
         const RiotAPI = new RiotAPIModule(this.config['riot-api'].key);
 
-        if (this.config.cache?.type === 'redis') {
-            cache = new RedisCache(this.config.cache?.uri, this.config['rate-limit']);
-        } else if (typeof(this.config.cache) === 'undefined' || this.config.cache?.type === 'null') {
-            cache = new NullCache();
+        if (this.config.cache) {
+            if(this.config.cache.type === 'redis' && typeof(this.config.cache.uri) !== 'undefined') {
+                cache = new RedisCache(this.config.cache.uri, this.config['rate-limit']);
+            } else if (this.config.cache.type === 'null') {
+                cache = new NullCache();
+            } else {
+                throw new Error('Invalid cache type specified in config.');
+            }
         } else {
-            throw new Error('Invalid cache type specified in config.');
+            cache = new NullCache();
         }
 
         this.SubmoduleMap = { RiotAPI, cache };
@@ -98,5 +102,5 @@ export default class Sightstone {
         },
     }
 
-    public regions: { [key: string]: string } = Region;
+    public regions: typeof Region = Region;
 }

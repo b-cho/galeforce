@@ -45,6 +45,6 @@
   "scripts": {
     "lint": "npx eslint --ext .ts,.tsx,.js,.jsx ./src/",
     "build": "npx tsc --project tsconfig.json",
-    "test": "mocha"
+    "test": "mocha --exit"
   }
 }

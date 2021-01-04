@@ -33,7 +33,7 @@ const dataDragonGameTypesReply = [
     }
 ]
 const na1API = nock('https://na1.api.riotgames.com')
-    .get('/lol/summoner/v4/summoner/by-name/SSG Xayah')
+    .get('/lol/summoner/v4/summoners/by-name/SSG%20Xayah')
     .reply(200, v4SummonerByNameReply);
 
 const dataDragon = nock('http://static.developer.riotgames.com')
@@ -57,13 +57,13 @@ describe('/riot-api', () => {
         });
     });
     describe('API calls', () => {
-        it('should return correct JSON for the /v4/summoners/by-name Riot API endpoint', async () => {
-            expect(RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { server: Region.NORTH_AMERICA, 'summoner-name': 'TEST' }).get())
-                .to.eventually.have.property('data').to.equal(v4SummonerByNameReply);
+        it('should return correct JSON for the /summoner/v4/summoners/by-name Riot API endpoint', () => {
+            return expect(RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { server: Region.NORTH_AMERICA, 'summoner-name': 'SSG Xayah' }).get())
+                .to.eventually.have.property('data').to.deep.equal(v4SummonerByNameReply);
         });
-        it('should return correct JSON for the /docs/lol/gameTypes.json Data Dragon endpoint', async () => {
-            expect(RiotAPI.dataDragonRequest(ENDPOINTS.DATA_DRAGON.CHAMPION, '10.25.1').get())
-                .to.eventually.have.property('data').to.equal(dataDragonGameTypesReply);
+        it('should return correct JSON for the /docs/lol/gameTypes.json Data Dragon endpoint', () => {
+            return expect(RiotAPI.dataDragonRequest(ENDPOINTS.DATA_DRAGON.GAME_TYPES, '10.25.1').get())
+                .to.eventually.have.property('data').to.deep.equal(dataDragonGameTypesReply);
         })
     });
 });

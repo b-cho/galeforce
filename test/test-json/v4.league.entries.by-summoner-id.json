@@ -1,0 +1,32 @@
+[
+    {
+        "leagueId": "a052e5d3-d40b-44d0-8f4d-ce76c0c03d33",
+        "queueType": "RANKED_SOLO_5x5",
+        "tier": "GOLD",
+        "rank": "II",
+        "summonerId": "l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w",
+        "summonerName": "SSG Xayah",
+        "leaguePoints": 0,
+        "wins": 183,
+        "losses": 165,
+        "veteran": false,
+        "inactive": false,
+        "freshBlood": false,
+        "hotStreak": false
+    },
+    {
+        "leagueId": "fb0e2844-edd3-4a8d-b527-ea2897cb39b1",
+        "queueType": "RANKED_FLEX_SR",
+        "tier": "BRONZE",
+        "rank": "II",
+        "summonerId": "l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w",
+        "summonerName": "SSG Xayah",
+        "leaguePoints": 59,
+        "wins": 18,
+        "losses": 12,
+        "veteran": false,
+        "inactive": false,
+        "freshBlood": false,
+        "hotStreak": true
+    }
+]

@@ -17,6 +17,11 @@ class FetchMatchlistByAccountID extends Action {
 
     constructor(SubmoduleMap: SubmoduleMapInterface, server: string, accountId: string, endIndex?: number) {
         super(SubmoduleMap);
+        // Region check
+        if (!(<any>Object).values(Region).includes(server.toLowerCase())) {
+            throw new Error('[sightstone]: Invalid server region provided.');
+        }
+
         this.server = server;
         this.accountId = accountId;
         this.endIndex = endIndex;
@@ -24,11 +29,6 @@ class FetchMatchlistByAccountID extends Action {
 
     public async run(): Promise<MatchlistInterface> {
         try {
-            // Region check
-            if (!(<any>Object).values(Region).includes(this.server.toLowerCase())) {
-                throw new Error('Invalid server region provided.');
-            }
-
             await this.waitForRateLimit();
             await this.incrementRateLimit();
             if (typeof this.endIndex === 'number') {
@@ -41,15 +41,11 @@ class FetchMatchlistByAccountID extends Action {
 
         } catch (e) {
             if (e.response?.status) {
-                console.error(`[sightstone]: Matchlist data fetch failed with status code ${e.response.status}`);
                 if (e.response.status === 403) {
-                    throw new Error(`
-                        [sightstone]: The provided Riot API key is invalid
-                        or has expired. Please verify its authenticity. (sc-403)
-                    `);
+                    throw new Error('[sightstone]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)');
+                } else {
+                    throw new Error(`[sightstone]: Matchlist data fetch failed with status code ${e.response.status}`);
                 }
-            } else {
-                console.error(`[sightstone]: Matchlist data fetch failed with error ${e.name || ''}.`);
             }
 
             throw e;

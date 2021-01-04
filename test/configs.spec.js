@@ -14,8 +14,8 @@ const getConfig = require('../dist/sightstone/configs/default').default;
 // Set fake environment variables
 
 describe('/sightstone/configs', () => {
-    it('should correctly generate config object without environment variables', () => {
-        expect(getConfig('./test/test-config-1.yaml')).to.deep.equal({
+    it('should correctly generate config object from YAML without environment variables', () => {
+        expect(getConfig('./test/test-configs/1.yaml')).to.deep.equal({
             'riot-api': {
                 key: 'RIOT-API-KEY',
             },
@@ -32,8 +32,8 @@ describe('/sightstone/configs', () => {
             },
         });
     });
-    it('should correctly generate config object with environment variables', () => {
-        expect(getConfig('./test/test-config-2.yaml')).to.deep.equal({
+    it('should correctly generate config object from YAML with environment variables', () => {
+        expect(getConfig('./test/test-configs/2.yaml')).to.deep.equal({
             'riot-api': {
                 key: 'RIOT-API-KEY-2',
             },
@@ -50,7 +50,7 @@ describe('/sightstone/configs', () => {
             },
         });
     });
-    it('should error when passed a deformed config', () => {
-        expect(() => getConfig('./test/test-config-3.yaml')).to.throw();
+    it('should error when passed an invalid or incomplete YAML config', () => {
+        expect(() => getConfig('./test/test-configs/3.yaml')).to.throw();
     });
 });

@@ -15,32 +15,28 @@ class FetchMasteryBySummonerID extends Action {
 
     constructor(SubmoduleMap: SubmoduleMapInterface, server: string, summonerId: string) {
         super(SubmoduleMap);
+        // Region check
+        if (!(<any>Object).values(Region).includes(server.toLowerCase())) {
+            throw new Error('[sightstone]: Invalid server region provided.');
+        }
+        
         this.server = server;
         this.summonerId = summonerId;
     }
 
     public async run(): Promise<ChampionMasteryInterface> {
         try {
-            // Region check
-            if (!(<any>Object).values(Region).includes(this.server.toLowerCase())) {
-                throw new Error('Invalid server region provided.');
-            }
-
             await this.waitForRateLimit();
             await this.incrementRateLimit();
             const { data: masteryData }: any = await this.RiotAPI.request(ENDPOINTS.CHAMPION_MASTERY.SUMMONER_ID.LIST, { server: this.server, 'summoner-id': this.summonerId }).get();
             return masteryData as ChampionMasteryInterface;
         } catch (e) {
             if (e.response?.status) {
-                console.error(`[sightstone]: ChampionMastery data fetch failed with status code ${e.response.status}`);
                 if (e.response.status === 403) {
-                    throw new Error(`
-                        [sightstone]: The provided Riot API key is invalid
-                        or has expired. Please verify its authenticity. (sc-403)
-                    `);
+                    throw new Error('[sightstone]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)');
+                } else {
+                    throw new Error(`[sightstone]: ChampionMastery data fetch failed with status code ${e.response.status}`);
                 }
-            } else {
-                console.error(`[sightstone]: ChampionMastery data fetch failed with error ${e.name || ''}.`);
             }
 
             throw e;
