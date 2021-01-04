@@ -3,7 +3,7 @@ import getConfig, { validate } from './configs/default';
 import { ConfigInterface } from './interfaces/config';
 import FetchMatchByID from './actions/match/match-by-match-id';
 import FetchSummonerByName from './actions/summoner/by-name';
-import VerifyThirdPartyCode from './actions/third-party/verify';
+import FetchThirdPartyCodeBySummonerId from './actions/platform/third-party-code';
 import Cache from './caches/cache';
 import RedisCache from './caches/redis';
 import SubmoduleMapInterface from './interfaces/submodule-map';
@@ -37,10 +37,10 @@ interface SightstoneMatchInterface {
     };
 }
 
-interface SightstoneThirdPartyInterface {
-    verify: {
-        summonerId: (server: string, summonerId: string) => VerifyThirdPartyCode;
-    };
+interface SightstonePlatformInterface {
+    thirdPartyCode: {
+        summonerId: (server: string, summonerId: string) => FetchThirdPartyCodeBySummonerId;
+    }
 }
 
 export default class Sightstone {
@@ -96,10 +96,10 @@ export default class Sightstone {
         },
     }
 
-    public thirdParty: SightstoneThirdPartyInterface = {
-        verify: {
-            summonerId: (server: string, summonerId: string): VerifyThirdPartyCode => new VerifyThirdPartyCode(this.SubmoduleMap, server, summonerId),
-        },
+    public platform: SightstonePlatformInterface = {
+        thirdPartyCode: {
+            summonerId: (server: string, summonerId: string): FetchThirdPartyCodeBySummonerId => new FetchThirdPartyCodeBySummonerId(this.SubmoduleMap, server, summonerId),
+        }
     }
 
     public regions: typeof Region = Region;

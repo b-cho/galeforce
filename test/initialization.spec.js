@@ -7,7 +7,7 @@ const expect = chai.expect;
 const SightstoneModule = require('../dist').default;
 
 describe('/sightstone', () => {
-    it('should initialize properly', () => {
+    it('should initialize properly from config object (1)', () => {
         expect(() => new SightstoneModule({
             'riot-api': {
                 key: 'RIOT-API-KEY',
@@ -20,6 +20,26 @@ describe('/sightstone', () => {
                 },
             },
         })).to.not.throw();
+    });
+    it('should initialize properly from config object (2)', () => {
+        expect(() => new SightstoneModule({
+            'riot-api': {
+                key: 'RIOT-API-KEY',
+            },
+            cache: {
+                type: 'null',
+            },
+            'rate-limit': {
+                prefix: 'riotapi-ratelimit-',
+                intervals: {
+                    120: 100,
+                    1: 20,
+                },
+            },
+        })).to.not.throw();
+    });
+    it('should initialize properly from config file', () => {
+        expect(() => new SightstoneModule('./test/test-configs/4.yaml')).to.not.throw();
     });
     it('should error when passed an invalid config (1)', () => {
         expect(() => new SightstoneModule({

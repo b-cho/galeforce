@@ -49,6 +49,9 @@ const replyValues = {
         championMastery: {
             bySummonerId: require('./test-json/v4.champion-mastery.by-summoner.json'),
         },
+        thirdPartyCode: {
+            bySummonerId: 'abc',
+        },
     },
 };
 
@@ -65,6 +68,8 @@ const na1API = nock('https://na1.api.riotgames.com')
         .reply(200, replyValues.v4.match.matchlistByAccountId)
     .get('/lol/champion-mastery/v4/champion-masteries/by-summoner/l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w')
         .reply(200, replyValues.v4.championMastery.bySummonerId)
+    .get('/lol/platform/v4/third-party-code/by-summoner/l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w')
+        .reply(200, replyValues.v4.thirdPartyCode.bySummonerId)
 
     .get('/lol/summoner/v4/summoners/by-name/404')
         .reply(404)
@@ -78,6 +83,8 @@ const na1API = nock('https://na1.api.riotgames.com')
         .reply(404)
     .get('/lol/champion-mastery/v4/champion-masteries/by-summoner/404')
         .reply(404)
+    .get('/lol/platform/v4/third-party-code/by-summoner/404')
+        .reply(404)
 
     .get('/lol/summoner/v4/summoners/by-name/403')
         .reply(403)
@@ -90,6 +97,8 @@ const na1API = nock('https://na1.api.riotgames.com')
     .get('/lol/match/v4/matchlists/by-account/403')
         .reply(403)
     .get('/lol/champion-mastery/v4/champion-masteries/by-summoner/403')
+        .reply(403)
+    .get('/lol/platform/v4/third-party-code/by-summoner/403')
         .reply(403)
 
 
@@ -212,6 +221,28 @@ describe('/sightstone/actions', () => {
                     });
                     it('should reject with correct error message when receiving a 403 status code', () => {
                         return expect(Sightstone.match.matchlist.accountId(Sightstone.regions.NORTH_AMERICA, '403').run())
+                            .to.eventually.be.rejectedWith('[sightstone]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)');
+                    });
+                });
+            });
+        });
+        describe('.platform', () => {
+            describe('.thirdPartyCode', () => {
+                describe('.summonerId()', () => {
+                    it('should return correct JSON for the /platform/v4/third-party-code/by-summoner/ Riot API endpoint', () => {
+                        return expect(Sightstone.platform.thirdPartyCode.summonerId(Sightstone.regions.NORTH_AMERICA, 'l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').run())
+                            .to.eventually.equal(replyValues.v4.thirdPartyCode.bySummonerId);
+                    });
+                    it('should throw when provided an invalid region', () => {
+                        return expect(() => Sightstone.platform.thirdPartyCode.summonerId('invalid region', 'l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w'))
+                            .to.throw();
+                    });
+                    it('should reject with correct error message when receiving a 404 status code', () => {
+                        return expect(Sightstone.platform.thirdPartyCode.summonerId(Sightstone.regions.NORTH_AMERICA, '404').run())
+                            .to.eventually.be.rejectedWith('[sightstone]: ThirdPartyCode data fetch failed with status code 404');
+                    });
+                    it('should reject with correct error message when receiving a 403 status code', () => {
+                        return expect(Sightstone.platform.thirdPartyCode.summonerId(Sightstone.regions.NORTH_AMERICA, '403').run())
                             .to.eventually.be.rejectedWith('[sightstone]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)');
                     });
                 });
