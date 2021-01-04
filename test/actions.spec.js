@@ -16,10 +16,6 @@ const Sightstone = new SightstoneModule({
     'riot-api': {
         key: 'RIOT-API-KEY',
     },
-    cache: {
-        type: 'redis',
-        uri: 'redis://127.0.0.1:6379',
-    },
     'rate-limit': {
         prefix: 'riotapi-ratelimit-',
         intervals: {
@@ -28,6 +24,7 @@ const Sightstone = new SightstoneModule({
         },
     },
 });
+
 Sightstone['SubmoduleMap']['cache'] = new RedisCache('', {
     prefix: 'riotapi-ratelimit-',
     intervals: {

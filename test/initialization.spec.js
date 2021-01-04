@@ -12,10 +12,6 @@ describe('/sightstone', () => {
             'riot-api': {
                 key: 'RIOT-API-KEY',
             },
-            cache: {
-                type: 'redis',
-                uri: 'redis://127.0.0.1:6379',
-            },
             'rate-limit': {
                 prefix: 'riotapi-ratelimit-',
                 intervals: {
@@ -75,10 +71,6 @@ describe('/sightstone', () => {
         expect(new SightstoneModule({
             'riot-api': {
                 key: 'RIOT-API-KEY',
-            },
-            cache: {
-                type: 'redis',
-                uri: 'redis://127.0.0.1:6379',
             },
             'rate-limit': {
                 prefix: 'riotapi-ratelimit-',
