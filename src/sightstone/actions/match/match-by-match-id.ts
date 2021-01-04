@@ -9,7 +9,7 @@ import { ENDPOINTS, Region } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchMatchByMatchID extends Action {
-    private server: string;
+    private server: Region;
 
     private matchId: number;
 
@@ -20,14 +20,14 @@ class FetchMatchByMatchID extends Action {
             throw new Error('[sightstone]: Invalid server region provided.');
         }
         
-        this.server = server;
+        this.server = server as Region; // We've already performed a type check
         this.matchId = matchId;
     }
 
     public async run(): Promise<MatchInterface> {
         try {
-            await this.waitForRateLimit();
-            await this.incrementRateLimit();
+            await this.waitForRateLimit(this.server);
+            await this.incrementRateLimit(this.server);
             const { data: matchData }: any = await this.RiotAPI.request(ENDPOINTS.MATCH.MATCH.MATCH_ID, { server: this.server, 'match-id': this.matchId }).get();
 
             return matchData as MatchInterface;

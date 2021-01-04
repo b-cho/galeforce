@@ -1,9 +1,15 @@
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
+const redisMock = require('redis-mock');
+const rewiremock = require('rewiremock/node');
 
 chai.use(chaiAsPromised);
 const expect = chai.expect;
 
+rewiremock('redis').with(redisMock);
+rewiremock(() => require('redis')).with(redisMock);
+
+rewiremock.enable();
 const SightstoneModule = require('../dist').default;
 
 describe('/sightstone', () => {
@@ -28,6 +34,24 @@ describe('/sightstone', () => {
             },
             cache: {
                 type: 'null',
+            },
+            'rate-limit': {
+                prefix: 'riotapi-ratelimit-',
+                intervals: {
+                    120: 100,
+                    1: 20,
+                },
+            },
+        })).to.not.throw();
+    });
+    it('should initialize properly from config object (3)', () => {
+        expect(() => new SightstoneModule({
+            'riot-api': {
+                key: 'RIOT-API-KEY',
+            },
+            cache: {
+                type: 'redis',
+                uri: 'redis://127.0.0.1:6379',
             },
             'rate-limit': {
                 prefix: 'riotapi-ratelimit-',
@@ -102,3 +126,5 @@ describe('/sightstone', () => {
         })).to.have.property('regions');
     })
 });
+
+rewiremock.disable();

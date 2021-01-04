@@ -19,7 +19,9 @@ class NullCache extends Cache {
         return null;
     }
 
-    public async set(key: string, value: string | object): Promise<void> {}
+    public async set(key: string, value: string): Promise<void> {}
+
+    public async setex(key: string, ttl: number, value: string): Promise<void> {}
 
     public async incr(key: string): Promise<void> {}
 

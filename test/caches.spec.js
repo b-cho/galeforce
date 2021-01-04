@@ -1,16 +1,23 @@
 const chai = require('chai');
-const redis = require('redis-mock');
+const redisMock = require('redis-mock');
+const rewiremock = require('rewiremock/node');
 const chaiAsPromised = require('chai-as-promised');
 
 chai.use(chaiAsPromised);
 const expect = chai.expect;
 
+
+rewiremock('redis').with(redisMock);
+rewiremock(() => require('redis')).with(redisMock);
+rewiremock.enable();
+
 const RedisCache = require('../dist/sightstone/caches/redis').default;
 const NullCache = require('../dist/sightstone/caches/null').default;
 
-const client = redis.createClient();
-const MockRedisCache = new RedisCache('', {}, client);
+const MockRedisCache = new RedisCache('redis://127.0.0.1:6379');
 const MockNullCache = new NullCache();
+
+rewiremock.disable();
 
 describe('/sightstone/caches', () => {
     describe('Redis cache', () => {
@@ -32,16 +39,26 @@ describe('/sightstone/caches', () => {
                 });
             });
         });
-        it('should correctly set and expire keys', (done) => {
-            MockRedisCache.set('b', 'exp').then(() => {
-                return MockRedisCache.expire('b', 1).then(() => {
+        it('should correctly incr and expire keys', (done) => {
+            MockRedisCache.incr('r').then(() => {
+                return MockRedisCache.expire('r', 1).then(() => {
                     return setTimeout(() => {
-                        return MockRedisCache.get('b').then((val) => {
+                        return MockRedisCache.get('r').then((val) => {
                             if(val === null) done();
                             else done(new AssertionError('failed! Expected null but got', val));
                         });
                     }, 1050);
                 });
+            });
+        });
+        it('should correctly setex keys', (done) => {
+            MockRedisCache.setex('q', 1, 'exp').then(() => {
+                return setTimeout(() => {
+                    return MockRedisCache.get('q').then((val) => {
+                        if(val === null) done();
+                        else done(new AssertionError('failed! Expected null but got', val));
+                    });
+                }, 1050);
             });
         });
         it('should correctly set and flush keys', () => {

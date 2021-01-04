@@ -4,7 +4,7 @@
 */
 
 import async from 'async';
-import RiotAPIModule from '../../riot-api';
+import RiotAPIModule, { Region } from '../../riot-api';
 import Cache from '../caches/cache';
 import SubmoduleMapInterface from '../interfaces/submodule-map';
 
@@ -20,34 +20,36 @@ abstract class Action {
 
     public abstract run(): Promise<any>;
 
-    protected async checkRateLimit(): Promise<boolean> {
+    protected async checkRateLimit(server: Region): Promise<boolean> {
         return (await Promise.all(Object.entries(this.cache.RLConfig.intervals).map(async ([key, limit]: [string, number]): Promise<boolean> => {
-            let queries: number = parseInt(await this.cache.get(this.cache.RLConfig.prefix + key) || '0', 10);
-            if (Number.isNaN(queries)) queries = 0; // If key doesn't exist then 0 queries have been executed within the given interval.
-
-            if (queries < limit) return true;
-            return false;
+            const value: string | null = await this.cache.get(this.cache.RLConfig.prefix + key + server);
+            const queries: number = parseInt(value || '0');
+            return queries < limit;
         }))).every(Boolean);
     }
 
-    protected async waitForRateLimit(): Promise<void> {
+    protected async waitForRateLimit(server: Region): Promise<void> {
         return new Promise((resolve) => {
             const WRLLoop = (): void => {
-                this.checkRateLimit().then((ready: boolean) => {
+                this.checkRateLimit(server).then((ready: boolean) => {
                     if (ready) resolve();
-                    else setTimeout(WRLLoop, 25);
+                    else setTimeout(WRLLoop, 0);
                 });
             };
             WRLLoop();
         });
     }
 
-    protected async incrementRateLimit(): Promise<void> {
-        const prefix: string = this.cache.RLConfig.prefix;
+    protected async incrementRateLimit(server: Region): Promise<void> {
         async.each(Object.keys(this.cache.RLConfig.intervals), async (key: string, callback: Function) => {
-            const queries: number = parseInt(await this.cache.get(prefix + key) || '0', 10);
-            await this.cache.incr(prefix + key);
-            if (Number.isNaN(queries) || queries === 0) await this.cache.expire(prefix + key, parseInt(key, 10));
+            const value: string | null = await this.cache.get(this.cache.RLConfig.prefix + key + server);
+            const queries: number = parseInt(value || '0');
+            if (Number.isNaN(queries) || queries === 0) {
+                await this.cache.setex(this.cache.RLConfig.prefix + key + server, parseInt(key), '1');
+            } else {
+                await this.cache.incr(this.cache.RLConfig.prefix + key + server);
+            }
+             
             callback();
         });
     }

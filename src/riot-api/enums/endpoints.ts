@@ -34,8 +34,10 @@ const MATCH = {
     },
 };
 
-const THIRD_PARTY = {
-    CODE: 'https://${server}.api.riotgames.com/lol/platform/v4/third-party-code/by-summoner/${summoner-id}',
+const PLATFORM = {
+    THIRD_PARTY_CODE: {
+        SUMMONER_ID: 'https://${server}.api.riotgames.com/lol/platform/v4/third-party-code/by-summoner/${summoner-id}',
+    }
 };
 
 const DATA_DRAGON = {
@@ -53,6 +55,6 @@ export default {
     SPECTATOR,
     LEAGUE,
     MATCH,
-    THIRD_PARTY,
+    PLATFORM,
     DATA_DRAGON,
 };

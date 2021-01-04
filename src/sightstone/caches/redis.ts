@@ -13,8 +13,9 @@ Bluebird.promisifyAll(redis.Multi.prototype);
 
 declare module 'redis' { // Async definitions for Redis
     export interface RedisClient extends NodeJS.EventEmitter {
+        getAsync(key: string): Promise<string | null>;
         setAsync(key: string, value: string): Promise<void>;
-        getAsync(key: string): Promise<string>;
+        setexAsync(key: string, ttl: number, value: string): Promise<void>;
         incrAsync(key: string): Promise<void>;
         expireAsync(key: string, seconds: number): Promise<void>;
         flushdbAsync(): Promise<void>;
@@ -24,10 +25,9 @@ declare module 'redis' { // Async definitions for Redis
 class RedisCache extends Cache {
     private client: RedisClient;
 
-    constructor(uri: string, RLConfig?: RateLimitConfig, client?: RedisClient) {
+    constructor(uri: string, RLConfig?: RateLimitConfig) {
         super(typeof RLConfig !== 'undefined' ? RLConfig : { prefix: '', intervals: {} });
-        if(client !== undefined) this.client = client;
-        else this.client = redis.createClient(uri);
+        this.client = redis.createClient(uri);
         Bluebird.promisifyAll(this.client);
     }
 
@@ -35,12 +35,12 @@ class RedisCache extends Cache {
         return this.client.getAsync(key);
     }
 
-    public async set(key: string, value: string | object): Promise<void> {
-        let setValue: string;
-        if (typeof value === 'object') setValue = JSON.stringify(value);
-        else setValue = value;
-
-        await this.client.setAsync(key, setValue);
+    public async set(key: string, value: string): Promise<void> {
+        await this.client.setAsync(key, value);
+    }
+    
+    public async setex(key: string, ttl: number, value: string): Promise<void> {
+        await this.client.setexAsync(key, ttl, value);
     }
 
     public async incr(key: string): Promise<void> {

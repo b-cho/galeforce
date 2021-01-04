@@ -9,7 +9,7 @@ import { ENDPOINTS, Region } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchSummonerByName extends Action {
-    private server: string;
+    private server: Region;
 
     private name: string;
 
@@ -20,15 +20,15 @@ class FetchSummonerByName extends Action {
             throw new Error('[sightstone]: Invalid server region provided.');
         }
 
-        this.server = server;
+        this.server = server as Region; // We've already performed a type check
         this.name = name;
     }
 
     public async run(): Promise<SummonerInterface> {
         try {
             // TODO: Fix the typing of summonerData (maybe through another interface?)
-            await this.waitForRateLimit();
-            await this.incrementRateLimit();
+            await this.waitForRateLimit(this.server);
+            await this.incrementRateLimit(this.server);
             const { data: summonerData }: any = await this.RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { server: this.server, 'summoner-name': this.name }).get();
 
             return summonerData as SummonerInterface;

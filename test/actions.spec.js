@@ -1,14 +1,15 @@
 const chai = require('chai');
-const redis = require('redis-mock');
+const redisMock = require('redis-mock');
 const nock = require('nock');
+const rewiremock = require('rewiremock/node');
 const chaiAsPromised = require('chai-as-promised');
-const TJS = require('typescript-json-schema');
 
 chai.use(chaiAsPromised);
 const expect = chai.expect;
 
-const RedisCache = require('../dist/sightstone/caches/redis').default;
-const client = redis.createClient();
+rewiremock('redis').with(redisMock);
+rewiremock(() => require('redis')).with(redisMock);
+rewiremock.enable();
 
 const SightstoneModule = require('../dist').default;
 
@@ -16,21 +17,19 @@ const Sightstone = new SightstoneModule({
     'riot-api': {
         key: 'RIOT-API-KEY',
     },
+    cache: {
+        type: 'redis',
+        uri: 'redis://127.0.0.1:6379',
+    },
     'rate-limit': {
         prefix: 'riotapi-ratelimit-',
         intervals: {
-            120: 100,
-            1: 20,
+            1: 2000,
         },
     },
 });
 
-Sightstone['SubmoduleMap']['cache'] = new RedisCache('', {
-    prefix: 'riotapi-ratelimit-',
-    intervals: {
-        1: 20,
-    },
-}, client);
+rewiremock.disable();
 
 // Set up nock
 const replyValues = {

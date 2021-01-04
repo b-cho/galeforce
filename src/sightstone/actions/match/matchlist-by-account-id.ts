@@ -9,7 +9,7 @@ import { ENDPOINTS, Region } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchMatchlistByAccountID extends Action {
-    private server: string;
+    private server: Region;
 
     private accountId: string;
 
@@ -22,15 +22,15 @@ class FetchMatchlistByAccountID extends Action {
             throw new Error('[sightstone]: Invalid server region provided.');
         }
 
-        this.server = server;
+        this.server = server as Region; // We've already performed a type check
         this.accountId = accountId;
         this.endIndex = endIndex;
     }
 
     public async run(): Promise<MatchlistInterface> {
         try {
-            await this.waitForRateLimit();
-            await this.incrementRateLimit();
+            await this.waitForRateLimit(this.server);
+            await this.incrementRateLimit(this.server);
             if (typeof this.endIndex === 'number') {
                 const { data: matchlistData }: any = await this.RiotAPI.request(ENDPOINTS.MATCH.MATCHLIST.ACCOUNT_ID_INDEX, { server: this.server, 'account-id': this.accountId, 'end-index': this.endIndex }).get();
                 return matchlistData as MatchlistInterface;
