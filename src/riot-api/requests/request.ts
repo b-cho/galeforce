@@ -1,4 +1,3 @@
-/* eslint-disable no-new-func */
 /*
     The base request class is simply a "template" request class
     that needs to be implemented by other methods to be effective.

@@ -1,14 +1,13 @@
-/* eslint-disable no-new-func */
-
 import yaml from 'yaml';
 import fs from 'fs';
 import process from 'process';
 import Ajv, { JSONSchemaType } from 'ajv';
-import * as TJS from 'typescript-json-schema';
 import { resolve } from 'path';
+import * as TJS from 'typescript-json-schema';
 import { ConfigInterface } from '../interfaces/config';
 
-const program: TJS.Program = TJS.getProgramFromFiles([resolve('./src/sightstone/interfaces/config.ts')]);
+const configInterfacePath = resolve(__dirname + '/../interfaces/config.d.ts')
+const program: TJS.Program = TJS.getProgramFromFiles([configInterfacePath]);
 const ConfigSchema = TJS.generateSchema(program, 'ConfigInterface', { required: true }) as JSONSchemaType<ConfigInterface>;
 
 const ajv = new Ajv();

@@ -13,7 +13,7 @@ abstract class Action {
 
     protected cache: Cache;
 
-    protected server: Region;
+    protected region: Region;
 
     protected summonerId?: string;
 
@@ -23,23 +23,23 @@ abstract class Action {
 
     protected matchId?: number;
 
-    constructor(SubmoduleMap: SubmoduleMapInterface, server: Region) {
+    constructor(SubmoduleMap: SubmoduleMapInterface, region: Region) {
         // Region check in case types are not followed
-        if (!(Object as any).values(Region).includes(server.toLowerCase())) {
-            throw new Error('[sightstone]: Invalid server region provided.');
+        if (!(Object as any).values(Region).includes(region.toLowerCase())) {
+            throw new Error('[sightstone]: Invalid region provided.');
         }
 
         this.RiotAPI = SubmoduleMap.RiotAPI;
         this.cache = SubmoduleMap.cache;
-        this.server = server;
+        this.region = region;
     }
 
     public abstract exec(): Promise<any>;
 
     protected async run<T>(endpoint: string, parameters: { [key: string]: unknown }): Promise<T> {
         try {
-            await this.waitForRateLimit(this.server);
-            await this.incrementRateLimit(this.server);
+            await this.waitForRateLimit(this.region);
+            await this.incrementRateLimit(this.region);
             const { data }: any = await this.RiotAPI.request(endpoint, parameters).get();
 
             return data as T;
@@ -56,18 +56,18 @@ abstract class Action {
         }
     }
 
-    protected async checkRateLimit(server: Region): Promise<boolean> {
+    protected async checkRateLimit(region: Region): Promise<boolean> {
         return (await Promise.all(Object.entries(this.cache.RLConfig.intervals).map(async ([key, limit]: [string, number]): Promise<boolean> => {
-            const value: string | null = await this.cache.get(this.cache.RLConfig.prefix + key + server);
+            const value: string | null = await this.cache.get(this.cache.RLConfig.prefix + key + region);
             const queries: number = parseInt(value || '0', 10);
             return queries < limit;
         }))).every(Boolean);
     }
 
-    protected async waitForRateLimit(server: Region): Promise<void> {
+    protected async waitForRateLimit(region: Region): Promise<void> {
         return new Promise((resolve) => {
             const WRLLoop = (): void => {
-                this.checkRateLimit(server).then((ready: boolean) => {
+                this.checkRateLimit(region).then((ready: boolean) => {
                     if (ready) resolve();
                     else setTimeout(WRLLoop, 0);
                 });
@@ -76,14 +76,14 @@ abstract class Action {
         });
     }
 
-    protected async incrementRateLimit(server: Region): Promise<void> {
+    protected async incrementRateLimit(region: Region): Promise<void> {
         async.each(Object.keys(this.cache.RLConfig.intervals), async (key: string, callback: (err?: object) => void) => {
-            const value: string | null = await this.cache.get(this.cache.RLConfig.prefix + key + server);
+            const value: string | null = await this.cache.get(this.cache.RLConfig.prefix + key + region);
             const queries: number = parseInt(value || '0', 10);
             if (Number.isNaN(queries) || queries === 0) {
-                await this.cache.setex(this.cache.RLConfig.prefix + key + server, parseInt(key, 10), '1');
+                await this.cache.setex(this.cache.RLConfig.prefix + key + region, parseInt(key, 10), '1');
             } else {
-                await this.cache.incr(this.cache.RLConfig.prefix + key + server);
+                await this.cache.incr(this.cache.RLConfig.prefix + key + region);
             }
 
             callback();

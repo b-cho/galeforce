@@ -9,14 +9,14 @@ import { ENDPOINTS, Region } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchLeagueEntriesBySummonerID extends Action {
-    constructor(SubmoduleMap: SubmoduleMapInterface, server: Region, summonerId: string) {
-        super(SubmoduleMap, server);
+    constructor(SubmoduleMap: SubmoduleMapInterface, region: Region, summonerId: string) {
+        super(SubmoduleMap, region);
 
         this.summonerId = summonerId;
     }
 
-    public async exec(): Promise<LeagueEntryInterface> {
-        return this.run<LeagueEntryInterface>(ENDPOINTS.LEAGUE.SUMMONER_ID, { server: this.server, 'summoner-id': this.summonerId });
+    public async exec(): Promise<LeagueEntryInterface[]> {
+        return this.run<LeagueEntryInterface[]>(ENDPOINTS.LEAGUE.SUMMONER_ID, { server: this.region, 'summoner-id': this.summonerId });
     }
 }
 

@@ -11,14 +11,14 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 class FetchMatchlistByAccountID extends Action {
     private endIndex: number | undefined;
 
-    constructor(SubmoduleMap: SubmoduleMapInterface, server: Region, accountId: string) {
-        super(SubmoduleMap, server);
+    constructor(SubmoduleMap: SubmoduleMapInterface, region: Region, accountId: string) {
+        super(SubmoduleMap, region);
 
         this.accountId = accountId;
     }
 
     public async exec(): Promise<MatchlistInterface> {
-        return this.run<MatchlistInterface>(ENDPOINTS.MATCH.MATCHLIST.ACCOUNT_ID, { server: this.server, 'account-id': this.accountId });
+        return this.run<MatchlistInterface>(ENDPOINTS.MATCH.MATCHLIST.ACCOUNT_ID, { server: this.region, 'account-id': this.accountId });
     }
 }
 

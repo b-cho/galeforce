@@ -14,32 +14,32 @@ import FetchMasteryBySummonerID from './actions/mastery/by-summoner-id';
 import FetchLeagueEntriesBySummonerID from './actions/league/entries-by-summoner-id';
 
 interface SightstoneSummonerInterface {
-    name: (server: Region, name: string) => FetchSummonerByName;
+    name: (region: Region, summonerName: string) => FetchSummonerByName;
 }
 
 interface SightstoneMasteryInterface {
-    summonerId: (server: Region, summonerId: string) => FetchMasteryBySummonerID;
+    summonerId: (region: Region, summonerId: string) => FetchMasteryBySummonerID;
 }
 
 interface SightstoneLeagueInterface {
     entries: {
-        summonerId: (server: Region, summonerId: string) => FetchLeagueEntriesBySummonerID;
+        summonerId: (region: Region, summonerId: string) => FetchLeagueEntriesBySummonerID;
     };
 }
 
 interface SightstoneMatchInterface {
-    matchId: (server: Region, matchId: number) => FetchMatchByID;
+    matchId: (region: Region, matchId: number) => FetchMatchByID;
     timeline: {
-        matchId: (server: Region, matchId: number) => FetchTimelineByMatchID;
+        matchId: (region: Region, matchId: number) => FetchTimelineByMatchID;
     };
     matchlist: {
-        accountId: (server: Region, accountId: string) => FetchMatchlistByAccountID;
+        accountId: (region: Region, accountId: string) => FetchMatchlistByAccountID;
     };
 }
 
 interface SightstonePlatformInterface {
     thirdPartyCode: {
-        summonerId: (server: Region, summonerId: string) => FetchThirdPartyCodeBySummonerId;
+        summonerId: (region: Region, summonerId: string) => FetchThirdPartyCodeBySummonerId;
     };
 }
 
@@ -73,45 +73,45 @@ export default class Sightstone {
     }
 
     public summoner: SightstoneSummonerInterface = {
-        name: (server: Region, name: string): FetchSummonerByName => (
-            new FetchSummonerByName(this.SubmoduleMap, server, name)
+        name: (region: Region, summonerName: string): FetchSummonerByName => (
+            new FetchSummonerByName(this.SubmoduleMap, region, summonerName)
         ),
     }
 
     public mastery: SightstoneMasteryInterface = {
-        summonerId: (server: Region, summonerId: string): FetchMasteryBySummonerID => (
-            new FetchMasteryBySummonerID(this.SubmoduleMap, server, summonerId)
+        summonerId: (region: Region, summonerId: string): FetchMasteryBySummonerID => (
+            new FetchMasteryBySummonerID(this.SubmoduleMap, region, summonerId)
         ),
     }
 
     public league: SightstoneLeagueInterface = {
         entries: {
-            summonerId: (server: Region, summonerId: string): FetchLeagueEntriesBySummonerID => (
-                new FetchLeagueEntriesBySummonerID(this.SubmoduleMap, server, summonerId)
+            summonerId: (region: Region, summonerId: string): FetchLeagueEntriesBySummonerID => (
+                new FetchLeagueEntriesBySummonerID(this.SubmoduleMap, region, summonerId)
             ),
         },
     }
 
     public match: SightstoneMatchInterface = {
-        matchId: (server: Region, matchId: number): FetchMatchByID => (
-            new FetchMatchByID(this.SubmoduleMap, server, matchId)
+        matchId: (region: Region, matchId: number): FetchMatchByID => (
+            new FetchMatchByID(this.SubmoduleMap, region, matchId)
         ),
         timeline: {
-            matchId: (server: Region, matchId: number): FetchTimelineByMatchID => (
-                new FetchTimelineByMatchID(this.SubmoduleMap, server, matchId)
+            matchId: (region: Region, matchId: number): FetchTimelineByMatchID => (
+                new FetchTimelineByMatchID(this.SubmoduleMap, region, matchId)
             ),
         },
         matchlist: {
-            accountId: (server: Region, accountId: string): FetchMatchlistByAccountID => (
-                new FetchMatchlistByAccountID(this.SubmoduleMap, server, accountId)
+            accountId: (region: Region, accountId: string): FetchMatchlistByAccountID => (
+                new FetchMatchlistByAccountID(this.SubmoduleMap, region, accountId)
             ),
         },
     }
 
     public platform: SightstonePlatformInterface = {
         thirdPartyCode: {
-            summonerId: (server: Region, summonerId: string): FetchThirdPartyCodeBySummonerId => (
-                new FetchThirdPartyCodeBySummonerId(this.SubmoduleMap, server, summonerId)
+            summonerId: (region: Region, summonerId: string): FetchThirdPartyCodeBySummonerId => (
+                new FetchThirdPartyCodeBySummonerId(this.SubmoduleMap, region, summonerId)
             ),
         },
     }

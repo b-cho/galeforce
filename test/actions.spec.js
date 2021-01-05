@@ -132,7 +132,7 @@ describe('/sightstone/actions', () => {
                     });
                     it('should throw when provided an invalid region', () => {
                         return expect(() => Sightstone.league.entries.summonerId('invalid region', 'l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w'))
-                            .to.throw('[sightstone]: Invalid server region provided.');
+                            .to.throw('[sightstone]: Invalid region provided.');
                     });
                     it('should reject with correct error message when receiving a 404 status code', () => {
                         return expect(Sightstone.league.entries.summonerId(Sightstone.regions.NORTH_AMERICA, '404').exec())
@@ -153,7 +153,7 @@ describe('/sightstone/actions', () => {
                 });
                 it('should throw when provided an invalid region', () => {
                     return expect(() => Sightstone.mastery.summonerId('invalid region', 'l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w'))
-                        .to.throw('[sightstone]: Invalid server region provided.');
+                        .to.throw('[sightstone]: Invalid region provided.');
                 });
                 it('should reject with correct error message when receiving a 404 status code', () => {
                     return expect(Sightstone.mastery.summonerId(Sightstone.regions.NORTH_AMERICA, '404').exec())
@@ -173,7 +173,7 @@ describe('/sightstone/actions', () => {
                 });
                 it('should throw when provided an invalid region', () => {
                     return expect(() => Sightstone.match.matchId('invalid region', '3724412289'))
-                        .to.throw('[sightstone]: Invalid server region provided.');
+                        .to.throw('[sightstone]: Invalid region provided.');
                 });
                 it('should reject with correct error message when receiving a 404 status code', () => {
                     return expect(Sightstone.match.matchId(Sightstone.regions.NORTH_AMERICA, '404').exec())
@@ -192,7 +192,7 @@ describe('/sightstone/actions', () => {
                     });
                     it('should throw when provided an invalid region', () => {
                         return expect(() => Sightstone.match.timeline.matchId('invalid region', '3724412289'))
-                            .to.throw('[sightstone]: Invalid server region provided.');
+                            .to.throw('[sightstone]: Invalid region provided.');
                     });
                     it('should reject with correct error message when receiving a 404 status code', () => {
                         return expect(Sightstone.match.timeline.matchId(Sightstone.regions.NORTH_AMERICA, '404').exec())
@@ -212,7 +212,7 @@ describe('/sightstone/actions', () => {
                     });
                     it('should throw when provided an invalid region', () => {
                         return expect(() => Sightstone.match.matchlist.accountId('invalid region', 'xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW'))
-                            .to.throw('[sightstone]: Invalid server region provided.');
+                            .to.throw('[sightstone]: Invalid region provided.');
                     });
                     it('should reject with correct error message when receiving a 404 status code', () => {
                         return expect(Sightstone.match.matchlist.accountId(Sightstone.regions.NORTH_AMERICA, '404').exec())
@@ -234,7 +234,7 @@ describe('/sightstone/actions', () => {
                     });
                     it('should throw when provided an invalid region', () => {
                         return expect(() => Sightstone.platform.thirdPartyCode.summonerId('invalid region', 'l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w'))
-                            .to.throw('[sightstone]: Invalid server region provided.');
+                            .to.throw('[sightstone]: Invalid region provided.');
                     });
                     it('should reject with correct error message when receiving a 404 status code', () => {
                         return expect(Sightstone.platform.thirdPartyCode.summonerId(Sightstone.regions.NORTH_AMERICA, '404').exec())

@@ -9,14 +9,14 @@ import { ENDPOINTS, Region } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchSummonerByName extends Action {
-    constructor(SubmoduleMap: SubmoduleMapInterface, server: Region, summonerName: string) {
-        super(SubmoduleMap, server);
+    constructor(SubmoduleMap: SubmoduleMapInterface, region: Region, summonerName: string) {
+        super(SubmoduleMap, region);
 
         this.summonerName = summonerName;
     }
 
     public async exec(): Promise<SummonerInterface> {
-        return this.run<SummonerInterface>(ENDPOINTS.SUMMONER.SUMMONER_NAME, { server: this.server, 'summoner-name': this.summonerName });
+        return this.run<SummonerInterface>(ENDPOINTS.SUMMONER.SUMMONER_NAME, { server: this.region, 'summoner-name': this.summonerName });
     }
 }
 

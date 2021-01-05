@@ -9,14 +9,14 @@ import { ENDPOINTS, Region } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchTimelineByMatchID extends Action {
-    constructor(SubmoduleMap: SubmoduleMapInterface, server: Region, matchId: number) {
-        super(SubmoduleMap, server);
+    constructor(SubmoduleMap: SubmoduleMapInterface, region: Region, matchId: number) {
+        super(SubmoduleMap, region);
 
         this.matchId = matchId;
     }
 
     public async exec(): Promise<MatchTimelineInterface> {
-        return this.run<MatchTimelineInterface>(ENDPOINTS.MATCH.TIMELINE.MATCH_ID, { server: this.server, 'match-id': this.matchId });
+        return this.run<MatchTimelineInterface>(ENDPOINTS.MATCH.TIMELINE.MATCH_ID, { server: this.region, 'match-id': this.matchId });
     }
 }
 

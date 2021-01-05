@@ -9,14 +9,14 @@ import { ENDPOINTS, Region } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchMatchByMatchID extends Action {
-    constructor(SubmoduleMap: SubmoduleMapInterface, server: Region, matchId: number) {
-        super(SubmoduleMap, server);
+    constructor(SubmoduleMap: SubmoduleMapInterface, region: Region, matchId: number) {
+        super(SubmoduleMap, region);
 
         this.matchId = matchId;
     }
 
     public async exec(): Promise<MatchInterface> {
-        return this.run<MatchInterface>(ENDPOINTS.MATCH.MATCH.MATCH_ID, { server: this.server, 'match-id': this.matchId });
+        return this.run<MatchInterface>(ENDPOINTS.MATCH.MATCH.MATCH_ID, { server: this.region, 'match-id': this.matchId });
     }
 }
 
