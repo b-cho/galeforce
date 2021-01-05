@@ -13,12 +13,44 @@ abstract class Action {
 
     protected cache: Cache;
 
-    constructor(SubmoduleMap: SubmoduleMapInterface) {
+    protected server: Region;
+    protected summonerId?: string;
+    protected accountId?: string;
+    protected summonerName?: string;
+    protected matchId?: number;
+
+    constructor(SubmoduleMap: SubmoduleMapInterface, server: Region) {
+        // Region check in case types are not followed
+        if (!(<any>Object).values(Region).includes(server.toLowerCase())) {
+            throw new Error('[sightstone]: Invalid server region provided.');
+        }
+        
         this.RiotAPI = SubmoduleMap.RiotAPI;
         this.cache = SubmoduleMap.cache;
+        this.server = server;
     }
 
-    public abstract run(): Promise<any>;
+    public abstract exec(): Promise<any>;
+
+    protected async run<T>(endpoint: string, parameters: object): Promise<T> {
+        try {
+            await this.waitForRateLimit(this.server);
+            await this.incrementRateLimit(this.server);
+            const { data }: any = await this.RiotAPI.request(endpoint, parameters).get();
+
+            return data as T;
+        } catch (e) {
+            if (e.response?.status) {
+                if (e.response.status === 403) {
+                    throw new Error('[sightstone]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)');
+                } else {
+                    throw new Error(`[sightstone]: Data fetch failed with status code ${e.response.status}`);
+                }
+            }
+
+            throw e;
+        }
+    }
 
     protected async checkRateLimit(server: Region): Promise<boolean> {
         return (await Promise.all(Object.entries(this.cache.RLConfig.intervals).map(async ([key, limit]: [string, number]): Promise<boolean> => {

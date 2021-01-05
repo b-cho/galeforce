@@ -24,7 +24,6 @@ const LEAGUE = {
 const MATCH = {
     MATCHLIST: {
         ACCOUNT_ID: 'https://${server}.api.riotgames.com/lol/match/v4/matchlists/by-account/${account-id}',
-        ACCOUNT_ID_INDEX: 'https://${server}.api.riotgames.com/lol/match/v4/matchlists/by-account/${account-id}?endIndex=${end-index}',
     },
     MATCH: {
         MATCH_ID: 'https://${server}.api.riotgames.com/lol/match/v4/matches/${match-id}',

@@ -14,32 +14,32 @@ import FetchMasteryBySummonerID from './actions/mastery/by-summoner-id';
 import FetchLeagueEntriesBySummonerID from './actions/league/entries-by-summoner-id';
 
 interface SightstoneSummonerInterface {
-    name: (server: string, name: string) => FetchSummonerByName;
+    name: (server: Region, name: string) => FetchSummonerByName;
 }
 
 interface SightstoneMasteryInterface {
-    summonerId: (server: string, summonerId: string) => FetchMasteryBySummonerID;
+    summonerId: (server: Region, summonerId: string) => FetchMasteryBySummonerID;
 }
 
 interface SightstoneLeagueInterface {
     entries: {
-        summonerId: (server: string, summonerId: string) => FetchLeagueEntriesBySummonerID;
+        summonerId: (server: Region, summonerId: string) => FetchLeagueEntriesBySummonerID;
     };
 }
 
 interface SightstoneMatchInterface {
-    matchId: (server: string, matchId: number) => FetchMatchByID;
+    matchId: (server: Region, matchId: number) => FetchMatchByID;
     timeline: {
-        matchId: (server: string, matchId: number) => FetchTimelineByMatchID;
+        matchId: (server: Region, matchId: number) => FetchTimelineByMatchID;
     };
     matchlist: {
-        accountId: (server: string, accountId: string, endIndex?: number) => FetchMatchlistByAccountID;
+        accountId: (server: Region, accountId: string) => FetchMatchlistByAccountID;
     };
 }
 
 interface SightstonePlatformInterface {
     thirdPartyCode: {
-        summonerId: (server: string, summonerId: string) => FetchThirdPartyCodeBySummonerId;
+        summonerId: (server: Region, summonerId: string) => FetchThirdPartyCodeBySummonerId;
     }
 }
 
@@ -73,32 +73,32 @@ export default class Sightstone {
     }
 
     public summoner: SightstoneSummonerInterface = {
-        name: (server: string, name: string): FetchSummonerByName => new FetchSummonerByName(this.SubmoduleMap, server, name),
+        name: (server: Region, name: string): FetchSummonerByName => new FetchSummonerByName(this.SubmoduleMap, server, name),
     }
 
     public mastery: SightstoneMasteryInterface = {
-        summonerId: (server: string, summonerId: string): FetchMasteryBySummonerID => new FetchMasteryBySummonerID(this.SubmoduleMap, server, summonerId),
+        summonerId: (server: Region, summonerId: string): FetchMasteryBySummonerID => new FetchMasteryBySummonerID(this.SubmoduleMap, server, summonerId),
     }
 
     public league: SightstoneLeagueInterface = {
         entries: {
-            summonerId: (server: string, summonerId: string): FetchLeagueEntriesBySummonerID => new FetchLeagueEntriesBySummonerID(this.SubmoduleMap, server, summonerId),
+            summonerId: (server: Region, summonerId: string): FetchLeagueEntriesBySummonerID => new FetchLeagueEntriesBySummonerID(this.SubmoduleMap, server, summonerId),
         },
     }
 
     public match: SightstoneMatchInterface = {
-        matchId: (server: string, matchId: number): FetchMatchByID => new FetchMatchByID(this.SubmoduleMap, server, matchId),
+        matchId: (server: Region, matchId: number): FetchMatchByID => new FetchMatchByID(this.SubmoduleMap, server, matchId),
         timeline: {
-            matchId: (server: string, matchId: number): FetchTimelineByMatchID => new FetchTimelineByMatchID(this.SubmoduleMap, server, matchId),
+            matchId: (server: Region, matchId: number): FetchTimelineByMatchID => new FetchTimelineByMatchID(this.SubmoduleMap, server, matchId),
         },
         matchlist: {
-            accountId: (server: string, accountId: string, endIndex?: number): FetchMatchlistByAccountID => new FetchMatchlistByAccountID(this.SubmoduleMap, server, accountId, endIndex),
+            accountId: (server: Region, accountId: string): FetchMatchlistByAccountID => new FetchMatchlistByAccountID(this.SubmoduleMap, server, accountId),
         },
     }
 
     public platform: SightstonePlatformInterface = {
         thirdPartyCode: {
-            summonerId: (server: string, summonerId: string): FetchThirdPartyCodeBySummonerId => new FetchThirdPartyCodeBySummonerId(this.SubmoduleMap, server, summonerId),
+            summonerId: (server: Region, summonerId: string): FetchThirdPartyCodeBySummonerId => new FetchThirdPartyCodeBySummonerId(this.SubmoduleMap, server, summonerId),
         }
     }
 
