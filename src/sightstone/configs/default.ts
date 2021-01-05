@@ -3,13 +3,10 @@
 import yaml from 'yaml';
 import fs from 'fs';
 import process from 'process';
-import dotenv from 'dotenv';
 import Ajv, { JSONSchemaType } from 'ajv';
 import * as TJS from 'typescript-json-schema';
 import { resolve } from 'path';
 import { ConfigInterface } from '../interfaces/config';
-
-dotenv.config(); // Add environment variables from .env (root directory) if necessary
 
 const program: TJS.Program = TJS.getProgramFromFiles([resolve('./src/sightstone/interfaces/config.ts')]);
 const ConfigSchema = TJS.generateSchema(program, 'ConfigInterface', { required: true }) as JSONSchemaType<ConfigInterface>;

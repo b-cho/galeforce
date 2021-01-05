@@ -2,6 +2,7 @@ const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 const redisMock = require('redis-mock');
 const rewiremock = require('rewiremock/node');
+const process = require('process');
 
 chai.use(chaiAsPromised);
 const expect = chai.expect;
@@ -11,6 +12,10 @@ rewiremock(() => require('redis')).with(redisMock);
 
 rewiremock.enable();
 const SightstoneModule = require('../dist').default;
+
+process.env.RIOT_KEY = 'RIOT-API-KEY-2';
+process.env.CACHE_TYPE = 'null';
+process.env.REDIS_URL = '';
 
 describe('/sightstone', () => {
     it('should initialize properly from config object (1)', () => {
@@ -64,6 +69,9 @@ describe('/sightstone', () => {
     });
     it('should initialize properly from config file', () => {
         expect(() => new SightstoneModule('./test/test-configs/4.yaml')).to.not.throw();
+    });
+    it('should initialize properly from config file with environment variables', () => {
+        expect(() => new SightstoneModule('./test/test-configs/2.yaml')).to.not.throw();
     });
     it('should error when passed an invalid config (1)', () => {
         expect(() => new SightstoneModule({
