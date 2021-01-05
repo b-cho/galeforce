@@ -1,5 +1,7 @@
 # Sightstone
-A Typescript library for League of Legends data analysis.
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![HitCount](http://hits.dwyl.com/bcho04/sightstone.svg)](http://hits.dwyl.com/bcho04/sightstone) [![Node CI](https://github.com/bcho04/sightstone/workflows/Node%20CI/badge.svg)](https://github.com/bcho04/sightstone/workflows/Node%20CI/badge.svg) [![CodeQL](https://github.com/bcho04/sightstone/workflows/CodeQL/badge.svg)](https://github.com/bcho04/sightstone/workflows/CodeQL/badge.svg) [![Code Climate](https://codeclimate.com/github/bcho04/sightstone/badges/gpa.svg)](https://codeclimate.com/github/bcho04/sightstone) [![David](https://david-dm.org/bcho04/sightstone.svg)](https://david-dm.org/bcho04/sightstone) [![GitHub last commit](https://img.shields.io/github/last-commit/bcho04/sightstone.svg?style=flat)](https://img.shields.io/github/last-commit/bcho04/sightstone.svg?style=flat)
 
-# Disclaimer
+A customizable, promise-based, and command-oriented TypeScript library for the Riot Games API.
+
+### Disclaimer
 Sightstone isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.

@@ -3,7 +3,7 @@
   "author": "Brandon Cho",
   "description": "A TypeScript library for querying the Riot Games API.",
   "repository": "https://github.com/bcho04/sightstone",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "license": "Apache-2.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -15,7 +15,7 @@
     "axios": "^0.21.1",
     "bluebird": "^3.7.2",
     "dotenv": "^8.2.0",
-    "node": "^15.4.0",
+    "node": ">=10.13.0",
     "typescript-json-schema": "^0.47.0",
     "yaml": "^1.10.0"
   },
