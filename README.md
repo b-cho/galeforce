@@ -33,9 +33,11 @@ const Sightstone = new SightstoneModule(/* config */);
 
 ```javascript
 const summoners = ['a', 'b', 'c'];
-const promises = summoners.map(summoner => (
-    Sightstone.summoner.name(Sightstone.regions.NORTH_AMERICA, summoner).exec()
-)); // list of request promises
+const promises = summoners.map(summoner => Sightstone.summoner()
+    .region(Sightstone.regions.NORTH_AMERICA)
+    .name(summoner)
+    .exec()
+); // list of request promises
 Promise.all(promises).then((result) => {
     console.log(result); // [{ name: 'a', ... }, ...]
 });
@@ -46,7 +48,10 @@ Promise.all(promises).then((result) => {
 <summary>Get list of recent matchId values for a given accountId</summary>
 
 ```javascript
-const matchIds = (await Sightstone.match.matchlist.accountId(Sightstone.regions.NORTH_AMERICA, accountId).exec())
+const matchIds = (await Sightstone.match.matchlist()
+    .region(Sightstone.regions.NORTH_AMERICA)
+    .accountId(accountId)
+    .exec())
     .matches.map(matchInfo => matchInfo.gameId);
 ```
 </details>
@@ -55,7 +60,10 @@ const matchIds = (await Sightstone.match.matchlist.accountId(Sightstone.regions.
 <summary>Get match data using await</summary>
 
 ```javascript
-const matchData = await Sightstone.match.matchId(Sightstone.regions.NORTH_AMERICA, matchId).exec();
+const matchData = await Sightstone.match.match()
+    .region(Sightstone.regions.NORTH_AMERICA)
+    .matchId(matchId)
+    .exec();
 ```
 </details>
 
@@ -63,8 +71,11 @@ const matchData = await Sightstone.match.matchId(Sightstone.regions.NORTH_AMERIC
 <summary>Get total number of mastery points for a summoner</summary>
 
 ```javascript
-const totalMasteryPoints = (await Sightstone.mastery.summonerId(Sightstone.regions.NORTH_AMERICA, summonerId).exec())
-        .reduce((previous, current) => previous + current.championPoints, 0);
+const totalMasteryPoints = (await Sightstone.mastery.summoner()
+    .region(Sightstone.regions.NORTH_AMERICA)
+    .summonerId(summonerId)
+    .exec())
+    .reduce((previous, current) => previous + current.championPoints, 0);
 ```
 </details>
 
@@ -83,13 +94,12 @@ riot-api: # REQUIRED
   key: ${RIOT_KEY} # (string) Your Riot API key from https://developer.riotgames.com
 cache: # OPTIONAL
   type: ${CACHE_TYPE} # (string) What kind of cache to use ('redis', 'null')
-  uri: ${REDIS_URL} # (string) The cache URI to connect to (optional when type is 'null')
+  uri: ${CACHE_URI} # (string) The cache URI to connect to (optional when type is 'null')
 rate-limit: # OPTIONAL, Requires a cache to be configured.
   prefix: riotapi-ratelimit- # The prefix for the Riot API rate limit keys in the cache.
   intervals: # key <secs>: value <number of requests>. 
     120: 100
     1: 20
-
 ```
 
 ---

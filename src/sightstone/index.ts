@@ -2,7 +2,7 @@ import RiotAPIModule, { Region } from '../riot-api';
 import getConfig, { validate } from './configs/default';
 import { ConfigInterface } from './interfaces/config';
 import FetchMatchByID from './actions/match/match-by-match-id';
-import FetchSummonerByName from './actions/summoner/by-name';
+import FetchSummoner from './actions/summoner';
 import FetchThirdPartyCodeBySummonerId from './actions/platform/third-party-code';
 import Cache from './caches/cache';
 import RedisCache from './caches/redis';
@@ -13,34 +13,22 @@ import FetchMatchlistByAccountID from './actions/match/matchlist-by-account-id';
 import FetchMasteryBySummonerID from './actions/mastery/by-summoner-id';
 import FetchLeagueEntriesBySummonerID from './actions/league/entries-by-summoner-id';
 
-interface SightstoneSummonerInterface {
-    name: (region: Region, summonerName: string) => FetchSummonerByName;
-}
-
 interface SightstoneMasteryInterface {
-    summonerId: (region: Region, summonerId: string) => FetchMasteryBySummonerID;
+    summoner: () => FetchMasteryBySummonerID;
 }
 
 interface SightstoneLeagueInterface {
-    entries: {
-        summonerId: (region: Region, summonerId: string) => FetchLeagueEntriesBySummonerID;
-    };
+    entries: () => FetchLeagueEntriesBySummonerID;
 }
 
 interface SightstoneMatchInterface {
-    matchId: (region: Region, matchId: number) => FetchMatchByID;
-    timeline: {
-        matchId: (region: Region, matchId: number) => FetchTimelineByMatchID;
-    };
-    matchlist: {
-        accountId: (region: Region, accountId: string) => FetchMatchlistByAccountID;
-    };
+    match: () => FetchMatchByID;
+    timeline: () => FetchTimelineByMatchID;
+    matchlist: () => FetchMatchlistByAccountID;
 }
 
 interface SightstonePlatformInterface {
-    thirdPartyCode: {
-        summonerId: (region: Region, summonerId: string) => FetchThirdPartyCodeBySummonerId;
-    };
+    thirdPartyCode: () => FetchThirdPartyCodeBySummonerId;
 }
 
 export default class Sightstone {
@@ -72,48 +60,24 @@ export default class Sightstone {
         this.SubmoduleMap = { RiotAPI, cache };
     }
 
-    public summoner: SightstoneSummonerInterface = {
-        name: (region: Region, summonerName: string): FetchSummonerByName => (
-            new FetchSummonerByName(this.SubmoduleMap, region, summonerName)
-        ),
-    }
+    public summoner = () => new FetchSummoner(this.SubmoduleMap);
 
     public mastery: SightstoneMasteryInterface = {
-        summonerId: (region: Region, summonerId: string): FetchMasteryBySummonerID => (
-            new FetchMasteryBySummonerID(this.SubmoduleMap, region, summonerId)
-        ),
+        summoner: () => new FetchMasteryBySummonerID(this.SubmoduleMap),
     }
 
     public league: SightstoneLeagueInterface = {
-        entries: {
-            summonerId: (region: Region, summonerId: string): FetchLeagueEntriesBySummonerID => (
-                new FetchLeagueEntriesBySummonerID(this.SubmoduleMap, region, summonerId)
-            ),
-        },
+        entries: () => new FetchLeagueEntriesBySummonerID(this.SubmoduleMap),
     }
 
     public match: SightstoneMatchInterface = {
-        matchId: (region: Region, matchId: number): FetchMatchByID => (
-            new FetchMatchByID(this.SubmoduleMap, region, matchId)
-        ),
-        timeline: {
-            matchId: (region: Region, matchId: number): FetchTimelineByMatchID => (
-                new FetchTimelineByMatchID(this.SubmoduleMap, region, matchId)
-            ),
-        },
-        matchlist: {
-            accountId: (region: Region, accountId: string): FetchMatchlistByAccountID => (
-                new FetchMatchlistByAccountID(this.SubmoduleMap, region, accountId)
-            ),
-        },
+        match: () => new FetchMatchByID(this.SubmoduleMap),
+        timeline: () => new FetchTimelineByMatchID(this.SubmoduleMap),
+        matchlist: () => new FetchMatchlistByAccountID(this.SubmoduleMap),
     }
 
     public platform: SightstonePlatformInterface = {
-        thirdPartyCode: {
-            summonerId: (region: Region, summonerId: string): FetchThirdPartyCodeBySummonerId => (
-                new FetchThirdPartyCodeBySummonerId(this.SubmoduleMap, region, summonerId)
-            ),
-        },
+        thirdPartyCode: () => new FetchThirdPartyCodeBySummonerId(this.SubmoduleMap),
     }
 
     public regions: typeof Region = Region;

@@ -106,19 +106,19 @@ describe('/sightstone/actions', () => {
         describe('.summoner', () => {
             describe('.name()', () => {
                 it('should return correct JSON for the /summoner/v4/summoners/by-name Riot API endpoint', () => {
-                    return expect(Sightstone.summoner.name(Sightstone.regions.NORTH_AMERICA, 'SSG Xayah').exec())
+                    return expect(Sightstone.summoner().region(Sightstone.regions.NORTH_AMERICA).name('SSG Xayah').exec())
                         .to.eventually.deep.equal(replyValues.v4.summoner.byName);
                 });
                 it('should throw when provided an invalid region', () => {
-                    return expect(() => Sightstone.summoner.name('invalid region', 'SSG Xayah'))
+                    return expect(() => Sightstone.summoner().region('invalid region'))
                         .to.throw();
                 });
                 it('should reject with correct error message when receiving a 404 status code', () => {
-                    return expect(Sightstone.summoner.name(Sightstone.regions.NORTH_AMERICA, '404').exec())
+                    return expect(Sightstone.summoner().region(Sightstone.regions.NORTH_AMERICA).name('404').exec())
                         .to.eventually.be.rejectedWith('[sightstone]: Data fetch failed with status code 404');
                 });
                 it('should reject with correct error message when receiving a 403 status code', () => {
-                    return expect(Sightstone.summoner.name(Sightstone.regions.NORTH_AMERICA, '403').exec())
+                    return expect(Sightstone.summoner().region(Sightstone.regions.NORTH_AMERICA).name('403').exec())
                         .to.eventually.be.rejectedWith('[sightstone]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)');
                 });
             });
@@ -127,19 +127,19 @@ describe('/sightstone/actions', () => {
             describe('.entries', () => {
                 describe('.summonerId()', () => {
                     it('should return correct JSON for the /league/v4/entries/by-summoner Riot API endpoint', () => {
-                        return expect(Sightstone.league.entries.summonerId(Sightstone.regions.NORTH_AMERICA, 'l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                        return expect(Sightstone.league.entries().region(Sightstone.regions.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
                             .to.eventually.deep.equal(replyValues.v4.league.entriesBySummonerId);
                     });
                     it('should throw when provided an invalid region', () => {
-                        return expect(() => Sightstone.league.entries.summonerId('invalid region', 'l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w'))
+                        return expect(() => Sightstone.league.entries().region('invalid region'))
                             .to.throw('[sightstone]: Invalid region provided.');
                     });
                     it('should reject with correct error message when receiving a 404 status code', () => {
-                        return expect(Sightstone.league.entries.summonerId(Sightstone.regions.NORTH_AMERICA, '404').exec())
+                        return expect(Sightstone.league.entries().region(Sightstone.regions.NORTH_AMERICA).summonerId('404').exec())
                             .to.eventually.be.rejectedWith('[sightstone]: Data fetch failed with status code 404');
                     });
                     it('should reject with correct error message when receiving a 403 status code', () => {
-                        return expect(Sightstone.league.entries.summonerId(Sightstone.regions.NORTH_AMERICA, '403').exec())
+                        return expect(Sightstone.league.entries().region(Sightstone.regions.NORTH_AMERICA).summonerId('403').exec())
                             .to.eventually.be.rejectedWith('[sightstone]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)');
                     });
                 });
@@ -148,19 +148,19 @@ describe('/sightstone/actions', () => {
         describe('.mastery', () => {
             describe('.summonerId()', () => {
                 it('should return correct JSON for the /champion-mastery/v4/champion-masteries/by-summoner Riot API endpoint', () => {
-                    return expect(Sightstone.mastery.summonerId(Sightstone.regions.NORTH_AMERICA, 'l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                    return expect(Sightstone.mastery.summoner().region(Sightstone.regions.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
                         .to.eventually.deep.equal(replyValues.v4.championMastery.bySummonerId);
                 });
                 it('should throw when provided an invalid region', () => {
-                    return expect(() => Sightstone.mastery.summonerId('invalid region', 'l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w'))
+                    return expect(() => Sightstone.mastery.summoner().region('invalid region'))
                         .to.throw('[sightstone]: Invalid region provided.');
                 });
                 it('should reject with correct error message when receiving a 404 status code', () => {
-                    return expect(Sightstone.mastery.summonerId(Sightstone.regions.NORTH_AMERICA, '404').exec())
+                    return expect(Sightstone.mastery.summoner().region(Sightstone.regions.NORTH_AMERICA).summonerId('404').exec())
                         .to.eventually.be.rejectedWith('[sightstone]: Data fetch failed with status code 404');
                 });
                 it('should reject with correct error message when receiving a 403 status code', () => {
-                    return expect(Sightstone.mastery.summonerId(Sightstone.regions.NORTH_AMERICA, '403').exec())
+                    return expect(Sightstone.mastery.summoner().region(Sightstone.regions.NORTH_AMERICA).summonerId('403').exec())
                         .to.eventually.be.rejectedWith('[sightstone]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)');
                 });
             });
@@ -168,38 +168,38 @@ describe('/sightstone/actions', () => {
         describe('.match', () => {
             describe('.matchId()', () => {
                 it('should return correct JSON for the /match/v4/matches Riot API endpoint', () => {
-                    return expect(Sightstone.match.matchId(Sightstone.regions.NORTH_AMERICA, '3724412289').exec())
+                    return expect(Sightstone.match.match().region(Sightstone.regions.NORTH_AMERICA).matchId('3724412289').exec())
                         .to.eventually.deep.equal(replyValues.v4.match.matchByMatchId);
                 });
                 it('should throw when provided an invalid region', () => {
-                    return expect(() => Sightstone.match.matchId('invalid region', '3724412289'))
+                    return expect(() => Sightstone.match.match().region('invalid region'))
                         .to.throw('[sightstone]: Invalid region provided.');
                 });
                 it('should reject with correct error message when receiving a 404 status code', () => {
-                    return expect(Sightstone.match.matchId(Sightstone.regions.NORTH_AMERICA, '404').exec())
+                    return expect(Sightstone.match.match().region(Sightstone.regions.NORTH_AMERICA).matchId('404').exec())
                         .to.eventually.be.rejectedWith('[sightstone]: Data fetch failed with status code 404');
                 });
                 it('should reject with correct error message when receiving a 403 status code', () => {
-                    return expect(Sightstone.match.matchId(Sightstone.regions.NORTH_AMERICA, '403').exec())
+                    return expect(Sightstone.match.match().region(Sightstone.regions.NORTH_AMERICA).matchId('403').exec())
                         .to.eventually.be.rejectedWith('[sightstone]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)');
                 });
             });
             describe('.timeline', () => {
                 describe('.matchId()', () => {
                     it('should return correct JSON for the /match/v4/timelines/by-match Riot API endpoint', () => {
-                        return expect(Sightstone.match.timeline.matchId(Sightstone.regions.NORTH_AMERICA, '3724412289').exec())
+                        return expect(Sightstone.match.timeline().region(Sightstone.regions.NORTH_AMERICA).matchId('3724412289').exec())
                             .to.eventually.deep.equal(replyValues.v4.match.timelineByMatchId);
                     });
                     it('should throw when provided an invalid region', () => {
-                        return expect(() => Sightstone.match.timeline.matchId('invalid region', '3724412289'))
+                        return expect(() => Sightstone.match.timeline().region('invalid region'))
                             .to.throw('[sightstone]: Invalid region provided.');
                     });
                     it('should reject with correct error message when receiving a 404 status code', () => {
-                        return expect(Sightstone.match.timeline.matchId(Sightstone.regions.NORTH_AMERICA, '404').exec())
+                        return expect(Sightstone.match.timeline().region(Sightstone.regions.NORTH_AMERICA).matchId('404').exec())
                             .to.eventually.be.rejectedWith('[sightstone]: Data fetch failed with status code 404');
                     });
                     it('should reject with correct error message when receiving a 403 status code', () => {
-                        return expect(Sightstone.match.timeline.matchId(Sightstone.regions.NORTH_AMERICA, '403').exec())
+                        return expect(Sightstone.match.timeline().region(Sightstone.regions.NORTH_AMERICA).matchId('403').exec())
                             .to.eventually.be.rejectedWith('[sightstone]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)');
                     });
                 });
@@ -207,19 +207,19 @@ describe('/sightstone/actions', () => {
             describe('.matchlist', () => {
                 describe('.accountId()', () => {
                     it('should return correct JSON for the /match/v4/matchlists/by-account/ Riot API endpoint', () => {
-                        return expect(Sightstone.match.matchlist.accountId(Sightstone.regions.NORTH_AMERICA, 'xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4').exec())
+                        return expect(Sightstone.match.matchlist().region(Sightstone.regions.NORTH_AMERICA).accountId('xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4').exec())
                             .to.eventually.deep.equal(replyValues.v4.match.matchlistByAccountId);
                     });
                     it('should throw when provided an invalid region', () => {
-                        return expect(() => Sightstone.match.matchlist.accountId('invalid region', 'xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW'))
+                        return expect(() => Sightstone.match.matchlist().region('invalid region'))
                             .to.throw('[sightstone]: Invalid region provided.');
                     });
                     it('should reject with correct error message when receiving a 404 status code', () => {
-                        return expect(Sightstone.match.matchlist.accountId(Sightstone.regions.NORTH_AMERICA, '404').exec())
+                        return expect(Sightstone.match.matchlist().region(Sightstone.regions.NORTH_AMERICA).accountId('404').exec())
                             .to.eventually.be.rejectedWith('[sightstone]: Data fetch failed with status code 404');
                     });
                     it('should reject with correct error message when receiving a 403 status code', () => {
-                        return expect(Sightstone.match.matchlist.accountId(Sightstone.regions.NORTH_AMERICA, '403').exec())
+                        return expect(Sightstone.match.matchlist().region(Sightstone.regions.NORTH_AMERICA).accountId('403').exec())
                             .to.eventually.be.rejectedWith('[sightstone]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)');
                     });
                 });
@@ -229,19 +229,19 @@ describe('/sightstone/actions', () => {
             describe('.thirdPartyCode', () => {
                 describe('.summonerId()', () => {
                     it('should return correct JSON for the /platform/v4/third-party-code/by-summoner/ Riot API endpoint', () => {
-                        return expect(Sightstone.platform.thirdPartyCode.summonerId(Sightstone.regions.NORTH_AMERICA, 'l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                        return expect(Sightstone.platform.thirdPartyCode().region(Sightstone.regions.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
                             .to.eventually.equal(replyValues.v4.thirdPartyCode.bySummonerId);
                     });
                     it('should throw when provided an invalid region', () => {
-                        return expect(() => Sightstone.platform.thirdPartyCode.summonerId('invalid region', 'l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w'))
+                        return expect(() => Sightstone.platform.thirdPartyCode().region('invalid region'))
                             .to.throw('[sightstone]: Invalid region provided.');
                     });
                     it('should reject with correct error message when receiving a 404 status code', () => {
-                        return expect(Sightstone.platform.thirdPartyCode.summonerId(Sightstone.regions.NORTH_AMERICA, '404').exec())
+                        return expect(Sightstone.platform.thirdPartyCode().region(Sightstone.regions.NORTH_AMERICA).summonerId('404').exec())
                             .to.eventually.be.rejectedWith('[sightstone]: Data fetch failed with status code 404');
                     });
                     it('should reject with correct error message when receiving a 403 status code', () => {
-                        return expect(Sightstone.platform.thirdPartyCode.summonerId(Sightstone.regions.NORTH_AMERICA, '403').exec())
+                        return expect(Sightstone.platform.thirdPartyCode().region(Sightstone.regions.NORTH_AMERICA).summonerId('403').exec())
                             .to.eventually.be.rejectedWith('[sightstone]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)');
                     });
                 });

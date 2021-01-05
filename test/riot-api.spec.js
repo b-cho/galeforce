@@ -48,7 +48,7 @@ describe('/riot-api', () => {
     });
     describe('URL generation', () => {
         it('should generate correct RiotAPI.request URLs from template strings', () => {
-            expect(RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { server: Region.NORTH_AMERICA, 'summoner-name': 'TEST' })['targetURL'])
+            expect(RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { region: Region.NORTH_AMERICA, summonerName: 'TEST' })['targetURL'])
                 .to.equal('https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/TEST')
         });
         it('should generate correct RiotAPI.dataDragonRequest URLs from teplate strings', () => {
@@ -58,7 +58,7 @@ describe('/riot-api', () => {
     });
     describe('API calls', () => {
         it('should return correct JSON for the /summoner/v4/summoners/by-name Riot API endpoint', () => {
-            return expect(RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { server: Region.NORTH_AMERICA, 'summoner-name': 'SSG Xayah' }).get())
+            return expect(RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { region: Region.NORTH_AMERICA, summonerName: 'SSG Xayah' }).get())
                 .to.eventually.have.property('data').to.deep.equal(v4SummonerByNameReply);
         });
         it('should return correct JSON for the /docs/lol/gameTypes.json Data Dragon endpoint', () => {

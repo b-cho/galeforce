@@ -1,10 +1,10 @@
-riot-api:
+riot-api: # REQUIRED
   key: ${RIOT_KEY} # (string) Your Riot API key from https://developer.riotgames.com
-cache:
-  type: ${CACHE_TYPE} # (string) What kind of cache to use ('redis', 'null', etc.)
-  uri: ${REDIS_URL} # (string) The cache URI to connect to
-rate-limit: # key <secs>: value <number of requests>. Requires a cache to be configured.
+cache: # OPTIONAL
+  type: ${CACHE_TYPE} # (string) What kind of cache to use ('redis', 'null')
+  uri: ${CACHE_URI} # (string) The cache URI to connect to (optional when type is 'null')
+rate-limit: # OPTIONAL, Requires a cache to be configured.
   prefix: riotapi-ratelimit- # The prefix for the Riot API rate limit keys in the cache.
-  intervals:
+  intervals: # key <secs>: value <number of requests>. 
     120: 100
     1: 20

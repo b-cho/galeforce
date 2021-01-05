@@ -9,16 +9,20 @@ import { ENDPOINTS, Region } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchMatchlistByAccountID extends Action {
-    private endIndex: number | undefined;
-
-    constructor(SubmoduleMap: SubmoduleMapInterface, region: Region, accountId: string) {
-        super(SubmoduleMap, region);
-
-        this.accountId = accountId;
+    constructor(SubmoduleMap: SubmoduleMapInterface) {
+        super(SubmoduleMap);
+        this.payload.endpoint = ENDPOINTS.MATCH.MATCHLIST.ACCOUNT_ID;
     }
 
+    public region: (region: Region) => this = super.region;
+
+    public accountId: (accountId: string) => this = super.accountId;
+
     public async exec(): Promise<MatchlistInterface> {
-        return this.run<MatchlistInterface>(ENDPOINTS.MATCH.MATCHLIST.ACCOUNT_ID, { server: this.region, 'account-id': this.accountId });
+        if(typeof this.payload.accountId === 'undefined') {
+            throw new Error('[sightstone]: Action payload accountId is undefined.');
+        }
+        return this.run<MatchlistInterface>();
     }
 }
 

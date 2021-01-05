@@ -9,14 +9,21 @@ import { ENDPOINTS, Region } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchMatchByMatchID extends Action {
-    constructor(SubmoduleMap: SubmoduleMapInterface, region: Region, matchId: number) {
-        super(SubmoduleMap, region);
+    constructor(SubmoduleMap: SubmoduleMapInterface) {
+        super(SubmoduleMap);
+        this.payload.endpoint = ENDPOINTS.MATCH.MATCH.MATCH_ID;
 
-        this.matchId = matchId;
     }
 
+    public region: (region: Region) => this = super.region;
+
+    public matchId: (matchId: number) => this = super.matchId;
+
     public async exec(): Promise<MatchInterface> {
-        return this.run<MatchInterface>(ENDPOINTS.MATCH.MATCH.MATCH_ID, { server: this.region, 'match-id': this.matchId });
+        if(typeof this.payload.matchId === 'undefined') {
+            throw new Error('[sightstone]: Action payload matchId is undefined.');
+        }
+        return this.run<MatchInterface>();
     }
 }
 

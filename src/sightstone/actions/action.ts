@@ -8,39 +8,86 @@ import RiotAPIModule, { Region } from '../../riot-api';
 import Cache from '../caches/cache';
 import SubmoduleMapInterface from '../interfaces/submodule-map';
 
+type Payload = {
+    endpoint?: string;
+    region?: Region;
+    summonerId?: string;
+    accountId?: string;
+    puuid?: string;
+    summonerName?: string;
+    matchId?: number;
+}
+
 abstract class Action {
     protected RiotAPI: RiotAPIModule;
 
     protected cache: Cache;
 
-    protected region: Region;
+    protected payload: Payload = {};
 
-    protected summonerId?: string;
+    constructor(SubmoduleMap: SubmoduleMapInterface) {
+        this.RiotAPI = SubmoduleMap.RiotAPI;
+        this.cache = SubmoduleMap.cache;
+    }
 
-    protected accountId?: string;
-
-    protected summonerName?: string;
-
-    protected matchId?: number;
-
-    constructor(SubmoduleMap: SubmoduleMapInterface, region: Region) {
+    protected region(region: Region): this {
         // Region check in case types are not followed
         if (!(Object as any).values(Region).includes(region.toLowerCase())) {
             throw new Error('[sightstone]: Invalid region provided.');
         }
 
-        this.RiotAPI = SubmoduleMap.RiotAPI;
-        this.cache = SubmoduleMap.cache;
-        this.region = region;
+        this.payload.region = region;
+        return this;
+    }
+
+    protected summonerId(summonerId: string): this {
+        if (summonerId.length > 63) {
+            throw new Error('[sightstone]: summonerId is invalid according to Riot specifications (length > 63).');
+        }
+
+        this.payload.summonerId = summonerId;
+        return this;
+    }
+
+    protected accountId(accountId: string): this {
+        if (accountId.length > 56) {
+            throw new Error('[sightstone]: accountId is invalid according to Riot specifications (length > 56).');
+        }
+
+        this.payload.accountId = accountId;
+        return this;
+    }
+
+    protected puuid(puuid: string): this {
+        if (puuid.length > 78) {
+            throw new Error('[sightstone]: puuid is invalid according to Riot specifications (length > 78).');
+        }
+
+        this.payload.puuid = puuid;
+        return this;
+    }
+
+    protected name(name: string): this {
+        this.payload.summonerName = name;
+        return this;
+    }
+
+    protected matchId(matchId: number): this {
+        this.payload.matchId = matchId;
+        return this;
     }
 
     public abstract exec(): Promise<any>;
 
-    protected async run<T>(endpoint: string, parameters: { [key: string]: unknown }): Promise<T> {
+    protected async run<T>(): Promise<T> {
         try {
-            await this.waitForRateLimit(this.region);
-            await this.incrementRateLimit(this.region);
-            const { data }: any = await this.RiotAPI.request(endpoint, parameters).get();
+            if(typeof this.payload.region === 'undefined' || typeof this.payload.endpoint === 'undefined') {
+                throw new Error('[sightstone]: Action payload region or endpoint is undefined.')
+            }
+
+            await this.waitForRateLimit(this.payload.region);
+            await this.incrementRateLimit(this.payload.region);
+            const { data }: any = await this.RiotAPI.request(this.payload.endpoint, this.payload).get();
 
             return data as T;
         } catch (e) {

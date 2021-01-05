@@ -9,14 +9,20 @@ import { ENDPOINTS, Region } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchMasteryBySummonerID extends Action {
-    constructor(SubmoduleMap: SubmoduleMapInterface, region: Region, summonerId: string) {
-        super(SubmoduleMap, region);
-
-        this.summonerId = summonerId;
+    constructor(SubmoduleMap: SubmoduleMapInterface) {
+        super(SubmoduleMap);
+        this.payload.endpoint = ENDPOINTS.CHAMPION_MASTERY.SUMMONER_ID.LIST;
     }
 
+    public region: (region: Region) => this = super.region;
+
+    public summonerId: (summonerId: string) => this = super.summonerId;
+
     public async exec(): Promise<ChampionMasteryInterface[]> {
-        return this.run<ChampionMasteryInterface[]>(ENDPOINTS.CHAMPION_MASTERY.SUMMONER_ID.LIST, { server: this.region, 'summoner-id': this.summonerId });
+        if(typeof this.payload.summonerId === 'undefined') {
+            throw new Error('[sightstone]: Action payload summonerId is undefined.');
+        }
+        return this.run<ChampionMasteryInterface[]>();
     }
 }
 
