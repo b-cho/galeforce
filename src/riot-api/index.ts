@@ -14,7 +14,7 @@ export default class RiotAPIModule {
         this.key = key;
     }
 
-    public request(stringTemplate: string, parameters: object): RiotAPIRequest {
+    public request(stringTemplate: string, parameters: { [key: string]: unknown }): RiotAPIRequest {
         return new RiotAPIRequest(stringTemplate, parameters, this.key);
     }
 

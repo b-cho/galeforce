@@ -16,7 +16,7 @@ class FetchMasteryBySummonerID extends Action {
     }
 
     public async exec(): Promise<ChampionMasteryInterface> {
-        return await this.run<ChampionMasteryInterface>(ENDPOINTS.CHAMPION_MASTERY.SUMMONER_ID.LIST, { server: this.server, 'summoner-id': this.summonerId });
+        return this.run<ChampionMasteryInterface>(ENDPOINTS.CHAMPION_MASTERY.SUMMONER_ID.LIST, { server: this.server, 'summoner-id': this.summonerId });
     }
 }
 

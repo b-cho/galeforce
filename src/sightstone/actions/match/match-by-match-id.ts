@@ -16,7 +16,7 @@ class FetchMatchByMatchID extends Action {
     }
 
     public async exec(): Promise<MatchInterface> {
-        return await this.run<MatchInterface>(ENDPOINTS.MATCH.MATCH.MATCH_ID, { server: this.server, 'match-id': this.matchId });
+        return this.run<MatchInterface>(ENDPOINTS.MATCH.MATCH.MATCH_ID, { server: this.server, 'match-id': this.matchId });
     }
 }
 

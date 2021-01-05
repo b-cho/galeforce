@@ -50,6 +50,8 @@ module.exports = {
         "@typescript-eslint/no-misused-new": "error",
         "@typescript-eslint/no-namespace": "error",
         "@typescript-eslint/no-non-null-assertion": "warn",
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": "error",
         "@typescript-eslint/no-this-alias": "error",
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": "warn",

@@ -16,7 +16,7 @@ class FetchLeagueEntriesBySummonerID extends Action {
     }
 
     public async exec(): Promise<LeagueEntryInterface> {
-        return await this.run<LeagueEntryInterface>(ENDPOINTS.LEAGUE.SUMMONER_ID, { server: this.server, 'summoner-id': this.summonerId });
+        return this.run<LeagueEntryInterface>(ENDPOINTS.LEAGUE.SUMMONER_ID, { server: this.server, 'summoner-id': this.summonerId });
     }
 }
 

@@ -16,7 +16,7 @@ class FetchTimelineByMatchID extends Action {
     }
 
     public async exec(): Promise<MatchTimelineInterface> {
-        return await this.run<MatchTimelineInterface>(ENDPOINTS.MATCH.TIMELINE.MATCH_ID, { server: this.server, 'match-id': this.matchId });
+        return this.run<MatchTimelineInterface>(ENDPOINTS.MATCH.TIMELINE.MATCH_ID, { server: this.server, 'match-id': this.matchId });
     }
 }
 

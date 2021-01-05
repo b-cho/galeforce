@@ -38,7 +38,7 @@ class RedisCache extends Cache {
     public async set(key: string, value: string): Promise<void> {
         await this.client.setAsync(key, value);
     }
-    
+
     public async setex(key: string, ttl: number, value: string): Promise<void> {
         await this.client.setexAsync(key, ttl, value);
     }

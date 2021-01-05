@@ -14,17 +14,21 @@ abstract class Action {
     protected cache: Cache;
 
     protected server: Region;
+
     protected summonerId?: string;
+
     protected accountId?: string;
+
     protected summonerName?: string;
+
     protected matchId?: number;
 
     constructor(SubmoduleMap: SubmoduleMapInterface, server: Region) {
         // Region check in case types are not followed
-        if (!(<any>Object).values(Region).includes(server.toLowerCase())) {
+        if (!(Object as any).values(Region).includes(server.toLowerCase())) {
             throw new Error('[sightstone]: Invalid server region provided.');
         }
-        
+
         this.RiotAPI = SubmoduleMap.RiotAPI;
         this.cache = SubmoduleMap.cache;
         this.server = server;
@@ -32,7 +36,7 @@ abstract class Action {
 
     public abstract exec(): Promise<any>;
 
-    protected async run<T>(endpoint: string, parameters: object): Promise<T> {
+    protected async run<T>(endpoint: string, parameters: { [key: string]: unknown }): Promise<T> {
         try {
             await this.waitForRateLimit(this.server);
             await this.incrementRateLimit(this.server);
@@ -55,7 +59,7 @@ abstract class Action {
     protected async checkRateLimit(server: Region): Promise<boolean> {
         return (await Promise.all(Object.entries(this.cache.RLConfig.intervals).map(async ([key, limit]: [string, number]): Promise<boolean> => {
             const value: string | null = await this.cache.get(this.cache.RLConfig.prefix + key + server);
-            const queries: number = parseInt(value || '0');
+            const queries: number = parseInt(value || '0', 10);
             return queries < limit;
         }))).every(Boolean);
     }
@@ -73,15 +77,15 @@ abstract class Action {
     }
 
     protected async incrementRateLimit(server: Region): Promise<void> {
-        async.each(Object.keys(this.cache.RLConfig.intervals), async (key: string, callback: Function) => {
+        async.each(Object.keys(this.cache.RLConfig.intervals), async (key: string, callback: (err?: object) => void) => {
             const value: string | null = await this.cache.get(this.cache.RLConfig.prefix + key + server);
-            const queries: number = parseInt(value || '0');
+            const queries: number = parseInt(value || '0', 10);
             if (Number.isNaN(queries) || queries === 0) {
-                await this.cache.setex(this.cache.RLConfig.prefix + key + server, parseInt(key), '1');
+                await this.cache.setex(this.cache.RLConfig.prefix + key + server, parseInt(key, 10), '1');
             } else {
                 await this.cache.incr(this.cache.RLConfig.prefix + key + server);
             }
-             
+
             callback();
         });
     }

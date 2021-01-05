@@ -24,14 +24,11 @@ abstract class Request {
      *
      * @return {[String]} Substituted version of template with parameter values from match.
      */
-    protected static generateTemplateString(template: string, match: object): string {
-        // Replace ${expressions} (etc) with ${map['expressions']}.
-        const sanitized = template
-            .replace(/\$\{([\s]*[^;\s{]+[\s]*)\}/g, (_, _match) => `$\{map["${_match.trim()}"]}`)
-            // Afterwards, delete any ${x} that is not ${map["expressions"]}'.
-            .replace(/(\$\{(?!map\[")[^}]+"\]\})/g, '');
-
-        return Function('map', `return \`${sanitized}\``)(match);
+    protected static generateTemplateString(template: string, match: { [key: string]: unknown }): string {
+        return template.replace(/\$\{([\s]*[^;\s{]+[\s]*)\}/g, (mt: string) => {
+            const key = mt.substring(2, mt.length - 1);
+            return Object.keys(match).includes(key) ? (match[key] as string) : mt;
+        });
     }
 
     /**
@@ -43,7 +40,7 @@ abstract class Request {
      * @return {Promise} Return JSON data as a promise (due to delayed request completion).
      */
     public async get(): Promise<object> {
-        return await axios.get(encodeURI(this.targetURL), {
+        return axios.get(encodeURI(this.targetURL), {
             headers: this.headers,
         });
     }

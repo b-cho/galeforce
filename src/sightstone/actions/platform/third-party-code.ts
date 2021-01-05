@@ -10,7 +10,7 @@ class FetchThirdPartyCodeBySummonerId extends Action {
     }
 
     public async exec(): Promise<string> {
-        return await this.run<string>(ENDPOINTS.PLATFORM.THIRD_PARTY_CODE.SUMMONER_ID, { server: this.server, 'summoner-id': this.summonerId });
+        return this.run<string>(ENDPOINTS.PLATFORM.THIRD_PARTY_CODE.SUMMONER_ID, { server: this.server, 'summoner-id': this.summonerId });
     }
 }
 

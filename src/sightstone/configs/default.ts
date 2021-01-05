@@ -25,14 +25,11 @@ export const validate = ajv.compile(ConfigSchema);
  *
  * @return {[String]} Substituted version of template with parameter values from match.
  */
-function generateTemplateString(template: string, match: object): string {
-    // Replace ${expressions} (etc) with ${map['expressions']}.
-    const sanitized = template
-        .replace(/\$\{([\s]*[^;\s{]+[\s]*)\}/g, (_, _match) => `$\{map["${_match.trim()}"]}`)
-        // Afterwards, delete any ${x} that is not ${map["expressions"]}'.
-        .replace(/(\$\{(?!map\[")[^}]+"\]\})/g, '');
-
-    return Function('map', `return \`${sanitized}\``)(match);
+function generateTemplateString(template: string, match: { [key: string]: unknown }): string {
+    return template.replace(/\$\{([\s]*[^;\s{]+[\s]*)\}/g, (mt: string) => {
+        const key = mt.substring(2, mt.length - 1);
+        return Object.keys(match).includes(key) ? (match[key] as string) : mt;
+    });
 }
 
 /**
@@ -40,7 +37,7 @@ function generateTemplateString(template: string, match: object): string {
  *
  * @return {Object} Substituted version of template with process.env replaced values
  */
-function iterateReplace(obj: any): object {
+function iterateReplace(obj: object): object {
     let newObj: any;
     if (Array.isArray(obj)) {
         newObj = [...obj];
@@ -69,8 +66,8 @@ function iterateReplace(obj: any): object {
  */
 function getConfig(filename: string): ConfigInterface {
     const configObject = iterateReplace(yaml.parse(fs.readFileSync(filename, 'utf8')));
-    if(validate(configObject)) return configObject;
-    else throw new Error('Invalid config provided (config failed JSON schema validation).');
+    if (validate(configObject)) return configObject;
+    throw new Error('Invalid config provided (config failed JSON schema validation).');
 }
 
 export default getConfig;

@@ -36,7 +36,7 @@ const MATCH = {
 const PLATFORM = {
     THIRD_PARTY_CODE: {
         SUMMONER_ID: 'https://${server}.api.riotgames.com/lol/platform/v4/third-party-code/by-summoner/${summoner-id}',
-    }
+    },
 };
 
 const DATA_DRAGON = {
@@ -46,7 +46,7 @@ const DATA_DRAGON = {
     MAPS: 'http://static.developer.riotgames.com/docs/lol/maps.json',
     GAME_MODES: 'http://static.developer.riotgames.com/docs/lol/gameModes.json',
     GAME_TYPES: 'http://static.developer.riotgames.com/docs/lol/gameTypes.json',
-}
+};
 
 export default {
     SUMMONER,

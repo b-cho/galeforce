@@ -18,7 +18,7 @@ class FetchMatchlistByAccountID extends Action {
     }
 
     public async exec(): Promise<MatchlistInterface> {
-        return await this.run<MatchlistInterface>(ENDPOINTS.MATCH.MATCHLIST.ACCOUNT_ID, { server: this.server, 'account-id': this.accountId });
+        return this.run<MatchlistInterface>(ENDPOINTS.MATCH.MATCHLIST.ACCOUNT_ID, { server: this.server, 'account-id': this.accountId });
     }
 }
 

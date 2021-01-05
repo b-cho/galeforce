@@ -16,7 +16,7 @@ class FetchSummonerByName extends Action {
     }
 
     public async exec(): Promise<SummonerInterface> {
-        return await this.run<SummonerInterface>(ENDPOINTS.SUMMONER.SUMMONER_NAME, { server: this.server, 'summoner-name': this.summonerName });
+        return this.run<SummonerInterface>(ENDPOINTS.SUMMONER.SUMMONER_NAME, { server: this.server, 'summoner-name': this.summonerName });
     }
 }
 
