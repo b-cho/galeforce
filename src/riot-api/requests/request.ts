@@ -26,7 +26,10 @@ abstract class Request {
     protected static generateTemplateString(template: string, match: { [key: string]: unknown }): string {
         return template.replace(/\$\{([\s]*[^;\s{]+[\s]*)\}/g, (mt: string) => {
             const key = mt.substring(2, mt.length - 1);
-            return Object.keys(match).includes(key) ? (match[key] as string) : mt;
+            if (!Object.keys(match).includes(key)) {
+                throw new Error(`[sightstone]: Action payload ${key} is required but undefined.`);
+            }
+            return match[key] as string;
         });
     }
 

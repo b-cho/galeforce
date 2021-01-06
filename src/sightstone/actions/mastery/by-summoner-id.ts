@@ -19,9 +19,6 @@ class FetchMasteryBySummonerID extends Action {
     public summonerId: (summonerId: string) => this = super.summonerId;
 
     public async exec(): Promise<ChampionMasteryInterface[]> {
-        if(typeof this.payload.summonerId === 'undefined') {
-            throw new Error('[sightstone]: Action payload summonerId is undefined.');
-        }
         return this.run<ChampionMasteryInterface[]>();
     }
 }

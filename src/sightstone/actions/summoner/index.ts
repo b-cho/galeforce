@@ -40,9 +40,6 @@ class FetchSummoner extends Action {
     };
 
     public async exec(): Promise<SummonerInterface> {
-        if (typeof this.payload.summonerName === undefined) {
-            throw new Error('[sightstone]: Action payload summoner name is undefined.');
-        }
         return this.run<SummonerInterface>();
     }
 }

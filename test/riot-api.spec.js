@@ -33,10 +33,12 @@ const dataDragonGameTypesReply = [
     }
 ]
 const na1API = nock('https://na1.api.riotgames.com')
+    .persist()
     .get('/lol/summoner/v4/summoners/by-name/SSG%20Xayah')
     .reply(200, v4SummonerByNameReply);
 
 const dataDragon = nock('http://static.developer.riotgames.com')
+    .persist()
     .get('/docs/lol/gameTypes.json')
     .reply(200, dataDragonGameTypesReply);
 
@@ -51,9 +53,13 @@ describe('/riot-api', () => {
             expect(RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { region: Region.NORTH_AMERICA, summonerName: 'TEST' })['targetURL'])
                 .to.equal('https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/TEST')
         });
-        it('should generate correct RiotAPI.dataDragonRequest URLs from teplate strings', () => {
+        it('should generate correct RiotAPI.dataDragonRequest URLs from template strings', () => {
             expect(RiotAPI.dataDragonRequest(ENDPOINTS.DATA_DRAGON.CHAMPION, '10.25.1')['targetURL'])
                 .to.equal('http://ddragon.leagueoflegends.com/cdn/10.25.1/data/en_US/champion.json')
+        });
+        it('should throw when a required parameter is missing', () => {
+            expect(() => RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { region: Region.NORTH_AMERICA }))
+                .to.throw('[sightstone]: Action payload summonerName is required but undefined.')
         });
     });
     describe('API calls', () => {

@@ -19,9 +19,6 @@ class FetchMatchlistByAccountID extends Action {
     public accountId: (accountId: string) => this = super.accountId;
 
     public async exec(): Promise<MatchlistInterface> {
-        if(typeof this.payload.accountId === 'undefined') {
-            throw new Error('[sightstone]: Action payload accountId is undefined.');
-        }
         return this.run<MatchlistInterface>();
     }
 }

@@ -19,9 +19,6 @@ class FetchLeagueEntriesBySummonerID extends Action {
     public summonerId: (summonerId: string) => this = super.summonerId;
 
     public async exec(): Promise<LeagueEntryInterface[]> {
-        if(typeof this.payload.summonerId === 'undefined') {
-            throw new Error('[sightstone]: Action payload summonerId is undefined.');
-        }
         return this.run<LeagueEntryInterface[]>();
     }
 }

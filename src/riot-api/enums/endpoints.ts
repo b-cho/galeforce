@@ -4,7 +4,7 @@ const SUMMONER = {
     SUMMONER_NAME: 'https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}',
     PUUID: 'https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}',
     ACCOUNT_ID: 'https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-account/${accountId}',
-    SUMMONER_ID: 'https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-account/${summonerId}',
+    SUMMONER_ID: 'https://${region}.api.riotgames.com/lol/summoner/v4/summoners/${summonerId}',
 };
 
 const CHAMPION_MASTERY = {

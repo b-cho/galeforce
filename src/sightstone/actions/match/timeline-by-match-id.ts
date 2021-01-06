@@ -19,9 +19,6 @@ class FetchTimelineByMatchID extends Action {
     public matchId: (matchId: number) => this = this.matchId;
 
     public async exec(): Promise<MatchTimelineInterface> {
-        if(typeof this.payload.matchId === 'undefined') {
-            throw new Error('[sightstone]: Action payload matchId is undefined.');
-        }
         return this.run<MatchTimelineInterface>();
     }
 }

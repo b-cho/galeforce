@@ -82,7 +82,7 @@ abstract class Action {
     protected async run<T>(): Promise<T> {
         try {
             if(typeof this.payload.region === 'undefined' || typeof this.payload.endpoint === 'undefined') {
-                throw new Error('[sightstone]: Action payload region or endpoint is undefined.')
+                throw new Error('[sightstone]: Action payload region or endpoint is required but undefined.')
             }
 
             await this.waitForRateLimit(this.payload.region);

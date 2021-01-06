@@ -80,5 +80,20 @@ describe('/sightstone/caches', () => {
                 });
             });
         });
+        it('should not throw on set', () => {
+            return expect(MockNullCache.set('a','test')).to.be.fulfilled;
+        });
+        it('should not throw on setex', () => {
+            return expect(MockNullCache.setex('a',1,'test')).to.be.fulfilled;
+        });
+        it('should not throw on incr', () => {
+            return expect(MockNullCache.setex('a')).to.be.fulfilled;
+        });
+        it('should not throw on expire', () => {
+            return expect(MockNullCache.setex('a', 1)).to.be.fulfilled;
+        });
+        it('should not throw on flush', () => {
+            return expect(MockNullCache.flush()).to.be.fulfilled;
+        });
     });
 });

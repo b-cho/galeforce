@@ -21,10 +21,10 @@ export const validate = ajv.compile(ConfigSchema);
  *
  * @return {[String]} Substituted version of template with parameter values from match.
  */
-function generateTemplateString(template: string, match: { [key: string]: unknown }): string {
+function generateTemplateString(template: string): string {
     return template.replace(/\$\{([\s]*[^;\s{]+[\s]*)\}/g, (mt: string) => {
         const key = mt.substring(2, mt.length - 1);
-        return Object.keys(match).includes(key) ? (match[key] as string) : mt;
+        return Object.keys(process.env).includes(key) ? (process.env[key] as string) : mt;
     });
 }
 
@@ -34,16 +34,11 @@ function generateTemplateString(template: string, match: { [key: string]: unknow
  * @return {Object} Substituted version of template with process.env replaced values
  */
 function iterateReplace(obj: object): object {
-    let newObj: any;
-    if (Array.isArray(obj)) {
-        newObj = [...obj];
-    } else {
-        newObj = { ...obj };
-    }
+    let newObj: any = JSON.parse(JSON.stringify(obj));
 
     Object.keys(newObj).forEach((key) => {
         if (typeof newObj[key] === 'string') {
-            newObj[key] = generateTemplateString(newObj[key], process.env);
+            newObj[key] = generateTemplateString(newObj[key]);
         }
 
         if (typeof newObj[key] === 'object') {
