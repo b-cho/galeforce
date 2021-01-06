@@ -11,15 +11,15 @@ rewiremock('redis').with(redisMock);
 rewiremock(() => require('redis')).with(redisMock);
 
 rewiremock.enable();
-const SightstoneModule = require('../dist').default;
+const GaleforceModule = require('../dist').default;
 
 process.env.RIOT_KEY = 'RIOT-API-KEY-2';
 process.env.CACHE_TYPE = 'null';
 process.env.REDIS_URL = '';
 
-describe('/sightstone', () => {
+describe('/galeforce', () => {
     it('should initialize properly from config object (1)', () => {
-        expect(() => new SightstoneModule({
+        expect(() => new GaleforceModule({
             'riot-api': {
                 key: 'RIOT-API-KEY',
             },
@@ -33,7 +33,7 @@ describe('/sightstone', () => {
         })).to.not.throw();
     });
     it('should initialize properly from config object (2)', () => {
-        expect(() => new SightstoneModule({
+        expect(() => new GaleforceModule({
             'riot-api': {
                 key: 'RIOT-API-KEY',
             },
@@ -50,7 +50,7 @@ describe('/sightstone', () => {
         })).to.not.throw();
     });
     it('should initialize properly from config object (3)', () => {
-        expect(() => new SightstoneModule({
+        expect(() => new GaleforceModule({
             'riot-api': {
                 key: 'RIOT-API-KEY',
             },
@@ -68,13 +68,13 @@ describe('/sightstone', () => {
         })).to.not.throw();
     });
     it('should initialize properly from config file', () => {
-        expect(() => new SightstoneModule('./test/test-configs/4.yaml')).to.not.throw();
+        expect(() => new GaleforceModule('./test/test-configs/4.yaml')).to.not.throw();
     });
     it('should initialize properly from config file with environment variables', () => {
-        expect(() => new SightstoneModule('./test/test-configs/2.yaml')).to.not.throw();
+        expect(() => new GaleforceModule('./test/test-configs/2.yaml')).to.not.throw();
     });
     it('should error when passed an invalid config (1)', () => {
-        expect(() => new SightstoneModule({
+        expect(() => new GaleforceModule({
             cache: {
                 type: 'redis',
                 uri: 'redis://127.0.0.1:6379',
@@ -89,7 +89,7 @@ describe('/sightstone', () => {
         })).to.throw();
     });
     it('should error when passed an invalid config (2)', () => {
-        expect(() => new SightstoneModule({
+        expect(() => new GaleforceModule({
             'riot-api': {
                 key: 'RIOT-API-KEY',
             },
@@ -103,7 +103,7 @@ describe('/sightstone', () => {
         })).to.throw();
     });
     it('should error when passed an invalid config (3)', () => {
-        expect(() => new SightstoneModule({
+        expect(() => new GaleforceModule({
             'riot-api': {
                 key: 'RIOT-API-KEY',
             },
@@ -120,7 +120,7 @@ describe('/sightstone', () => {
         })).to.throw();
     });
     it('should have property region', () => {
-        expect(new SightstoneModule({
+        expect(new GaleforceModule({
             'riot-api': {
                 key: 'RIOT-API-KEY',
             },

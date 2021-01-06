@@ -11,10 +11,10 @@ rewiremock('redis').with(redisMock);
 rewiremock(() => require('redis')).with(redisMock);
 rewiremock.enable();
 
-const SightstoneModule = require('../dist').default;
+const GaleforceModule = require('../dist').default;
 const { reject } = require('bluebird');
 
-const Sightstone = new SightstoneModule({
+const Galeforce = new GaleforceModule({
     'riot-api': {
         key: 'RIOT-API-KEY',
     },
@@ -107,37 +107,37 @@ const na1API = nock('https://na1.api.riotgames.com')
         .reply(403)
 
 
-describe('/sightstone/actions', () => {
-    describe('Sightstone', () => {
+describe('/galeforce/actions', () => {
+    describe('Galeforce', () => {
         describe('.summoner()', () => {
             describe('.name()', () => {
                 it('should return correct JSON for the /summoner/v4/summoners/by-name Riot API endpoint', () => {
-                    return expect(Sightstone.summoner().region(Sightstone.regions.NORTH_AMERICA).name('SSG Xayah').exec())
+                    return expect(Galeforce.summoner().region(Galeforce.regions.NORTH_AMERICA).name('SSG Xayah').exec())
                         .to.eventually.deep.equal(replyValues.v4.summoner);
                 });
                 it('should throw when provided an invalid region', () => {
-                    return expect(() => Sightstone.summoner().region('invalid region'))
+                    return expect(() => Galeforce.summoner().region('invalid region'))
                         .to.throw();
                 });
                 it('should return correct JSON for the /summoner/v4/summoners/by-name Riot API endpoint', () => {
-                    return expect(Sightstone.summoner().name('SSG Xayah').exec())
-                        .to.eventually.be.rejectedWith('[sightstone]: Action payload region or endpoint is required but undefined.');
+                    return expect(Galeforce.summoner().name('SSG Xayah').exec())
+                        .to.eventually.be.rejectedWith('[galeforce]: Action payload region or endpoint is required but undefined.');
                 });
                 it('should reject with correct error message when receiving a 404 status code', () => {
-                    return expect(Sightstone.summoner().region(Sightstone.regions.NORTH_AMERICA).name('404').exec())
-                        .to.eventually.be.rejectedWith('[sightstone]: Data fetch failed with status code 404');
+                    return expect(Galeforce.summoner().region(Galeforce.regions.NORTH_AMERICA).name('404').exec())
+                        .to.eventually.be.rejectedWith('[galeforce]: Data fetch failed with status code 404');
                 });
                 it('should reject with correct error message when receiving a 403 status code', () => {
-                    return expect(Sightstone.summoner().region(Sightstone.regions.NORTH_AMERICA).name('403').exec())
-                        .to.eventually.be.rejectedWith('[sightstone]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)');
+                    return expect(Galeforce.summoner().region(Galeforce.regions.NORTH_AMERICA).name('403').exec())
+                        .to.eventually.be.rejectedWith('[galeforce]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)');
                 });
                 it('should timeout when rate limit exceeded', () => new Promise((resolve, reject) => {
 
                 
-                    const SightstoneRL = new SightstoneModule('./test/test-configs/1.yaml');
+                    const GaleforceRL = new GaleforceModule('./test/test-configs/1.yaml');
                     let autoTimeout = setTimeout(resolve, 500);
-                    SightstoneRL['SubmoduleMap']['cache'].setex('riotapi-ratelimit-120na1', 120, '4000').then(() => {
-                        SightstoneRL.summoner().region(SightstoneRL.regions.NORTH_AMERICA).name('SSG Xayah').exec().then(() => {
+                    GaleforceRL['SubmoduleMap']['cache'].setex('riotapi-ratelimit-120na1', 120, '4000').then(() => {
+                        GaleforceRL.summoner().region(GaleforceRL.regions.NORTH_AMERICA).name('SSG Xayah').exec().then(() => {
                             clearTimeout(autoTimeout);
                             reject(new Error('Rate limiting failed!'));
                         });
@@ -146,31 +146,31 @@ describe('/sightstone/actions', () => {
             });
             describe('.accountId', () => {
                 it('should return correct JSON for the /summoner/v4/summoners/by-account Riot API endpoint', () => {
-                    return expect(Sightstone.summoner().region(Sightstone.regions.NORTH_AMERICA).accountId('xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4').exec())
+                    return expect(Galeforce.summoner().region(Galeforce.regions.NORTH_AMERICA).accountId('xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4').exec())
                         .to.eventually.deep.equal(replyValues.v4.summoner);
                 });
                 it('should throw when provided an invalid accountId (length check)', () => {
-                    return expect(() => Sightstone.summoner().accountId('X'.repeat(100)))
+                    return expect(() => Galeforce.summoner().accountId('X'.repeat(100)))
                         .to.throw();
                 });
             });
             describe('.summonerId()', () => {
                 it('should return correct JSON for the /summoner/v4/summoners Riot API endpoint', () => {
-                    return expect(Sightstone.summoner().region(Sightstone.regions.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                    return expect(Galeforce.summoner().region(Galeforce.regions.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
                         .to.eventually.deep.equal(replyValues.v4.summoner);
                 });
                 it('should throw when provided an invalid summonerId (length check)', () => {
-                    return expect(() => Sightstone.summoner().summonerId('X'.repeat(100)))
+                    return expect(() => Galeforce.summoner().summonerId('X'.repeat(100)))
                         .to.throw();
                 });
             });
             describe('.puuid()', () => {
                 it('should return correct JSON for the /summoner/v4/summoners/by-puuid Riot API endpoint', () => {
-                    return expect(Sightstone.summoner().region(Sightstone.regions.NORTH_AMERICA).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
+                    return expect(Galeforce.summoner().region(Galeforce.regions.NORTH_AMERICA).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
                         .to.eventually.deep.equal(replyValues.v4.summoner);
                 });
                 it('should throw when provided an invalid puuid (length check)', () => {
-                    return expect(() => Sightstone.summoner().puuid('X'.repeat(100)))
+                    return expect(() => Galeforce.summoner().puuid('X'.repeat(100)))
                         .to.throw();
                 });
             });
@@ -179,7 +179,7 @@ describe('/sightstone/actions', () => {
             describe('.entries()', () => {
                 describe('.summonerId()', () => {
                     it('should return correct JSON for the /league/v4/entries/by-summoner Riot API endpoint', () => {
-                        return expect(Sightstone.league.entries().region(Sightstone.regions.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                        return expect(Galeforce.league.entries().region(Galeforce.regions.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
                             .to.eventually.deep.equal(replyValues.v4.league.entriesBySummonerId);
                     });
                 });
@@ -189,7 +189,7 @@ describe('/sightstone/actions', () => {
             describe('.summoner()', () => {
                 describe('.summonerId()', () => {
                     it('should return correct JSON for the /champion-mastery/v4/champion-masteries/by-summoner Riot API endpoint', () => {
-                        return expect(Sightstone.mastery.summoner().region(Sightstone.regions.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                        return expect(Galeforce.mastery.summoner().region(Galeforce.regions.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
                             .to.eventually.deep.equal(replyValues.v4.championMastery.bySummonerId);
                     });
                 });
@@ -199,7 +199,7 @@ describe('/sightstone/actions', () => {
             describe('.match()', () => {
                 describe('.matchId()', () => {
                     it('should return correct JSON for the /match/v4/matches Riot API endpoint', () => {
-                        return expect(Sightstone.match.match().region(Sightstone.regions.NORTH_AMERICA).matchId('3724412289').exec())
+                        return expect(Galeforce.match.match().region(Galeforce.regions.NORTH_AMERICA).matchId('3724412289').exec())
                             .to.eventually.deep.equal(replyValues.v4.match.matchByMatchId);
                     });
                 });
@@ -207,7 +207,7 @@ describe('/sightstone/actions', () => {
             describe('.timeline()', () => {
                 describe('.matchId()', () => {
                     it('should return correct JSON for the /match/v4/timelines/by-match Riot API endpoint', () => {
-                        return expect(Sightstone.match.timeline().region(Sightstone.regions.NORTH_AMERICA).matchId('3724412289').exec())
+                        return expect(Galeforce.match.timeline().region(Galeforce.regions.NORTH_AMERICA).matchId('3724412289').exec())
                             .to.eventually.deep.equal(replyValues.v4.match.timelineByMatchId);
                     });
                 });
@@ -215,7 +215,7 @@ describe('/sightstone/actions', () => {
             describe('.matchlist()', () => {
                 describe('.accountId()', () => {
                     it('should return correct JSON for the /match/v4/matchlists/by-account/ Riot API endpoint', () => {
-                        return expect(Sightstone.match.matchlist().region(Sightstone.regions.NORTH_AMERICA).accountId('xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4').exec())
+                        return expect(Galeforce.match.matchlist().region(Galeforce.regions.NORTH_AMERICA).accountId('xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4').exec())
                             .to.eventually.deep.equal(replyValues.v4.match.matchlistByAccountId);
                     });
                 });
@@ -225,7 +225,7 @@ describe('/sightstone/actions', () => {
             describe('.thirdPartyCode()', () => {
                 describe('.summonerId()', () => {
                     it('should return correct JSON for the /platform/v4/third-party-code/by-summoner/ Riot API endpoint', () => {
-                        return expect(Sightstone.platform.thirdPartyCode().region(Sightstone.regions.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                        return expect(Galeforce.platform.thirdPartyCode().region(Galeforce.regions.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
                             .to.eventually.equal(replyValues.v4.thirdPartyCode.bySummonerId);
                     });
                 });

@@ -27,7 +27,7 @@ abstract class Request {
         return template.replace(/\$\{([\s]*[^;\s{]+[\s]*)\}/g, (mt: string) => {
             const key = mt.substring(2, mt.length - 1);
             if (!Object.keys(match).includes(key)) {
-                throw new Error(`[sightstone]: Action payload ${key} is required but undefined.`);
+                throw new Error(`[galeforce]: Action payload ${key} is required but undefined.`);
             }
             return match[key] as string;
         });

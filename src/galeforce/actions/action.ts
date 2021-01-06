@@ -33,7 +33,7 @@ abstract class Action {
     protected region(region: Region): this {
         // Region check in case types are not followed
         if (!(Object as any).values(Region).includes(region.toLowerCase())) {
-            throw new Error('[sightstone]: Invalid region provided.');
+            throw new Error('[galeforce]: Invalid region provided.');
         }
 
         this.payload.region = region;
@@ -42,7 +42,7 @@ abstract class Action {
 
     protected summonerId(summonerId: string): this {
         if (summonerId.length > 63) {
-            throw new Error('[sightstone]: summonerId is invalid according to Riot specifications (length > 63).');
+            throw new Error('[galeforce]: summonerId is invalid according to Riot specifications (length > 63).');
         }
 
         this.payload.summonerId = summonerId;
@@ -51,7 +51,7 @@ abstract class Action {
 
     protected accountId(accountId: string): this {
         if (accountId.length > 56) {
-            throw new Error('[sightstone]: accountId is invalid according to Riot specifications (length > 56).');
+            throw new Error('[galeforce]: accountId is invalid according to Riot specifications (length > 56).');
         }
 
         this.payload.accountId = accountId;
@@ -60,7 +60,7 @@ abstract class Action {
 
     protected puuid(puuid: string): this {
         if (puuid.length > 78) {
-            throw new Error('[sightstone]: puuid is invalid according to Riot specifications (length > 78).');
+            throw new Error('[galeforce]: puuid is invalid according to Riot specifications (length > 78).');
         }
 
         this.payload.puuid = puuid;
@@ -82,7 +82,7 @@ abstract class Action {
     protected async run<T>(): Promise<T> {
         try {
             if(typeof this.payload.region === 'undefined' || typeof this.payload.endpoint === 'undefined') {
-                throw new Error('[sightstone]: Action payload region or endpoint is required but undefined.')
+                throw new Error('[galeforce]: Action payload region or endpoint is required but undefined.')
             }
 
             await this.waitForRateLimit(this.payload.region);
@@ -93,9 +93,9 @@ abstract class Action {
         } catch (e) {
             if (e.response?.status) {
                 if (e.response.status === 403) {
-                    throw new Error('[sightstone]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)');
+                    throw new Error('[galeforce]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)');
                 } else {
-                    throw new Error(`[sightstone]: Data fetch failed with status code ${e.response.status}`);
+                    throw new Error(`[galeforce]: Data fetch failed with status code ${e.response.status}`);
                 }
             }
 

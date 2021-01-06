@@ -13,25 +13,25 @@ import FetchMatchlistByAccountID from './actions/match/matchlist-by-account-id';
 import FetchMasteryBySummonerID from './actions/mastery/by-summoner-id';
 import FetchLeagueEntriesBySummonerID from './actions/league/entries-by-summoner-id';
 
-interface SightstoneMasteryInterface {
+interface GaleforceMasteryInterface {
     summoner: () => FetchMasteryBySummonerID;
 }
 
-interface SightstoneLeagueInterface {
+interface GaleforceLeagueInterface {
     entries: () => FetchLeagueEntriesBySummonerID;
 }
 
-interface SightstoneMatchInterface {
+interface GaleforceMatchInterface {
     match: () => FetchMatchByID;
     timeline: () => FetchTimelineByMatchID;
     matchlist: () => FetchMatchlistByAccountID;
 }
 
-interface SightstonePlatformInterface {
+interface GaleforcePlatformInterface {
     thirdPartyCode: () => FetchThirdPartyCodeBySummonerId;
 }
 
-export default class Sightstone {
+export default class Galeforce {
     readonly config: ConfigInterface;
 
     private SubmoduleMap: SubmoduleMapInterface;
@@ -62,21 +62,21 @@ export default class Sightstone {
 
     public summoner = () => new FetchSummoner(this.SubmoduleMap);
 
-    public mastery: SightstoneMasteryInterface = {
+    public mastery: GaleforceMasteryInterface = {
         summoner: () => new FetchMasteryBySummonerID(this.SubmoduleMap),
     }
 
-    public league: SightstoneLeagueInterface = {
+    public league: GaleforceLeagueInterface = {
         entries: () => new FetchLeagueEntriesBySummonerID(this.SubmoduleMap),
     }
 
-    public match: SightstoneMatchInterface = {
+    public match: GaleforceMatchInterface = {
         match: () => new FetchMatchByID(this.SubmoduleMap),
         timeline: () => new FetchTimelineByMatchID(this.SubmoduleMap),
         matchlist: () => new FetchMatchlistByAccountID(this.SubmoduleMap),
     }
 
-    public platform: SightstonePlatformInterface = {
+    public platform: GaleforcePlatformInterface = {
         thirdPartyCode: () => new FetchThirdPartyCodeBySummonerId(this.SubmoduleMap),
     }
 

@@ -59,7 +59,7 @@ describe('/riot-api', () => {
         });
         it('should throw when a required parameter is missing', () => {
             expect(() => RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { region: Region.NORTH_AMERICA }))
-                .to.throw('[sightstone]: Action payload summonerName is required but undefined.')
+                .to.throw('[galeforce]: Action payload summonerName is required but undefined.')
         });
     });
     describe('API calls', () => {

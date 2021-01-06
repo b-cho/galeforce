@@ -11,15 +11,15 @@ rewiremock('redis').with(redisMock);
 rewiremock(() => require('redis')).with(redisMock);
 rewiremock.enable();
 
-const RedisCache = require('../dist/sightstone/caches/redis').default;
-const NullCache = require('../dist/sightstone/caches/null').default;
+const RedisCache = require('../dist/galeforce/caches/redis').default;
+const NullCache = require('../dist/galeforce/caches/null').default;
 
 const MockRedisCache = new RedisCache('redis://127.0.0.1:6379');
 const MockNullCache = new NullCache();
 
 rewiremock.disable();
 
-describe('/sightstone/caches', () => {
+describe('/galeforce/caches', () => {
     describe('Redis cache', () => {
         it('should properly initialize', () => {
             expect(MockRedisCache).to.have.property('client');

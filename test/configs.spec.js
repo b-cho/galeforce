@@ -9,11 +9,11 @@ process.env.RIOT_KEY = 'RIOT-API-KEY-2';
 process.env.CACHE_TYPE = 'null';
 process.env.REDIS_URL = '';
 
-const getConfig = require('../dist/sightstone/configs/default').default;
+const getConfig = require('../dist/galeforce/configs/default').default;
 
 // Set fake environment variables
 
-describe('/sightstone/configs', () => {
+describe('/galeforce/configs', () => {
     it('should correctly generate config object from YAML without environment variables', () => {
         expect(getConfig('./test/test-configs/1.yaml')).to.deep.equal({
             'riot-api': {

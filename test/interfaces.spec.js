@@ -7,12 +7,12 @@ const Ajv = require('ajv').default;
 chai.use(chaiAsPromised);
 const expect = chai.expect;
 
-const program = TJS.getProgramFromFiles([resolve('./src/sightstone/interfaces/dto.ts')]);
+const program = TJS.getProgramFromFiles([resolve('./src/galeforce/interfaces/dto.ts')]);
 const generator = TJS.buildGenerator(program, { required: true });
 
 const ajv = new Ajv();
 
-describe('/sightstone/interfaces', () => {
+describe('/galeforce/interfaces', () => {
     describe('DTO', () => {
         describe('SummonerInterface', () => {
             it('should match with /summoner/v4/summoners JSON data (using JSON schema)', () => {

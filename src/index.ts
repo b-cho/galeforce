@@ -1,3 +1,3 @@
-import Sightstone from './sightstone/index';
+import Galeforce from './galeforce';
 
-export default Sightstone;
+export default Galeforce;
