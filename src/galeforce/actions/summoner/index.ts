@@ -16,27 +16,23 @@ class FetchSummoner extends Action {
     public region: (region: Region) => this = super.region;
 
     public name(name: string): this {
-        super.name(name);
         this.payload.endpoint = ENDPOINTS.SUMMONER.SUMMONER_NAME; // set action endpoint simultaneously
-        return this;
+        return super.name(name);
     };
 
     public puuid(puuid: string): this {
-        super.puuid(puuid);
         this.payload.endpoint = ENDPOINTS.SUMMONER.PUUID; // set action endpoint simultaneously
-        return this;
+        return super.puuid(puuid);
     };
 
     public accountId(accountId: string): this {
-        super.accountId(accountId);
         this.payload.endpoint = ENDPOINTS.SUMMONER.ACCOUNT_ID; // set action endpoint simultaneously
-        return this;
+        return super.accountId(accountId);
     };
 
     public summonerId(summonerId: string): this {
-        super.summonerId(summonerId);
         this.payload.endpoint = ENDPOINTS.SUMMONER.SUMMONER_ID; // set action endpoint simultaneously
-        return this;
+        return super.summonerId(summonerId);
     };
 
     public async exec(): Promise<SummonerInterface> {

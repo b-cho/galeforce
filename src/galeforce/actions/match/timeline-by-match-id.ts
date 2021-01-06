@@ -10,8 +10,7 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchTimelineByMatchID extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
-        super(SubmoduleMap);
-        this.payload.endpoint = ENDPOINTS.MATCH.TIMELINE.MATCH_ID;
+        super(SubmoduleMap, ENDPOINTS.MATCH.TIMELINE.MATCH_ID);
     }
 
     public region: (region: Region) => this = this.region;

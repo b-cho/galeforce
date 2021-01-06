@@ -4,8 +4,7 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchThirdPartyCodeBySummonerId extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
-        super(SubmoduleMap);
-        this.payload.endpoint = ENDPOINTS.PLATFORM.THIRD_PARTY_CODE.SUMMONER_ID;
+        super(SubmoduleMap, ENDPOINTS.PLATFORM.THIRD_PARTY_CODE.SUMMONER_ID);
     }
 
     public region: (region: Region) => this = super.region;

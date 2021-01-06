@@ -10,8 +10,7 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchLeagueEntriesBySummonerID extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
-        super(SubmoduleMap);
-        this.payload.endpoint = ENDPOINTS.LEAGUE.SUMMONER_ID;
+        super(SubmoduleMap, ENDPOINTS.LEAGUE.SUMMONER_ID);
     }
 
     public region: (region: Region) => this = super.region;

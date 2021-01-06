@@ -5,3 +5,7 @@ test
 .DS_Store
 .nyc_output
 coverage
+tsconfig.json
+*.map
+.eslintrc.js
+.github

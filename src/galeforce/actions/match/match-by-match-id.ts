@@ -10,8 +10,7 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchMatchByMatchID extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
-        super(SubmoduleMap);
-        this.payload.endpoint = ENDPOINTS.MATCH.MATCH.MATCH_ID;
+        super(SubmoduleMap, ENDPOINTS.MATCH.MATCH.MATCH_ID);
 
     }
 

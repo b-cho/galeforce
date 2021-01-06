@@ -25,9 +25,11 @@ abstract class Action {
 
     protected payload: Payload = {};
 
-    constructor(SubmoduleMap: SubmoduleMapInterface) {
+    constructor(SubmoduleMap: SubmoduleMapInterface, endpoint?: string) {
         this.RiotAPI = SubmoduleMap.RiotAPI;
         this.cache = SubmoduleMap.cache;
+
+        this.payload.endpoint = endpoint;
     }
 
     protected region(region: Region): this {
@@ -103,11 +105,15 @@ abstract class Action {
         }
     }
 
+    private async getQueries(key: string, region: Region): Promise<number> {
+        const value: string | null = await this.cache.get(this.cache.RLConfig.prefix + key + region);
+        const queries: number = parseInt(value || '0', 10);
+        return queries;
+    }
+
     protected async checkRateLimit(region: Region): Promise<boolean> {
         return (await Promise.all(Object.entries(this.cache.RLConfig.intervals).map(async ([key, limit]: [string, number]): Promise<boolean> => {
-            const value: string | null = await this.cache.get(this.cache.RLConfig.prefix + key + region);
-            const queries: number = parseInt(value || '0', 10);
-            return queries < limit;
+            return (await this.getQueries(key, region)) < limit;
         }))).every(Boolean);
     }
 
@@ -125,8 +131,7 @@ abstract class Action {
 
     protected async incrementRateLimit(region: Region): Promise<void> {
         async.each(Object.keys(this.cache.RLConfig.intervals), async (key: string, callback: (err?: object) => void) => {
-            const value: string | null = await this.cache.get(this.cache.RLConfig.prefix + key + region);
-            const queries: number = parseInt(value || '0', 10);
+            const queries: number = await this.getQueries(key, region);
             if (Number.isNaN(queries) || queries === 0) {
                 await this.cache.setex(this.cache.RLConfig.prefix + key + region, parseInt(key, 10), '1');
             } else {
