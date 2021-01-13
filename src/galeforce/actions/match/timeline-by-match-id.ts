@@ -11,10 +11,13 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 class FetchTimelineByMatchID extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.setEndpoint(ENDPOINTS.MATCH.TIMELINE.MATCH_ID);
+        this.payload.setEndpoint(ENDPOINTS.MATCH.TIMELINE.MATCH_ID);
     }
 
-    public matchId: (matchId: number) => this = this.setMatchId;
+    public matchId(matchId: number): this { 
+        this.payload.setMatchId(matchId);
+        return this;
+    }
 
     public async exec(): Promise<MatchTimelineInterface> {
         return this.run<MatchTimelineInterface>();

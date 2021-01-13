@@ -5,12 +5,13 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 class FetchThirdPartyCodeBySummonerId extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.setEndpoint(ENDPOINTS.PLATFORM.THIRD_PARTY_CODE);
+        this.payload.setEndpoint(ENDPOINTS.PLATFORM.THIRD_PARTY_CODE);
     }
 
-    public region: (region: Region) => this = super.setRegion;
-
-    public summonerId: (summonerId: string) => this = super.setSummonerId;
+    public summonerId(summonerId: string): this {
+        this.payload.setSummonerId(summonerId);
+        return this;
+    }
 
     public async exec(): Promise<string> {
         return this.run<string>();

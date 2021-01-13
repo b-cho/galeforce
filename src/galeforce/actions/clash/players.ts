@@ -11,10 +11,13 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 class FetchClashPlayersBySummonerID extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.setEndpoint(ENDPOINTS.CLASH.PLAYERS);
+        this.payload.setEndpoint(ENDPOINTS.CLASH.PLAYERS);
     }
 
-    public summonerId: (summonerId: string) => this = super.setSummonerId;
+    public summonerId(summonerId: string): this {
+        this.payload.setSummonerId(summonerId);
+        return this;
+    }
 
     public async exec(): Promise<PlayerInterface[]> {
         return this.run<PlayerInterface[]>();

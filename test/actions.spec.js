@@ -224,7 +224,7 @@ describe('/galeforce/actions', () => {
                             .to.eventually.deep.equal(replyValues.v4.league.entriesBySummonerId);
                     });
                 });
-                describe('.rank()', () => {
+                describe('.queue().tier().division()', () => {
                     it('should return correct JSON for the /lol/league/v4/entries Riot API endpoint', () => {
                         return expect(Galeforce.league.entries().region(Galeforce.regions.NORTH_AMERICA).queue(Galeforce.queues.RANKED_SOLO).tier(Galeforce.tiers.DIAMOND).division(Galeforce.divisions.IV).exec())
                             .to.eventually.deep.equal(replyValues.v4.league.diamondIV);
@@ -232,6 +232,18 @@ describe('/galeforce/actions', () => {
                     it('should return correct JSON for the /lol/league-exp/v4/entries Riot API endpoint', () => {
                         return expect(Galeforce.league.entries().region(Galeforce.regions.NORTH_AMERICA).division(Galeforce.divisions.I).queue(Galeforce.queues.RANKED_SOLO).tier(Galeforce.tiers.MASTER).exec())
                             .to.eventually.deep.equal(replyValues.v4.league.masterExp);
+                    });
+                    it('should throw when provided an invalid queue', () => {
+                        return expect(() => Galeforce.league.entries().queue('invalid queue'))
+                            .to.throw('[galeforce]: Invalid queue type provided.');
+                    });
+                    it('should throw when provided an invalid tier', () => {
+                        return expect(() => Galeforce.league.entries().tier('invalid tier'))
+                            .to.throw('[galeforce]: Invalid ranked tier provided.');
+                    });
+                    it('should throw when provided an invalid division', () => {
+                        return expect(() => Galeforce.league.entries().division('invalid division'))
+                            .to.throw('[galeforce]: Invalid ranked division provided.');
                     });
                 });
             });

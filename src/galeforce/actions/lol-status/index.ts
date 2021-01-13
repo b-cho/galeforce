@@ -6,7 +6,7 @@ import { PlatformDataInterface } from '../../interfaces/dto';
 class FetchLeaguePlatformData extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.setEndpoint(ENDPOINTS.STATUS.PLATFORM_DATA);
+        this.payload.setEndpoint(ENDPOINTS.STATUS.PLATFORM_DATA);
     }
 
     public async exec(): Promise<PlatformDataInterface> {

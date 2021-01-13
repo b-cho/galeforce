@@ -14,24 +14,28 @@ class FetchSummoner extends Action {
     }
 
     public name(name: string): this {
-        this.setEndpoint(ENDPOINTS.SUMMONER.SUMMONER_NAME); // set action endpoint simultaneously
-        return super.setName(name);
+        this.payload.setEndpoint(ENDPOINTS.SUMMONER.SUMMONER_NAME); // set action endpoint simultaneously
+        this.payload.setName(name);
+        return this;
     };
 
     public puuid(puuid: string): this {
-        this.setEndpoint(ENDPOINTS.SUMMONER.PUUID); // set action endpoint simultaneously
-        return super.setPuuid(puuid);
+        this.payload.setEndpoint(ENDPOINTS.SUMMONER.PUUID); // set action endpoint simultaneously
+        this.payload.setPuuid(puuid);
+        return this;
     };
 
     public accountId(accountId: string): this {
-        this.setEndpoint(ENDPOINTS.SUMMONER.ACCOUNT_ID); // set action endpoint simultaneously
-        return super.setAccountId(accountId);
+        this.payload.setEndpoint(ENDPOINTS.SUMMONER.ACCOUNT_ID); // set action endpoint simultaneously
+        this.payload.setAccountId(accountId);
+        return this;
     };
 
     public summonerId(summonerId: string): this {
-        this.setEndpoint(ENDPOINTS.SUMMONER.SUMMONER_ID); // set action endpoint simultaneously
-        return super.setSummonerId(summonerId);
-    };
+        this.payload.setEndpoint(ENDPOINTS.SUMMONER.SUMMONER_ID); // set action endpoint simultaneously
+        this.payload.setSummonerId(summonerId);
+        return this;
+    }
 
     public async exec(): Promise<SummonerInterface> {
         return this.run<SummonerInterface>();

@@ -11,14 +11,18 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 class FetchMatchByMatchID extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.setEndpoint(ENDPOINTS.MATCH.MATCH.MATCH_ID);
+        this.payload.setEndpoint(ENDPOINTS.MATCH.MATCH.MATCH_ID);
     }
 
-    public matchId: (matchId: number) => this = super.setMatchId;
+    public matchId(matchId: number): this { 
+        this.payload.setMatchId(matchId);
+        return this;
+    }
 
     public tournamentCode(tournamentCode: string): this {
-        this.payload.endpoint = ENDPOINTS.MATCH.MATCH.MATCH_ID_TOURNAMENT;
-        return super.setTournamentCode(tournamentCode);
+        this.payload.setEndpoint(ENDPOINTS.MATCH.MATCH.MATCH_ID_TOURNAMENT);
+        this.payload.setTournamentCode(tournamentCode);
+        return this;
     }
 
     public async exec(): Promise<MatchInterface> {

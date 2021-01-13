@@ -11,10 +11,13 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 class FetchClashTeamByTeamID extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.setEndpoint(ENDPOINTS.CLASH.TEAMS);
+        this.payload.setEndpoint(ENDPOINTS.CLASH.TEAMS);
     }
 
-    public teamId: (teamId: string) => this = super.setTeamId;
+    public teamId(teamId: string):this {
+        this.payload.setTeamId(teamId);
+        return this;
+    }
 
     public async exec(): Promise<TeamInterface> {
         return this.run<TeamInterface>();

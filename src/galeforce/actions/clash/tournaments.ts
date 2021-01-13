@@ -15,18 +15,20 @@ class FetchClashTournament extends Action {
     }
 
     public all(): FetchAllClashTournaments {
-        this.setEndpoint(ENDPOINTS.CLASH.TOURNAMENTS.ALL);
-        return new FetchAllClashTournaments(this.SubmoduleMap, this.payload);
+        this.payload.setEndpoint(ENDPOINTS.CLASH.TOURNAMENTS.ALL);
+        return new FetchAllClashTournaments(this.SubmoduleMap, this.payload.payload);
     };
 
     public teamId(teamId: string): this {
-        this.payload.endpoint = ENDPOINTS.CLASH.TOURNAMENTS.TEAM;
-        return super.setTeamId(teamId);
+        this.payload.payload.endpoint = ENDPOINTS.CLASH.TOURNAMENTS.TEAM;
+        this.payload.setTeamId(teamId);
+        return this;
     }
 
     public tournamentId(tournamentId: number): this {
-        this.payload.endpoint = ENDPOINTS.CLASH.TOURNAMENTS.TOURNAMENT;
-        return super.setTournamentId(tournamentId);
+        this.payload.payload.endpoint = ENDPOINTS.CLASH.TOURNAMENTS.TOURNAMENT;
+        this.payload.setTournamentId(tournamentId);
+        return this;
     }
 
 
