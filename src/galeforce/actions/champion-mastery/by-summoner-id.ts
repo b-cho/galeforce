@@ -1,4 +1,5 @@
-import Action, { Payload } from '../action';
+import Action from '../action';
+import { Payload } from '../payload';
 import { ChampionMasteryInterface } from '../../interfaces/dto';
 import { ENDPOINTS } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
