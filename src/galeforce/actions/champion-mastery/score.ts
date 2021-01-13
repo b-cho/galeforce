@@ -2,7 +2,7 @@ import Action from '../action';
 import { ENDPOINTS } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
-class FetchMasteryScoreBySummonerID extends Action {
+class GetMasteryScore extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.setEndpoint(ENDPOINTS.CHAMPION_MASTERY.SCORE);
@@ -18,4 +18,4 @@ class FetchMasteryScoreBySummonerID extends Action {
     }
 }
 
-export default FetchMasteryScoreBySummonerID;
+export default GetMasteryScore;

@@ -1,14 +1,9 @@
-/*
-    The FetchSummoner class extends Action and provides a way to get all relevant
-    summoner data from the Riot API and add it to data.
-*/
-
 import Action from '../action';
 import { LeagueEntryInterface } from '../../interfaces/dto';
 import { ENDPOINTS, Queue, Tier, Division } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
-class FetchLeagueEntries extends Action {
+class GetLeagueEntries extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.setEndpoint(ENDPOINTS.LEAGUE.SUMMONER_ID);
@@ -51,4 +46,4 @@ class FetchLeagueEntries extends Action {
     }
 }
 
-export default FetchLeagueEntries;
+export default GetLeagueEntries;

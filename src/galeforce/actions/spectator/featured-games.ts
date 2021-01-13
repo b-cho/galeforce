@@ -3,7 +3,7 @@ import { ENDPOINTS } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 import { FeaturedGamesInterface } from '../../interfaces/dto';
 
-class FetchFeaturedGames extends Action {
+class GetFeaturedGames extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.setEndpoint(ENDPOINTS.SPECTATOR.FEATURED);
@@ -14,4 +14,4 @@ class FetchFeaturedGames extends Action {
     }
 }
 
-export default FetchFeaturedGames;
+export default GetFeaturedGames;

@@ -4,7 +4,7 @@ import { ChampionMasteryInterface } from '../../interfaces/dto';
 import { ENDPOINTS } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
-class FetchMasteryBySummonerID<R = ChampionMasteryInterface[]> extends Action {
+class GetMasteryBySummoner<R = ChampionMasteryInterface[]> extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface, payload?: Payload) {
         super(SubmoduleMap, payload);
         if(!this.payload.payload.endpoint) {
@@ -17,10 +17,10 @@ class FetchMasteryBySummonerID<R = ChampionMasteryInterface[]> extends Action {
         return this;
     }
 
-    public championId(championId: number): FetchMasteryBySummonerID<ChampionMasteryInterface> {
+    public championId(championId: number): GetMasteryBySummoner<ChampionMasteryInterface> {
         this.payload.setEndpoint(ENDPOINTS.CHAMPION_MASTERY.SUMMONER_ID.CHAMPION);
         this.payload.setChampionId(championId);
-        return new FetchMasteryBySummonerID<ChampionMasteryInterface>(this.SubmoduleMap, this.payload.payload);
+        return new GetMasteryBySummoner<ChampionMasteryInterface>(this.SubmoduleMap, this.payload.payload);
     }
 
     public async exec(): Promise<R> {
@@ -28,4 +28,4 @@ class FetchMasteryBySummonerID<R = ChampionMasteryInterface[]> extends Action {
     }
 }
 
-export default FetchMasteryBySummonerID;
+export default GetMasteryBySummoner;

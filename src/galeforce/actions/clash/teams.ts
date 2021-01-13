@@ -1,14 +1,9 @@
-/*
-    The FetchSummoner class extends Action and provides a way to get all relevant
-    summoner data from the Riot API and add it to data.
-*/
-
 import Action from '../action';
 import { TeamInterface } from '../../interfaces/dto';
 import { ENDPOINTS } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
-class FetchClashTeamByTeamID extends Action {
+class GetClashTeam extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.setEndpoint(ENDPOINTS.CLASH.TEAMS);
@@ -24,4 +19,4 @@ class FetchClashTeamByTeamID extends Action {
     }
 }
 
-export default FetchClashTeamByTeamID;
+export default GetClashTeam;

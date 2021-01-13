@@ -3,20 +3,20 @@ import { ENDPOINTS } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 import { TournamentInterface } from '../../interfaces/dto';
 
-class FetchAllClashTournaments extends Action {
+class GetAllClashTournaments extends Action {
     public async exec(): Promise<TournamentInterface[]> {
         return this.run<TournamentInterface[]>();
     }
 }
 
-class FetchClashTournament extends Action {
+class GetClashTournament extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
     }
 
-    public all(): FetchAllClashTournaments {
+    public all(): GetAllClashTournaments {
         this.payload.setEndpoint(ENDPOINTS.CLASH.TOURNAMENTS.ALL);
-        return new FetchAllClashTournaments(this.SubmoduleMap, this.payload.payload);
+        return new GetAllClashTournaments(this.SubmoduleMap, this.payload.payload);
     };
 
     public teamId(teamId: string): this {
@@ -37,4 +37,4 @@ class FetchClashTournament extends Action {
     }
 }
 
-export default FetchClashTournament;
+export default GetClashTournament;

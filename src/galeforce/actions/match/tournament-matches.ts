@@ -2,7 +2,7 @@ import Action from '../action';
 import { ENDPOINTS } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
-class FetchMatchesByTournamentCode extends Action {
+class GetMatchesByTournamentCode extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.setEndpoint(ENDPOINTS.MATCH.MATCH.TOURNAMENT_CODE);
@@ -18,4 +18,4 @@ class FetchMatchesByTournamentCode extends Action {
     }
 }
 
-export default FetchMatchesByTournamentCode;
+export default GetMatchesByTournamentCode;

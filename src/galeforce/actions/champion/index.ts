@@ -3,7 +3,7 @@ import { ENDPOINTS } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 import { ChampionInfoInterface } from '../../interfaces/dto';
 
-class FetchChampionRotations extends Action {
+class GetChampionRotations extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.setEndpoint(ENDPOINTS.CHAMPION.CHAMPION_ROTATIONS);
@@ -14,4 +14,4 @@ class FetchChampionRotations extends Action {
     }
 }
 
-export default FetchChampionRotations;
+export default GetChampionRotations;

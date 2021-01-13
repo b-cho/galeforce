@@ -3,7 +3,7 @@ import { LeagueListInterface } from '../../interfaces/dto';
 import { ENDPOINTS, Queue, Tier } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
-class FetchLeagueList extends Action {
+class GetLeagueList extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.setEndpoint(ENDPOINTS.LEAGUE.LEAGUE_ID);
@@ -36,4 +36,4 @@ class FetchLeagueList extends Action {
     }
 }
 
-export default FetchLeagueList;
+export default GetLeagueList;

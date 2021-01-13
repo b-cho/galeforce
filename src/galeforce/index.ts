@@ -1,63 +1,63 @@
 import RiotAPIModule, { Region, Queue, Tier, Division } from '../riot-api';
 import getConfig, { validate } from './configs/default';
 import { ConfigInterface } from './interfaces/config';
-import FetchMatchByID from './actions/match/match-by-match-id';
-import FetchSummoner from './actions/summoner';
-import FetchThirdPartyCodeBySummonerId from './actions/third-party-code';
+import GetMatchByID from './actions/match/match-by-match-id';
+import GetSummoner from './actions/summoner';
+import GetThirdPartyCode from './actions/third-party-code';
 import Cache from './caches/cache';
 import RedisCache from './caches/redis';
 import SubmoduleMapInterface from './interfaces/submodule-map';
 import NullCache from './caches/null';
-import FetchTimelineByMatchID from './actions/match/timeline-by-match-id';
-import FetchMatchlistByAccountID from './actions/match/matchlist-by-account-id';
-import FetchMasteryBySummonerID from './actions/champion-mastery/by-summoner-id';
-import FetchLeagueEntries from './actions/league/entries';
-import FetchLeagueList from './actions/league/leagues';
-import FetchLeaguePlatformData from './actions/lol-status';
-import FetchChampionRotations from './actions/champion';
-import FetchClashPlayersBySummonerID from './actions/clash/players';
-import FetchClashTeamByTeamID from './actions/clash/teams';
-import FetchClashTournament from './actions/clash/tournaments';
-import FetchMatchesByTournamentCode from './actions/match/tournament-matches';
-import FetchCurrentGameInfoBySummonerID from './actions/spectator/active-games';
-import FetchFeaturedGames from './actions/spectator/featured-games';
-import FetchMasteryScoreBySummonerID from './actions/champion-mastery/score';
+import GetTimelineByMatchID from './actions/match/timeline-by-match-id';
+import GetMatchlistByAccountID from './actions/match/matchlist-by-account-id';
+import GetMasteryBySummoner from './actions/champion-mastery/by-summoner';
+import GetLeagueEntries from './actions/league/entries';
+import GetLeagueList from './actions/league/leagues';
+import GetLeaguePlatformData from './actions/lol-status';
+import GetChampionRotations from './actions/champion';
+import GetClashPlayers from './actions/clash/players';
+import GetClashTeam from './actions/clash/teams';
+import GetClashTournament from './actions/clash/tournaments';
+import GetMatchesByTournamentCode from './actions/match/tournament-matches';
+import GetCurrentGameInfo from './actions/spectator/active-games';
+import GetFeaturedGames from './actions/spectator/featured-games';
+import GetMasteryScore from './actions/champion-mastery/score';
 
 interface GaleforceChampionMasteryInterface {
-    summoner: () => FetchMasteryBySummonerID;
-    score: () => FetchMasteryScoreBySummonerID;
+    summoner: () => GetMasteryBySummoner;
+    score: () => GetMasteryScore;
 }
 
 interface GaleforceLeagueInterface {
-    entries: () => FetchLeagueEntries;
-    league: () => FetchLeagueList;
+    entries: () => GetLeagueEntries;
+    league: () => GetLeagueList;
 }
 
 interface GaleforceMatchInterface {
-    match: () => FetchMatchByID;
-    timeline: () => FetchTimelineByMatchID;
-    matchlist: () => FetchMatchlistByAccountID;
-    tournament: () => FetchMatchesByTournamentCode;
+    match: () => GetMatchByID;
+    timeline: () => GetTimelineByMatchID;
+    matchlist: () => GetMatchlistByAccountID;
+    tournament: () => GetMatchesByTournamentCode;
 }
 
 interface GaleforcePlatformInterface {
-    thirdPartyCode: () => FetchThirdPartyCodeBySummonerId;
-    championRotations: () => FetchChampionRotations;
+    thirdPartyCode: () => GetThirdPartyCode;
+    championRotations: () => GetChampionRotations;
 }
 
 interface GaleforceStatusInterface {
-    platformData: () => FetchLeaguePlatformData;
+    platformData: () => GetLeaguePlatformData;
 }
 
 interface GaleforceClashInterface {
-    players: () => FetchClashPlayersBySummonerID;
-    team: () => FetchClashTeamByTeamID;
-    tournament: () => FetchClashTournament;
+    players: () => GetClashPlayers;
+    team: () => GetClashTeam;
+    tournament: () => GetClashTournament;
 }
 
 interface GaleforceSpectatorInterface {
-    active: () => FetchCurrentGameInfoBySummonerID;
-    featured: () => FetchFeaturedGames;
+    active: () => GetCurrentGameInfo;
+    featured: () => GetFeaturedGames;
 }
 
 export default class Galeforce {
@@ -89,43 +89,43 @@ export default class Galeforce {
         this.SubmoduleMap = { RiotAPI, cache };
     }
 
-    public summoner = () => new FetchSummoner(this.SubmoduleMap);
+    public summoner = () => new GetSummoner(this.SubmoduleMap);
 
     public mastery: GaleforceChampionMasteryInterface = {
-        summoner: () => new FetchMasteryBySummonerID(this.SubmoduleMap),
-        score: () => new FetchMasteryScoreBySummonerID(this.SubmoduleMap),
+        summoner: () => new GetMasteryBySummoner(this.SubmoduleMap),
+        score: () => new GetMasteryScore(this.SubmoduleMap),
     }
 
     public league: GaleforceLeagueInterface = {
-        entries: () => new FetchLeagueEntries(this.SubmoduleMap),
-        league: () => new FetchLeagueList(this.SubmoduleMap),
+        entries: () => new GetLeagueEntries(this.SubmoduleMap),
+        league: () => new GetLeagueList(this.SubmoduleMap),
     }
 
     public match: GaleforceMatchInterface = {
-        match: () => new FetchMatchByID(this.SubmoduleMap),
-        timeline: () => new FetchTimelineByMatchID(this.SubmoduleMap),
-        matchlist: () => new FetchMatchlistByAccountID(this.SubmoduleMap),
-        tournament: () => new FetchMatchesByTournamentCode(this.SubmoduleMap),
+        match: () => new GetMatchByID(this.SubmoduleMap),
+        timeline: () => new GetTimelineByMatchID(this.SubmoduleMap),
+        matchlist: () => new GetMatchlistByAccountID(this.SubmoduleMap),
+        tournament: () => new GetMatchesByTournamentCode(this.SubmoduleMap),
     }
 
     public platform: GaleforcePlatformInterface = {
-        thirdPartyCode: () => new FetchThirdPartyCodeBySummonerId(this.SubmoduleMap),
-        championRotations: () => new FetchChampionRotations(this.SubmoduleMap),
+        thirdPartyCode: () => new GetThirdPartyCode(this.SubmoduleMap),
+        championRotations: () => new GetChampionRotations(this.SubmoduleMap),
     }
 
     public status: GaleforceStatusInterface = {
-        platformData: () => new FetchLeaguePlatformData(this.SubmoduleMap),
+        platformData: () => new GetLeaguePlatformData(this.SubmoduleMap),
     }
 
     public clash: GaleforceClashInterface = {
-        players: () => new FetchClashPlayersBySummonerID(this.SubmoduleMap),
-        team: () => new FetchClashTeamByTeamID(this.SubmoduleMap),
-        tournament: () => new FetchClashTournament(this.SubmoduleMap),
+        players: () => new GetClashPlayers(this.SubmoduleMap),
+        team: () => new GetClashTeam(this.SubmoduleMap),
+        tournament: () => new GetClashTournament(this.SubmoduleMap),
     }
 
     public spectator: GaleforceSpectatorInterface = {
-        active: () => new FetchCurrentGameInfoBySummonerID(this.SubmoduleMap),
-        featured: () => new FetchFeaturedGames(this.SubmoduleMap),
+        active: () => new GetCurrentGameInfo(this.SubmoduleMap),
+        featured: () => new GetFeaturedGames(this.SubmoduleMap),
     }
 
     public regions: typeof Region = Region;

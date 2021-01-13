@@ -1,5 +1,5 @@
 /*
-    The FetchSummoner class extends Action and provides a way to get all relevant
+    The GetSummoner class extends Action and provides a way to get all relevant
     summoner data from the Riot API and add it to data.
 */
 
@@ -8,7 +8,7 @@ import { SummonerInterface } from '../../interfaces/dto';
 import { ENDPOINTS } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
-class FetchSummoner extends Action {
+class GetSummoner extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
     }
@@ -42,4 +42,4 @@ class FetchSummoner extends Action {
     }
 }
 
-export default FetchSummoner;
+export default GetSummoner;

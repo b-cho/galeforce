@@ -3,7 +3,7 @@ import { ENDPOINTS } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 import { CurrentGameInfoInterface } from '../../interfaces/dto';
 
-class FetchCurrentGameInfoBySummonerID extends Action {
+class GetCurrentGameInfo extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.setEndpoint(ENDPOINTS.SPECTATOR.SUMMONER_ID);
@@ -19,4 +19,4 @@ class FetchCurrentGameInfoBySummonerID extends Action {
     }
 }
 
-export default FetchCurrentGameInfoBySummonerID;
+export default GetCurrentGameInfo;

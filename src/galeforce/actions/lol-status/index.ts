@@ -3,7 +3,7 @@ import { ENDPOINTS } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 import { PlatformDataInterface } from '../../interfaces/dto';
 
-class FetchLeaguePlatformData extends Action {
+class GetLeaguePlatformData extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.setEndpoint(ENDPOINTS.STATUS.PLATFORM_DATA);
@@ -14,4 +14,4 @@ class FetchLeaguePlatformData extends Action {
     }
 }
 
-export default FetchLeaguePlatformData;
+export default GetLeaguePlatformData;

@@ -1,8 +1,8 @@
 import Action from '../action';
-import { ENDPOINTS, Region } from '../../../riot-api';
+import { ENDPOINTS } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
-class FetchThirdPartyCodeBySummonerId extends Action {
+class GetThirdPartyCode extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.setEndpoint(ENDPOINTS.PLATFORM.THIRD_PARTY_CODE);
@@ -18,4 +18,4 @@ class FetchThirdPartyCodeBySummonerId extends Action {
     }
 }
 
-export default FetchThirdPartyCodeBySummonerId;
+export default GetThirdPartyCode;
