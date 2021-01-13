@@ -10,9 +10,12 @@ abstract class Request {
 
     protected headers: object;
 
-    constructor(targetURL: string, headers: object) {
+    protected query: object;
+
+    constructor(targetURL: string, headers: object, query: object) {
         this.targetURL = targetURL;
         this.headers = headers;
+        this.query = query;
     }
 
     /**
@@ -44,6 +47,7 @@ abstract class Request {
     public async get(): Promise<object> {
         return axios.get(encodeURI(this.targetURL), {
             headers: this.headers,
+            params: this.query,
         });
     }
 }

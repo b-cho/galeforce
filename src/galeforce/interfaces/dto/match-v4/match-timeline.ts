@@ -2,12 +2,12 @@
     The TimelineInterface is an interface for timeline data returned from V4 endpoints.
 */
 
-export interface MatchPositionInterface {
+interface MatchPositionInterface {
     x: number;
     y: number;
 }
 
-export enum MatchEventType {
+enum MatchEventType {
     CHAMPION_KILL = 'CHAMPION_KILL',
     WARD_PLACED = 'WARD_PLACED',
     WARD_KILL = 'WARD_KILL',
@@ -23,7 +23,7 @@ export enum MatchEventType {
     PORO_KING_SUMMON = 'PORO_KING_SUMMON',
 }
 
-export interface MatchEventInterface {
+interface MatchEventInterface {
     laneType?: string;
     skillSlot?: number;
     ascendedType?: string;
@@ -49,7 +49,7 @@ export interface MatchEventInterface {
     victimId?: number;
 }
 
-export interface MatchParticipantFrameInterface {
+interface MatchParticipantFrameInterface {
     participantId: number;
     minionsKilled: number;
     teamScore: number;
@@ -62,7 +62,7 @@ export interface MatchParticipantFrameInterface {
     jungleMinionsKilled: number;
 }
 
-export interface MatchFrameInterface {
+interface MatchFrameInterface {
     participantFrames: Record<string, MatchParticipantFrameInterface>;
     events: MatchEventInterface[];
     timestamp: number;

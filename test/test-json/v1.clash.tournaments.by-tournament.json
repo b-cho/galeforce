@@ -1,0 +1,14 @@
+{
+    "id": 2001,
+    "themeId": 4,
+    "nameKey": "freljord",
+    "nameKeySecondary": "day_1",
+    "schedule": [
+        {
+            "id": 1981,
+            "registrationTime": 1586646900000,
+            "startTime": 1586656800000,
+            "cancelled": false
+        }
+    ]
+}

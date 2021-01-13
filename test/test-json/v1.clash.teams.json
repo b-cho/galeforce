@@ -1,0 +1,16 @@
+{
+    "id": "971374dd-d9bd-4ff9-a06d-b21044ba0c92",
+    "tournamentId": 2941,
+    "name": "Galeforce",
+    "iconId": 10,
+    "tier": 3,
+    "captain": "l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w",
+    "abbreviation": "GFC",
+    "players": [
+        {
+            "summonerId": "l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w",
+            "position": "BOTTOM",
+            "role": "CAPTAIN"
+        }
+    ]
+}

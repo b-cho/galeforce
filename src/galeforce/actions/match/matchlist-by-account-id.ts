@@ -5,17 +5,18 @@
 
 import Action from '../action';
 import { MatchlistInterface } from '../../interfaces/dto';
-import { ENDPOINTS, Region } from '../../../riot-api';
+import { ENDPOINTS } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchMatchlistByAccountID extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
-        super(SubmoduleMap, ENDPOINTS.MATCH.MATCHLIST.ACCOUNT_ID);
+        super(SubmoduleMap);
+        this.setEndpoint(ENDPOINTS.MATCH.MATCHLIST.ACCOUNT_ID);
     }
 
-    public region: (region: Region) => this = super.region;
-
-    public accountId: (accountId: string) => this = super.accountId;
+    public accountId: (accountId: string) => this = super.setAccountId;
+    
+    public query: (query: { [key: string]: unknown }) => this = super.setQuery;
 
     public async exec(): Promise<MatchlistInterface> {
         return this.run<MatchlistInterface>();

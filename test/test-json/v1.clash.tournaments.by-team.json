@@ -1,0 +1,14 @@
+{
+    "id": 2941,
+    "themeId": 13,
+    "nameKey": "shadow_isles",
+    "nameKeySecondary": "day_1",
+    "schedule": [
+        {
+            "id": 3061,
+            "registrationTime": 1610842500000,
+            "startTime": 1610852400000,
+            "cancelled": false
+        }
+    ]
+}

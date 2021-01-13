@@ -8,7 +8,7 @@ import Request from './request';
 
 class DataDragonRequest extends Request {
     constructor(URLTemplate: string, version?: string) {
-        super(Request.generateTemplateString(URLTemplate, { version }), {});
+        super(Request.generateTemplateString(URLTemplate, { version }), {}, {});
     }
 }
 

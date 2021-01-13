@@ -2,7 +2,7 @@
     The MatchlistInterface is an interface for matchlist data returned from V4 endpoints.
 */
 
-export interface MatchReferenceInterface {
+interface MatchReferenceInterface {
     platformId: string;
     gameId: number;
     champion: number;

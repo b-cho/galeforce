@@ -2,7 +2,13 @@
 
 ---
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![HitCount](http://hits.dwyl.com/bcho04/galeforce.svg)](http://hits.dwyl.com/bcho04/galeforce) [![Node CI](https://github.com/bcho04/galeforce/workflows/Node%20CI/badge.svg)](https://github.com/bcho04/galeforce/workflows/Node%20CI/badge.svg) [![CodeQL](https://github.com/bcho04/galeforce/workflows/CodeQL/badge.svg)](https://github.com/bcho04/galeforce/workflows/CodeQL/badge.svg) [![Code Climate](https://codeclimate.com/github/bcho04/galeforce/badges/gpa.svg)](https://codeclimate.com/github/bcho04/galeforce) [![codecov](https://codecov.io/gh/bcho04/galeforce/branch/master/graph/badge.svg?token=7BJHF5KVX9)](https://codecov.io/gh/bcho04/galeforce) [![David](https://david-dm.org/bcho04/galeforce.svg)](https://david-dm.org/bcho04/galeforce) [![GitHub last commit](https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat)](https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat) 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Node CI](https://github.com/bcho04/galeforce/workflows/Node%20CI/badge.svg)](https://github.com/bcho04/galeforce/workflows/Node%20CI/badge.svg)
+[![CodeQL](https://github.com/bcho04/galeforce/workflows/CodeQL/badge.svg)](https://github.com/bcho04/galeforce/workflows/CodeQL/badge.svg)
+[![Code Climate](https://codeclimate.com/github/bcho04/galeforce/badges/gpa.svg)](https://codeclimate.com/github/bcho04/galeforce)
+[![codecov](https://codecov.io/gh/bcho04/galeforce/branch/master/graph/badge.svg?token=7BJHF5KVX9)](https://codecov.io/gh/bcho04/galeforce)
+[![David](https://david-dm.org/bcho04/galeforce.svg)](https://david-dm.org/bcho04/galeforce)
+[![GitHub last commit](https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat)](https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat) 
 
 A customizable, promise-based, and command-oriented TypeScript library for the Riot Games API.
 
@@ -18,7 +24,7 @@ A customizable, promise-based, and command-oriented TypeScript library for the R
 
 If you're using **ES6/TypeScript**, simply add
 ```typescript
-import GaleforceModule from 'Galeforce';
+import GaleforceModule from 'galeforce';
 
 const Galeforce = new GaleforceModule(/* config */);
 ```

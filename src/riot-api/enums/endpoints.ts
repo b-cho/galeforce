@@ -10,7 +10,9 @@ const SUMMONER = {
 const CHAMPION_MASTERY = {
     SUMMONER_ID: {
         LIST: 'https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}',
+        CHAMPION: 'https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}/by-champion/${championId}',
     },
+    SCORE: 'https://${region}.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/${summonerId}',
 };
 
 const SPECTATOR = {
@@ -20,6 +22,12 @@ const SPECTATOR = {
 
 const LEAGUE = {
     SUMMONER_ID: 'https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerId}',
+    LEAGUE_ID: 'https://${region}.api.riotgames.com/lol/league/v4/leagues/${leagueId}',
+    ENTRIES_BY_RANK: 'https://${region}.api.riotgames.com/lol/league/v4/entries/${queue}/${tier}/${division}',
+    CHALLENGER_LEAGUE: 'https://${region}.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/${queue}',
+    GRANDMASTER_LEAGUE: 'https://${region}.api.riotgames.com/lol/league/v4/grandmasterleagues/by-queue/${queue}',
+    MASTER_LEAGUE: 'https://${region}.api.riotgames.com/lol/league/v4/masterleagues/by-queue/${queue}',
+    ENTRIES_BY_RANK_EXP: 'https://${region}.api.riotgames.com/lol/league-exp/v4/entries/${queue}/${tier}/${division}',
 };
 
 const MATCH = {
@@ -28,6 +36,8 @@ const MATCH = {
     },
     MATCH: {
         MATCH_ID: 'https://${region}.api.riotgames.com/lol/match/v4/matches/${matchId}',
+        MATCH_ID_TOURNAMENT: 'https://${region}.api.riotgames.com/lol/match/v4/matches/${matchId}/by-tournament-code/${tournamentCode}',
+        TOURNAMENT_CODE: 'https://${region}.api.riotgames.com/lol/match/v4/matches/by-tournament-code/${tournamentCode}/ids',
     },
     TIMELINE: {
         MATCH_ID: 'https://${region}.api.riotgames.com/lol/match/v4/timelines/by-match/${matchId}',
@@ -35,10 +45,27 @@ const MATCH = {
 };
 
 const PLATFORM = {
-    THIRD_PARTY_CODE: {
-        SUMMONER_ID: 'https://${region}.api.riotgames.com/lol/platform/v4/third-party-code/by-summoner/${summonerId}',
-    },
+    THIRD_PARTY_CODE: 'https://${region}.api.riotgames.com/lol/platform/v4/third-party-code/by-summoner/${summonerId}',
 };
+
+const STATUS = {
+    PLATFORM_DATA: 'https://${region}.api.riotgames.com/lol/status/v4/platform-data',
+};
+
+const CHAMPION = {
+    CHAMPION_ROTATIONS: 'https://${region}.api.riotgames.com/lol/platform/v3/champion-rotations',
+};
+
+const CLASH = {
+    PLAYERS: 'https://${region}.api.riotgames.com/lol/clash/v1/players/by-summoner/${summonerId}',
+    TEAMS: 'https://${region}.api.riotgames.com/lol/clash/v1/teams/${teamId}',
+    TOURNAMENTS: {
+        ALL: 'https://${region}.api.riotgames.com/lol/clash/v1/tournaments',
+        TEAM: 'https://${region}.api.riotgames.com/lol/clash/v1/tournaments/by-team/${teamId}',
+        TOURNAMENT: 'https://${region}.api.riotgames.com/lol/clash/v1/tournaments/${tournamentId}',
+    },
+
+}
 
 const DATA_DRAGON = {
     CHAMPION: 'http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json',
@@ -56,5 +83,8 @@ export default {
     LEAGUE,
     MATCH,
     PLATFORM,
+    STATUS,
+    CHAMPION,
+    CLASH,
     DATA_DRAGON,
 };

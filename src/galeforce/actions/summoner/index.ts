@@ -5,7 +5,7 @@
 
 import Action from '../action';
 import { SummonerInterface } from '../../interfaces/dto';
-import { ENDPOINTS, Region } from '../../../riot-api';
+import { ENDPOINTS } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchSummoner extends Action {
@@ -13,26 +13,24 @@ class FetchSummoner extends Action {
         super(SubmoduleMap);
     }
 
-    public region: (region: Region) => this = super.region;
-
     public name(name: string): this {
-        this.payload.endpoint = ENDPOINTS.SUMMONER.SUMMONER_NAME; // set action endpoint simultaneously
-        return super.name(name);
+        this.setEndpoint(ENDPOINTS.SUMMONER.SUMMONER_NAME); // set action endpoint simultaneously
+        return super.setName(name);
     };
 
     public puuid(puuid: string): this {
-        this.payload.endpoint = ENDPOINTS.SUMMONER.PUUID; // set action endpoint simultaneously
-        return super.puuid(puuid);
+        this.setEndpoint(ENDPOINTS.SUMMONER.PUUID); // set action endpoint simultaneously
+        return super.setPuuid(puuid);
     };
 
     public accountId(accountId: string): this {
-        this.payload.endpoint = ENDPOINTS.SUMMONER.ACCOUNT_ID; // set action endpoint simultaneously
-        return super.accountId(accountId);
+        this.setEndpoint(ENDPOINTS.SUMMONER.ACCOUNT_ID); // set action endpoint simultaneously
+        return super.setAccountId(accountId);
     };
 
     public summonerId(summonerId: string): this {
-        this.payload.endpoint = ENDPOINTS.SUMMONER.SUMMONER_ID; // set action endpoint simultaneously
-        return super.summonerId(summonerId);
+        this.setEndpoint(ENDPOINTS.SUMMONER.SUMMONER_ID); // set action endpoint simultaneously
+        return super.setSummonerId(summonerId);
     };
 
     public async exec(): Promise<SummonerInterface> {

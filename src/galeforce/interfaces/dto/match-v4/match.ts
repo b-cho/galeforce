@@ -2,7 +2,7 @@
     The MatchInterface is an interface for match data returned from V4 endpoints.
 */
 
-export enum Tier {
+enum Tier {
     CHALLENGER = 'CHALLENGER',
     MASTER = 'MASTER',
     DIAMOND = 'DIAMOND',
@@ -13,17 +13,17 @@ export enum Tier {
     UNRANKED = 'UNRANKED',
 }
 
-export enum Team {
+enum Team {
     BLUE = 100,
     RED = 200,
 }
 
-export enum MatchResult {
+enum MatchResult {
     WIN = 'Win',
     LOSS = 'Fail',
 }
 
-export enum Role {
+enum Role {
     DUO = 'DUO',
     NONE = 'NONE',
     SOLO = 'SOLO',
@@ -31,7 +31,7 @@ export enum Role {
     DUO_SUPPORT = 'DUO_SUPPORT',
 }
 
-export enum Lane {
+enum Lane {
     MID = 'MID', // legacy/deprecated
     MIDDLE = 'MIDDLE',
     TOP = 'TOP',
@@ -40,7 +40,7 @@ export enum Lane {
     BOTTOM = 'BOTTOM'
 }
 
-export interface PlayerInterface {
+interface MatchPlayerInterface { // Originally PlayerInterface
     profileIcon: number;
     accountId: string;
     matchHistoryUri: string;
@@ -51,17 +51,17 @@ export interface PlayerInterface {
     platformId: string;
 }
 
-export interface ParticipantIdentityInterface {
+interface ParticipantIdentityInterface {
     participantId: number;
-    player?: PlayerInterface;
+    player?: MatchPlayerInterface;
 }
 
-export interface TeamBansInterface {
+interface TeamBansInterface {
     championId: number;
     pickTurn: number;
 }
 
-export interface TeamStatsInterface {
+interface TeamStatsInterface {
     towerKills: number;
     riftHeraldKills: number;
     firstBlood: boolean;
@@ -80,12 +80,12 @@ export interface TeamStatsInterface {
     win: MatchResult; // string, but only two legal values
 }
 
-export interface RuneInterface {
+interface RuneInterface {
     runeId: number;
     rank: number;
 }
 
-export interface ParticipantStatsInterface {
+interface ParticipantStatsInterface {
     item0: number;
     item2: number;
     totalUnitsHealed: number;
@@ -199,7 +199,7 @@ export interface ParticipantStatsInterface {
     statPerk2: number;
 }
 
-export interface ParticipantTimelineInterface {
+interface ParticipantTimelineInterface {
     participantId: number;
     csDiffPerMinDeltas: Record<string, number>;
     damageTakenPerMinDeltas: Record<string, number>;
@@ -212,12 +212,12 @@ export interface ParticipantTimelineInterface {
     goldPerMinDeltas: Record<string, number>;
 }
 
-export interface MasteryInterface {
+interface MasteryInterface {
     rank: number;
     masteryId: number;
 }
 
-export interface ParticipantInterface {
+interface ParticipantInterface {
     participantId: number;
     championId: number;
     runes?: RuneInterface[];

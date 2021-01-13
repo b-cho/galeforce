@@ -4,18 +4,27 @@
 */
 
 import async from 'async';
-import RiotAPIModule, { Region } from '../../riot-api';
+import RiotAPIModule, { Region, Queue, Tier, Division } from '../../riot-api';
 import Cache from '../caches/cache';
 import SubmoduleMapInterface from '../interfaces/submodule-map';
 
-type Payload = {
+export type Payload = {
     endpoint?: string;
+    query?: { [key: string]: unknown };
     region?: Region;
     summonerId?: string;
     accountId?: string;
     puuid?: string;
     summonerName?: string;
     matchId?: number;
+    teamId?: string;
+    tournamentId?: number;
+    tournamentCode?: string;
+    championId?: number;
+    leagueId?: string;
+    queue?: Queue;
+    tier?: Tier;
+    division?: Division;
 }
 
 abstract class Action {
@@ -23,16 +32,23 @@ abstract class Action {
 
     protected cache: Cache;
 
-    protected payload: Payload = {};
+    protected SubmoduleMap: SubmoduleMapInterface;
 
-    constructor(SubmoduleMap: SubmoduleMapInterface, endpoint?: string) {
+    public payload: Payload = {};
+
+    constructor(SubmoduleMap: SubmoduleMapInterface, payload?: Payload) {
+        this.SubmoduleMap = SubmoduleMap;
         this.RiotAPI = SubmoduleMap.RiotAPI;
         this.cache = SubmoduleMap.cache;
 
+        if(payload) this.payload = payload;
+    }
+
+    protected setEndpoint(endpoint: string): void {
         this.payload.endpoint = endpoint;
     }
 
-    protected region(region: Region): this {
+    protected setRegion(region: Region): this { // public because all endpoints require it
         // Region check in case types are not followed
         if (!(Object as any).values(Region).includes(region.toLowerCase())) {
             throw new Error('[galeforce]: Invalid region provided.');
@@ -42,7 +58,14 @@ abstract class Action {
         return this;
     }
 
-    protected summonerId(summonerId: string): this {
+    public region: (region: Region) => this = this.setRegion;
+
+    protected setQuery(query: { [key: string]: unknown }): this {
+        this.payload.query = query;
+        return this;
+    }
+
+    protected setSummonerId(summonerId: string): this {
         if (summonerId.length > 63) {
             throw new Error('[galeforce]: summonerId is invalid according to Riot specifications (length > 63).');
         }
@@ -51,7 +74,7 @@ abstract class Action {
         return this;
     }
 
-    protected accountId(accountId: string): this {
+    protected setAccountId(accountId: string): this {
         if (accountId.length > 56) {
             throw new Error('[galeforce]: accountId is invalid according to Riot specifications (length > 56).');
         }
@@ -60,7 +83,7 @@ abstract class Action {
         return this;
     }
 
-    protected puuid(puuid: string): this {
+    protected setPuuid(puuid: string): this {
         if (puuid.length > 78) {
             throw new Error('[galeforce]: puuid is invalid according to Riot specifications (length > 78).');
         }
@@ -69,13 +92,53 @@ abstract class Action {
         return this;
     }
 
-    protected name(name: string): this {
+    protected setName(name: string): this {
         this.payload.summonerName = name;
         return this;
     }
 
-    protected matchId(matchId: number): this {
+    protected setMatchId(matchId: number): this {
         this.payload.matchId = matchId;
+        return this;
+    }
+
+    protected setTeamId(teamId: string): this {
+        this.payload.teamId = teamId;
+        return this;
+    }
+
+    protected setTournamentId(tournamentId: number): this {
+        this.payload.tournamentId = tournamentId;
+        return this;
+    }
+
+    protected setTournamentCode(tournamentCode: string): this {
+        this.payload.tournamentCode = tournamentCode;
+        return this;
+    }
+
+    protected setChampionId(championId: number): this {
+        this.payload.championId = championId;
+        return this;
+    }
+
+    protected setLeagueId(leagueId: string): this {
+        this.payload.leagueId = leagueId;
+        return this;
+    }
+
+    protected setQueue(queue: Queue): this {
+        this.payload.queue = queue;
+        return this;
+    }
+
+    protected setTier(tier: Tier): this {
+        this.payload.tier = tier;
+        return this;
+    }
+
+    protected setDivision(division: Division): this {
+        this.payload.division = division;
         return this;
     }
 
@@ -89,7 +152,7 @@ abstract class Action {
 
             await this.waitForRateLimit(this.payload.region);
             await this.incrementRateLimit(this.payload.region);
-            const { data }: any = await this.RiotAPI.request(this.payload.endpoint, this.payload).get();
+            const { data }: any = await this.RiotAPI.request(this.payload.endpoint, this.payload, this.payload.query).get();
 
             return data as T;
         } catch (e) {

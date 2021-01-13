@@ -4,21 +4,21 @@
 */
 
 import Action from '../action';
-import { MatchTimelineInterface } from '../../interfaces/dto';
+import { PlayerInterface } from '../../interfaces/dto';
 import { ENDPOINTS } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
-class FetchTimelineByMatchID extends Action {
+class FetchClashPlayersBySummonerID extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.setEndpoint(ENDPOINTS.MATCH.TIMELINE.MATCH_ID);
+        this.setEndpoint(ENDPOINTS.CLASH.PLAYERS);
     }
 
-    public matchId: (matchId: number) => this = this.setMatchId;
+    public summonerId: (summonerId: string) => this = super.setSummonerId;
 
-    public async exec(): Promise<MatchTimelineInterface> {
-        return this.run<MatchTimelineInterface>();
+    public async exec(): Promise<PlayerInterface[]> {
+        return this.run<PlayerInterface[]>();
     }
 }
 
-export default FetchTimelineByMatchID;
+export default FetchClashPlayersBySummonerID;

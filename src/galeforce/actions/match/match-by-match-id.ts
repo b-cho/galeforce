@@ -5,18 +5,21 @@
 
 import Action from '../action';
 import { MatchInterface } from '../../interfaces/dto';
-import { ENDPOINTS, Region } from '../../../riot-api';
+import { ENDPOINTS } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class FetchMatchByMatchID extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
-        super(SubmoduleMap, ENDPOINTS.MATCH.MATCH.MATCH_ID);
-
+        super(SubmoduleMap);
+        this.setEndpoint(ENDPOINTS.MATCH.MATCH.MATCH_ID);
     }
 
-    public region: (region: Region) => this = super.region;
+    public matchId: (matchId: number) => this = super.setMatchId;
 
-    public matchId: (matchId: number) => this = super.matchId;
+    public tournamentCode(tournamentCode: string): this {
+        this.payload.endpoint = ENDPOINTS.MATCH.MATCH.MATCH_ID_TOURNAMENT;
+        return super.setTournamentCode(tournamentCode);
+    }
 
     public async exec(): Promise<MatchInterface> {
         return this.run<MatchInterface>();
