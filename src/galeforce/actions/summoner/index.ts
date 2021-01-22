@@ -1,8 +1,3 @@
-/*
-    The GetSummoner class extends Action and provides a way to get all relevant
-    summoner data from the Riot API and add it to data.
-*/
-
 import Action from '../action';
 import { SummonerInterface } from '../../interfaces/dto';
 import { ENDPOINTS } from '../../../riot-api';
@@ -13,27 +8,27 @@ class GetSummoner extends Action {
         super(SubmoduleMap);
     }
 
-    public name(name: string): this {
-        this.payload.setEndpoint(ENDPOINTS.SUMMONER.SUMMONER_NAME); // set action endpoint simultaneously
-        this.payload.setName(name);
+    public name(summonerName: string): this {
+        this.payload.endpoint = ENDPOINTS.SUMMONER.SUMMONER_NAME; // set action endpoint simultaneously
+        this.payload.summonerName = summonerName;
         return this;
-    };
+    }
 
     public puuid(puuid: string): this {
-        this.payload.setEndpoint(ENDPOINTS.SUMMONER.PUUID); // set action endpoint simultaneously
-        this.payload.setPuuid(puuid);
+        this.payload.endpoint = ENDPOINTS.SUMMONER.PUUID; // set action endpoint simultaneously
+        this.payload.puuid = puuid;
         return this;
-    };
+    }
 
     public accountId(accountId: string): this {
-        this.payload.setEndpoint(ENDPOINTS.SUMMONER.ACCOUNT_ID); // set action endpoint simultaneously
-        this.payload.setAccountId(accountId);
+        this.payload.endpoint = ENDPOINTS.SUMMONER.ACCOUNT_ID; // set action endpoint simultaneously
+        this.payload.accountId = accountId;
         return this;
-    };
+    }
 
     public summonerId(summonerId: string): this {
-        this.payload.setEndpoint(ENDPOINTS.SUMMONER.SUMMONER_ID); // set action endpoint simultaneously
-        this.payload.setSummonerId(summonerId);
+        this.payload.endpoint = ENDPOINTS.SUMMONER.SUMMONER_ID; // set action endpoint simultaneously
+        this.payload.summonerId = summonerId;
         return this;
     }
 

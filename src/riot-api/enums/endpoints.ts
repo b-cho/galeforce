@@ -3,8 +3,8 @@
 const ACCOUNT = {
     PUUID: 'https://${region}.api.riotgames.com/riot/account/v1/accounts/by-puuid/${puuid}',
     RIOT_ID: 'https://${region}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}',
-    ACTIVE_SHARDS: 'https://${region}.api.riotgames.com/riot/account/v1/active-shards/by-game/${game}/by-puuid/${puuid}'
-}
+    ACTIVE_SHARDS: 'https://${region}.api.riotgames.com/riot/account/v1/active-shards/by-game/${game}/by-puuid/${puuid}',
+};
 
 const SUMMONER = {
     SUMMONER_NAME: 'https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}',
@@ -70,7 +70,7 @@ const CLASH = {
         TEAM: 'https://${region}.api.riotgames.com/lol/clash/v1/tournaments/by-team/${teamId}',
         TOURNAMENT: 'https://${region}.api.riotgames.com/lol/clash/v1/tournaments/${tournamentId}',
     },
-}
+};
 
 const TOURNAMENT = {
     CODES: {
@@ -80,7 +80,7 @@ const TOURNAMENT = {
     EVENTS: 'https://${region}.api.riotgames.com/lol/tournament/v4/lobby-events/by-code/${tournamentCode}',
     PROVIDERS: 'https://${region}.api.riotgames.com/lol/tournament/v4/providers',
     TOURNAMENTS: 'https://${region}.api.riotgames.com/lol/tournament/v4/tournaments',
-}
+};
 
 const DATA_DRAGON = {
     CHAMPION: 'http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json',

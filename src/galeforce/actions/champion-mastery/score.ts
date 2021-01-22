@@ -5,11 +5,11 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 class GetMasteryScore extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.payload.setEndpoint(ENDPOINTS.CHAMPION_MASTERY.SCORE);
+        this.payload.endpoint = ENDPOINTS.CHAMPION_MASTERY.SCORE;
     }
 
     public summonerId(summonerId: string): this {
-        this.payload.setSummonerId(summonerId);
+        this.payload.summonerId = summonerId;
         return this;
     }
 

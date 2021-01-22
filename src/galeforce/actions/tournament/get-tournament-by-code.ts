@@ -6,11 +6,11 @@ import { TournamentCodeInterface } from '../../interfaces/dto';
 class GetTournamentCodes extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.payload.setEndpoint(ENDPOINTS.TOURNAMENT.CODES.BY_CODE);
+        this.payload.endpoint = ENDPOINTS.TOURNAMENT.CODES.BY_CODE;
     }
 
     public tournamentCode(tournamentCode: string): this {
-        this.payload.setTournamentCode(tournamentCode);
+        this.payload.tournamentCode = tournamentCode;
         return this;
     }
 

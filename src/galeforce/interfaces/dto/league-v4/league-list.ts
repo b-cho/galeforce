@@ -22,6 +22,6 @@ export interface LeagueListInterface {
     leagueId: string;
     entries: LeagueItemInterface[];
     tier: string;
-    name: String;
+    name: string;
     queue: string;
 }

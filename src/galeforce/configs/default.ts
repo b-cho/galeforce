@@ -6,7 +6,7 @@ import { resolve } from 'path';
 import * as TJS from 'typescript-json-schema';
 import { ConfigInterface } from '../interfaces/config';
 
-const configInterfacePath = resolve(__dirname + '/../interfaces/config.d.ts')
+const configInterfacePath = resolve(`${__dirname}/../interfaces/config.d.ts`);
 const program: TJS.Program = TJS.getProgramFromFiles([configInterfacePath]);
 const ConfigSchema = TJS.generateSchema(program, 'ConfigInterface', { required: true }) as JSONSchemaType<ConfigInterface>;
 
@@ -37,7 +37,7 @@ function generateTemplateString(template: string): string {
  * @return {Object} Substituted version of template with process.env replaced values
  */
 function iterateReplace(obj: object): object {
-    let newObj: any = JSON.parse(JSON.stringify(obj));
+    const newObj: any = JSON.parse(JSON.stringify(obj));
 
     Object.keys(newObj).forEach((key) => {
         if (typeof newObj[key] === 'string') {

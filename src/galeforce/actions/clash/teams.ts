@@ -6,11 +6,11 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 class GetClashTeam extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.payload.setEndpoint(ENDPOINTS.CLASH.TEAMS);
+        this.payload.endpoint = ENDPOINTS.CLASH.TEAMS;
     }
 
-    public teamId(teamId: string):this {
-        this.payload.setTeamId(teamId);
+    public teamId(teamId: string): this {
+        this.payload.teamId = teamId;
         return this;
     }
 

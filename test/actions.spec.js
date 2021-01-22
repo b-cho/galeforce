@@ -240,6 +240,10 @@ describe('/galeforce/actions', () => {
                         return expect(() => Galeforce.lol.summoner().accountId('X'.repeat(100)))
                             .to.throw('[galeforce]: accountId is invalid according to Riot specifications (length > 56).');
                     });
+                    it('should throw when provided an invalid accountId (type check)', () => {
+                        return expect(() => Galeforce.lol.summoner().accountId(5))
+                            .to.throw('[galeforce]: accountId must be a string.');
+                    });
                 });
                 describe('.summonerId()', () => {
                     it('should return correct JSON for the /lol/summoner/v4/summoners Riot API endpoint', () => {
@@ -424,11 +428,11 @@ describe('/galeforce/actions', () => {
                 describe('.tournaments()', () => {
                     describe('.all()', () => {
                         it('should return correct JSON for the /lol/clash/v1/tournaments Riot API endpoint', () => {
-                            return expect(Galeforce.lol.clash.tournament().all().region(Galeforce.regions.NORTH_AMERICA).exec())
+                            return expect(Galeforce.lol.clash.upcoming().region(Galeforce.regions.NORTH_AMERICA).exec())
                                 .to.eventually.deep.equal(replyValues.v1.clash.tournaments.all);
                         });
                         it('should return correct JSON for the /lol/clash/v1/tournaments Riot API endpoint (reversed)', () => {
-                            return expect(Galeforce.lol.clash.tournament().region(Galeforce.regions.NORTH_AMERICA).all().exec())
+                            return expect(Galeforce.lol.clash.upcoming().region(Galeforce.regions.NORTH_AMERICA).exec())
                                 .to.eventually.deep.equal(replyValues.v1.clash.tournaments.all);
                         });
                     });

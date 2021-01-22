@@ -5,7 +5,7 @@
 
 import async from 'async';
 import RiotAPIModule, { Region } from '../../riot-api';
-import { Payload, PayloadWrapper } from './payload';
+import { Payload, CreatePayloadProxy } from './payload';
 import Cache from '../caches/cache';
 import SubmoduleMapInterface from '../interfaces/submodule-map';
 
@@ -16,18 +16,18 @@ abstract class Action {
 
     protected SubmoduleMap: SubmoduleMapInterface;
 
-    protected payload: PayloadWrapper;
+    protected payload: Payload;
 
     constructor(SubmoduleMap: SubmoduleMapInterface, payload?: Payload) {
         this.SubmoduleMap = SubmoduleMap;
         this.RiotAPI = SubmoduleMap.RiotAPI;
         this.cache = SubmoduleMap.cache;
 
-        this.payload = new PayloadWrapper(payload);
+        this.payload = payload || CreatePayloadProxy({});
     }
 
     public region(region: Region): this {
-        this.payload.setRegion(region);
+        this.payload.region = region;
         return this;
     }
 
@@ -35,26 +35,27 @@ abstract class Action {
 
     protected async run<T>(method: 'GET' | 'POST' | 'PUT' = 'GET'): Promise<T> {
         try {
-            if(typeof this.payload.payload.region === 'undefined' || typeof this.payload.payload.endpoint === 'undefined') {
-                throw new Error('[galeforce]: Action payload region or endpoint is required but undefined.')
+            if (typeof this.payload.region === 'undefined' || typeof this.payload.endpoint === 'undefined') {
+                throw new Error('[galeforce]: Action payload region or endpoint is required but undefined.');
             }
 
-            await this.waitForRateLimit(this.payload.payload.region);
-            await this.incrementRateLimit(this.payload.payload.region);
+            await this.waitForRateLimit(this.payload.region);
+            await this.incrementRateLimit(this.payload.region);
             const request = this.RiotAPI.request(
-                this.payload.payload.endpoint, 
-                this.payload.payload, 
-                this.payload.payload.query,
-                this.payload.payload.body);
+                this.payload.endpoint,
+                this.payload,
+                this.payload.query,
+                this.payload.body,
+            );
 
             let data: any;
             if (method === 'GET') {
                 ({ data } = await request.get() as any);
             } else if (method === 'POST') {
-                if(typeof this.payload.payload.body === 'undefined') throw new Error('[galeforce]: Action payload body is required but undefined.');
+                if (typeof this.payload.body === 'undefined') throw new Error('[galeforce]: Action payload body is required but undefined.');
                 ({ data } = await request.post() as any);
             } else if (method === 'PUT') {
-                if(typeof this.payload.payload.body === 'undefined') throw new Error('[galeforce]: Action payload body is required but undefined.');
+                if (typeof this.payload.body === 'undefined') throw new Error('[galeforce]: Action payload body is required but undefined.');
                 ({ data } = await request.put() as any);
             }
 
@@ -79,9 +80,7 @@ abstract class Action {
     }
 
     protected async checkRateLimit(region: Region): Promise<boolean> {
-        return (await Promise.all(Object.entries(this.cache.RLConfig.intervals).map(async ([key, limit]: [string, number]): Promise<boolean> => {
-            return (await this.getQueries(key, region)) < limit;
-        }))).every(Boolean);
+        return (await Promise.all(Object.entries(this.cache.RLConfig.intervals).map(async ([key, limit]: [string, number]): Promise<boolean> => (await this.getQueries(key, region)) < limit))).every(Boolean);
     }
 
     protected async waitForRateLimit(region: Region): Promise<void> {

@@ -27,4 +27,6 @@ export default class RiotAPIModule {
     }
 }
 
-export { ENDPOINTS, Region, Queue, Tier, Division, Game };
+export {
+    ENDPOINTS, Region, Queue, Tier, Division, Game,
+};

@@ -36,7 +36,7 @@ export interface TournamentCodeInterface {
 }
 
 export interface TournamentCodeParameters {
-    allowedSummonerIds: string[],
+    allowedSummonerIds: string[];
     metadata: string;
     teamSize: TeamSize;
     pickType: PickType;
@@ -45,7 +45,7 @@ export interface TournamentCodeParameters {
 }
 
 export interface TournamentCodeUpdateParameters {
-    allowedSummonerIds: string[],
+    allowedSummonerIds: string[];
     pickType: PickType;
     mapType: MapType;
     spectatorType: SpectatorType;

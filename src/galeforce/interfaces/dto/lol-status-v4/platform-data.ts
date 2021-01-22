@@ -23,7 +23,7 @@ enum Platform {
     XBONE = 'xbone',
     SWITCH = 'switch',
 }
- 
+
 enum PublishLocations {
     RIOT_CLIENT = 'riotclient',
     RIOT_STATUS = 'riotstatus',

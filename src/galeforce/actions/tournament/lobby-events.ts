@@ -6,11 +6,11 @@ import { LobbyEventInterfaceWrapper } from '../../interfaces/dto';
 class GetLobbyEvents extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.payload.setEndpoint(ENDPOINTS.TOURNAMENT.EVENTS);
+        this.payload.endpoint = ENDPOINTS.TOURNAMENT.EVENTS;
     }
 
     public tournamentCode(tournamentCode: string): this {
-        this.payload.setTournamentCode(tournamentCode);
+        this.payload.tournamentCode = tournamentCode;
         return this;
     }
 

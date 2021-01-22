@@ -1,4 +1,6 @@
-import { Region, Queue, Tier, Division, Game } from '../../riot-api';
+import {
+    Region, Queue, Tier, Division, Game,
+} from '../../riot-api';
 
 export type Payload = {
     endpoint?: string;
@@ -23,122 +25,43 @@ export type Payload = {
     game?: string;
 }
 
-export class PayloadWrapper {
-    public payload: Payload = {};
-
-    constructor(payload?: Payload) {
-        if(payload) this.payload = payload;
-    }
-
-    public setEndpoint(endpoint: string): void {
-        this.payload.endpoint = endpoint;
-    }
-
-    public setRegion(region: Region): void {
-        // Region check in case types are not followed
-        if (!(Object as any).values(Region).includes(region)) {
-            throw new Error('[galeforce]: Invalid region provided.');
+export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(payload, {
+    get: <T extends keyof Payload>(target: Payload, name: T): Payload[T] => target[name],
+    set: <T extends keyof Payload>(target: Payload, name: T, value: Payload[T]): boolean => {
+        if (name === 'region') { // Region check in case types are not followed
+            if (!(Object as any).values(Region).includes(value)) {
+                throw new Error('[galeforce]: Invalid region provided.');
+            }
+        } else if (name === 'queue') { // Queue check in case types are not followed
+            if (!(Object as any).values(Queue).includes(value)) {
+                throw new Error('[galeforce]: Invalid queue type provided.');
+            }
+        } else if (name === 'tier') { // Tier check in case types are not followed
+            if (!(Object as any).values(Tier).includes(value)) {
+                throw new Error('[galeforce]: Invalid ranked tier provided.');
+            }
+        } else if (name === 'division') { // Division check in case types are not followed
+            if (!(Object as any).values(Division).includes(value)) {
+                throw new Error('[galeforce]: Invalid ranked division provided.');
+            }
+        } else if (name === 'game') { // Game check in case types are not followed
+            if (!(Object as any).values(Game).includes(value)) {
+                throw new Error('[galeforce]: Invalid game provided.');
+            }
+        } else if (['summonerId', 'accountId', 'puuid'].includes(name)) {
+            if (typeof value !== 'string') {
+                throw new Error(`[galeforce]: ${name} must be a string.`);
+            }
+            if (name === 'summonerId' && value.length > 63) {
+                throw new Error('[galeforce]: summonerId is invalid according to Riot specifications (length > 63).');
+            } else if (name === 'accountId' && value.length > 56) {
+                throw new Error('[galeforce]: accountId is invalid according to Riot specifications (length > 56).');
+            } else if (name === 'puuid' && value.length > 78) {
+                throw new Error('[galeforce]: puuid is invalid according to Riot specifications (length > 78).');
+            }
         }
 
-        this.payload.region = region;
-    }
-
-    public setBody(body: object): void {
-        this.payload.body = body;
-    }
-
-    public setQuery(query: object): void {
-        this.payload.query = query;
-    }
-
-    public setSummonerId(summonerId: string): void {
-        if (summonerId.length > 63) {
-            throw new Error('[galeforce]: summonerId is invalid according to Riot specifications (length > 63).');
-        }
-
-        this.payload.summonerId = summonerId;
-    }
-
-    public setAccountId(accountId: string): void {
-        if (accountId.length > 56) {
-            throw new Error('[galeforce]: accountId is invalid according to Riot specifications (length > 56).');
-        }
-
-        this.payload.accountId = accountId;
-    }
-
-    public setPuuid(puuid: string): void {
-        if (puuid.length > 78) {
-            throw new Error('[galeforce]: puuid is invalid according to Riot specifications (length > 78).');
-        }
-
-        this.payload.puuid = puuid;
-    }
-
-    public setName(name: string): void {
-        this.payload.summonerName = name;
-    }
-
-    public setMatchId(matchId: number): void {
-        this.payload.matchId = matchId;
-    }
-
-    public setTeamId(teamId: string): void {
-        this.payload.teamId = teamId;
-    }
-
-    public setTournamentId(tournamentId: number): void {
-        this.payload.tournamentId = tournamentId;
-    }
-
-    public setTournamentCode(tournamentCode: string): void {
-        this.payload.tournamentCode = tournamentCode;
-    }
-
-    public setChampionId(championId: number): void {
-        this.payload.championId = championId;
-    }
-
-    public setLeagueId(leagueId: string): void {
-        this.payload.leagueId = leagueId;
-    }
-
-    public setQueue(queue: Queue): void {
-        // Queue check in case types are not followed
-        if (!(Object as any).values(Queue).includes(queue)) {
-            throw new Error('[galeforce]: Invalid queue type provided.');
-        }
-        this.payload.queue = queue;
-    }
-
-    public setTier(tier: Tier): void {
-        // Tier check in case types are not followed
-        if (!(Object as any).values(Tier).includes(tier)) {
-            throw new Error('[galeforce]: Invalid ranked tier provided.');
-        }
-        this.payload.tier = tier;
-    }
-
-    public setDivision(division: Division): void {
-        // Queue check in case types are not followed
-        if (!(Object as any).values(Division).includes(division)) {
-            throw new Error('[galeforce]: Invalid ranked division provided.');
-        }
-        this.payload.division = division;
-    }
-
-    public setGameName(gameName: string): void {
-        this.payload.gameName = gameName;
-    }
-
-    public setTagLine(tagLine: string): void {
-        this.payload.tagLine = tagLine;
-    }
-
-    public setGame(game: Game): void {
-        if (!(Object as any).values(Game).includes(game)) {
-            throw new Error('[galeforce]: Invalid game provided.');
-        }
-        this.payload.game = game;
-    }
-}
+        target[name] = value;
+        return true;
+    },
+});

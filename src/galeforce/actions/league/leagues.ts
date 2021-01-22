@@ -6,31 +6,31 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 class GetLeagueList extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.payload.setEndpoint(ENDPOINTS.LEAGUE.LEAGUE_ID);
+        this.payload.endpoint = ENDPOINTS.LEAGUE.LEAGUE_ID;
     }
 
     public queue(queue: Queue): this {
-        this.payload.setQueue(queue);
+        this.payload.queue = queue;
         return this;
     }
 
     public tier(tier: Tier): this {
-        if(tier === Tier.CHALLENGER) this.payload.setEndpoint(ENDPOINTS.LEAGUE.CHALLENGER_LEAGUE);
-        else if(tier === Tier.GRANDMASTER) this.payload.setEndpoint(ENDPOINTS.LEAGUE.GRANDMASTER_LEAGUE);
-        else if(tier === Tier.MASTER) this.payload.setEndpoint(ENDPOINTS.LEAGUE.MASTER_LEAGUE);
-        else throw new Error('[galeforce]: .tier() must be CHALLENGER, GRANDMASTER, or MASTER.')
-        this.payload.setTier(tier);
+        if (tier === Tier.CHALLENGER) this.payload.endpoint = ENDPOINTS.LEAGUE.CHALLENGER_LEAGUE;
+        else if (tier === Tier.GRANDMASTER) this.payload.endpoint = ENDPOINTS.LEAGUE.GRANDMASTER_LEAGUE;
+        else if (tier === Tier.MASTER) this.payload.endpoint = ENDPOINTS.LEAGUE.MASTER_LEAGUE;
+        else throw new Error('[galeforce]: .tier() must be CHALLENGER, GRANDMASTER, or MASTER.');
+        this.payload.tier = tier;
         return this;
     }
 
     public leagueId(leagueId: string): this {
-        this.payload.setLeagueId(leagueId);
+        this.payload.leagueId = leagueId;
         return this;
     }
 
     public async exec(): Promise<LeagueListInterface> {
-        if(this.payload.payload.queue && !this.payload.payload.tier) {
-            throw new Error('[galeforce]: .queue() must be chained with .tier().')
+        if (this.payload.queue && !this.payload.tier) {
+            throw new Error('[galeforce]: .queue() must be chained with .tier().');
         }
         return this.run<LeagueListInterface>();
     }

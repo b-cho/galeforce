@@ -6,7 +6,7 @@ import { FeaturedGamesInterface } from '../../interfaces/dto';
 class GetFeaturedGames extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.payload.setEndpoint(ENDPOINTS.SPECTATOR.FEATURED);
+        this.payload.endpoint = ENDPOINTS.SPECTATOR.FEATURED;
     }
 
     public async exec(): Promise<FeaturedGamesInterface> {

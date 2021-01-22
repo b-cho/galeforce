@@ -6,16 +6,16 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 class GetMatchlistByAccountID extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.payload.setEndpoint(ENDPOINTS.MATCH.MATCHLIST.ACCOUNT_ID);
+        this.payload.endpoint = ENDPOINTS.MATCH.MATCHLIST.ACCOUNT_ID;
     }
 
     public accountId(accountId: string): this {
-        this.payload.setAccountId(accountId);
+        this.payload.accountId = accountId;
         return this;
     }
-    
+
     public query(query: { [key: string]: unknown }): this {
-        this.payload.setQuery(query);
+        this.payload.query = query;
         return this;
     }
 

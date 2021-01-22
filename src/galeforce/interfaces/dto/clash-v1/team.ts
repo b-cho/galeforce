@@ -2,7 +2,7 @@
     The TeamInterface is an interface for Clash team data returned from V1 endpoints.
 */
 
-import { Position, Role } from "./player";
+import { Position, Role } from './player';
 
 interface PlayerInterface {
     summonerId: string;

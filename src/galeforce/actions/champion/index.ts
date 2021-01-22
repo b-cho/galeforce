@@ -6,7 +6,7 @@ import { ChampionInfoInterface } from '../../interfaces/dto';
 class GetChampionRotations extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.payload.setEndpoint(ENDPOINTS.CHAMPION.CHAMPION_ROTATIONS);
+        this.payload.endpoint = ENDPOINTS.CHAMPION.CHAMPION_ROTATIONS;
     }
 
     public async exec(): Promise<ChampionInfoInterface> {

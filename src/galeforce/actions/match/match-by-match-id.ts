@@ -6,17 +6,17 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 class GetMatchByMatchID extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.payload.setEndpoint(ENDPOINTS.MATCH.MATCH.MATCH_ID);
+        this.payload.endpoint = ENDPOINTS.MATCH.MATCH.MATCH_ID;
     }
 
-    public matchId(matchId: number): this { 
-        this.payload.setMatchId(matchId);
+    public matchId(matchId: number): this {
+        this.payload.matchId = matchId;
         return this;
     }
 
     public tournamentCode(tournamentCode: string): this {
-        this.payload.setEndpoint(ENDPOINTS.MATCH.MATCH.MATCH_ID_TOURNAMENT);
-        this.payload.setTournamentCode(tournamentCode);
+        this.payload.endpoint = ENDPOINTS.MATCH.MATCH.MATCH_ID_TOURNAMENT;
+        this.payload.tournamentCode = tournamentCode;
         return this;
     }
 

@@ -7,20 +7,20 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 class GetMasteryBySummoner<R = ChampionMasteryInterface[]> extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface, payload?: Payload) {
         super(SubmoduleMap, payload);
-        if(!this.payload.payload.endpoint) {
-            this.payload.setEndpoint(ENDPOINTS.CHAMPION_MASTERY.SUMMONER_ID.LIST);
+        if (!this.payload.endpoint) {
+            this.payload.endpoint = ENDPOINTS.CHAMPION_MASTERY.SUMMONER_ID.LIST;
         }
     }
 
     public summonerId(summonerId: string): this {
-        this.payload.setSummonerId(summonerId);
+        this.payload.summonerId = summonerId;
         return this;
     }
 
     public championId(championId: number): GetMasteryBySummoner<ChampionMasteryInterface> {
-        this.payload.setEndpoint(ENDPOINTS.CHAMPION_MASTERY.SUMMONER_ID.CHAMPION);
-        this.payload.setChampionId(championId);
-        return new GetMasteryBySummoner<ChampionMasteryInterface>(this.SubmoduleMap, this.payload.payload);
+        this.payload.endpoint = ENDPOINTS.CHAMPION_MASTERY.SUMMONER_ID.CHAMPION;
+        this.payload.championId = championId;
+        return new GetMasteryBySummoner<ChampionMasteryInterface>(this.SubmoduleMap, this.payload);
     }
 
     public async exec(): Promise<R> {

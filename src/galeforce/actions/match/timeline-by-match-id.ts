@@ -6,11 +6,11 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 class GetTimelineByMatchID extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.payload.setEndpoint(ENDPOINTS.MATCH.TIMELINE.MATCH_ID);
+        this.payload.endpoint = ENDPOINTS.MATCH.TIMELINE.MATCH_ID;
     }
 
-    public matchId(matchId: number): this { 
-        this.payload.setMatchId(matchId);
+    public matchId(matchId: number): this {
+        this.payload.matchId = matchId;
         return this;
     }
 

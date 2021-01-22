@@ -6,11 +6,11 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 class GetClashPlayers extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.payload.setEndpoint(ENDPOINTS.CLASH.PLAYERS);
+        this.payload.endpoint = ENDPOINTS.CLASH.PLAYERS;
     }
 
     public summonerId(summonerId: string): this {
-        this.payload.setSummonerId(summonerId);
+        this.payload.summonerId = summonerId;
         return this;
     }
 

@@ -6,11 +6,11 @@ import { ProviderRegistrationParameters } from '../../interfaces/parameters';
 class PostProviders extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.payload.setEndpoint(ENDPOINTS.TOURNAMENT.PROVIDERS);
+        this.payload.endpoint = ENDPOINTS.TOURNAMENT.PROVIDERS;
     }
 
     public body(body: ProviderRegistrationParameters): this {
-        this.payload.setBody(body);
+        this.payload.body = body;
         return this;
     }
 

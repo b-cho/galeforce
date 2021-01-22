@@ -6,11 +6,11 @@ import { TournamentCodeParameters } from '../../interfaces/parameters';
 class PostTournamentCodes extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.payload.setEndpoint(ENDPOINTS.TOURNAMENT.CODES.CREATE);
+        this.payload.endpoint = ENDPOINTS.TOURNAMENT.CODES.CREATE;
     }
 
     public body(body: TournamentCodeParameters): this {
-        this.payload.setBody(body);
+        this.payload.body = body;
         return this;
     }
 

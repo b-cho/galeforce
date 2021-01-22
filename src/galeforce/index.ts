@@ -1,4 +1,6 @@
-import RiotAPIModule, { Region, Queue, Tier, Division, Game } from '../riot-api';
+import RiotAPIModule, {
+    Region, Queue, Tier, Division, Game,
+} from '../riot-api';
 import getConfig, { validate } from './configs/default';
 import { ConfigInterface } from './interfaces/config';
 import GetMatchByID from './actions/match/match-by-match-id';
@@ -30,7 +32,7 @@ import PutTournamentCodes from './actions/tournament/update-tournament';
 import PostProviders from './actions/tournament/providers';
 import PostTournaments from './actions/tournament/tournaments';
 import GetLobbyEvents from './actions/tournament/lobby-events';
-
+import GetUpcomingClashTournaments from './actions/clash/upcoming-tournaments';
 
 interface GaleforceChampionMasteryInterface {
     summoner: () => GetMasteryBySummoner;
@@ -62,6 +64,7 @@ interface GaleforceClashInterface {
     players: () => GetClashPlayers;
     team: () => GetClashTeam;
     tournament: () => GetClashTournament;
+    upcoming: () => GetUpcomingClashTournaments;
 }
 
 interface GaleforceSpectatorInterface {
@@ -76,13 +79,13 @@ interface GaleforceAccountInterface {
 
 interface GaleforceTournamentInterface {
     code: {
-        create: () => PostTournamentCodes,
-        get: () => GetTournamentCodes,
-        update: () => PutTournamentCodes,
-    },
-    event: () => GetLobbyEvents,
-    provider: () => PostProviders,
-    tournament: () => PostTournaments,
+        create: () => PostTournamentCodes;
+        get: () => GetTournamentCodes;
+        update: () => PutTournamentCodes;
+    };
+    event: () => GetLobbyEvents;
+    provider: () => PostProviders;
+    tournament: () => PostTournaments;
 }
 
 interface GaleforceInterface {
@@ -99,7 +102,7 @@ interface GaleforceInterface {
     };
     riot: {
         account: GaleforceAccountInterface;
-    }
+    };
     regions: typeof Region;
     queues: typeof Queue;
     tiers: typeof Tier;
@@ -137,54 +140,55 @@ export default class Galeforce implements GaleforceInterface {
     }
 
     public lol = {
-        summoner: () => new GetSummoner(this.SubmoduleMap),
+        summoner: (): GetSummoner => new GetSummoner(this.SubmoduleMap),
         mastery: {
-            summoner: () => new GetMasteryBySummoner(this.SubmoduleMap),
-            score: () => new GetMasteryScore(this.SubmoduleMap),
+            summoner: (): GetMasteryBySummoner => new GetMasteryBySummoner(this.SubmoduleMap),
+            score: (): GetMasteryScore => new GetMasteryScore(this.SubmoduleMap),
         },
         league: {
-            entries: () => new GetLeagueEntries(this.SubmoduleMap),
-            league: () => new GetLeagueList(this.SubmoduleMap),
+            entries: (): GetLeagueEntries => new GetLeagueEntries(this.SubmoduleMap),
+            league: (): GetLeagueList => new GetLeagueList(this.SubmoduleMap),
         },
         match: {
-            match: () => new GetMatchByID(this.SubmoduleMap),
-            timeline: () => new GetTimelineByMatchID(this.SubmoduleMap),
-            matchlist: () => new GetMatchlistByAccountID(this.SubmoduleMap),
-            tournament: () => new GetMatchesByTournamentCode(this.SubmoduleMap),
+            match: (): GetMatchByID => new GetMatchByID(this.SubmoduleMap),
+            timeline: (): GetTimelineByMatchID => new GetTimelineByMatchID(this.SubmoduleMap),
+            matchlist: (): GetMatchlistByAccountID => new GetMatchlistByAccountID(this.SubmoduleMap),
+            tournament: (): GetMatchesByTournamentCode => new GetMatchesByTournamentCode(this.SubmoduleMap),
         },
         platform: {
-            thirdPartyCode: () => new GetThirdPartyCode(this.SubmoduleMap),
-            championRotations: () => new GetChampionRotations(this.SubmoduleMap),
+            thirdPartyCode: (): GetThirdPartyCode => new GetThirdPartyCode(this.SubmoduleMap),
+            championRotations: (): GetChampionRotations => new GetChampionRotations(this.SubmoduleMap),
         },
         status: {
-            platformData: () => new GetLeaguePlatformData(this.SubmoduleMap),
+            platformData: (): GetLeaguePlatformData => new GetLeaguePlatformData(this.SubmoduleMap),
         },
         clash: {
-            players: () => new GetClashPlayers(this.SubmoduleMap),
-            team: () => new GetClashTeam(this.SubmoduleMap),
-            tournament: () => new GetClashTournament(this.SubmoduleMap),
+            players: (): GetClashPlayers => new GetClashPlayers(this.SubmoduleMap),
+            team: (): GetClashTeam => new GetClashTeam(this.SubmoduleMap),
+            tournament: (): GetClashTournament => new GetClashTournament(this.SubmoduleMap),
+            upcoming: (): GetUpcomingClashTournaments => new GetUpcomingClashTournaments(this.SubmoduleMap),
         },
         spectator: {
-            active: () => new GetCurrentGameInfo(this.SubmoduleMap),
-            featured: () => new GetFeaturedGames(this.SubmoduleMap),
+            active: (): GetCurrentGameInfo => new GetCurrentGameInfo(this.SubmoduleMap),
+            featured: (): GetFeaturedGames => new GetFeaturedGames(this.SubmoduleMap),
         },
         tournament: {
             code: {
-                create: () => new PostTournamentCodes(this.SubmoduleMap),
-                get: () => new GetTournamentCodes(this.SubmoduleMap),
-                update: () => new PutTournamentCodes(this.SubmoduleMap),
+                create: (): PostTournamentCodes => new PostTournamentCodes(this.SubmoduleMap),
+                get: (): GetTournamentCodes => new GetTournamentCodes(this.SubmoduleMap),
+                update: (): PutTournamentCodes => new PutTournamentCodes(this.SubmoduleMap),
             },
-            event: () => new GetLobbyEvents(this.SubmoduleMap),
-            provider: () => new PostProviders(this.SubmoduleMap),
-            tournament: () => new PostTournaments(this.SubmoduleMap),
-        }
+            event: (): GetLobbyEvents => new GetLobbyEvents(this.SubmoduleMap),
+            provider: (): PostProviders => new PostProviders(this.SubmoduleMap),
+            tournament: (): PostTournaments => new PostTournaments(this.SubmoduleMap),
+        },
     }
 
     public riot = {
         account: {
-            account: () => new GetAccount(this.SubmoduleMap),
-            activeShard: () => new GetActiveShard(this.SubmoduleMap),
-        }
+            account: (): GetAccount => new GetAccount(this.SubmoduleMap),
+            activeShard: (): GetActiveShard => new GetActiveShard(this.SubmoduleMap),
+        },
     }
 
     public regions: typeof Region = Region;
