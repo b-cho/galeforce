@@ -137,5 +137,44 @@ describe('/galeforce/interfaces', () => {
                 expect(valid).to.be.true;
             });
         });
+        describe('AccountInterface', () => {
+            it('should match with /riot/account/v1/accounts JSON data', () => {
+                const schema = generator.getSchemaForSymbol('AccountInterface');
+                const validate = ajv.compile(schema);
+                let valid = validate(require('./test-json/v1.account.accounts.json'));
+                if(!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('ActiveShardInterface', () => {
+            it('should match with /riot/account/v1/active-shards JSON data', () => {
+                const schema = generator.getSchemaForSymbol('ActiveShardInterface');
+                const validate = ajv.compile(schema);
+                let valid = validate(require('./test-json/v1.account.active-shards.json'));
+                if(!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('LobbyEventInterfaceWrapper', () => {
+            it('should match with /lol/tournament/v4/lobby-events/by-code JSON data', () => {
+                const schema = generator.getSchemaForSymbol('LobbyEventInterfaceWrapper');
+                schema.definitions['LobbyEventInterface'].properties['summonerId'].type = ['string', 'null']; // Override schema type
+
+                const validate = ajv.compile(schema);
+                let valid = validate(require('./test-json/v4.tournament.lobby-events.json'));
+                if(!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('TournamentCodeInterface', () => {
+            it('should match with /lol/tournament/v4/codes/{tournamentCode} JSON data', () => {
+                const schema = generator.getSchemaForSymbol('TournamentCodeInterface');
+
+                const validate = ajv.compile(schema);
+                let valid = validate(require('./test-json/v4.tournament.codes.json'));
+                if(!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
     });
 });

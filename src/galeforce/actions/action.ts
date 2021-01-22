@@ -33,7 +33,7 @@ abstract class Action {
 
     public abstract exec(): Promise<any>;
 
-    protected async run<T>(): Promise<T> {
+    protected async run<T>(method: 'GET' | 'POST' | 'PUT' = 'GET'): Promise<T> {
         try {
             if(typeof this.payload.payload.region === 'undefined' || typeof this.payload.payload.endpoint === 'undefined') {
                 throw new Error('[galeforce]: Action payload region or endpoint is required but undefined.')
@@ -41,7 +41,22 @@ abstract class Action {
 
             await this.waitForRateLimit(this.payload.payload.region);
             await this.incrementRateLimit(this.payload.payload.region);
-            const { data }: any = await this.RiotAPI.request(this.payload.payload.endpoint, this.payload.payload, this.payload.payload.query).get();
+            const request = this.RiotAPI.request(
+                this.payload.payload.endpoint, 
+                this.payload.payload, 
+                this.payload.payload.query,
+                this.payload.payload.body);
+
+            let data: any;
+            if (method === 'GET') {
+                ({ data } = await request.get() as any);
+            } else if (method === 'POST') {
+                if(typeof this.payload.payload.body === 'undefined') throw new Error('[galeforce]: Action payload body is required but undefined.');
+                ({ data } = await request.post() as any);
+            } else if (method === 'PUT') {
+                if(typeof this.payload.payload.body === 'undefined') throw new Error('[galeforce]: Action payload body is required but undefined.');
+                ({ data } = await request.put() as any);
+            }
 
             return data as T;
         } catch (e) {

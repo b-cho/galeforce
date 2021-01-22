@@ -39,7 +39,7 @@ const Galeforce = new GaleforceModule(/* config */);
 
 ```javascript
 const summoners = ['a', 'b', 'c'];
-const promises = summoners.map(summoner => Galeforce.summoner()
+const promises = summoners.map(summoner => Galeforce.lol.summoner()
     .region(Galeforce.regions.NORTH_AMERICA)
     .name(summoner)
     .exec()
@@ -54,7 +54,7 @@ Promise.all(promises).then((result) => {
 <summary>Get list of recent matchId values for a given accountId</summary>
 
 ```javascript
-const matchIds = (await Galeforce.match.matchlist()
+const matchIds = (await Galeforce.lol.match.matchlist()
     .region(Galeforce.regions.NORTH_AMERICA)
     .accountId(accountId)
     .exec())
@@ -66,7 +66,7 @@ const matchIds = (await Galeforce.match.matchlist()
 <summary>Get match data using await</summary>
 
 ```javascript
-const matchData = await Galeforce.match.match()
+const matchData = await Galeforce.lol.match.match()
     .region(Galeforce.regions.NORTH_AMERICA)
     .matchId(matchId)
     .exec();
@@ -77,7 +77,7 @@ const matchData = await Galeforce.match.match()
 <summary>Get total number of mastery points for a summoner</summary>
 
 ```javascript
-const totalMasteryPoints = (await Galeforce.mastery.summoner()
+const totalMasteryPoints = (await Galeforce.lol.mastery.summoner()
     .region(Galeforce.regions.NORTH_AMERICA)
     .summonerId(summonerId)
     .exec())

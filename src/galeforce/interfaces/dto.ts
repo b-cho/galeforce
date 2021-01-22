@@ -12,6 +12,10 @@ import { TournamentInterface } from './dto/clash-v1/tournament';
 import { CurrentGameInfoInterface } from './dto/spectator-v4/current-game-info';
 import { FeaturedGamesInterface } from './dto/spectator-v4/featured-games';
 import { LeagueListInterface } from './dto/league-v4/league-list';
+import { AccountInterface } from './dto/account-v1/account';
+import { ActiveShardInterface } from './dto/account-v1/active-shard';
+import { TournamentCodeInterface } from './dto/tournament-v4/tournament-code';
+import { LobbyEventInterfaceWrapper } from './dto/tournament-v4/lobby-event';
 
 export {
     SummonerInterface,
@@ -28,4 +32,8 @@ export {
     TournamentInterface,
     CurrentGameInfoInterface,
     FeaturedGamesInterface,
+    AccountInterface,
+    ActiveShardInterface,
+    TournamentCodeInterface,
+    LobbyEventInterfaceWrapper,
 };

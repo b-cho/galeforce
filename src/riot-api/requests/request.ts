@@ -6,16 +6,19 @@
 import axios from 'axios';
 
 abstract class Request {
-    protected targetURL: string;
+    private targetURL: string;
 
-    protected headers: object;
+    private headers: object;
 
-    protected query: object;
+    private query: object;
 
-    constructor(targetURL: string, headers: object, query: object) {
+    private body: object;
+
+    constructor(targetURL: string, headers: object, query: object, body: object) {
         this.targetURL = targetURL;
         this.headers = headers;
         this.query = query;
+        this.body = body;
     }
 
     /**
@@ -40,12 +43,42 @@ abstract class Request {
      * @public
      * @async
      *
-     * @param {[String]} endpoint Endpoints to fetch information from
+     * @param {[String]} endpoint Endpoint to get information from
      *
      * @return {Promise} Return JSON data as a promise (due to delayed request completion).
      */
     public async get(): Promise<object> {
         return axios.get(encodeURI(this.targetURL), {
+            headers: this.headers,
+            params: this.query,
+        });
+    }
+
+    /**
+     * @public
+     * @async
+     *
+     * @param {[String]} endpoint Endpoint to post information to
+     *
+     * @return {Promise} Return JSON data as a promise (due to delayed request completion).
+     */
+    public async post(): Promise<object> {
+        return axios.post(encodeURI(this.targetURL), this.body, {
+            headers: this.headers,
+            params: this.query,
+        });
+    }
+
+    /**
+     * @public
+     * @async
+     *
+     * @param {[String]} endpoint Endpoint to put information
+     *
+     * @return {Promise} Return JSON data as a promise (due to delayed request completion).
+     */
+    public async put(): Promise<object> {
+        return axios.put(encodeURI(this.targetURL), this.body, {
             headers: this.headers,
             params: this.query,
         });

@@ -9,6 +9,7 @@ import Queue from './enums/queues';
 import Tier from './enums/tiers';
 import Division from './enums/divisions';
 import DataDragonRequest from './requests/data-dragon-request';
+import Game from './enums/games';
 
 export default class RiotAPIModule {
     private key: string;
@@ -17,8 +18,8 @@ export default class RiotAPIModule {
         this.key = key;
     }
 
-    public request(stringTemplate: string, parameters: { [key: string]: unknown }, query?: { [key: string]: unknown }): RiotAPIRequest {
-        return new RiotAPIRequest(stringTemplate, parameters, this.key, query || {});
+    public request(stringTemplate: string, parameters: { [key: string]: unknown }, query?: object, body?: object): RiotAPIRequest {
+        return new RiotAPIRequest(stringTemplate, parameters, this.key, query || {}, body || {});
     }
 
     public dataDragonRequest(stringTemplate: string, version: string): DataDragonRequest {
@@ -26,4 +27,4 @@ export default class RiotAPIModule {
     }
 }
 
-export { ENDPOINTS, Region, Queue, Tier, Division };
+export { ENDPOINTS, Region, Queue, Tier, Division, Game };

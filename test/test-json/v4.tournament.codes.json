@@ -1,0 +1,15 @@
+{
+    "code": "code",
+    "spectators": "NONE",
+    "lobbyName": "lobby",
+    "metaData": "",
+    "password": "password",
+    "teamSize": 5,
+    "providerId": 4883,
+    "pickType": "TOURNAMENT_DRAFT",
+    "tournamentId": 138,
+    "id": 3858,
+    "region": "NA",
+    "map": "SUMMONERS_RIFT",
+    "participants": ["A","B"]
+}

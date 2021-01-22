@@ -10,6 +10,9 @@ enum Region {
     RUSSIA = 'ru',
     TURKEY = 'tr1',
     JAPAN = 'jp1',
+    AMERICAS = 'americas',
+    ASIA = 'asia',
+    EUROPE = 'europe',
 }
 
 export default Region;

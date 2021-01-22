@@ -1,6 +1,6 @@
-node_modules
 .env
 dist
 .DS_Store
 .nyc_output
 coverage
+node_modules

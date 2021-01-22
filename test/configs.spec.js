@@ -53,4 +53,7 @@ describe('/galeforce/configs', () => {
     it('should error when passed an invalid or incomplete YAML config', () => {
         expect(() => getConfig('./test/test-configs/3.yaml')).to.throw();
     });
+    it('should error when trying to use an environment variable that does not exist', () => {
+        expect(() => getConfig('./test/test-configs/5.yaml')).to.throw();
+    });
 });

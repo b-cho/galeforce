@@ -24,7 +24,10 @@ export const validate = ajv.compile(ConfigSchema);
 function generateTemplateString(template: string): string {
     return template.replace(/\$\{([\s]*[^;\s{]+[\s]*)\}/g, (mt: string) => {
         const key = mt.substring(2, mt.length - 1);
-        return Object.keys(process.env).includes(key) ? (process.env[key] as string) : mt;
+        if (!Object.keys(process.env).includes(key)) {
+            throw new Error(`[galeforce]: process.env.${key} is required in config file but is undefined.`);
+        }
+        return process.env[key] as string;
     });
 }
 

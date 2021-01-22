@@ -1,0 +1,39 @@
+{
+    "eventList": [
+        {
+            "timestamp": "1234567890000",
+            "eventType": "PracticeGameCreatedEvent",
+            "summonerId": "KvHrxLzhsFaR-mJBYGdj3SLQeLQUulNLSLcEJweEEs-hmQY"
+        },
+        {
+            "timestamp": "1234567890000",
+            "eventType": "PlayerJoinedGameEvent",
+            "summonerId": "KvHrxLzhsFaR-mJBYGdj3SLQeLQUulNLSLcEJweEEs-hmQY"
+        },
+        {
+            "timestamp": "1234567890000",
+            "eventType": "PlayerSwitchedTeamEvent",
+            "summonerId": "KvHrxLzhsFaR-mJBYGdj3SLQeLQUulNLSLcEJweEEs-hmQY"
+        },
+        {
+            "timestamp": "1234567890000",
+            "eventType": "PlayerQuitGameEvent",
+            "summonerId": "KvHrxLzhsFaR-mJBYGdj3SLQeLQUulNLSLcEJweEEs-hmQY"
+        },
+        {
+            "timestamp": "1234567890000",
+            "eventType": "ChampSelectStartedEvent",
+            "summonerId": null
+        },
+        {
+            "timestamp": "1234567890000",
+            "eventType": "GameAllocationStartedEvent",
+            "summonerId": null
+        },
+        {
+            "timestamp": "1234567890000",
+            "eventType": "GameAllocatedToLsmEvent",
+            "summonerId": null
+        }
+    ]
+}

@@ -1,8 +1,9 @@
-import { Region, Queue, Tier, Division } from '../../riot-api';
+import { Region, Queue, Tier, Division, Game } from '../../riot-api';
 
 export type Payload = {
     endpoint?: string;
-    query?: { [key: string]: unknown };
+    query?: object;
+    body?: object;
     region?: Region;
     summonerId?: string;
     accountId?: string;
@@ -17,6 +18,9 @@ export type Payload = {
     queue?: Queue;
     tier?: Tier;
     division?: Division;
+    gameName?: string;
+    tagLine?: string;
+    game?: string;
 }
 
 export class PayloadWrapper {
@@ -39,7 +43,11 @@ export class PayloadWrapper {
         this.payload.region = region;
     }
 
-    public setQuery(query: { [key: string]: unknown }): void {
+    public setBody(body: object): void {
+        this.payload.body = body;
+    }
+
+    public setQuery(query: object): void {
         this.payload.query = query;
     }
 
@@ -117,5 +125,20 @@ export class PayloadWrapper {
             throw new Error('[galeforce]: Invalid ranked division provided.');
         }
         this.payload.division = division;
+    }
+
+    public setGameName(gameName: string): void {
+        this.payload.gameName = gameName;
+    }
+
+    public setTagLine(tagLine: string): void {
+        this.payload.tagLine = tagLine;
+    }
+
+    public setGame(game: Game): void {
+        if (!(Object as any).values(Game).includes(game)) {
+            throw new Error('[galeforce]: Invalid game provided.');
+        }
+        this.payload.game = game;
     }
 }
