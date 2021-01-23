@@ -91,7 +91,7 @@ const totalMasteryPoints = (await galeforce.lol.mastery.summoner()
 
 When initializing Galeforce, a config object (JSON) or a path to a YAML file must be passed to the `GaleforceModule()` constructor as an argument:
 ```javascript
-const Galeforce = new GaleforceModule(/* config file path or object */);
+const galeforce = new GaleforceModule(/* config file path or object */);
 ```
 Such an object must have the following structure:
 

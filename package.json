@@ -1,18 +1,30 @@
 {
   "name": "galeforce",
-  "author": "Brandon Cho",
-  "description": "A customizable, promise-based, and command-oriented TypeScript library for the Riot Games API",
-  "repository": "https://github.com/bcho04/galeforce",
+  "author": {
+    "name": "Brandon Cho",
+    "email": "brandon.cho@gmail.com",
+    "url": "https://github.com/bcho04"
+  },
+  "description": "A customizable, promise-based, and command-oriented TypeScript library for the Riot Games API.",
+  "keywords": ["galeforce", "api", "riot", "lol", "tft", "lor", "valorant", "league of legends", "teamfight tactics", "legends of runeterra", "riot games"],
+  "homepage": "https://github.com/bcho04/galeforce",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bcho04/galeforce.git"
+  },
+  "bugs": "https://github.com/bcho04/galeforce/issues",
   "version": "0.1.0",
   "license": "Apache-2.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "engines": {
+    "node": ">=10.13.0"
+  },
   "dependencies": {
     "ajv": "^7.0.3",
     "async": "^3.2.0",
     "axios": "^0.21.1",
     "bluebird": "^3.7.2",
-    "node": ">=10.13.0",
     "redis": "^3.0.2",
     "typescript-json-schema": "^0.47.0",
     "yaml": "^1.10.0"
