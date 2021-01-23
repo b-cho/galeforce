@@ -6,6 +6,7 @@ test
 .nyc_output
 coverage
 tsconfig.json
-*.map
+**/*.map
 .eslintrc.js
 .github
+CODE_OF_CONDUCT.md

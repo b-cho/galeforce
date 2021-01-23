@@ -26,21 +26,21 @@ If you're using **ES6/TypeScript**, simply add
 ```typescript
 import GaleforceModule from 'galeforce';
 
-const Galeforce = new GaleforceModule(/* config */);
+const galeforce = new GaleforceModule(/* config */);
 ```
 to use the project. Or, if you're using **CommonJS** and `require()`, add Galeforce to your project like this:
 ```javascript
 const GaleforceModule = require('galeforce').default;
 
-const Galeforce = new GaleforceModule(/* config */);
+const galeforce = new GaleforceModule(/* config */);
 ```
 <details>
 <summary>Get summoner data for a list of summoners</summary>
 
 ```javascript
 const summoners = ['a', 'b', 'c'];
-const promises = summoners.map(summoner => Galeforce.lol.summoner()
-    .region(Galeforce.regions.NORTH_AMERICA)
+const promises = summoners.map(summoner => galeforce.lol.summoner()
+    .region(galeforce.regions.lol.NORTH_AMERICA)
     .name(summoner)
     .exec()
 ); // list of request promises
@@ -54,8 +54,8 @@ Promise.all(promises).then((result) => {
 <summary>Get list of recent matchId values for a given accountId</summary>
 
 ```javascript
-const matchIds = (await Galeforce.lol.match.matchlist()
-    .region(Galeforce.regions.NORTH_AMERICA)
+const matchIds = (await galeforce.lol.match.matchlist()
+    .region(galeforce.regions.lol.NORTH_AMERICA)
     .accountId(accountId)
     .exec())
     .matches.map(matchInfo => matchInfo.gameId);
@@ -66,8 +66,8 @@ const matchIds = (await Galeforce.lol.match.matchlist()
 <summary>Get match data using await</summary>
 
 ```javascript
-const matchData = await Galeforce.lol.match.match()
-    .region(Galeforce.regions.NORTH_AMERICA)
+const matchData = await galeforce.lol.match.match()
+    .region(galeforce.regions.lol.NORTH_AMERICA)
     .matchId(matchId)
     .exec();
 ```
@@ -77,8 +77,8 @@ const matchData = await Galeforce.lol.match.match()
 <summary>Get total number of mastery points for a summoner</summary>
 
 ```javascript
-const totalMasteryPoints = (await Galeforce.lol.mastery.summoner()
-    .region(Galeforce.regions.NORTH_AMERICA)
+const totalMasteryPoints = (await galeforce.lol.mastery.summoner()
+    .region(galeforce.regions.lol.NORTH_AMERICA)
     .summonerId(summonerId)
     .exec())
     .reduce((previous, current) => previous + current.championPoints, 0);
