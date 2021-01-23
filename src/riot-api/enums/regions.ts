@@ -30,4 +30,6 @@ enum ValorantRegion {
 
 type Region = `${LeagueRegion | RiotRegion | ValorantRegion}`;
 
-export { LeagueRegion, RiotRegion, ValorantRegion, Region };
+export {
+    LeagueRegion, RiotRegion, ValorantRegion, Region,
+};

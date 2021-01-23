@@ -31,7 +31,7 @@ abstract class Action {
         return this;
     }
 
-    public abstract exec(): Promise<any>;
+    public abstract exec(): Promise<unknown>;
 
     protected async run<T>(method: 'GET' | 'POST' | 'PUT' = 'GET'): Promise<T> {
         try {
@@ -48,7 +48,7 @@ abstract class Action {
                 this.payload.body,
             );
 
-            let data: any;
+            let data: unknown;
             if (method === 'GET') {
                 ({ data } = await request.get() as any);
             } else if (method === 'POST') {
@@ -74,13 +74,15 @@ abstract class Action {
     }
 
     private async getQueries(key: string, region: Region): Promise<number> {
-        const value: string | null = await this.cache.get(this.cache.RLConfig.prefix + key + region);
+        const { prefix } = this.cache.RLConfig;
+        const value: string | null = await this.cache.get(prefix + key + region);
         const queries: number = parseInt(value || '0', 10);
         return queries;
     }
 
     protected async checkRateLimit(region: Region): Promise<boolean> {
-        return (await Promise.all(Object.entries(this.cache.RLConfig.intervals).map(async ([key, limit]: [string, number]): Promise<boolean> => (await this.getQueries(key, region)) < limit))).every(Boolean);
+        return (await Promise.all(Object.entries(this.cache.RLConfig.intervals)
+            .map(async ([key, limit]: [string, number]): Promise<boolean> => (await this.getQueries(key, region)) < limit))).every(Boolean);
     }
 
     protected async waitForRateLimit(region: Region): Promise<void> {
@@ -96,12 +98,13 @@ abstract class Action {
     }
 
     protected async incrementRateLimit(region: Region): Promise<void> {
-        async.each(Object.keys(this.cache.RLConfig.intervals), async (key: string, callback: (err?: object) => void) => {
+        const { intervals, prefix } = this.cache.RLConfig;
+        async.each(Object.keys(intervals), async (key: string, callback: (err?: object) => void) => {
             const queries: number = await this.getQueries(key, region);
             if (Number.isNaN(queries) || queries === 0) {
-                await this.cache.setex(this.cache.RLConfig.prefix + key + region, parseInt(key, 10), '1');
+                await this.cache.setex(prefix + key + region, parseInt(key, 10), '1');
             } else {
-                await this.cache.incr(this.cache.RLConfig.prefix + key + region);
+                await this.cache.incr(prefix + key + region);
             }
 
             callback();

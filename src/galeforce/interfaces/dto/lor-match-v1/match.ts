@@ -24,8 +24,8 @@ interface PlayerInterface {
 }
 
 interface InfoInterface {
-    game_mode: GameMode; // (Legal values: Constructed, Expeditions, Tutorial) 
-    game_type: GameType; // (Legal values: Ranked, Normal, AI, Tutorial, VanillaTrial, Singleton, StandardGauntlet) 
+    game_mode: GameMode; // (Legal values: Constructed, Expeditions, Tutorial)
+    game_type: GameType; // (Legal values: Ranked, Normal, AI, Tutorial, VanillaTrial, Singleton, StandardGauntlet)
     game_start_time_utc: string;
     game_version: string;
     players: PlayerInterface[];

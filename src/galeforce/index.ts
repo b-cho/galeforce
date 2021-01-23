@@ -108,10 +108,6 @@ interface GaleforceLorRankedInterface {
     leaderboard: () => GetLorRankedLeaderboard;
 }
 
-interface GaleforceLorStatusInterface {
-    platformData: () => GetLorPlatformData;
-}
-
 interface GaleforceTFTLeagueInterface {
     entries: () => GetTFTLeagueEntries;
     league: () => GetTFTLeagueList;
@@ -156,7 +152,7 @@ interface GaleforceInterface {
         league: GaleforceTFTLeagueInterface;
         match: GaleforceTFTMatchInterface;
         summoner: () => GetTFTSummoner;
-    }
+    };
     regions: {
         lol: typeof LeagueRegion;
         val: typeof ValorantRegion;
@@ -168,7 +164,7 @@ interface GaleforceInterface {
         ranked: GaleforceValorantRankedInterface;
         status: () => GetValorantPlatformData;
 
-    }
+    };
     queues: {
         lol: typeof LeagueQueue;
         val: typeof ValorantQueue;

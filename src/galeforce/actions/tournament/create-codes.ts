@@ -28,8 +28,8 @@ class PostTournamentCodes extends Action {
     }
 
     public async exec(): Promise<string[]> {
-        if(!this.payload.query || !Object.keys(this.payload.query).includes('tournamentId')) {
-            throw new Error('[galeforce]: POST to /lol/tournament/v4/codes requires a query with a tournamentId parameter.')
+        if (!this.payload.query || !Object.keys(this.payload.query).includes('tournamentId')) {
+            throw new Error('[galeforce]: POST to /lol/tournament/v4/codes requires a query with a tournamentId parameter.');
         }
         return this.run<string[]>('POST');
     }

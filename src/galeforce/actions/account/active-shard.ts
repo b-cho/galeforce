@@ -6,7 +6,7 @@ import SubmoduleMapInterface from '../../interfaces/submodule-map';
 class GetActiveShard extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.payload.endpoint = ENDPOINTS.ACCOUNT.ACTIVE_SHARDS; // set action endpoint simultaneously
+        this.payload.endpoint = ENDPOINTS.ACCOUNT.ACTIVE_SHARDS;
         this.payload.type = 'riot';
     }
 

@@ -85,15 +85,15 @@ export const TOURNAMENT = {
 export const LOR_MATCH = {
     MATCH: 'https://${region}.api.riotgames.com/lor/match/v1/matches/${matchId}',
     MATCHLIST: 'https://${region}.api.riotgames.com/lor/match/v1/matches/by-puuid/${puuid}/ids',
-}
+};
 
 export const LOR_RANKED = {
     LEADERBOARDS: 'https://${region}.api.riotgames.com/lor/ranked/v1/leaderboards',
-}
+};
 
 export const LOR_STATUS = {
     PLATFORM_DATA: 'https://${region}.api.riotgames.com/lor/status/v1/platform-data',
-}
+};
 
 export const TFT_LEAGUE = {
     SUMMONER_ID: 'https://${region}.api.riotgames.com/tft/league/v1/entries/by-summoner/${summonerId}',
@@ -107,32 +107,32 @@ export const TFT_LEAGUE = {
 export const TFT_MATCH = {
     MATCH: 'https://${region}.api.riotgames.com/tft/match/v1/matches/${matchId}',
     MATCHLIST: 'https://${region}.api.riotgames.com/tft/match/v1/matches/by-puuid/${puuid}/ids',
-}
+};
 
 export const TFT_SUMMONER = {
     SUMMONER_NAME: 'https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-name/${summonerName}',
     PUUID: 'https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${puuid}',
     ACCOUNT_ID: 'https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-account/${accountId}',
     SUMMONER_ID: 'https://${region}.api.riotgames.com/tft/summoner/v1/summoners/${summonerId}',
-}
+};
 
 export const VAL_CONTENT = {
     CONTENTS: 'https://${region}.api.riotgames.com/val/content/v1/contents',
-}
+};
 
 export const VAL_MATCH = {
     MATCH: 'https://${region}.api.riotgames.com/val/match/v1/matches/${matchId}',
     MATCHLIST: 'https://${region}.api.riotgames.com/val/match/v1/matchlists/by-puuid/${puuid}',
     RECENT: 'https://${region}.api.riotgames.com/val/match/v1/recent-matches/by-queue/${queue}',
-}
+};
 
 export const VAL_RANKED = {
     LEADERBOARDS: 'https://${region}.api.riotgames.com/val/ranked/v1/leaderboards/by-act/${actId}',
-}
+};
 
 export const VAL_STATUS = {
     PLATFORM_DATA: 'https://${region}.api.riotgames.com/val/status/v1/platform-data',
-}
+};
 
 export const DATA_DRAGON = {
     CHAMPION: 'http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json',

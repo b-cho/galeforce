@@ -28,7 +28,8 @@ class GetLeagueEntries extends Action {
 
     public tier(tier: Tier): this {
         if ([Tier.MASTER, Tier.GRANDMASTER, Tier.CHALLENGER].includes(tier)) {
-            this.payload.endpoint = ENDPOINTS.LEAGUE.ENTRIES_BY_RANK_EXP; // set to experimental endpoint for support
+            // set to experimental endpoint for support
+            this.payload.endpoint = ENDPOINTS.LEAGUE.ENTRIES_BY_RANK_EXP;
         } else {
             this.payload.endpoint = ENDPOINTS.LEAGUE.ENTRIES_BY_RANK; // set to default endpoint
         }

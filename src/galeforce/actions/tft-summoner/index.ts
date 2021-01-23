@@ -12,25 +12,25 @@ class GetTFTSummoner extends Action {
     public region: (region: LeagueRegion) => this = super.region;
 
     public name(summonerName: string): this {
-        this.payload.endpoint = ENDPOINTS.TFT_SUMMONER.SUMMONER_NAME; // set action endpoint simultaneously
+        this.payload.endpoint = ENDPOINTS.TFT_SUMMONER.SUMMONER_NAME;
         this.payload.summonerName = summonerName;
         return this;
     }
 
     public puuid(puuid: string): this {
-        this.payload.endpoint = ENDPOINTS.TFT_SUMMONER.PUUID; // set action endpoint simultaneously
+        this.payload.endpoint = ENDPOINTS.TFT_SUMMONER.PUUID;
         this.payload.puuid = puuid;
         return this;
     }
 
     public accountId(accountId: string): this {
-        this.payload.endpoint = ENDPOINTS.TFT_SUMMONER.ACCOUNT_ID; // set action endpoint simultaneously
+        this.payload.endpoint = ENDPOINTS.TFT_SUMMONER.ACCOUNT_ID;
         this.payload.accountId = accountId;
         return this;
     }
 
     public summonerId(summonerId: string): this {
-        this.payload.endpoint = ENDPOINTS.TFT_SUMMONER.SUMMONER_ID; // set action endpoint simultaneously
+        this.payload.endpoint = ENDPOINTS.TFT_SUMMONER.SUMMONER_ID;
         this.payload.summonerId = summonerId;
         return this;
     }

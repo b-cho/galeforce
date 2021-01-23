@@ -1,7 +1,6 @@
-import { url } from 'inspector';
-import { URL } from 'url';
 import {
-    Region, Queue, Tier, Division, Game, LeagueRegion, ValorantRegion, RiotRegion, LeagueQueue, ValorantQueue,
+    Region, Queue, Tier, Division, Game,
+    LeagueRegion, ValorantRegion, RiotRegion, LeagueQueue, ValorantQueue,
 } from '../../riot-api';
 
 export type Payload = {

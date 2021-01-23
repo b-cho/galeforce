@@ -19,7 +19,7 @@ class GetTFTLeagueEntries extends Action {
 
     public tier(tier: Tier): this {
         if ([Tier.MASTER, Tier.GRANDMASTER, Tier.CHALLENGER].includes(tier)) {
-            throw new Error('[galeforce]: /tft/league/v1/entries does not currently support the apex tiers.')
+            throw new Error('[galeforce]: /tft/league/v1/entries does not currently support the apex tiers.');
         }
 
         this.payload.endpoint = ENDPOINTS.TFT_LEAGUE.ENTRIES_BY_RANK; // set to default endpoint

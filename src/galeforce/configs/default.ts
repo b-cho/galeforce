@@ -16,8 +16,7 @@ export const validate = ajv.compile(ConfigSchema);
 /**
  * @private
  *
- * @param {String} template A list of string templates that are filled in with parameters.
- * @param {Object} match Parameters to fill in variables for the string templates.
+ * @param {String} template A list of string templates that are filled in with environment variables.
  *
  * @return {[String]} Substituted version of template with parameter values from match.
  */
@@ -36,7 +35,7 @@ function generateTemplateString(template: string): string {
  *
  * @return {Object} Substituted version of template with process.env replaced values
  */
-function iterateReplace(obj: object): object {
+function recursivelySubstitute(obj: object): object {
     const newObj: any = JSON.parse(JSON.stringify(obj));
 
     Object.keys(newObj).forEach((key) => {
@@ -45,11 +44,11 @@ function iterateReplace(obj: object): object {
         }
 
         if (typeof newObj[key] === 'object') {
-            newObj[key] = iterateReplace(newObj[key]);
+            newObj[key] = recursivelySubstitute(newObj[key]);
         }
     });
 
-    return newObj;
+    return newObj as object;
 }
 
 /**
@@ -59,7 +58,7 @@ function iterateReplace(obj: object): object {
  * @return {ConfigInterface} The corresponding config object.
  */
 function getConfig(filename: string): ConfigInterface {
-    const configObject = iterateReplace(yaml.parse(fs.readFileSync(filename, 'utf8')));
+    const configObject = recursivelySubstitute(yaml.parse(fs.readFileSync(filename, 'utf8')));
     if (validate(configObject)) return configObject;
     throw new Error('Invalid config provided (config failed JSON schema validation).');
 }
