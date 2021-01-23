@@ -1,19 +1,19 @@
 /* eslint-disable no-template-curly-in-string */
 
-const ACCOUNT = {
+export const ACCOUNT = {
     PUUID: 'https://${region}.api.riotgames.com/riot/account/v1/accounts/by-puuid/${puuid}',
     RIOT_ID: 'https://${region}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}',
     ACTIVE_SHARDS: 'https://${region}.api.riotgames.com/riot/account/v1/active-shards/by-game/${game}/by-puuid/${puuid}',
 };
 
-const SUMMONER = {
+export const SUMMONER = {
     SUMMONER_NAME: 'https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}',
     PUUID: 'https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}',
     ACCOUNT_ID: 'https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-account/${accountId}',
     SUMMONER_ID: 'https://${region}.api.riotgames.com/lol/summoner/v4/summoners/${summonerId}',
 };
 
-const CHAMPION_MASTERY = {
+export const CHAMPION_MASTERY = {
     SUMMONER_ID: {
         LIST: 'https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}',
         CHAMPION: 'https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}/by-champion/${championId}',
@@ -21,12 +21,12 @@ const CHAMPION_MASTERY = {
     SCORE: 'https://${region}.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/${summonerId}',
 };
 
-const SPECTATOR = {
+export const SPECTATOR = {
     SUMMONER_ID: 'https://${region}.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${summonerId}',
     FEATURED: 'https://${region}.api.riotgames.com/lol/spectator/v4/featured-games',
 };
 
-const LEAGUE = {
+export const LEAGUE = {
     SUMMONER_ID: 'https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerId}',
     LEAGUE_ID: 'https://${region}.api.riotgames.com/lol/league/v4/leagues/${leagueId}',
     ENTRIES_BY_RANK: 'https://${region}.api.riotgames.com/lol/league/v4/entries/${queue}/${tier}/${division}',
@@ -36,7 +36,7 @@ const LEAGUE = {
     ENTRIES_BY_RANK_EXP: 'https://${region}.api.riotgames.com/lol/league-exp/v4/entries/${queue}/${tier}/${division}',
 };
 
-const MATCH = {
+export const MATCH = {
     MATCHLIST: {
         ACCOUNT_ID: 'https://${region}.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}',
     },
@@ -50,19 +50,19 @@ const MATCH = {
     },
 };
 
-const PLATFORM = {
+export const PLATFORM = {
     THIRD_PARTY_CODE: 'https://${region}.api.riotgames.com/lol/platform/v4/third-party-code/by-summoner/${summonerId}',
 };
 
-const STATUS = {
+export const STATUS = {
     PLATFORM_DATA: 'https://${region}.api.riotgames.com/lol/status/v4/platform-data',
 };
 
-const CHAMPION = {
+export const CHAMPION = {
     CHAMPION_ROTATIONS: 'https://${region}.api.riotgames.com/lol/platform/v3/champion-rotations',
 };
 
-const CLASH = {
+export const CLASH = {
     PLAYERS: 'https://${region}.api.riotgames.com/lol/clash/v1/players/by-summoner/${summonerId}',
     TEAMS: 'https://${region}.api.riotgames.com/lol/clash/v1/teams/${teamId}',
     TOURNAMENTS: {
@@ -72,7 +72,7 @@ const CLASH = {
     },
 };
 
-const TOURNAMENT = {
+export const TOURNAMENT = {
     CODES: {
         CREATE: 'https://${region}.api.riotgames.com/lol/tournament/v4/codes',
         BY_CODE: 'https://${region}.api.riotgames.com/lol/tournament/v4/codes/${tournamentCode}',
@@ -82,26 +82,63 @@ const TOURNAMENT = {
     TOURNAMENTS: 'https://${region}.api.riotgames.com/lol/tournament/v4/tournaments',
 };
 
-const DATA_DRAGON = {
+export const LOR_MATCH = {
+    MATCH: 'https://${region}.api.riotgames.com/lor/match/v1/matches/${matchId}',
+    MATCHLIST: 'https://${region}.api.riotgames.com/lor/match/v1/matches/by-puuid/${puuid}/ids',
+}
+
+export const LOR_RANKED = {
+    LEADERBOARDS: 'https://${region}.api.riotgames.com/lor/ranked/v1/leaderboards',
+}
+
+export const LOR_STATUS = {
+    PLATFORM_DATA: 'https://${region}.api.riotgames.com/lor/status/v1/platform-data',
+}
+
+export const TFT_LEAGUE = {
+    SUMMONER_ID: 'https://${region}.api.riotgames.com/tft/league/v1/entries/by-summoner/${summonerId}',
+    LEAGUE_ID: 'https://${region}.api.riotgames.com/tft/league/v1/leagues/${leagueId}',
+    ENTRIES_BY_RANK: 'https://${region}.api.riotgames.com/tft/league/v1/entries/${tier}/${division}',
+    CHALLENGER_LEAGUE: 'https://${region}.api.riotgames.com/tft/league/v1/challenger',
+    GRANDMASTER_LEAGUE: 'https://${region}.api.riotgames.com/tft/league/v1/grandmaster',
+    MASTER_LEAGUE: 'https://${region}.api.riotgames.com/tft/league/v1/master',
+};
+
+export const TFT_MATCH = {
+    MATCH: 'https://${region}.api.riotgames.com/tft/match/v1/matches/${matchId}',
+    MATCHLIST: 'https://${region}.api.riotgames.com/tft/match/v1/matches/by-puuid/${puuid}/ids',
+}
+
+export const TFT_SUMMONER = {
+    SUMMONER_NAME: 'https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-name/${summonerName}',
+    PUUID: 'https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${puuid}',
+    ACCOUNT_ID: 'https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-account/${accountId}',
+    SUMMONER_ID: 'https://${region}.api.riotgames.com/tft/summoner/v1/summoners/${summonerId}',
+}
+
+export const VAL_CONTENT = {
+    CONTENTS: 'https://${region}.api.riotgames.com/val/content/v1/contents',
+}
+
+export const VAL_MATCH = {
+    MATCH: 'https://${region}.api.riotgames.com/val/match/v1/matches/${matchId}',
+    MATCHLIST: 'https://${region}.api.riotgames.com/val/match/v1/matchlists/by-puuid/${puuid}',
+    RECENT: 'https://${region}.api.riotgames.com/val/match/v1/recent-matches/by-queue/${queue}',
+}
+
+export const VAL_RANKED = {
+    LEADERBOARDS: 'https://${region}.api.riotgames.com/val/ranked/v1/leaderboards/by-act/${actId}',
+}
+
+export const VAL_STATUS = {
+    PLATFORM_DATA: 'https://${region}.api.riotgames.com/val/status/v1/platform-data',
+}
+
+export const DATA_DRAGON = {
     CHAMPION: 'http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json',
     SEASONS: 'http://static.developer.riotgames.com/docs/lol/seasons.json',
     QUEUES: 'http://static.developer.riotgames.com/docs/lol/queues.json',
     MAPS: 'http://static.developer.riotgames.com/docs/lol/maps.json',
     GAME_MODES: 'http://static.developer.riotgames.com/docs/lol/gameModes.json',
     GAME_TYPES: 'http://static.developer.riotgames.com/docs/lol/gameTypes.json',
-};
-
-export default {
-    ACCOUNT,
-    SUMMONER,
-    CHAMPION_MASTERY,
-    SPECTATOR,
-    LEAGUE,
-    MATCH,
-    PLATFORM,
-    STATUS,
-    CHAMPION,
-    CLASH,
-    TOURNAMENT,
-    DATA_DRAGON,
 };

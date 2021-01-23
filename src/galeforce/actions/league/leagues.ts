@@ -1,15 +1,18 @@
 import Action from '../action';
 import { LeagueListInterface } from '../../interfaces/dto';
-import { ENDPOINTS, Queue, Tier } from '../../../riot-api';
+import { ENDPOINTS, LeagueRegion, LeagueQueue, Tier } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class GetLeagueList extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.LEAGUE.LEAGUE_ID;
+        this.payload.type = 'lol';
     }
 
-    public queue(queue: Queue): this {
+    public region: (region: LeagueRegion) => this = super.region;
+
+    public queue(queue: LeagueQueue): this {
         this.payload.queue = queue;
         return this;
     }

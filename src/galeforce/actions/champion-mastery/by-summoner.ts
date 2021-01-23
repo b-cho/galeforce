@@ -1,7 +1,7 @@
 import Action from '../action';
 import { Payload } from '../payload';
 import { ChampionMasteryInterface } from '../../interfaces/dto';
-import { ENDPOINTS } from '../../../riot-api';
+import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class GetMasteryBySummoner<R = ChampionMasteryInterface[]> extends Action {
@@ -10,7 +10,10 @@ class GetMasteryBySummoner<R = ChampionMasteryInterface[]> extends Action {
         if (!this.payload.endpoint) {
             this.payload.endpoint = ENDPOINTS.CHAMPION_MASTERY.SUMMONER_ID.LIST;
         }
+        this.payload.type = 'lol';
     }
+
+    public region: (region: LeagueRegion) => this = super.region;
 
     public summonerId(summonerId: string): this {
         this.payload.summonerId = summonerId;

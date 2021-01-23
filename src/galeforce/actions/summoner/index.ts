@@ -1,12 +1,15 @@
 import Action from '../action';
 import { SummonerInterface } from '../../interfaces/dto';
-import { ENDPOINTS } from '../../../riot-api';
+import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class GetSummoner extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
+        this.payload.type = 'lol';
     }
+
+    public region: (region: LeagueRegion) => this = super.region;
 
     public name(summonerName: string): this {
         this.payload.endpoint = ENDPOINTS.SUMMONER.SUMMONER_NAME; // set action endpoint simultaneously

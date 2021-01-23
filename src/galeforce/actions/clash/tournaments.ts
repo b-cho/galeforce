@@ -1,5 +1,5 @@
 import Action from '../action';
-import { ENDPOINTS } from '../../../riot-api';
+import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 import { TournamentInterface } from '../../interfaces/dto';
 
@@ -7,7 +7,10 @@ class GetClashTournament extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.CLASH.TOURNAMENTS.TEAM;
+        this.payload.type = 'lol';
     }
+
+    public region: (region: LeagueRegion) => this = super.region;
 
     public teamId(teamId: string): this {
         this.payload.endpoint = ENDPOINTS.CLASH.TOURNAMENTS.TEAM;

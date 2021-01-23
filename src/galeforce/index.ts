@@ -1,17 +1,17 @@
 import RiotAPIModule, {
-    Region, Queue, Tier, Division, Game,
+    Tier, Division, Game, ValorantRegion, LeagueRegion, RiotRegion, LeagueQueue, ValorantQueue,
 } from '../riot-api';
 import getConfig, { validate } from './configs/default';
 import { ConfigInterface } from './interfaces/config';
-import GetMatchByID from './actions/match/match-by-match-id';
+import GetMatch from './actions/match/match';
 import GetSummoner from './actions/summoner';
 import GetThirdPartyCode from './actions/third-party-code';
 import Cache from './caches/cache';
 import RedisCache from './caches/redis';
 import SubmoduleMapInterface from './interfaces/submodule-map';
 import NullCache from './caches/null';
-import GetTimelineByMatchID from './actions/match/timeline-by-match-id';
-import GetMatchlistByAccountID from './actions/match/matchlist-by-account-id';
+import GetTimeline from './actions/match/timeline';
+import GetMatchlist from './actions/match/matchlist';
 import GetMasteryBySummoner from './actions/champion-mastery/by-summoner';
 import GetLeagueEntries from './actions/league/entries';
 import GetLeagueList from './actions/league/leagues';
@@ -20,7 +20,7 @@ import GetChampionRotations from './actions/champion';
 import GetClashPlayers from './actions/clash/players';
 import GetClashTeam from './actions/clash/teams';
 import GetClashTournament from './actions/clash/tournaments';
-import GetMatchesByTournamentCode from './actions/match/tournament-matches';
+import GetTournamentMatches from './actions/match/tournament-matches';
 import GetCurrentGameInfo from './actions/spectator/active-games';
 import GetFeaturedGames from './actions/spectator/featured-games';
 import GetMasteryScore from './actions/champion-mastery/score';
@@ -33,6 +33,21 @@ import PostProviders from './actions/tournament/providers';
 import PostTournaments from './actions/tournament/tournaments';
 import GetLobbyEvents from './actions/tournament/lobby-events';
 import GetUpcomingClashTournaments from './actions/clash/upcoming-tournaments';
+import GetLorMatch from './actions/lor-match/match';
+import GetLorMatchlist from './actions/lor-match/matchlist';
+import GetLorRankedLeaderboard from './actions/lor-ranked/leaderboard';
+import GetLorPlatformData from './actions/lor-status';
+import GetTFTLeagueEntries from './actions/tft-league/entries';
+import GetTFTLeagueList from './actions/tft-league/leagues';
+import GetTFTMatch from './actions/tft-match/match';
+import GetTFTMatchlist from './actions/tft-match/matchlist';
+import GetTFTSummoner from './actions/tft-summoner';
+import GetValorantContent from './actions/val-content/contents';
+import GetValorantMatch from './actions/val-match/match';
+import GetValorantMatchlist from './actions/val-match/matchlist';
+import GetValorantRecentMatches from './actions/val-match/recent-matches';
+import GetValorantRankedLeaderboard from './actions/val-ranked/leaderboard';
+import GetValorantPlatformData from './actions/val-status';
 
 interface GaleforceChampionMasteryInterface {
     summoner: () => GetMasteryBySummoner;
@@ -45,19 +60,15 @@ interface GaleforceLeagueInterface {
 }
 
 interface GaleforceMatchInterface {
-    match: () => GetMatchByID;
-    timeline: () => GetTimelineByMatchID;
-    matchlist: () => GetMatchlistByAccountID;
-    tournament: () => GetMatchesByTournamentCode;
+    match: () => GetMatch;
+    timeline: () => GetTimeline;
+    matchlist: () => GetMatchlist;
+    tournament: () => GetTournamentMatches;
 }
 
 interface GaleforcePlatformInterface {
     thirdPartyCode: () => GetThirdPartyCode;
     championRotations: () => GetChampionRotations;
-}
-
-interface GaleforceStatusInterface {
-    platformData: () => GetLeaguePlatformData;
 }
 
 interface GaleforceClashInterface {
@@ -88,6 +99,39 @@ interface GaleforceTournamentInterface {
     tournament: () => PostTournaments;
 }
 
+interface GaleforceLorMatchInterface {
+    match: () => GetLorMatch;
+    matchlist: () => GetLorMatchlist;
+}
+
+interface GaleforceLorRankedInterface {
+    leaderboard: () => GetLorRankedLeaderboard;
+}
+
+interface GaleforceLorStatusInterface {
+    platformData: () => GetLorPlatformData;
+}
+
+interface GaleforceTFTLeagueInterface {
+    entries: () => GetTFTLeagueEntries;
+    league: () => GetTFTLeagueList;
+}
+
+interface GaleforceTFTMatchInterface {
+    match: () => GetTFTMatch;
+    matchlist: () => GetTFTMatchlist;
+}
+
+interface GaleforceValorantMatchInterface {
+    match: () => GetValorantMatch;
+    matchlist: () => GetValorantMatchlist;
+    recent: () => GetValorantRecentMatches;
+}
+
+interface GaleforceValorantRankedInterface {
+    leaderboard: () => GetValorantRankedLeaderboard;
+}
+
 interface GaleforceInterface {
     lol: {
         summoner: () => GetSummoner;
@@ -95,7 +139,7 @@ interface GaleforceInterface {
         league: GaleforceLeagueInterface;
         match: GaleforceMatchInterface;
         platform: GaleforcePlatformInterface;
-        status: GaleforceStatusInterface;
+        status: () => GetLeaguePlatformData;
         clash: GaleforceClashInterface;
         spectator: GaleforceSpectatorInterface;
         tournament: GaleforceTournamentInterface;
@@ -103,8 +147,32 @@ interface GaleforceInterface {
     riot: {
         account: GaleforceAccountInterface;
     };
-    regions: typeof Region;
-    queues: typeof Queue;
+    lor: {
+        match: GaleforceLorMatchInterface;
+        ranked: GaleforceLorRankedInterface;
+        status: () => GetLorPlatformData;
+    };
+    tft: {
+        league: GaleforceTFTLeagueInterface;
+        match: GaleforceTFTMatchInterface;
+        summoner: () => GetTFTSummoner;
+    }
+    regions: {
+        lol: typeof LeagueRegion;
+        val: typeof ValorantRegion;
+        riot: typeof RiotRegion;
+    };
+    val: {
+        content: () => GetValorantContent;
+        match: GaleforceValorantMatchInterface;
+        ranked: GaleforceValorantRankedInterface;
+        status: () => GetValorantPlatformData;
+
+    }
+    queues: {
+        lol: typeof LeagueQueue;
+        val: typeof ValorantQueue;
+    };
     tiers: typeof Tier;
     divisions: typeof Division;
     games: typeof Game;
@@ -150,18 +218,16 @@ export default class Galeforce implements GaleforceInterface {
             league: (): GetLeagueList => new GetLeagueList(this.SubmoduleMap),
         },
         match: {
-            match: (): GetMatchByID => new GetMatchByID(this.SubmoduleMap),
-            timeline: (): GetTimelineByMatchID => new GetTimelineByMatchID(this.SubmoduleMap),
-            matchlist: (): GetMatchlistByAccountID => new GetMatchlistByAccountID(this.SubmoduleMap),
-            tournament: (): GetMatchesByTournamentCode => new GetMatchesByTournamentCode(this.SubmoduleMap),
+            match: (): GetMatch => new GetMatch(this.SubmoduleMap),
+            timeline: (): GetTimeline => new GetTimeline(this.SubmoduleMap),
+            matchlist: (): GetMatchlist => new GetMatchlist(this.SubmoduleMap),
+            tournament: (): GetTournamentMatches => new GetTournamentMatches(this.SubmoduleMap),
         },
         platform: {
             thirdPartyCode: (): GetThirdPartyCode => new GetThirdPartyCode(this.SubmoduleMap),
             championRotations: (): GetChampionRotations => new GetChampionRotations(this.SubmoduleMap),
         },
-        status: {
-            platformData: (): GetLeaguePlatformData => new GetLeaguePlatformData(this.SubmoduleMap),
-        },
+        status: (): GetLeaguePlatformData => new GetLeaguePlatformData(this.SubmoduleMap),
         clash: {
             players: (): GetClashPlayers => new GetClashPlayers(this.SubmoduleMap),
             team: (): GetClashTeam => new GetClashTeam(this.SubmoduleMap),
@@ -191,9 +257,52 @@ export default class Galeforce implements GaleforceInterface {
         },
     }
 
-    public regions: typeof Region = Region;
+    public lor = {
+        match: {
+            match: (): GetLorMatch => new GetLorMatch(this.SubmoduleMap),
+            matchlist: (): GetLorMatchlist => new GetLorMatchlist(this.SubmoduleMap),
+        },
+        ranked: {
+            leaderboard: (): GetLorRankedLeaderboard => new GetLorRankedLeaderboard(this.SubmoduleMap),
+        },
+        status: (): GetLorPlatformData => new GetLorPlatformData(this.SubmoduleMap),
+    }
 
-    public queues: typeof Queue = Queue;
+    public tft = {
+        league: {
+            entries: (): GetTFTLeagueEntries => new GetTFTLeagueEntries(this.SubmoduleMap),
+            league: (): GetTFTLeagueList => new GetTFTLeagueList(this.SubmoduleMap),
+        },
+        match: {
+            match: (): GetTFTMatch => new GetTFTMatch(this.SubmoduleMap),
+            matchlist: (): GetTFTMatchlist => new GetTFTMatchlist(this.SubmoduleMap),
+        },
+        summoner: (): GetTFTSummoner => new GetTFTSummoner(this.SubmoduleMap),
+    }
+
+    public val = {
+        content: (): GetValorantContent => new GetValorantContent(this.SubmoduleMap),
+        match: {
+            match: (): GetValorantMatch => new GetValorantMatch(this.SubmoduleMap),
+            matchlist: (): GetValorantMatchlist => new GetValorantMatchlist(this.SubmoduleMap),
+            recent: (): GetValorantRecentMatches => new GetValorantRecentMatches(this.SubmoduleMap),
+        },
+        ranked: {
+            leaderboard: (): GetValorantRankedLeaderboard => new GetValorantRankedLeaderboard(this.SubmoduleMap),
+        },
+        status: (): GetValorantPlatformData => new GetValorantPlatformData(this.SubmoduleMap),
+    }
+
+    public regions = {
+        lol: LeagueRegion,
+        val: ValorantRegion,
+        riot: RiotRegion,
+    };
+
+    public queues = {
+        lol: LeagueQueue,
+        val: ValorantQueue,
+    };
 
     public tiers: typeof Tier = Tier;
 

@@ -8,7 +8,7 @@ interface LeagueItemInterface {
     freshBlood: boolean;
     wins: number;
     summonerName: string;
-    miniSeries: MiniSeriesDTOInterface;
+    miniSeries?: MiniSeriesDTOInterface;
     inactive: boolean;
     veteran: boolean;
     hotStreak: boolean;

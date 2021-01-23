@@ -26,7 +26,7 @@ abstract class Action {
         this.payload = payload || CreatePayloadProxy({});
     }
 
-    public region(region: Region): this {
+    protected region(region: Region): this {
         this.payload.region = region;
         return this;
     }

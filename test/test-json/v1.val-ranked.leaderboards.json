@@ -1,0 +1,807 @@
+{
+    "actId": "97b6e739-44cc-ffa7-49ad-398ba502ceb0",
+    "totalPlayers": 3783,
+    "players": [
+        {
+            "puuid": "bf9tyoGRyGhJSFa8la-WT68Te0LFSlnO6ylp4aCohTY4eVRC7QdXlwvOMrjRUtvhGLjyCcLix5Km2A",
+            "gameName": "BRANTED",
+            "tagLine": "4200",
+            "leaderboardRank": 1,
+            "rankedRating": 709,
+            "numberOfWins": 68
+        },
+        {
+            "puuid": "lqm6o796uMHYBO3pjS4UkpJFt1zWhKHRYnyAk8B3CrJVZ2UrBWOFtO-auIk0fdtbpJy5YPU8hLULSA",
+            "gameName": "bones",
+            "tagLine": "637",
+            "leaderboardRank": 2,
+            "rankedRating": 706,
+            "numberOfWins": 76
+        },
+        {
+            "puuid": "1M85wuPNckr_C4OAA0c70zDu1gOFgDo73BeyHYXFc7UjqPntIaflyywiz2bP95iVJ5t944Rm1uLOBw",
+            "gameName": "Fxde",
+            "tagLine": "6379",
+            "leaderboardRank": 3,
+            "rankedRating": 650,
+            "numberOfWins": 68
+        },
+        {
+            "puuid": "JSMkmI21bW_8tFYdafgusNSpLqHJKEZbPr7G9uzr4kV1_dcqha3B8S0SgRLC9e0Z8xBiNjX9RePWAw",
+            "gameName": "haley",
+            "tagLine": "uwu",
+            "leaderboardRank": 4,
+            "rankedRating": 641,
+            "numberOfWins": 62
+        },
+        {
+            "puuid": "qgk8Sm0Tu8lslViwPNJD_SrGQiGh5_8G_XXfnVegU6K7Meexbe2ZwRkUHuVjPywypU0OuF-CvzSZGQ",
+            "gameName": "MrDrPerfect",
+            "tagLine": "117",
+            "leaderboardRank": 5,
+            "rankedRating": 628,
+            "numberOfWins": 86
+        },
+        {
+            "puuid": "8SSvNjpNTqYmao8CiijoGerTk4hUHAXYXs-vQ2GWTk6Z7CmaC2-6PHYSuDs9g_TCBpJB-GVoKGqQ8w",
+            "gameName": "Twitch mwk105",
+            "tagLine": "YT to",
+            "leaderboardRank": 6,
+            "rankedRating": 594,
+            "numberOfWins": 76
+        },
+        {
+            "puuid": "139NKc-NThfLzTBrvfb0lpKVEUfgVxg_d0s5noDy-4lJxDAI78DtxBM_CufR5NFRXssukGnv3LRqUA",
+            "gameName": "GMAN",
+            "tagLine": "0005",
+            "leaderboardRank": 7,
+            "rankedRating": 588,
+            "numberOfWins": 102
+        },
+        {
+            "puuid": "PmUowI4gj9iH16C0maihE7d3nrRKIWeGQGy9vtDdliTQQaRa9t9SLT_b-dyOhUtNbar0MpTEMxbygA",
+            "gameName": "Twitch Gucc107",
+            "tagLine": "1337",
+            "leaderboardRank": 8,
+            "rankedRating": 579,
+            "numberOfWins": 63
+        },
+        {
+            "puuid": "_3DSj2u2yIRN6NWed7n3npLMjVdJcj6eIcJkf7ruQNF3_aBC9zHnhdb3npWnDJSCcvS_uspnFQ7L8A",
+            "gameName": "PROD",
+            "tagLine": "4545",
+            "leaderboardRank": 9,
+            "rankedRating": 573,
+            "numberOfWins": 97
+        },
+        {
+            "puuid": "aHLD2V9YpLA_z0dxZJIHZ6iAo6-y2o2NabK6fdXRm2l4D1rRrstdLjOLI-pzk_6_aWdrpO20ZwH2tg",
+            "gameName": "Zander",
+            "tagLine": "swag",
+            "leaderboardRank": 10,
+            "rankedRating": 560,
+            "numberOfWins": 53
+        },
+        {
+            "puuid": "6ViangG9AP8izpZV_6OSzzrSIvsnHWFxen1LtC-2vawDLtcqYthBoC4WxRYgc9dLdxU3grY_KRoODA",
+            "gameName": "paranoid",
+            "tagLine": "JETT",
+            "leaderboardRank": 11,
+            "rankedRating": 535,
+            "numberOfWins": 64
+        },
+        {
+            "puuid": "kgTZrrjYymasdPfLMpAbWT-qTyHaPwlVo4X4JehDUmTRb93qyIuASsMYxEsnJhUiro0xt41Ds-kvsw",
+            "gameName": "chandlerjl",
+            "tagLine": "NA1",
+            "leaderboardRank": 12,
+            "rankedRating": 529,
+            "numberOfWins": 71
+        },
+        {
+            "puuid": "uqkHNwBPk3mVwDZv830Q0g96wVnHxH0FAcNsu6g8BJRHkTfkKPRXzhxdFExHorilESqKpmg-MJ8F8g",
+            "gameName": "Rarkar",
+            "tagLine": "NA1",
+            "leaderboardRank": 13,
+            "rankedRating": 526,
+            "numberOfWins": 36
+        },
+        {
+            "puuid": "LNhEQaPDaLj8ecu4XrEcc0TGSgVDkeuSsx2_1KwCtk1XXHgSs3bSkFCq_5oULztFRxUaS-WfPLOueA",
+            "gameName": "infiltrator",
+            "tagLine": "000",
+            "leaderboardRank": 14,
+            "rankedRating": 523,
+            "numberOfWins": 54
+        },
+        {
+            "puuid": "NLwuqrTGhzvY29niAHySaCaE2lsUEhnOzyNaYm_rctwr3syyAj5iYdBjalNUHCY_dz0SVvKA1gbc4w",
+            "gameName": "ASCEND",
+            "tagLine": "7187",
+            "leaderboardRank": 15,
+            "rankedRating": 517,
+            "numberOfWins": 66
+        },
+        {
+            "puuid": "D-zYrIhNIIc68kZUIQLd6avGdPdbQgfrMFQahpQpE5rWzitPiwLDGl2-KsnuQdBtnSwphLexKCBjcQ",
+            "gameName": "jChrono",
+            "tagLine": "000",
+            "leaderboardRank": 16,
+            "rankedRating": 516,
+            "numberOfWins": 53
+        },
+        {
+            "puuid": "V4KgsLMGPKXnJ6KhfJ1P8jh7-3D2C4LcS-A5vOGmJvR9iqPCYFb1Mgkaf8nrPHmAK4WBR0G5l2C6RA",
+            "gameName": "sugarfree",
+            "tagLine": "000",
+            "leaderboardRank": 17,
+            "rankedRating": 511,
+            "numberOfWins": 45
+        },
+        {
+            "puuid": "mKRP75dxNmMGetbH0SVETe7RSuuj9mtGnR5Opvmc5NatGFryvetdqa8otgmQFuYFgs-CE_8kzJqTXg",
+            "gameName": "nosyy",
+            "tagLine": "ttv",
+            "leaderboardRank": 18,
+            "rankedRating": 508,
+            "numberOfWins": 64
+        },
+        {
+            "puuid": "c-ZXvic341E8Nk5tw2LsbCCRdwqpMLbyA8a56bbky8xlmgsdPe_ouWXs0n3voKpzxZQoh4u7hYMRKg",
+            "gameName": "exuhz",
+            "tagLine": "000",
+            "leaderboardRank": 19,
+            "rankedRating": 507,
+            "numberOfWins": 70
+        },
+        {
+            "puuid": "j4MyG6He6ueFth8waOlqOGoWPt4mqJC4ZrLfHfU72h-hGqBv7vAVhQhpVlo365Q8mAmqvqazeO_v3w",
+            "gameName": "RESO leak",
+            "tagLine": "1641",
+            "leaderboardRank": 20,
+            "rankedRating": 493,
+            "numberOfWins": 49
+        },
+        {
+            "puuid": "dqOGqtqn9_zECpG651MBnV15wml5N47l5dwOBZN0BBaNUuEeIMV1Xn6ruAIadVleCqbxa_mMBc5i4g",
+            "gameName": "明らか",
+            "tagLine": "AiM",
+            "leaderboardRank": 21,
+            "rankedRating": 492,
+            "numberOfWins": 71
+        },
+        {
+            "puuid": "pAPZqOMfzVtjOced2EfC8DzD9BhyWKmxYOTstn3cqNCLc2A7B8sCkNbju_b6eEtEM5C4-5x0Z1Cutg",
+            "gameName": "POGGAMING",
+            "tagLine": "1233",
+            "leaderboardRank": 22,
+            "rankedRating": 489,
+            "numberOfWins": 56
+        },
+        {
+            "puuid": "_fjWvIjedyToJVKkNrNTsPtmJT9VCc-6-A1P5O--WuT3xi8ZTdHUAtLVMdI3fI34kAceD8cqdj2mWg",
+            "gameName": "StrongLegs",
+            "tagLine": "1337",
+            "leaderboardRank": 23,
+            "rankedRating": 485,
+            "numberOfWins": 78
+        },
+        {
+            "puuid": "04iJweCVwCHMSCn3Fik4ZVn7ZaThrM6xm34t8NnJSWCLTw5bkHghluv8kQyCv5c0iQ30QK1PvUR9Qw",
+            "gameName": "HallowAngel",
+            "tagLine": "NA1",
+            "leaderboardRank": 24,
+            "rankedRating": 482,
+            "numberOfWins": 58
+        },
+        {
+            "puuid": "mwWRcix5C2zbITDitlFIKtppp8CNuhvzAhPDMyu96NNMZBfd4EiGCzK8_PZ_PVP9ZsciGbu5fAKEAQ",
+            "gameName": "Thigwrb",
+            "tagLine": "420",
+            "leaderboardRank": 25,
+            "rankedRating": 478,
+            "numberOfWins": 56
+        },
+        {
+            "puuid": "LaIa8D20C40CwCx5XNBsH5yndOKPvzCX0etPpDhd8YnnELbeGPgo4iUdJwm6zlg9OBhyca52wKNYFA",
+            "gameName": "ROO ban",
+            "tagLine": "xuf",
+            "leaderboardRank": 26,
+            "rankedRating": 475,
+            "numberOfWins": 80
+        },
+        {
+            "puuid": "Vzz8deVg1J9RG7A4Oa2Z1cZstscxwWDm23gTbnT_Skmju-EwyY7ATM3cz-S0lASXedsDju-UzYpPRw",
+            "gameName": "FaZe Marved",
+            "tagLine": "ICE",
+            "leaderboardRank": 27,
+            "rankedRating": 473,
+            "numberOfWins": 39
+        },
+        {
+            "puuid": "g92-rhIxItvKYTHirdSv8uXjLChL6cSwtUPtA4wruvr-1TdTv-egx_-7bRVM-tdz7_ewcB9FrUE4mg",
+            "gameName": "JP2",
+            "tagLine": "000",
+            "leaderboardRank": 28,
+            "rankedRating": 469,
+            "numberOfWins": 82
+        },
+        {
+            "puuid": "nCkyOMhUY9j-GIfGU3WoJhQlTr0cemBLZ3d3Yn5PJH_Idzenv2a4sgJ536zY-9hcxysFzjyOHLByEQ",
+            "gameName": "SSG Pr0phie",
+            "tagLine": "007",
+            "leaderboardRank": 29,
+            "rankedRating": 464,
+            "numberOfWins": 48
+        },
+        {
+            "puuid": "8IxadJWxpyLpYatU478ixLyfrWOYAvFQek2Ks2XawxcfALn31Mbl7B2DpRggspqvBEwN2rjqg-Qq4g",
+            "gameName": "NV food",
+            "tagLine": "777",
+            "leaderboardRank": 30,
+            "rankedRating": 463,
+            "numberOfWins": 30
+        },
+        {
+            "puuid": "hyXaP_JJrukOAG63cZyo0R2KwJEH99WrDBem5IICj1wDbJBFtQgoic-CHcgCaHN6uHTk3pq7HLWGeQ",
+            "gameName": "harmful",
+            "tagLine": "wtf",
+            "leaderboardRank": 31,
+            "rankedRating": 463,
+            "numberOfWins": 74
+        },
+        {
+            "puuid": "q6hlVJio2AA_F5rUEwq6X3YiDTS9vPqwszyCBj0PF8rCNVRVt7BcgXO5fmd8kJajWb-SMuAkHo89dg",
+            "gameName": "tjplayer",
+            "tagLine": "god",
+            "leaderboardRank": 32,
+            "rankedRating": 463,
+            "numberOfWins": 46
+        },
+        {
+            "puuid": "kqxKgpz_u-uVFOwHWgVmbRhqogKd2WEu9lrb_gNVv60ZWDkYpP8wnVxXFcjZzauRMARM_xqiaHRBpA",
+            "gameName": "butttpounder",
+            "tagLine": "NA1",
+            "leaderboardRank": 33,
+            "rankedRating": 459,
+            "numberOfWins": 74
+        },
+        {
+            "puuid": "_U0Bmtzl3CoxsNEOICwXByZ9yPiMQWcB1ql7LKhyDDsaq2t0OlDVw8rloSGLo3dxwwN36s0pjiYW8w",
+            "gameName": "Agility",
+            "tagLine": "999",
+            "leaderboardRank": 34,
+            "rankedRating": 459,
+            "numberOfWins": 41
+        },
+        {
+            "puuid": "U3J95auedu3UTQNfpLB8UzZuOWb2wUMK_wLGctn85TGaEazwX6WwJtSAv4uCAOOzamePeQYSvRkgKw",
+            "gameName": "justinovah",
+            "tagLine": "000",
+            "leaderboardRank": 35,
+            "rankedRating": 457,
+            "numberOfWins": 51
+        },
+        {
+            "puuid": "sKiPhfy3S8aqZ5fEIyVi2vfQg45rjjv_taGoorRQ6zdADh-kXhVlgemam13Ek8VUwksPfkKiN0hh6w",
+            "gameName": "hydra",
+            "tagLine": "zzz",
+            "leaderboardRank": 36,
+            "rankedRating": 456,
+            "numberOfWins": 41
+        },
+        {
+            "puuid": "uqPtpQYD4Qn9CCb5xjqTazDBBcA1H-FMCMtLfKMD3AFkP6Lo1XLl-n5MgYY-a5cnmq-kK9bYTjeP-Q",
+            "gameName": "Bankroft",
+            "tagLine": "2021",
+            "leaderboardRank": 37,
+            "rankedRating": 452,
+            "numberOfWins": 57
+        },
+        {
+            "puuid": "i08Hs6qRrQTAPPyvug49QsDxfUEIYuhASkam0wzqYb4W9nL3hDb3SJnoy1MtL93HG3WbcsDFN2wMFA",
+            "gameName": "Vetreon",
+            "tagLine": "Raze",
+            "leaderboardRank": 38,
+            "rankedRating": 452,
+            "numberOfWins": 56
+        },
+        {
+            "puuid": "-HFRY-_JVuNffEFY6Hp3a8YFASdZQdWGWbUz0kqvGFN6KBJm-Eve0CnW6Rw_o80Uh3JQhQF2Mh23Qw",
+            "gameName": "Jxwk",
+            "tagLine": "LFT",
+            "leaderboardRank": 39,
+            "rankedRating": 452,
+            "numberOfWins": 50
+        },
+        {
+            "puuid": "k3sGZeHKJWlukqR0zxsUE7SmULUSx2seDoOkCH_1RJgPnofT5tcTUufg-L_GgJaYPr2_fMDTYXg2mg",
+            "gameName": "F1RACECAR",
+            "tagLine": "000",
+            "leaderboardRank": 40,
+            "rankedRating": 451,
+            "numberOfWins": 75
+        },
+        {
+            "puuid": "rL5oAMmrKSWskFjFkEjqTDwr7ayZ3p6iYQrxUx3nXnxaxRx8BI8oqE6zMz-GC2Q0aoF8ApO2LNw9TQ",
+            "gameName": "Bmpwr",
+            "tagLine": "NA1",
+            "leaderboardRank": 41,
+            "rankedRating": 447,
+            "numberOfWins": 89
+        },
+        {
+            "puuid": "PyZKfixqXbv7RIgDLcNjZYK50l-VMT-fSrI72mQZZBsEoArkLCjFERgc1YUWmDcPqPceWzS4KrX2Ug",
+            "gameName": "bearkun",
+            "tagLine": "weeb",
+            "leaderboardRank": 42,
+            "rankedRating": 445,
+            "numberOfWins": 77
+        },
+        {
+            "puuid": "H7uwNWObmv_GPL-gLk5bg9y_XiBw1X3o1jp8AsJDjMT5tGdus1t1uEhW-92PbH7kRAcu_9PxvE4UcQ",
+            "gameName": "dimitry0s",
+            "tagLine": "514",
+            "leaderboardRank": 43,
+            "rankedRating": 445,
+            "numberOfWins": 62
+        },
+        {
+            "puuid": "Hc2rK2gWkUS-Ebeho1d7Syzs7y6w0ObTxSBiKhNsMhneSv9Wo5q9NBNW5sqbWIa39cK8pmi-6TX8Jg",
+            "gameName": "LeftClickNik",
+            "tagLine": "BDS",
+            "leaderboardRank": 44,
+            "rankedRating": 443,
+            "numberOfWins": 78
+        },
+        {
+            "puuid": "5klXd1_42jVfYfE5gJq1avrKAaKY3ODmEDoXm7jg7l2DGar7yY2MX7s17qokGWj_2EJpwni8jFP24g",
+            "gameName": "antifiber",
+            "tagLine": "001",
+            "leaderboardRank": 45,
+            "rankedRating": 441,
+            "numberOfWins": 86
+        },
+        {
+            "puuid": "oOWTLCVqiHvDYF8j7DT6855M7VaQrug-aHODb6RvfL8eFUZusK3zjIUpupS2Z6JBS8CpTJQKbFVs1g",
+            "gameName": "snoww",
+            "tagLine": "uwu",
+            "leaderboardRank": 46,
+            "rankedRating": 441,
+            "numberOfWins": 57
+        },
+        {
+            "puuid": "vPUlmTbKrTuIy1pEkx4CSKmVaddNQqv6YqFgPVUXJb8Zt8XfsHXF0893UmbYQm81jV4WU7qjfsGDZQ",
+            "gameName": "ELY Cade3k",
+            "tagLine": "gamer",
+            "leaderboardRank": 47,
+            "rankedRating": 440,
+            "numberOfWins": 41
+        },
+        {
+            "puuid": "SH2cQlTN0oBvlCvJH5Kd7IQrJctST3HoGd43TFx87gW3CbgU9BSdYb8KAnPAdtCCH6x-GIlVxtHaMg",
+            "gameName": "Shootah",
+            "tagLine": "9144",
+            "leaderboardRank": 48,
+            "rankedRating": 439,
+            "numberOfWins": 65
+        },
+        {
+            "puuid": "AlZg5QRZE9KpkCAn0Qn0ZZGBfkpEdoEGqdcRgPOnXPLAvpbpHP3IsUXQX8adCmi_mj-sutEJTFWIuA",
+            "gameName": "Masaru",
+            "tagLine": "1532",
+            "leaderboardRank": 49,
+            "rankedRating": 438,
+            "numberOfWins": 51
+        },
+        {
+            "puuid": "uAKWtdw28nrMHMe0vcrksMby1xJ7UYU7jYu9VLZSomRbtzDFDzQEynM72RtLPOOWJ0HUZrrZVahdkQ",
+            "gameName": "stare",
+            "tagLine": "619",
+            "leaderboardRank": 50,
+            "rankedRating": 438,
+            "numberOfWins": 83
+        },
+        {
+            "puuid": "6eaovocKbcswD1x_ChjEjCYPyjWfbKwogwVw0GI_PilAoaWJP2sZQffQ7Yp2Szn2jjEZX9c0Y2sm7A",
+            "gameName": "40adr",
+            "tagLine": "6608",
+            "leaderboardRank": 51,
+            "rankedRating": 437,
+            "numberOfWins": 50
+        },
+        {
+            "puuid": "nFdRU6QfW57C86EtJ3o5_RmyO21DghcIk9eIDVhnzq6lQK7gakwyyJxj4gc-Bb7ihnTnkP7bGJOtaA",
+            "gameName": "ReFleckFPS",
+            "tagLine": "LFT",
+            "leaderboardRank": 52,
+            "rankedRating": 435,
+            "numberOfWins": 45
+        },
+        {
+            "puuid": "Drw21eoisBAzejdHAfCQOi-n-w7N4xWJAevsbrfH2dqa04tPbnKwgeithoB2BIZXRNYLrf8VwpAxMQ",
+            "gameName": "Mezzi",
+            "tagLine": "0000",
+            "leaderboardRank": 53,
+            "rankedRating": 434,
+            "numberOfWins": 42
+        },
+        {
+            "puuid": "pnTW591amJCvppzNoSQMzH0e3w9aKV5wPwjZPT5vRHlmygLTdWEuqJGljPd1UbOvqB1wQCtc6GIbGA",
+            "gameName": "reformed",
+            "tagLine": "5731",
+            "leaderboardRank": 54,
+            "rankedRating": 432,
+            "numberOfWins": 56
+        },
+        {
+            "puuid": "MBSWEkjvN7zJcp6xCN7oK8tYvZE0xyCcARijWE86WtzGon1xYSOGf2tT433Mpr2rps6ulZherEOAPQ",
+            "gameName": "xprt",
+            "tagLine": "7321",
+            "leaderboardRank": 55,
+            "rankedRating": 432,
+            "numberOfWins": 69
+        },
+        {
+            "puuid": "B_tiJ0HR3qLg5E-BWC6EGOhh9UlkzGgqN9o3Yrsg4Y7AvVXwUnXFXjlOPDWUiOOsFjC-WP5YVq7Cnw",
+            "gameName": "Casperr",
+            "tagLine": "sova",
+            "leaderboardRank": 56,
+            "rankedRating": 430,
+            "numberOfWins": 68
+        },
+        {
+            "puuid": "gIkj_TVZgRJ0KmokFfBFQBRrcvkc40xp0rN4vRoulATkuQHW9KVexyTDpkjtcEUskUTyUDG_j0s6ig",
+            "gameName": "Playboi Joe",
+            "tagLine": "jvN",
+            "leaderboardRank": 57,
+            "rankedRating": 427,
+            "numberOfWins": 38
+        },
+        {
+            "puuid": "qyGGo7CXzbf6xh0gfDZSh380R9QOZslkcW1v1Jkm6Tx3OU8DE-W51C6KtW_puiRyv1FG3pwoBrL_sg",
+            "gameName": "Nanners",
+            "tagLine": "000",
+            "leaderboardRank": 58,
+            "rankedRating": 422,
+            "numberOfWins": 55
+        },
+        {
+            "puuid": "NBb_BHpEDCqloExwhcKRYsEW302pTP39i4O_3ty9awaCCv3AUD9ipVOz6MLOL-Qt8c9yg9KgSKJcNw",
+            "gameName": "Goopchill",
+            "tagLine": "2974",
+            "leaderboardRank": 59,
+            "rankedRating": 419,
+            "numberOfWins": 52
+        },
+        {
+            "puuid": "0CgDmju5pxcoRTM7xHvBTV8_dnLAE9v71rnuX-wTnuXRpN35hOrffWPvS_E1J3dGCESzjgr8SH8mcA",
+            "gameName": "Morgausse",
+            "tagLine": "7777",
+            "leaderboardRank": 60,
+            "rankedRating": 418,
+            "numberOfWins": 40
+        },
+        {
+            "puuid": "4FhDorAKNpidbBnyeWqNbcRn6Dhd7xuhN61dH-JyvnDUl7GzU3FDL96qTDqeSNiPOR6sJzScc0KhGQ",
+            "gameName": "Nibbler",
+            "tagLine": "007",
+            "leaderboardRank": 61,
+            "rankedRating": 416,
+            "numberOfWins": 56
+        },
+        {
+            "puuid": "yTE2wu8I3CVv535g3rbnjJMpzHkCoRG8JpjCRvdW4BkRfMZcvCL2wd2uDuAMCWe3pSLQu83ZEbroIQ",
+            "gameName": "NOX Paincakes",
+            "tagLine": "1738",
+            "leaderboardRank": 62,
+            "rankedRating": 412,
+            "numberOfWins": 46
+        },
+        {
+            "puuid": "xyW2qqflN1N4Naa6KJC341b3vwAwkbRazG7rNo5iYxwTqXsCd-ERzDgtExkiRBeOM_g704QgNVXKow",
+            "gameName": "Luke Skywalker",
+            "tagLine": "jed1",
+            "leaderboardRank": 63,
+            "rankedRating": 411,
+            "numberOfWins": 56
+        },
+        {
+            "puuid": "XF30r7E6ZLtAJdVuBXEK-F2W3az-6ZHz1LxOhqObADN73dMGdWtybSgKKBDoaB7DPR6wet8rWl_6Mw",
+            "gameName": "wOBBS",
+            "tagLine": "1111",
+            "leaderboardRank": 64,
+            "rankedRating": 411,
+            "numberOfWins": 57
+        },
+        {
+            "puuid": "FKH3r_-ZO-thrS-f-W-UnpmqJhzYf8oZxAIuZOL1Gla1EzTixTpOxnaOvVvyOsdnmTxuHUIaH0iWOA",
+            "gameName": "aJb",
+            "tagLine": "4008",
+            "leaderboardRank": 65,
+            "rankedRating": 409,
+            "numberOfWins": 48
+        },
+        {
+            "puuid": "t8ybDTtvU0rZHouq4S8YkIRdWi9bhBgcWBtkCx7wK1uzzfJt9AgbSEns-nVIEjFlQniKEs-x47rqzA",
+            "gameName": "khangb4ng",
+            "tagLine": "8693",
+            "leaderboardRank": 66,
+            "rankedRating": 404,
+            "numberOfWins": 45
+        },
+        {
+            "puuid": "aSKk19lqdPHA68xCNyFMh3R1yZxoF41LazUjNGViMIuMgACvIjMYTh4RK9ZfnUP7VLUze7RKG4WUOw",
+            "gameName": "Pix",
+            "tagLine": "PogTV",
+            "leaderboardRank": 67,
+            "rankedRating": 401,
+            "numberOfWins": 53
+        },
+        {
+            "puuid": "KoOwxJlQqtG3jT3Anu9EqHv5GeZtpcK-QuhR5OcVD0bo2WXF8Mwy4uLZdIngyp9wdOwXfJn6lUJQUQ",
+            "gameName": "SUP Kanpeki",
+            "tagLine": "OwO",
+            "leaderboardRank": 68,
+            "rankedRating": 401,
+            "numberOfWins": 55
+        },
+        {
+            "puuid": "KIvh38qB8Wa8DVw0t3W-QS4QqRlPlsUcUGkMRSJa9eXXio9JSMAkNzrViBJo9DSpoqqMkk3ikY6GBg",
+            "gameName": "Kaoticcc",
+            "tagLine": "2477",
+            "leaderboardRank": 69,
+            "rankedRating": 400,
+            "numberOfWins": 71
+        },
+        {
+            "puuid": "h0VcEH3VLTRE-g6cEQQaEe9QOa0o2szEoTid4uOkxLOs644Q_tYlMg0T8K9hKwL7OjDRaobGMWTrNQ",
+            "gameName": "Sink",
+            "tagLine": "777",
+            "leaderboardRank": 70,
+            "rankedRating": 398,
+            "numberOfWins": 58
+        },
+        {
+            "puuid": "wPcKpxGcde4vHosTY0UQKw7b_L-hKnxwF-iTcrgnA61bTyVNU6lbPGqQOmnr_AKb2b__pZPR0FaJ9Q",
+            "gameName": "StyuL",
+            "tagLine": "8463",
+            "leaderboardRank": 71,
+            "rankedRating": 397,
+            "numberOfWins": 45
+        },
+        {
+            "puuid": "cAqe2OULbHmXLiHqeUmxRLebVLT9GvS4U1Eh3DMaY8ANM87vsvWT5a-49ucNPT7rdVtex3M-d9OXxg",
+            "gameName": "Rai",
+            "tagLine": "0001",
+            "leaderboardRank": 72,
+            "rankedRating": 395,
+            "numberOfWins": 45
+        },
+        {
+            "puuid": "9oeoVfwxwBMMqWUk3RkmtZhO2CbiFwl7GvVG4G23RFq7YrDpebLlQlmTB1bIUY1bafMwmgMNQRVFSg",
+            "gameName": "Core",
+            "tagLine": "1317",
+            "leaderboardRank": 73,
+            "rankedRating": 394,
+            "numberOfWins": 39
+        },
+        {
+            "puuid": "lS-TqhAU9kvwg82VOBrCiwGDx_ZvfF2FopV4JwRGrxBczKXawInDj3JlGq3v2hMrIZEey0ZX4Psmkg",
+            "gameName": "plumpy",
+            "tagLine": "2006",
+            "leaderboardRank": 74,
+            "rankedRating": 394,
+            "numberOfWins": 37
+        },
+        {
+            "puuid": "Sz_VVErIZ6D5tA-Cf1cAFBUucfTAlazJmy3euuvH4clNwZrTnU2r1-KzRLXQrbqoD12Wi8FHaBOD4w",
+            "gameName": "seven",
+            "tagLine": "kun",
+            "leaderboardRank": 75,
+            "rankedRating": 393,
+            "numberOfWins": 32
+        },
+        {
+            "puuid": "Tsj3AaAjSxL-lK8P8ermyJiUS8rr0r-Yv0QEc2WC8m4skjx8JkapQkSbkaeIRrXtQtFuByR-qqwy3g",
+            "gameName": "Brother Salami",
+            "tagLine": "NA1",
+            "leaderboardRank": 76,
+            "rankedRating": 392,
+            "numberOfWins": 63
+        },
+        {
+            "puuid": "3-aGveY_zEcFyI238rsmZaCCdOgAB263iUN1C2Mcz-1HSei3veVtaGNuY8Xm9S4A8r98aTe5D8dGYA",
+            "gameName": "ezpk",
+            "tagLine": "HMBSE",
+            "leaderboardRank": 77,
+            "rankedRating": 391,
+            "numberOfWins": 59
+        },
+        {
+            "puuid": "yaAsClHjkiF_EZIsgx0wl3b8xmjrCPPWy4z4UaYzb2CpEvjN1n9J4Jc78al4XGKKmOPoVl3MQZ99eA",
+            "gameName": "sin",
+            "tagLine": "321",
+            "leaderboardRank": 78,
+            "rankedRating": 391,
+            "numberOfWins": 71
+        },
+        {
+            "puuid": "Sj8runlmmjQB6gcuq1aeP6FR2bDx2lyHSgU1dxSTrDsNgkvDJAce_D_1Wx1Fw0Kh-UDQcsuB4b0esw",
+            "gameName": "root",
+            "tagLine": "1288",
+            "leaderboardRank": 79,
+            "rankedRating": 390,
+            "numberOfWins": 37
+        },
+        {
+            "puuid": "X2s3hqyDJ5vXiKI2egBkBPUnMFmre9vN3RlyAx1vXC5M38NcHWKNemOyjU5PttS0u63_1AoMEERtWA",
+            "gameName": "sae",
+            "tagLine": "iwnl",
+            "leaderboardRank": 80,
+            "rankedRating": 386,
+            "numberOfWins": 66
+        },
+        {
+            "puuid": "ODTp1utgu65MZZDEX3nok5p9iXpZppAdmMKO5WMkkz_sakwK5I2dIcEFqk_naE7oiKiB2FjSHatKFQ",
+            "gameName": "troy",
+            "tagLine": "5669",
+            "leaderboardRank": 81,
+            "rankedRating": 385,
+            "numberOfWins": 53
+        },
+        {
+            "puuid": "xkA27eyA8L3O-ZaZ5notocOaPN11qOxQxE4pExGbg6F0o6Ct8fBB8UwdW1xb4FFJLqYTeGBNvDFg4A",
+            "gameName": "Zayy",
+            "tagLine": "susu",
+            "leaderboardRank": 82,
+            "rankedRating": 384,
+            "numberOfWins": 56
+        },
+        {
+            "puuid": "xn92KVh91uZVd9PNdiT2PG_QKZU1zKHShBPMCJWs7UJYwurZ4xlpm_Js0PjhmlCfWjZC0dR22ki9Zg",
+            "gameName": "Raa",
+            "tagLine": "NA2",
+            "leaderboardRank": 83,
+            "rankedRating": 383,
+            "numberOfWins": 50
+        },
+        {
+            "puuid": "JVm5WNs5XUyTINAEIyfaMnEhUtUaJad-Nl2l1QG3YXJ1WLuJfnFc4hZLBwqvABFlE9TDSbgsUc4GyA",
+            "gameName": "Virtyyyy",
+            "tagLine": "OPSIM",
+            "leaderboardRank": 84,
+            "rankedRating": 382,
+            "numberOfWins": 97
+        },
+        {
+            "puuid": "ZURNjsGonaTlcL6MFa-9pR6bWEFzXIPLNjxjVK7v7s5NhmCWTxTi6Ge21MCbdb4OywVaYc5hbBp5Lg",
+            "gameName": "ZACH ATTACK",
+            "tagLine": "dn69",
+            "leaderboardRank": 85,
+            "rankedRating": 381,
+            "numberOfWins": 48
+        },
+        {
+            "puuid": "SzYBPW6Zu3UCmDXfUvIGMyL4wUynu09iVJepjMxg87nRbjTX6fN2ulKrik4ADnm4nk75TBDNk9jWrQ",
+            "gameName": "PolishEagle2",
+            "tagLine": "NA1",
+            "leaderboardRank": 86,
+            "rankedRating": 379,
+            "numberOfWins": 48
+        },
+        {
+            "puuid": "INa7R6ZmL91JkrRWt7Mrv71mw5_nyO552XiI2j0Ce7kyEug_XMt6Y5AainZK4aNZaUJcdbo_YaxBcg",
+            "gameName": "TAYLOR HAM",
+            "tagLine": "071",
+            "leaderboardRank": 87,
+            "rankedRating": 377,
+            "numberOfWins": 69
+        },
+        {
+            "puuid": "dEbCB6YdoSAZxOqKxZ9Jd7jxlo6meh1PipGA8yuaya7ycdXkeygF_j5tqSs-SxAmCbd6WYVzl7Nfkg",
+            "gameName": "raeB",
+            "tagLine": "1134",
+            "leaderboardRank": 88,
+            "rankedRating": 372,
+            "numberOfWins": 78
+        },
+        {
+            "puuid": "MtyMZmDlUhcmnake4i_nnrl0RdVdgA6YLUrolo_8TkGm-lxr7PabSMBf0Z_3Iy7Lb9vTyXlhaoJd2A",
+            "gameName": "oFiZzor",
+            "tagLine": "NA1",
+            "leaderboardRank": 89,
+            "rankedRating": 371,
+            "numberOfWins": 66
+        },
+        {
+            "puuid": "I9E57_t_F5s3hh8CaFEr3hpIdmnjFa7gUwuCqxaqKidxq_2K7bjQ8d3rpO7tnRaZXmxNW13pYi7tcw",
+            "gameName": "shenanigaNS",
+            "tagLine": "KENT",
+            "leaderboardRank": 90,
+            "rankedRating": 370,
+            "numberOfWins": 35
+        },
+        {
+            "puuid": "PQVD2sui72G2YiwNIxyRVovQGZKLCbiANBuxiXPg8EORmVc6vuOm_d1dYhRb83WCK4iLjdSptBrjFA",
+            "gameName": "WaterToes",
+            "tagLine": "777",
+            "leaderboardRank": 91,
+            "rankedRating": 370,
+            "numberOfWins": 39
+        },
+        {
+            "puuid": "EMKh3edVSFX__AhX5y2WIZrEusBXrpuUuBz69odUelkndXNDmCG1cNu9773mnODfxk7Exjii8h6feg",
+            "gameName": "FG Enzo",
+            "tagLine": "Val",
+            "leaderboardRank": 92,
+            "rankedRating": 367,
+            "numberOfWins": 58
+        },
+        {
+            "puuid": "U1bNlWHs_W1HkLHKavaBub9MSlEzdeipPI2jlOrDaP4-fPbXi8uk6o1xfihLkXCnGzEuwP5s9qGTEA",
+            "gameName": "whis",
+            "tagLine": "whis",
+            "leaderboardRank": 93,
+            "rankedRating": 367,
+            "numberOfWins": 79
+        },
+        {
+            "puuid": "nJrNerTxKYmOqddaHh88xJ4hXCJEw57P3C_JOB1zlL1m55fRgZkU0ZWqFdVmkuH5KObyfTfTteszjA",
+            "gameName": "caders",
+            "tagLine": "iwnl",
+            "leaderboardRank": 94,
+            "rankedRating": 366,
+            "numberOfWins": 70
+        },
+        {
+            "puuid": "bBjoktgVZ985JoqVVIYledkeMZJfaNdtWADwXo-KZ_OKNlwRe060WJUW6OWv17zsWZtPaVjwt6CrQg",
+            "gameName": "sayonara",
+            "tagLine": "iwnl",
+            "leaderboardRank": 95,
+            "rankedRating": 365,
+            "numberOfWins": 55
+        },
+        {
+            "puuid": "cy35jEf2Z8zFoDYktyb5lkIOxMcIisXuf7nD91eHW6omQAUQCYgAFbIZwKR2qmLGl6OrLMwnmt5A_w",
+            "gameName": "C9 Jazzyk1ns",
+            "tagLine": "6 God",
+            "leaderboardRank": 96,
+            "rankedRating": 364,
+            "numberOfWins": 47
+        },
+        {
+            "puuid": "H_KPA3RKuonqoilqEF5U88JeeB85TKpUr0-frLbMpdf-mgBWCJ0aumBKasbizR-zKH8YM5l553qr5w",
+            "gameName": "kyu",
+            "tagLine": "kyu",
+            "leaderboardRank": 97,
+            "rankedRating": 363,
+            "numberOfWins": 47
+        },
+        {
+            "puuid": "tDNPiLi5dr7vqwubW75sXL31uv_enPr5Ic-Tv5RUZAGNDx38sOSv6jSBEt7yt8-NAKv0HW56ye5VCA",
+            "gameName": "FLUFFY",
+            "tagLine": "9347",
+            "leaderboardRank": 98,
+            "rankedRating": 361,
+            "numberOfWins": 44
+        },
+        {
+            "puuid": "qbVAfvXtlWb_QC9MmFMOiiyNjZDNsk9O4skFMso9tWy3aVaXeIt__FNTm_Vo6DKGRY6bUgP2O80C_g",
+            "gameName": "George Floyd",
+            "tagLine": "Neck1",
+            "leaderboardRank": 99,
+            "rankedRating": 361,
+            "numberOfWins": 88
+        },
+        {
+            "puuid": "7I_NtdQEA2Urz4lY2ug24Ru1R_hWJeFV-6i3McsllQiw1c7N_RyFwskwG4h3Oc8VCX4gFMAirtFT3Q",
+            "gameName": "ART1C",
+            "tagLine": "2006",
+            "leaderboardRank": 100,
+            "rankedRating": 360,
+            "numberOfWins": 45
+        }
+    ],
+    "shard": "na"
+}

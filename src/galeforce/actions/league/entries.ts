@@ -1,17 +1,24 @@
 import Action from '../action';
 import { LeagueEntryInterface } from '../../interfaces/dto';
 import {
-    ENDPOINTS, Queue, Tier, Division,
+    ENDPOINTS, Tier, Division, LeagueRegion, LeagueQueue,
 } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
+
+type GetLeagueEntriesQuery = {
+    page?: number;
+}
 
 class GetLeagueEntries extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.LEAGUE.SUMMONER_ID;
+        this.payload.type = 'lol';
     }
 
-    public queue(queue: Queue): this {
+    public region: (region: LeagueRegion) => this = super.region;
+
+    public queue(queue: LeagueQueue): this {
         if (this.payload.endpoint === ENDPOINTS.LEAGUE.SUMMONER_ID) {
             this.payload.endpoint = ENDPOINTS.LEAGUE.ENTRIES_BY_RANK;
         }
@@ -40,6 +47,11 @@ class GetLeagueEntries extends Action {
 
     public summonerId(summonerId: string): this {
         this.payload.summonerId = summonerId;
+        return this;
+    }
+
+    public query(query: GetLeagueEntriesQuery): this {
+        this.payload.query = query;
         return this;
     }
 

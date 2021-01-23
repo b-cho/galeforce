@@ -1,13 +1,16 @@
 import Action from '../action';
 import { MatchInterface } from '../../interfaces/dto';
-import { ENDPOINTS } from '../../../riot-api';
+import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
-class GetMatchByMatchID extends Action {
+class GetMatch extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.MATCH.MATCH.MATCH_ID;
+        this.payload.type = 'lol';
     }
+
+    public region: (region: LeagueRegion) => this = super.region;
 
     public matchId(matchId: number): this {
         this.payload.matchId = matchId;
@@ -25,4 +28,4 @@ class GetMatchByMatchID extends Action {
     }
 }
 
-export default GetMatchByMatchID;
+export default GetMatch;

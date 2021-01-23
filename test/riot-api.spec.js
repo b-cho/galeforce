@@ -6,7 +6,7 @@ chai.use(chaiAsPromised);
 const expect = chai.expect;
 
 const RiotAPIModule = require('../dist/riot-api').default;
-const { ENDPOINTS, Region } = require('../dist/riot-api');
+const { ENDPOINTS, LeagueRegion } = require('../dist/riot-api');
 
 const v4SummonerByNameReply = { // Taken from Riot Games on 2021/01/02 21:34 GMT-8
     "id": "l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w",
@@ -50,7 +50,7 @@ describe('/riot-api', () => {
     });
     describe('URL generation', () => {
         it('should generate correct RiotAPI.request URLs from template strings', () => {
-            expect(RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { region: Region.NORTH_AMERICA, summonerName: 'TEST' })['targetURL'])
+            expect(RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { region: LeagueRegion.NORTH_AMERICA, summonerName: 'TEST' })['targetURL'])
                 .to.equal('https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/TEST')
         });
         it('should generate correct RiotAPI.dataDragonRequest URLs from template strings', () => {
@@ -58,13 +58,13 @@ describe('/riot-api', () => {
                 .to.equal('http://ddragon.leagueoflegends.com/cdn/10.25.1/data/en_US/champion.json')
         });
         it('should throw when a required parameter is missing', () => {
-            expect(() => RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { region: Region.NORTH_AMERICA }))
+            expect(() => RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { region: LeagueRegion.NORTH_AMERICA }))
                 .to.throw('[galeforce]: Action payload summonerName is required but undefined.')
         });
     });
     describe('API calls', () => {
         it('should return correct JSON for the /summoner/v4/summoners/by-name Riot API endpoint', () => {
-            return expect(RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { region: Region.NORTH_AMERICA, summonerName: 'SSG Xayah' }).get())
+            return expect(RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { region: LeagueRegion.NORTH_AMERICA, summonerName: 'SSG Xayah' }).get())
                 .to.eventually.have.property('data').to.deep.equal(v4SummonerByNameReply);
         });
         it('should return correct JSON for the /docs/lol/gameTypes.json Data Dragon endpoint', () => {

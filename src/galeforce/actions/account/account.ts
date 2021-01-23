@@ -1,13 +1,16 @@
 import Action from '../action';
 import { AccountInterface } from '../../interfaces/dto';
-import { ENDPOINTS } from '../../../riot-api';
+import { ENDPOINTS, RiotRegion } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class GetAccount extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.ACCOUNT.PUUID;
+        this.payload.type = 'riot';
     }
+
+    public region: (region: RiotRegion) => this = super.region;
 
     public puuid(puuid: string): this {
         this.payload.puuid = puuid;

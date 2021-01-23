@@ -3,9 +3,9 @@
 */
 
 import RiotAPIRequest from './requests/riot-api-request';
-import ENDPOINTS from './enums/endpoints';
-import Region from './enums/regions';
-import Queue from './enums/queues';
+import * as ENDPOINTS from './enums/endpoints';
+import { Region, LeagueRegion, RiotRegion, ValorantRegion } from './enums/regions';
+import { Queue, LeagueQueue, ValorantQueue} from './enums/queues';
 import Tier from './enums/tiers';
 import Division from './enums/divisions';
 import DataDragonRequest from './requests/data-dragon-request';
@@ -28,5 +28,5 @@ export default class RiotAPIModule {
 }
 
 export {
-    ENDPOINTS, Region, Queue, Tier, Division, Game,
+    ENDPOINTS, Region, LeagueRegion, RiotRegion, ValorantRegion, Queue, LeagueQueue, ValorantQueue, Tier, Division, Game,
 };

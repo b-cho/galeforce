@@ -1,8 +1,11 @@
+import { url } from 'inspector';
+import { URL } from 'url';
 import {
-    Region, Queue, Tier, Division, Game,
+    Region, Queue, Tier, Division, Game, LeagueRegion, ValorantRegion, RiotRegion, LeagueQueue, ValorantQueue,
 } from '../../riot-api';
 
 export type Payload = {
+    type?: 'lol' | 'val' | 'riot';
     endpoint?: string;
     query?: object;
     body?: object;
@@ -11,7 +14,7 @@ export type Payload = {
     accountId?: string;
     puuid?: string;
     summonerName?: string;
-    matchId?: number;
+    matchId?: number | string;
     teamId?: string;
     tournamentId?: number;
     tournamentCode?: string;
@@ -23,18 +26,30 @@ export type Payload = {
     gameName?: string;
     tagLine?: string;
     game?: string;
+    actId?: string;
 }
 
 export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(payload, {
     get: <T extends keyof Payload>(target: Payload, name: T): Payload[T] => target[name],
     set: <T extends keyof Payload>(target: Payload, name: T, value: Payload[T]): boolean => {
         if (name === 'region') { // Region check in case types are not followed
-            if (!(Object as any).values(Region).includes(value)) {
+            const isLeagueRegion: boolean = (Object as any).values(LeagueRegion).includes(value);
+            const isValorantRegion: boolean = (Object as any).values(ValorantRegion).includes(value);
+            const isRiotRegion: boolean = (Object as any).values(RiotRegion).includes(value);
+            if (target.type === 'lol' && !isLeagueRegion) {
+                throw new Error('[galeforce]: Invalid /lol region provided.');
+            } else if (target.type === 'val' && !isValorantRegion) {
+                throw new Error('[galeforce]: Invalid /val region provided.');
+            } else if (target.type === 'riot' && !isRiotRegion) {
+                throw new Error('[galeforce]: Invalid /riot region provided.');
+            } else if (typeof target.type === 'undefined' && !(isLeagueRegion || isValorantRegion || isRiotRegion)) {
                 throw new Error('[galeforce]: Invalid region provided.');
             }
         } else if (name === 'queue') { // Queue check in case types are not followed
-            if (!(Object as any).values(Queue).includes(value)) {
-                throw new Error('[galeforce]: Invalid queue type provided.');
+            if (target.type === 'lol' && !(Object as any).values(LeagueQueue).includes(value)) {
+                throw new Error('[galeforce]: Invalid /lol queue type provided.');
+            } else if (target.type === 'val' && !(Object as any).values(ValorantQueue).includes(value)) {
+                throw new Error('[galeforce]: Invalid /val queue type provided.');
             }
         } else if (name === 'tier') { // Tier check in case types are not followed
             if (!(Object as any).values(Tier).includes(value)) {

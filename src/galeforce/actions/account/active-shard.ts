@@ -1,13 +1,16 @@
 import Action from '../action';
 import { ActiveShardInterface } from '../../interfaces/dto';
-import { ENDPOINTS, Game } from '../../../riot-api';
+import { ENDPOINTS, Game, RiotRegion } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
 class GetActiveShard extends Action {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.ACCOUNT.ACTIVE_SHARDS; // set action endpoint simultaneously
+        this.payload.type = 'riot';
     }
+
+    public region: (region: RiotRegion) => this = super.region;
 
     public puuid(puuid: string): this {
         this.payload.puuid = puuid;

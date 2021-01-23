@@ -1,0 +1,25 @@
+{
+    "id": "NA",
+    "name": "North America",
+    "locales": [
+        "ar_AE",
+        "de_DE",
+        "en_US",
+        "es_ES",
+        "es_MX",
+        "fr_FR",
+        "id_ID",
+        "it_IT",
+        "ja_JP",
+        "ko_KR",
+        "pl_PL",
+        "pt_BR",
+        "ru_RU",
+        "tr_TR",
+        "th_TH",
+        "vi_VN",
+        "zh_TW"
+    ],
+    "maintenances": [],
+    "incidents": []
+}
