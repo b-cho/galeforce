@@ -1,5 +1,5 @@
 import Action from '../action';
-import { ValMatchlistInterface } from '../../interfaces/dto';
+import { ValRecentMatchesInterface } from '../../interfaces/dto';
 import { ENDPOINTS, ValorantQueue, ValorantRegion } from '../../../riot-api';
 import SubmoduleMapInterface from '../../interfaces/submodule-map';
 
@@ -17,8 +17,8 @@ class GetValorantRecentMatches extends Action {
         return this;
     }
 
-    public async exec(): Promise<ValMatchlistInterface> {
-        return this.run<ValMatchlistInterface>();
+    public async exec(): Promise<ValRecentMatchesInterface> {
+        return this.run<ValRecentMatchesInterface>();
     }
 }
 
