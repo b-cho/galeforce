@@ -4,10 +4,11 @@ import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
 import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TakesSummonerId, TakesRegion } from '../mixins';
 
-const BaseAction =
-TakesSummonerId(
+const BaseAction = TakesSummonerId(
     TakesRegion<LeagueRegion>(
-        Action));
+        Action,
+    ),
+);
 
 export class GetClashPlayers extends BaseAction<PlayerInterface[]> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

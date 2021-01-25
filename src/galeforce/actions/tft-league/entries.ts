@@ -1,22 +1,28 @@
 import { Action } from '../action';
 import { LeagueEntryInterface } from '../../interfaces/dto';
 import {
-    ENDPOINTS, Tier, Division, LeagueRegion,
+    ENDPOINTS, Tier, LeagueRegion,
 } from '../../../riot-api';
 import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
-import { TakesDivision, TakesQuery, TakesRegion, TakesSummonerId, TakesTier } from '../mixins';
+import {
+    TakesDivision, TakesQuery, TakesRegion, TakesSummonerId, TakesTier,
+} from '../mixins';
 
 type GetTFTLeagueEntriesQuery = {
     page?: number;
 }
 
-const BaseAction = 
-TakesQuery<GetTFTLeagueEntriesQuery>(
+const BaseAction = TakesQuery<GetTFTLeagueEntriesQuery>(
     TakesTier(
         TakesDivision(
             TakesSummonerId(
                 TakesRegion<LeagueRegion>(
-                    Action)))));
+                    Action,
+                ),
+            ),
+        ),
+    ),
+);
 
 export class GetTFTLeagueEntries extends BaseAction<LeagueEntryInterface[]> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

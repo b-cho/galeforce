@@ -1,5 +1,5 @@
-import { Tier, Division } from "../../../riot-api";
-import { Constructor, Executable } from "./executable";
+import { Tier, Division } from '../../../riot-api';
+import { Constructor, Executable } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.tier()` method.

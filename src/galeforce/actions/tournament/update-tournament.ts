@@ -4,11 +4,13 @@ import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TournamentCodeUpdateParameters } from '../../interfaces/parameters';
 import { TakesBody, TakesRegion, TakesTournamentCode } from '../mixins';
 
-const BaseAction =
-TakesBody<TournamentCodeUpdateParameters>(
+const BaseAction = TakesBody<TournamentCodeUpdateParameters>(
     TakesTournamentCode(
         TakesRegion<LeagueRegion>(
-            Action)));
+            Action,
+        ),
+    ),
+);
 
 export class PutTournamentCodes extends BaseAction<void> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

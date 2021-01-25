@@ -4,10 +4,11 @@ import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { CurrentGameInfoInterface } from '../../interfaces/dto';
 import { TakesRegion, TakesSummonerId } from '../mixins';
 
-const BaseAction =
-TakesSummonerId(
+const BaseAction = TakesSummonerId(
     TakesRegion<LeagueRegion>(
-        Action));
+        Action,
+    ),
+);
 
 export class GetCurrentGameInfo extends BaseAction<CurrentGameInfoInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

@@ -6,7 +6,9 @@ import { TakesMatchId, TakesRegion } from '../mixins';
 
 const BaseAction = TakesMatchId(
     TakesRegion<LeagueRegion>(
-        Action));
+        Action,
+    ),
+);
 
 export class GetTimeline extends BaseAction<MatchTimelineInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

@@ -7,7 +7,10 @@ import { TakesMatchId, TakesRegion, TakesTournamentCode } from '../mixins';
 const BaseAction = TakesMatchId(
     TakesTournamentCode(
         TakesRegion<LeagueRegion>(
-            Action)));
+            Action,
+        ),
+    ),
+);
 
 export class GetMatch extends BaseAction<MatchInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

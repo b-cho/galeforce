@@ -4,11 +4,13 @@ import { ENDPOINTS, RiotRegion } from '../../../riot-api';
 import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TakesPUUID, TakesGame, TakesRegion } from '../mixins';
 
-const BaseAction =
-TakesPUUID(
+const BaseAction = TakesPUUID(
     TakesGame(
         TakesRegion<RiotRegion>(
-            Action)));
+            Action,
+        ),
+    ),
+);
 
 export class GetActiveShard extends BaseAction<ActiveShardInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

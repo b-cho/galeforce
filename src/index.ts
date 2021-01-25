@@ -1,6 +1,6 @@
 import {
-    RiotAPIModule, Tier, Division, Game, 
-    ValorantRegion, LeagueRegion, RiotRegion, 
+    RiotAPIModule, Tier, Division, Game,
+    ValorantRegion, LeagueRegion, RiotRegion,
     LeagueQueue, ValorantQueue,
 } from './riot-api';
 import { getConfig, validate } from './galeforce/configs/default';
@@ -211,7 +211,7 @@ export default class Galeforce implements GaleforceInterface {
         mastery: {
             /**
              * Action constructor corresponding to the following endpoints:
-             * - (**GET**) `/lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}` 
+             * - (**GET**) `/lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}`
              */
             list: (): GetMasteryList => new GetMasteryList(this.SubmoduleMap),
             /**
@@ -334,7 +334,7 @@ export default class Galeforce implements GaleforceInterface {
         },
         /**
          * Object containing actions corresponding to the `/lol/tournament` set of endpoints.
-         * Note that these endpoints require a tournament-approved **production** key to use. 
+         * Note that these endpoints require a tournament-approved **production** key to use.
          * Please visit [here](https://developer.riotgames.com) for more information.
          */
         tournament: {
@@ -430,7 +430,7 @@ export default class Galeforce implements GaleforceInterface {
          */
         status: (): GetLorPlatformData => new GetLorPlatformData(this.SubmoduleMap),
     }
-    
+
     /**
      * Object containing actions corresponding to the the `/tft` set of endpoints.
      */
@@ -487,7 +487,7 @@ export default class Galeforce implements GaleforceInterface {
         content: (): GetValorantContent => new GetValorantContent(this.SubmoduleMap),
         /**
          * Object containing actions corresponding to the the `/val/match` set of endpoints.
-         * Note that these endpoints require a Valorant-approved **production** key to use. 
+         * Note that these endpoints require a Valorant-approved **production** key to use.
          * Please visit [here](https://developer.riotgames.com) for more information.
          */
         match: {
@@ -552,7 +552,7 @@ export default class Galeforce implements GaleforceInterface {
     public divisions: typeof Division = Division;
 
     /**
-     * Enum corresponding to games for the 
+     * Enum corresponding to games for the
      * `/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}` endpoint.
      */
     public games: typeof Game = Game;

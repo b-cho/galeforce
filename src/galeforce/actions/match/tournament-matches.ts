@@ -3,11 +3,12 @@ import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
 import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TakesTournamentCode, TakesRegion } from '../mixins';
 
-const BaseAction =
-TakesTournamentCode(
+const BaseAction = TakesTournamentCode(
     TakesRegion<LeagueRegion>(
-        Action));
-        
+        Action,
+    ),
+);
+
 export class GetTournamentMatches extends BaseAction<number[]> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);

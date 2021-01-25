@@ -1,14 +1,14 @@
 import { Action } from '../action';
-import { Payload } from '../payload';
 import { ChampionMasteryInterface } from '../../interfaces/dto';
 import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
 import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
-import { TakesRegion, TakesSummonerId, TakesChampionId } from '../mixins';
+import { TakesRegion, TakesSummonerId } from '../mixins';
 
-const BaseAction =
-TakesSummonerId(
+const BaseAction = TakesSummonerId(
     TakesRegion<LeagueRegion>(
-        Action));
+        Action,
+    ),
+);
 
 export class GetMasteryList extends BaseAction<ChampionMasteryInterface[]> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

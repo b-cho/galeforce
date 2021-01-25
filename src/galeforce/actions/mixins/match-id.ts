@@ -1,4 +1,4 @@
-import { Constructor, Executable } from "./executable";
+import { Constructor, Executable } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.matchId()` method.

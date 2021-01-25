@@ -8,10 +8,11 @@ type GetValorantContentQuery = {
     locale?: string;
 }
 
-const BaseAction =
-TakesQuery<GetValorantContentQuery>(
+const BaseAction = TakesQuery<GetValorantContentQuery>(
     TakesRegion<ValorantRegion>(
-        Action));
+        Action,
+    ),
+);
 
 export class GetValorantContent extends BaseAction<ValContentInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

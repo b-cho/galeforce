@@ -4,10 +4,11 @@ import { ENDPOINTS, ValorantRegion } from '../../../riot-api';
 import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TakesMatchId, TakesRegion } from '../mixins';
 
-const BaseAction =
-TakesMatchId(
+const BaseAction = TakesMatchId(
     TakesRegion<ValorantRegion>(
-        Action));
+        Action,
+    ),
+);
 
 export class GetValorantMatch extends BaseAction<ValMatchInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

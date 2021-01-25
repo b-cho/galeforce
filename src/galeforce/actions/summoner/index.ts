@@ -2,15 +2,21 @@ import { Action } from '../action';
 import { SummonerInterface } from '../../interfaces/dto';
 import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
 import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
-import { TakesAccountId, TakesPUUID, TakesRegion, TakesSummonerId, TakesSummonerName } from '../mixins';
+import {
+    TakesAccountId, TakesPUUID, TakesRegion, TakesSummonerId, TakesSummonerName,
+} from '../mixins';
 
-const BaseAction =
-TakesSummonerName(
+const BaseAction = TakesSummonerName(
     TakesSummonerId(
         TakesAccountId(
             TakesPUUID(
                 TakesRegion<LeagueRegion>(
-                    Action)))));
+                    Action,
+                ),
+            ),
+        ),
+    ),
+);
 
 export class GetSummoner extends BaseAction<SummonerInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
@@ -20,7 +26,7 @@ export class GetSummoner extends BaseAction<SummonerInterface> {
     }
 
     public async exec(): Promise<SummonerInterface> {
-        if(this.payload.summonerName) {
+        if (this.payload.summonerName) {
             this.payload.endpoint = ENDPOINTS.SUMMONER.SUMMONER_NAME;
         } else if (this.payload.summonerId) {
             this.payload.endpoint = ENDPOINTS.SUMMONER.SUMMONER_ID;

@@ -7,11 +7,13 @@ type GetTFTMatchlistQuery = {
     count?: number;
 }
 
-const BaseAction = 
-TakesPUUID(
+const BaseAction = TakesPUUID(
     TakesQuery<GetTFTMatchlistQuery>(
         TakesRegion<RiotRegion>(
-            Action)));
+            Action,
+        ),
+    ),
+);
 
 export class GetTFTMatchlist extends BaseAction<string[]> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

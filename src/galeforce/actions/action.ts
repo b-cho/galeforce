@@ -24,7 +24,7 @@ export class Action<R> {
     public payload: Payload;
 
     /**
-     * 
+     *
      * @param SubmoduleMap
      * @param payload The mutable payload object that is passed to {@link Request} when `.exec()` is called.
      */

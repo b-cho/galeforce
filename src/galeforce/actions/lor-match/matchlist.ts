@@ -3,10 +3,11 @@ import { ENDPOINTS, RiotRegion } from '../../../riot-api';
 import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TakesPUUID, TakesRegion } from '../mixins';
 
-const BaseAction =
-TakesPUUID(
+const BaseAction = TakesPUUID(
     TakesRegion<RiotRegion>(
-        Action));
+        Action,
+    ),
+);
 
 export class GetLorMatchlist extends BaseAction<string[]> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

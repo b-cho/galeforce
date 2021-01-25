@@ -9,11 +9,13 @@ type PostTournamentCodesQuery = {
     tournamentId: number;
 }
 
-const BaseAction =
-TakesBody<TournamentCodeParameters>(
+const BaseAction = TakesBody<TournamentCodeParameters>(
     TakesQuery<PostTournamentCodesQuery>(
         TakesRegion<LeagueRegion>(
-            Action)));
+            Action,
+        ),
+    ),
+);
 
 export class PostTournamentCodes extends BaseAction<string[]> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

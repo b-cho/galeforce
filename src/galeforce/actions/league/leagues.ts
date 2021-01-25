@@ -4,15 +4,20 @@ import {
     ENDPOINTS, LeagueRegion, LeagueQueue, Tier,
 } from '../../../riot-api';
 import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
-import { TakesQueue, TakesTier, TakesDivision, TakesLeagueId, TakesRegion } from '../mixins';
+import {
+    TakesQueue, TakesTier, TakesLeagueId, TakesRegion,
+} from '../mixins';
 
-const BaseAction = 
-TakesQueue<LeagueQueue>(
+const BaseAction = TakesQueue<LeagueQueue>(
     TakesTier(
         TakesLeagueId(
             TakesRegion<LeagueRegion>(
-                Action))));
-                    
+                Action,
+            ),
+        ),
+    ),
+);
+
 export class GetLeagueList extends BaseAction<LeagueListInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
@@ -40,7 +45,7 @@ export class GetLeagueList extends BaseAction<LeagueListInterface> {
         } else {
             throw new Error('[galeforce]: Not enough parameters provided to select API endpoint.');
         }
-        
+
         return super.exec();
     }
 }

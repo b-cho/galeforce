@@ -1,6 +1,6 @@
-import { Queue } from "../../../riot-api";
-import { Action } from "../action";
-import { Constructor, Executable } from "./executable";
+import { Queue } from '../../../riot-api';
+import { Action } from '../action';
+import { Constructor, Executable } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.queue()` method.

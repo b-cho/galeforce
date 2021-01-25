@@ -6,7 +6,9 @@ import { TakesMatchId, TakesRegion } from '../mixins';
 
 const BaseAction = TakesMatchId(
     TakesRegion<RiotRegion>(
-        Action));
+        Action,
+    ),
+);
 
 export class GetTFTMatch extends BaseAction<TFTMatchInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

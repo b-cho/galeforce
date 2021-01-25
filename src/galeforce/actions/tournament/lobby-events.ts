@@ -4,10 +4,11 @@ import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { LobbyEventInterfaceWrapper } from '../../interfaces/dto';
 import { TakesTournamentCode, TakesRegion } from '../mixins';
 
-const BaseAction =
-TakesTournamentCode(
+const BaseAction = TakesTournamentCode(
     TakesRegion<LeagueRegion>(
-        Action));
+        Action,
+    ),
+);
 
 export class GetLobbyEvents extends BaseAction<LobbyEventInterfaceWrapper> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

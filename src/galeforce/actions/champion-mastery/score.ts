@@ -3,10 +3,11 @@ import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
 import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TakesRegion, TakesSummonerId } from '../mixins';
 
-const BaseAction =
-TakesSummonerId(
+const BaseAction = TakesSummonerId(
     TakesRegion<LeagueRegion>(
-        Action));
+        Action,
+    ),
+);
 
 export class GetMasteryScore extends BaseAction<number> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

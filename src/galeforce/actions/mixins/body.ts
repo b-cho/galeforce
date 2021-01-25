@@ -1,5 +1,5 @@
-import { Action } from "../action";
-import { Constructor, Executable } from "./executable";
+import { Action } from '../action';
+import { Constructor, Executable } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.body()` method.

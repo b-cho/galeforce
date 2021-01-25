@@ -1,5 +1,5 @@
-import { Game } from "../../../riot-api";
-import { Constructor, Executable } from "./executable";
+import { Game } from '../../../riot-api';
+import { Constructor, Executable } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.game()` method.

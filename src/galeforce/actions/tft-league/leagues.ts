@@ -6,12 +6,14 @@ import {
 import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TakesTier, TakesRegion, TakesLeagueId } from '../mixins';
 
-const BaseAction = 
-TakesTier(
+const BaseAction = TakesTier(
     TakesLeagueId(
         TakesRegion<LeagueRegion>(
-            Action)));
-                    
+            Action,
+        ),
+    ),
+);
+
 export class GetTFTLeagueList extends BaseAction<LeagueListInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);

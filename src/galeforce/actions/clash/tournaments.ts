@@ -4,11 +4,13 @@ import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TournamentInterface } from '../../interfaces/dto';
 import { TakesTournamentId, TakesTeamId, TakesRegion } from '../mixins';
 
-const BaseAction =
-TakesTournamentId(
+const BaseAction = TakesTournamentId(
     TakesTeamId(
         TakesRegion<LeagueRegion>(
-            Action)));
+            Action,
+        ),
+    ),
+);
 
 export class GetClashTournament extends BaseAction<TournamentInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
@@ -18,7 +20,7 @@ export class GetClashTournament extends BaseAction<TournamentInterface> {
     }
 
     public async exec(): Promise<TournamentInterface> {
-        if(this.payload.tournamentId) {
+        if (this.payload.tournamentId) {
             this.payload.endpoint = ENDPOINTS.CLASH.TOURNAMENTS.TOURNAMENT;
         } else if (this.payload.teamId) {
             this.payload.endpoint = ENDPOINTS.CLASH.TOURNAMENTS.TEAM;

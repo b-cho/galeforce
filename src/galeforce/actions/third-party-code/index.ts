@@ -3,10 +3,11 @@ import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
 import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TakesRegion, TakesSummonerId } from '../mixins';
 
-const BaseAction =
-TakesSummonerId(
+const BaseAction = TakesSummonerId(
     TakesRegion<LeagueRegion>(
-        Action));
+        Action,
+    ),
+);
 
 export class GetThirdPartyCode extends BaseAction<string> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

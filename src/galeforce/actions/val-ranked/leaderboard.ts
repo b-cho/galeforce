@@ -9,11 +9,13 @@ type GetValorantRankedLeaderboardQuery = {
     startIndex?: number;
 }
 
-const BaseAction =
-TakesActId(
+const BaseAction = TakesActId(
     TakesQuery<GetValorantRankedLeaderboardQuery>(
         TakesRegion<ValorantRegion>(
-            Action)));
+            Action,
+        ),
+    ),
+);
 
 export class GetValorantRankedLeaderboard extends BaseAction<ValLeaderboardInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
@@ -23,4 +25,3 @@ export class GetValorantRankedLeaderboard extends BaseAction<ValLeaderboardInter
         this.payload.method = 'GET';
     }
 }
-
