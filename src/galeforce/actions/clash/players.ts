@@ -1,25 +1,19 @@
-import Action from '../action';
+import { Action } from '../action';
 import { PlayerInterface } from '../../interfaces/dto';
 import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
+import { TakesSummonerId, TakesRegion } from '../mixins';
 
-class GetClashPlayers extends Action {
+const BaseAction =
+TakesSummonerId(
+    TakesRegion<LeagueRegion>(
+        Action));
+
+export class GetClashPlayers extends BaseAction<PlayerInterface[]> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.CLASH.PLAYERS;
         this.payload.type = 'lol';
-    }
-
-    public region: (region: LeagueRegion) => this = super.region;
-
-    public summonerId(summonerId: string): this {
-        this.payload.summonerId = summonerId;
-        return this;
-    }
-
-    public async exec(): Promise<PlayerInterface[]> {
-        return this.run<PlayerInterface[]>();
+        this.payload.method = 'GET';
     }
 }
-
-export default GetClashPlayers;

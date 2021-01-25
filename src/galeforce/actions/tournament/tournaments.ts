@@ -1,25 +1,19 @@
-import Action from '../action';
+import { Action } from '../action';
 import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TournamentRegistrationParameters } from '../../interfaces/parameters';
+import { TakesBody, TakesRegion } from '../mixins';
 
-class PostTournaments extends Action {
+const BaseAction =
+TakesBody<TournamentRegistrationParameters>(
+    TakesRegion<LeagueRegion>(
+        Action));
+
+export class PostTournaments extends BaseAction<number> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.TOURNAMENT.TOURNAMENTS;
         this.payload.type = 'lol';
-    }
-
-    public region: (region: LeagueRegion) => this = super.region;
-
-    public body(body: TournamentRegistrationParameters): this {
-        this.payload.body = body;
-        return this;
-    }
-
-    public async exec(): Promise<number> {
-        return this.run<number>('POST');
+        this.payload.method = 'POST';
     }
 }
-
-export default PostTournaments;

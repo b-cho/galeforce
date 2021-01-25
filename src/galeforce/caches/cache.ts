@@ -30,5 +30,4 @@ abstract class Cache {
     public abstract flush(): Promise<void>;
 }
 
-export { RateLimitConfig };
-export default Cache;
+export { RateLimitConfig, Cache };

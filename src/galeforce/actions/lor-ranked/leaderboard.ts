@@ -1,20 +1,16 @@
-import Action from '../action';
+import { Action } from '../action';
 import { ENDPOINTS, RiotRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { LorLeaderboardInterface } from '../../interfaces/dto';
+import { TakesRegion } from '../mixins';
 
-class GetLorRankedLeaderboard extends Action {
+const BaseAction = TakesRegion<RiotRegion>(Action);
+
+export class GetLorRankedLeaderboard extends BaseAction<LorLeaderboardInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.LOR_RANKED.LEADERBOARDS;
         this.payload.type = 'riot';
-    }
-
-    public region: (region: RiotRegion) => this = super.region;
-
-    public async exec(): Promise<LorLeaderboardInterface> {
-        return this.run<LorLeaderboardInterface>();
+        this.payload.method = 'GET';
     }
 }
-
-export default GetLorRankedLeaderboard;

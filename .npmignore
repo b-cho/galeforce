@@ -10,3 +10,6 @@ tsconfig.json
 .eslintrc.js
 .github
 CODE_OF_CONDUCT.md
+docs
+.typedoc-plugin-external-module-name.js
+typedoc.json

@@ -22,13 +22,13 @@ enum ValorantRegion {
     ASIA_PACIFIC = 'ap',
     BRAZIL = 'br',
     EUROPE = 'eu',
-    KR = 'kr',
+    KOREA = 'kr',
     LATIN_AMERICA = 'latam',
     NORTH_AMERICA = 'na',
     PBE = 'pbe1',
 }
 
-type Region = `${LeagueRegion | RiotRegion | ValorantRegion}`;
+type Region = LeagueRegion | RiotRegion | ValorantRegion;
 
 export {
     LeagueRegion, RiotRegion, ValorantRegion, Region,

@@ -1,25 +1,19 @@
-import Action from '../action';
+import { Action } from '../action';
 import { LorMatchInterface } from '../../interfaces/dto';
 import { ENDPOINTS, RiotRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
+import { TakesMatchId, TakesRegion } from '../mixins';
 
-class GetLorMatch extends Action {
+const BaseAction =
+TakesMatchId(
+    TakesRegion<RiotRegion>(
+        Action));
+
+export class GetLorMatch extends BaseAction<LorMatchInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.LOR_MATCH.MATCH;
         this.payload.type = 'riot';
-    }
-
-    public region: (region: RiotRegion) => this = super.region;
-
-    public matchId(matchId: string): this {
-        this.payload.matchId = matchId;
-        return this;
-    }
-
-    public async exec(): Promise<LorMatchInterface> {
-        return this.run<LorMatchInterface>();
+        this.payload.method = 'GET';
     }
 }
-
-export default GetLorMatch;

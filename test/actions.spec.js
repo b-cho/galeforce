@@ -347,6 +347,10 @@ describe('/galeforce/actions', () => {
                             .to.throw('[galeforce]: puuid is invalid according to Riot specifications (length > 78).');
                     });
                 });
+                it('should throw when not provided enough parameters to specify endpoint', () => {
+                    return expect(Galeforce.lol.summoner().exec())
+                        .to.eventually.be.rejectedWith('[galeforce]: Not enough parameters provided to select API endpoint.')
+                });
             });
             describe('.league', () => {
                 describe('.entries()', () => {
@@ -382,6 +386,10 @@ describe('/galeforce/actions', () => {
                                 .to.throw('[galeforce]: Invalid ranked division provided.');
                         });
                     });
+                    it('should throw when not provided enough parameters to specify endpoint', () => {
+                        return expect(Galeforce.lol.league.entries().exec())
+                            .to.eventually.be.rejectedWith('[galeforce]: Not enough parameters provided to select API endpoint.')
+                    });
                 });
                 describe('.league()', () => {
                     describe('.leagueId()', () => {
@@ -404,13 +412,17 @@ describe('/galeforce/actions', () => {
                                 .to.eventually.deep.equal(replyValues.v4.league.master);
                         });
                         it('should throw when provided an invalid tier', () => {
-                            return expect(() => Galeforce.lol.league.league().tier(Galeforce.tiers.DIAMOND))
-                                .to.throw('[galeforce]: .tier() must be CHALLENGER, GRANDMASTER, or MASTER.');
+                            return expect(Galeforce.lol.league.league().tier(Galeforce.tiers.DIAMOND).exec())
+                                .to.eventually.be.rejectedWith('[galeforce]: .tier() must be CHALLENGER, GRANDMASTER, or MASTER.');
                         });
                         it('should reject when .tier() is not chained with .queue()', () => {
                             return expect(Galeforce.lol.league.league().region(Galeforce.regions.lol.NORTH_AMERICA).queue(Galeforce.queues.lol.RANKED_SOLO).exec())
-                                .to.eventually.be.rejectedWith('[galeforce]: .queue() must be chained with .tier().')
+                                .to.eventually.be.rejectedWith('[galeforce]: Not enough parameters provided to select API endpoint.')
                         });
+                    });
+                    it('should throw when not provided enough parameters to specify endpoint', () => {
+                        return expect(Galeforce.lol.league.league().exec())
+                            .to.eventually.be.rejectedWith('[galeforce]: Not enough parameters provided to select API endpoint.')
                     });
                 });
             });
@@ -418,12 +430,12 @@ describe('/galeforce/actions', () => {
                 describe('.summoner()', () => {
                     describe('.summonerId()', () => {
                         it('should return correct JSON for the /lol/champion-mastery/v4/champion-masteries/by-summoner Riot API endpoint', () => {
-                            return expect(Galeforce.lol.mastery.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                            return expect(Galeforce.lol.mastery.list().region(Galeforce.regions.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
                                 .to.eventually.deep.equal(replyValues.v4.championMastery.bySummonerId);
                         });
                         describe('.championId()', () => {
                             it('should return correct JSON for the /lol/champion-mastery/v4/champion-masteries/by-summoner/{}/by-champion Riot API endpoint', () => {
-                                return expect(Galeforce.lol.mastery.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').championId(498).exec())
+                                return expect(Galeforce.lol.mastery.champion().region(Galeforce.regions.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').championId(498).exec())
                                     .to.eventually.deep.equal(replyValues.v4.championMastery.byChampionId);
                             });
                         });
@@ -511,17 +523,17 @@ describe('/galeforce/actions', () => {
                 });
             });
             describe('.clash', () => {
-                describe('.tournaments()', () => {
-                    describe('.all()', () => {
-                        it('should return correct JSON for the /lol/clash/v1/tournaments Riot API endpoint', () => {
-                            return expect(Galeforce.lol.clash.upcoming().region(Galeforce.regions.lol.NORTH_AMERICA).exec())
-                                .to.eventually.deep.equal(replyValues.v1.clash.tournaments.all);
-                        });
-                        it('should return correct JSON for the /lol/clash/v1/tournaments Riot API endpoint (reversed)', () => {
-                            return expect(Galeforce.lol.clash.upcoming().region(Galeforce.regions.lol.NORTH_AMERICA).exec())
-                                .to.eventually.deep.equal(replyValues.v1.clash.tournaments.all);
-                        });
+                describe('.upcoming()', () => {
+                    it('should return correct JSON for the /lol/clash/v1/tournaments Riot API endpoint', () => {
+                        return expect(Galeforce.lol.clash.upcoming().region(Galeforce.regions.lol.NORTH_AMERICA).exec())
+                            .to.eventually.deep.equal(replyValues.v1.clash.tournaments.all);
                     });
+                    it('should return correct JSON for the /lol/clash/v1/tournaments Riot API endpoint (reversed)', () => {
+                        return expect(Galeforce.lol.clash.upcoming().region(Galeforce.regions.lol.NORTH_AMERICA).exec())
+                            .to.eventually.deep.equal(replyValues.v1.clash.tournaments.all);
+                    });
+                });
+                describe('.tournaments()', () => {
                     describe('.tournamentId()', () => {
                         it('should return correct JSON for the /lol/clash/v1/tournaments/{} Riot API endpoint', () => {
                             return expect(Galeforce.lol.clash.tournament().tournamentId(2001).region(Galeforce.regions.lol.NORTH_AMERICA).exec())
@@ -533,6 +545,10 @@ describe('/galeforce/actions', () => {
                             return expect(Galeforce.lol.clash.tournament().teamId('971374dd-d9bd-4ff9-a06d-b21044ba0c92').region(Galeforce.regions.lol.NORTH_AMERICA).exec())
                                 .to.eventually.deep.equal(replyValues.v1.clash.tournaments.byTeam);
                         });
+                    });
+                    it('should throw when not provided enough parameters to specify endpoint', () => {
+                        return expect(Galeforce.lol.clash.tournament().exec())
+                            .to.eventually.be.rejectedWith('[galeforce]: Not enough parameters provided to select API endpoint.')
                     });
                 });
                 describe('.players()', () => {
@@ -659,7 +675,7 @@ describe('/galeforce/actions', () => {
                         it('should throw when provided an invalid region', () => {
                             return expect(() => Galeforce.riot.account.account().region(Galeforce.regions.lol.NORTH_AMERICA))
                                 .to.throw('[galeforce]: Invalid /riot region provided.')
-                        })
+                        });
                     });
                     describe('.gameName().tagLine()', () => {
                         it('should return correct JSON for the /riot/account/v1/accounts/by-riot-id/ Riot API endpoint', () => {
@@ -670,6 +686,10 @@ describe('/galeforce/actions', () => {
                             return expect(Galeforce.riot.account.account().region(Galeforce.regions.riot.AMERICAS).gameName(Galeforce.games.VALORANT).exec())
                                 .to.eventually.be.rejectedWith('[galeforce]: .gameName() must be chained with .tagLine().')
                         });
+                    });
+                    it('should throw when not provided enough parameters to specify endpoint', () => {
+                        return expect(Galeforce.riot.account.account().exec())
+                                .to.eventually.be.rejectedWith('[galeforce]: Not enough parameters provided to select API endpoint.')
                     });
                 });
                 describe('.activeShard()', () => {
@@ -743,13 +763,17 @@ describe('/galeforce/actions', () => {
                                 .to.throw('[galeforce]: Invalid ranked tier provided.');
                         });
                         it('should throw when provided an apex tier', () => {
-                            return expect(() => Galeforce.tft.league.entries().region(Galeforce.regions.lol.NORTH_AMERICA).tier(Galeforce.tiers.MASTER))
-                                .to.throw('[galeforce]: /tft/league/v1/entries does not currently support the apex tiers.');
+                            return expect(Galeforce.tft.league.entries().region(Galeforce.regions.lol.NORTH_AMERICA).tier(Galeforce.tiers.MASTER).exec())
+                                .to.eventually.be.rejectedWith('[galeforce]: /tft/league/v1/entries does not currently support the apex tiers.');
                         });
                         it('should throw when provided an invalid division', () => {
-                            return expect(() => Galeforce.tft.league.entries().division('invalid division'))
+                            return expect(() => Galeforce.tft.league.entries().region(Galeforce.regions.lol.NORTH_AMERICA).division('invalid division'))
                                 .to.throw('[galeforce]: Invalid ranked division provided.');
                         });
+                    });
+                    it('should throw when not provided enough parameters to specify endpoint', () => {
+                        return expect(Galeforce.tft.league.entries().exec())
+                            .to.eventually.be.rejectedWith('[galeforce]: Not enough parameters provided to select API endpoint.')
                     });
                 });
                 describe('.league()', () => {
@@ -773,13 +797,13 @@ describe('/galeforce/actions', () => {
                                 .to.eventually.deep.equal(replyValues.v1.tftLeague.master);
                         });
                         it('should throw when provided an invalid tier', () => {
-                            return expect(() => Galeforce.tft.league.league().tier(Galeforce.tiers.DIAMOND))
-                                .to.throw('[galeforce]: .tier() must be CHALLENGER, GRANDMASTER, or MASTER.');
+                            return expect(Galeforce.tft.league.league().region(Galeforce.regions.lol.NORTH_AMERICA).tier(Galeforce.tiers.DIAMOND).exec())
+                                .to.eventually.be.rejectedWith('[galeforce]: .tier() must be CHALLENGER, GRANDMASTER, or MASTER.');
                         });
-                        it('should reject when .tier() is not chained with .queue()', () => {
-                            return expect(Galeforce.tft.league.league().region(Galeforce.regions.lol.NORTH_AMERICA).queue(Galeforce.queues.lol.RANKED_SOLO).exec())
-                                .to.eventually.be.rejectedWith('[galeforce]: .queue() must be chained with .tier().')
-                        });
+                    });
+                    it('should throw when not provided enough parameters to specify endpoint', () => {
+                        return expect(Galeforce.tft.league.league().exec())
+                            .to.eventually.be.rejectedWith('[galeforce]: Not enough parameters provided to select API endpoint.')
                     });
                 });
             });
@@ -829,6 +853,10 @@ describe('/galeforce/actions', () => {
                         return expect(Galeforce.tft.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
                             .to.eventually.deep.equal(replyValues.v1.tftSummoner);
                     });
+                });
+                it('should throw when not provided enough parameters to specify endpoint', () => {
+                    return expect(Galeforce.tft.summoner().exec())
+                        .to.eventually.be.rejectedWith('[galeforce]: Not enough parameters provided to select API endpoint.')
                 });
             });
         });

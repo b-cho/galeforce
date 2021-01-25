@@ -5,7 +5,7 @@
 
 import axios from 'axios';
 
-abstract class Request {
+export abstract class Request {
     private targetURL: string;
 
     private headers: object;
@@ -84,5 +84,3 @@ abstract class Request {
         });
     }
 }
-
-export default Request;

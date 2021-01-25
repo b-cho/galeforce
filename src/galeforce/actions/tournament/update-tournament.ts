@@ -1,30 +1,20 @@
-import Action from '../action';
+import { Action } from '../action';
 import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TournamentCodeUpdateParameters } from '../../interfaces/parameters';
+import { TakesBody, TakesRegion, TakesTournamentCode } from '../mixins';
 
-class PutTournamentCodes extends Action {
+const BaseAction =
+TakesBody<TournamentCodeUpdateParameters>(
+    TakesTournamentCode(
+        TakesRegion<LeagueRegion>(
+            Action)));
+
+export class PutTournamentCodes extends BaseAction<void> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.TOURNAMENT.CODES.BY_CODE;
         this.payload.type = 'lol';
-    }
-
-    public region: (region: LeagueRegion) => this = super.region;
-
-    public tournamentCode(tournamentCode: string): this {
-        this.payload.tournamentCode = tournamentCode;
-        return this;
-    }
-
-    public body(body: TournamentCodeUpdateParameters): this {
-        this.payload.body = body;
-        return this;
-    }
-
-    public async exec(): Promise<void> {
-        return this.run<void>('PUT');
+        this.payload.method = 'PUT';
     }
 }
-
-export default PutTournamentCodes;

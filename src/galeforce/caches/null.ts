@@ -8,9 +8,9 @@
     raise errors when it is actually needed for operations.
 */
 
-import Cache from './cache';
+import { Cache } from './cache';
 
-class NullCache extends Cache {
+export class NullCache extends Cache {
     constructor() {
         super({ prefix: '', intervals: [] });
     }
@@ -29,5 +29,3 @@ class NullCache extends Cache {
 
     public async flush(): Promise<void> {}
 }
-
-export default NullCache;

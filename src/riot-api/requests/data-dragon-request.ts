@@ -4,12 +4,10 @@
     information relevant to that request.
 */
 
-import Request from './request';
+import { Request } from './request';
 
-class DataDragonRequest extends Request {
+export class DataDragonRequest extends Request {
     constructor(URLTemplate: string, version?: string) {
         super(Request.generateTemplateString(URLTemplate, { version }), {}, {}, {});
     }
 }
-
-export default DataDragonRequest;

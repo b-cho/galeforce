@@ -1,9 +1,7 @@
-import RiotAPIModule from '../../riot-api';
-import Cache from '../caches/cache';
+import { RiotAPIModule } from '../../riot-api';
+import { Cache } from '../caches/cache';
 
-interface SubmoduleMapInterface {
+export interface SubmoduleMapInterface {
     RiotAPI: RiotAPIModule;
     cache: Cache;
 }
-
-export default SubmoduleMapInterface;

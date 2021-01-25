@@ -2,18 +2,18 @@
     The main RiotAPI object.
 */
 
-import RiotAPIRequest from './requests/riot-api-request';
+import { RiotAPIRequest } from './requests/riot-api-request';
 import * as ENDPOINTS from './enums/endpoints';
 import {
     Region, LeagueRegion, RiotRegion, ValorantRegion,
 } from './enums/regions';
 import { Queue, LeagueQueue, ValorantQueue } from './enums/queues';
-import Tier from './enums/tiers';
-import Division from './enums/divisions';
-import DataDragonRequest from './requests/data-dragon-request';
-import Game from './enums/games';
+import { Tier } from './enums/tiers';
+import { Division } from './enums/divisions';
+import { DataDragonRequest } from './requests/data-dragon-request';
+import { Game } from './enums/games';
 
-export default class RiotAPIModule {
+export class RiotAPIModule {
     private key: string;
 
     constructor(key: string) {

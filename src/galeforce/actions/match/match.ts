@@ -1,31 +1,28 @@
-import Action from '../action';
+import { Action } from '../action';
 import { MatchInterface } from '../../interfaces/dto';
 import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
+import { TakesMatchId, TakesRegion, TakesTournamentCode } from '../mixins';
 
-class GetMatch extends Action {
+const BaseAction = TakesMatchId(
+    TakesTournamentCode(
+        TakesRegion<LeagueRegion>(
+            Action)));
+
+export class GetMatch extends BaseAction<MatchInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.payload.endpoint = ENDPOINTS.MATCH.MATCH.MATCH_ID;
         this.payload.type = 'lol';
-    }
-
-    public region: (region: LeagueRegion) => this = super.region;
-
-    public matchId(matchId: number): this {
-        this.payload.matchId = matchId;
-        return this;
-    }
-
-    public tournamentCode(tournamentCode: string): this {
-        this.payload.endpoint = ENDPOINTS.MATCH.MATCH.MATCH_ID_TOURNAMENT;
-        this.payload.tournamentCode = tournamentCode;
-        return this;
+        this.payload.method = 'GET';
     }
 
     public async exec(): Promise<MatchInterface> {
-        return this.run<MatchInterface>();
+        if (this.payload.tournamentCode) {
+            this.payload.endpoint = ENDPOINTS.MATCH.MATCH.MATCH_ID_TOURNAMENT;
+        } else {
+            this.payload.endpoint = ENDPOINTS.MATCH.MATCH.MATCH_ID;
+        }
+
+        return super.exec();
     }
 }
-
-export default GetMatch;

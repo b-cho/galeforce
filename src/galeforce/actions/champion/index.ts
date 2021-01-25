@@ -1,20 +1,16 @@
-import Action from '../action';
+import { Action } from '../action';
 import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { ChampionInfoInterface } from '../../interfaces/dto';
+import { TakesRegion } from '../mixins';
 
-class GetChampionRotations extends Action {
+const BaseAction = TakesRegion<LeagueRegion>(Action);
+
+export class GetChampionRotations extends BaseAction<ChampionInfoInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.CHAMPION.CHAMPION_ROTATIONS;
         this.payload.type = 'lol';
-    }
-
-    public region: (region: LeagueRegion) => this = super.region;
-
-    public async exec(): Promise<ChampionInfoInterface> {
-        return this.run<ChampionInfoInterface>();
+        this.payload.method = 'GET';
     }
 }
-
-export default GetChampionRotations;

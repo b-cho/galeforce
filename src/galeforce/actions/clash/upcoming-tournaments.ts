@@ -1,20 +1,16 @@
-import Action from '../action';
+import { Action } from '../action';
 import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TournamentInterface } from '../../interfaces/dto';
+import { TakesRegion } from '../mixins';
 
-class GetUpcomingClashTournaments extends Action {
+const BaseAction = TakesRegion<LeagueRegion>(Action);
+
+export class GetUpcomingClashTournaments extends BaseAction<TournamentInterface[]> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.CLASH.TOURNAMENTS.ALL;
         this.payload.type = 'lol';
-    }
-
-    public region: (region: LeagueRegion) => this = super.region;
-
-    public async exec(): Promise<TournamentInterface[]> {
-        return this.run<TournamentInterface[]>();
+        this.payload.method = 'GET';
     }
 }
-
-export default GetUpcomingClashTournaments;

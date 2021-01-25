@@ -1,23 +1,33 @@
-/*
+/**
     The base Action class that all other composite actions should
     inherit from.
+    @packageDocumentation
 */
 
 import async from 'async';
-import RiotAPIModule, { Region } from '../../riot-api';
+import { RiotAPIModule, Region } from '../../riot-api';
 import { Payload, CreatePayloadProxy } from './payload';
-import Cache from '../caches/cache';
-import SubmoduleMapInterface from '../interfaces/submodule-map';
+import { Cache } from '../caches/cache';
+import { SubmoduleMapInterface } from '../interfaces/submodule-map';
 
-abstract class Action {
+/**
+ * @template T The type/enum corresponding to the valid endpoint regions.
+ * @template R The return type of the Action.
+ */
+export class Action<R> {
     protected RiotAPI: RiotAPIModule;
 
     protected cache: Cache;
 
     protected SubmoduleMap: SubmoduleMapInterface;
 
-    protected payload: Payload;
+    public payload: Payload;
 
+    /**
+     * 
+     * @param SubmoduleMap
+     * @param payload The mutable payload object that is passed to {@link Request} when `.exec()` is called.
+     */
     constructor(SubmoduleMap: SubmoduleMapInterface, payload?: Payload) {
         this.SubmoduleMap = SubmoduleMap;
         this.RiotAPI = SubmoduleMap.RiotAPI;
@@ -26,17 +36,26 @@ abstract class Action {
         this.payload = payload || CreatePayloadProxy({});
     }
 
-    protected region(region: Region): this {
-        this.payload.region = region;
-        return this;
-    }
-
-    public abstract exec(): Promise<unknown>;
-
-    protected async run<T>(method: 'GET' | 'POST' | 'PUT' = 'GET'): Promise<T> {
+    /**
+     * Executes the action, sending an HTTP request to the Riot API servers
+     * and retrieving the associated data from the appropriate endpoint.
+     * @throws Will throw an error if a required payload value (*region*,
+     * *body* on POST or PUT requests, etc.) is missing or the HTTP request
+     * fails with an error.
+     */
+    public async exec(): Promise<R> {
         try {
             if (typeof this.payload.region === 'undefined' || typeof this.payload.endpoint === 'undefined') {
                 throw new Error('[galeforce]: Action payload region or endpoint is required but undefined.');
+            }
+            if (typeof this.payload.method === 'undefined') {
+                throw new Error('[galeforce]: Action payload method is required but undefined.');
+            }
+
+            // Execute-time property checks
+
+            if (this.payload.gameName && !this.payload.tagLine) {
+                throw new Error('[galeforce]: .gameName() must be chained with .tagLine().');
             }
 
             await this.waitForRateLimit(this.payload.region);
@@ -49,17 +68,17 @@ abstract class Action {
             );
 
             let data: unknown;
-            if (method === 'GET') {
+            if (this.payload.method === 'GET') {
                 ({ data } = await request.get() as any);
-            } else if (method === 'POST') {
+            } else if (this.payload.method === 'POST') {
                 if (typeof this.payload.body === 'undefined') throw new Error('[galeforce]: Action payload body is required but undefined.');
                 ({ data } = await request.post() as any);
-            } else if (method === 'PUT') {
+            } else if (this.payload.method === 'PUT') {
                 if (typeof this.payload.body === 'undefined') throw new Error('[galeforce]: Action payload body is required but undefined.');
                 ({ data } = await request.put() as any);
             }
 
-            return data as T;
+            return data as R;
         } catch (e) {
             if (e.response?.status) {
                 if (e.response.status === 403) {
@@ -111,5 +130,3 @@ abstract class Action {
         });
     }
 }
-
-export default Action;

@@ -1,25 +1,19 @@
-import Action from '../action';
+import { Action } from '../action';
 import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { LobbyEventInterfaceWrapper } from '../../interfaces/dto';
+import { TakesTournamentCode, TakesRegion } from '../mixins';
 
-class GetLobbyEvents extends Action {
+const BaseAction =
+TakesTournamentCode(
+    TakesRegion<LeagueRegion>(
+        Action));
+
+export class GetLobbyEvents extends BaseAction<LobbyEventInterfaceWrapper> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.TOURNAMENT.EVENTS;
         this.payload.type = 'lol';
-    }
-
-    public region: (region: LeagueRegion) => this = super.region;
-
-    public tournamentCode(tournamentCode: string): this {
-        this.payload.tournamentCode = tournamentCode;
-        return this;
-    }
-
-    public async exec(): Promise<LobbyEventInterfaceWrapper> {
-        return this.run<LobbyEventInterfaceWrapper>();
+        this.payload.method = 'GET';
     }
 }
-
-export default GetLobbyEvents;

@@ -1,32 +1,30 @@
-import Action from '../action';
+import { Action } from '../action';
 import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TournamentInterface } from '../../interfaces/dto';
+import { TakesTournamentId, TakesTeamId, TakesRegion } from '../mixins';
 
-class GetClashTournament extends Action {
+const BaseAction =
+TakesTournamentId(
+    TakesTeamId(
+        TakesRegion<LeagueRegion>(
+            Action)));
+
+export class GetClashTournament extends BaseAction<TournamentInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.payload.endpoint = ENDPOINTS.CLASH.TOURNAMENTS.TEAM;
         this.payload.type = 'lol';
-    }
-
-    public region: (region: LeagueRegion) => this = super.region;
-
-    public teamId(teamId: string): this {
-        this.payload.endpoint = ENDPOINTS.CLASH.TOURNAMENTS.TEAM;
-        this.payload.teamId = teamId;
-        return this;
-    }
-
-    public tournamentId(tournamentId: number): this {
-        this.payload.endpoint = ENDPOINTS.CLASH.TOURNAMENTS.TOURNAMENT;
-        this.payload.tournamentId = tournamentId;
-        return this;
+        this.payload.method = 'GET';
     }
 
     public async exec(): Promise<TournamentInterface> {
-        return this.run<TournamentInterface>();
+        if(this.payload.tournamentId) {
+            this.payload.endpoint = ENDPOINTS.CLASH.TOURNAMENTS.TOURNAMENT;
+        } else if (this.payload.teamId) {
+            this.payload.endpoint = ENDPOINTS.CLASH.TOURNAMENTS.TEAM;
+        } else {
+            throw new Error('[galeforce]: Not enough parameters provided to select API endpoint.');
+        }
+        return super.exec();
     }
 }
-
-export default GetClashTournament;

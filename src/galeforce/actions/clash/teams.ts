@@ -1,25 +1,19 @@
-import Action from '../action';
+import { Action } from '../action';
 import { TeamInterface } from '../../interfaces/dto';
 import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
+import { TakesTeamId, TakesRegion } from '../mixins';
 
-class GetClashTeam extends Action {
+const BaseAction =
+TakesTeamId(
+    TakesRegion<LeagueRegion>(
+        Action));
+
+export class GetClashTeam extends BaseAction<TeamInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.CLASH.TEAMS;
         this.payload.type = 'lol';
-    }
-
-    public region: (region: LeagueRegion) => this = super.region;
-
-    public teamId(teamId: string): this {
-        this.payload.teamId = teamId;
-        return this;
-    }
-
-    public async exec(): Promise<TeamInterface> {
-        return this.run<TeamInterface>();
+        this.payload.method = 'GET';
     }
 }
-
-export default GetClashTeam;

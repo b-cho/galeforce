@@ -1,25 +1,19 @@
-import Action from '../action';
+import { Action } from '../action';
 import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { ProviderRegistrationParameters } from '../../interfaces/parameters';
+import { TakesBody, TakesRegion } from '../mixins';
 
-class PostProviders extends Action {
+const BaseAction =
+TakesBody<ProviderRegistrationParameters>(
+    TakesRegion<LeagueRegion>(
+        Action));
+
+export class PostProviders extends BaseAction<string[]> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.TOURNAMENT.PROVIDERS;
         this.payload.type = 'lol';
-    }
-
-    public region: (region: LeagueRegion) => this = super.region;
-
-    public body(body: ProviderRegistrationParameters): this {
-        this.payload.body = body;
-        return this;
-    }
-
-    public async exec(): Promise<string[]> {
-        return this.run<string[]>('POST');
+        this.payload.method = 'POST';
     }
 }
-
-export default PostProviders;

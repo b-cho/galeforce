@@ -57,10 +57,8 @@ function recursivelySubstitute(obj: object): object {
  *
  * @return {ConfigInterface} The corresponding config object.
  */
-function getConfig(filename: string): ConfigInterface {
+export function getConfig(filename: string): ConfigInterface {
     const configObject = recursivelySubstitute(yaml.parse(fs.readFileSync(filename, 'utf8')));
     if (validate(configObject)) return configObject;
     throw new Error('Invalid config provided (config failed JSON schema validation).');
 }
-
-export default getConfig;

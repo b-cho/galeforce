@@ -1,25 +1,19 @@
-import Action from '../action';
+import { Action } from '../action';
 import { ValMatchlistInterface } from '../../interfaces/dto';
 import { ENDPOINTS, ValorantRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
+import { TakesPUUID, TakesRegion } from '../mixins';
 
-class GetValorantMatchlist extends Action {
+const BaseAction = 
+TakesPUUID(
+    TakesRegion<ValorantRegion>(
+        Action));
+
+export class GetValorantMatchlist extends BaseAction<ValMatchlistInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.VAL_MATCH.MATCHLIST;
         this.payload.type = 'val';
-    }
-
-    public region: (region: ValorantRegion) => this = super.region;
-
-    public puuid(puuid: string): this {
-        this.payload.puuid = puuid;
-        return this;
-    }
-
-    public async exec(): Promise<ValMatchlistInterface> {
-        return this.run<ValMatchlistInterface>();
+        this.payload.method = 'GET';
     }
 }
-
-export default GetValorantMatchlist;

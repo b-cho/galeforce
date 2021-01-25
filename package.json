@@ -6,7 +6,19 @@
     "url": "https://github.com/bcho04"
   },
   "description": "A customizable, promise-based, and command-oriented TypeScript library for the Riot Games API.",
-  "keywords": ["galeforce", "api", "riot", "lol", "tft", "lor", "valorant", "league of legends", "teamfight tactics", "legends of runeterra", "riot games"],
+  "keywords": [
+    "galeforce",
+    "api",
+    "riot",
+    "lol",
+    "tft",
+    "lor",
+    "valorant",
+    "league of legends",
+    "teamfight tactics",
+    "legends of runeterra",
+    "riot games"
+  ],
   "homepage": "https://github.com/bcho04/galeforce",
   "repository": {
     "type": "git",
@@ -26,7 +38,7 @@
     "axios": "^0.21.1",
     "bluebird": "^3.7.2",
     "redis": "^3.0.2",
-    "typescript-json-schema": "^0.47.0",
+    "typescript-json-schema": "^0.48.0",
     "yaml": "^1.10.0"
   },
   "devDependencies": {
@@ -48,7 +60,9 @@
     "nock": "^13.0.6",
     "redis-mock": "^0.56.3",
     "rewiremock": "^3.14.3",
-    "typescript": "^4.1.3"
+    "typedoc": "^0.19.2",
+    "typedoc-plugin-external-module-name": "^4.0.6",
+    "typescript": "^4.0.5"
   },
   "scripts": {
     "lint": "npx eslint --ext .ts,.tsx,.js,.jsx ./src/",

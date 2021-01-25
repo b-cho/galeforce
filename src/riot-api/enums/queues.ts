@@ -10,5 +10,5 @@ enum ValorantQueue {
     SPIKE_RUSH = 'spikerush',
 }
 
-type Queue = `${LeagueQueue | ValorantQueue}`;
+type Queue = LeagueQueue | ValorantQueue;
 export { LeagueQueue, ValorantQueue, Queue };

@@ -5,7 +5,7 @@
 
 import redis, { RedisClient } from 'redis';
 import Bluebird from 'bluebird';
-import Cache, { RateLimitConfig } from './cache';
+import { Cache, RateLimitConfig } from './cache';
 
 // Promisify node-redis functions before v4
 Bluebird.promisifyAll(redis.RedisClient.prototype);
@@ -22,7 +22,7 @@ declare module 'redis' { // Async definitions for Redis
     }
 }
 
-class RedisCache extends Cache {
+export class RedisCache extends Cache {
     private client: RedisClient;
 
     constructor(uri: string, RLConfig?: RateLimitConfig) {
@@ -55,5 +55,3 @@ class RedisCache extends Cache {
         await this.client.flushdbAsync();
     }
 }
-
-export default RedisCache;

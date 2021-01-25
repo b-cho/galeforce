@@ -5,6 +5,7 @@ import {
 
 export type Payload = {
     type?: 'lol' | 'val' | 'riot';
+    method?: 'GET' | 'POST' | 'PUT';
     endpoint?: string;
     query?: object;
     body?: object;
@@ -24,7 +25,7 @@ export type Payload = {
     division?: Division;
     gameName?: string;
     tagLine?: string;
-    game?: string;
+    game?: Game;
     actId?: string;
 }
 

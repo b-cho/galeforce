@@ -5,7 +5,7 @@ const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const expect = chai.expect;
 
-const RiotAPIModule = require('../dist/riot-api').default;
+const RiotAPIModule = require('../dist/riot-api').RiotAPIModule;
 const { ENDPOINTS, LeagueRegion } = require('../dist/riot-api');
 
 const v4SummonerByNameReply = { // Taken from Riot Games on 2021/01/02 21:34 GMT-8

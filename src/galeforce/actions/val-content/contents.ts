@@ -1,29 +1,23 @@
-import Action from '../action';
+import { Action } from '../action';
 import { ENDPOINTS, ValorantRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { ValContentInterface } from '../../interfaces/dto';
+import { TakesQuery, TakesRegion } from '../mixins';
 
 type GetValorantContentQuery = {
     locale?: string;
 }
 
-class GetValorantContent extends Action {
+const BaseAction =
+TakesQuery<GetValorantContentQuery>(
+    TakesRegion<ValorantRegion>(
+        Action));
+
+export class GetValorantContent extends BaseAction<ValContentInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.VAL_CONTENT.CONTENTS;
         this.payload.type = 'val';
-    }
-
-    public region: (region: ValorantRegion) => this = super.region;
-
-    public query(query: GetValorantContentQuery): this {
-        this.payload.query = query;
-        return this;
-    }
-
-    public async exec(): Promise<ValContentInterface> {
-        return this.run<ValContentInterface>();
+        this.payload.method = 'GET';
     }
 }
-
-export default GetValorantContent;

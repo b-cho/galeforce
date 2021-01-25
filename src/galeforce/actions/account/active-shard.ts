@@ -1,30 +1,20 @@
-import Action from '../action';
+import { Action } from '../action';
 import { ActiveShardInterface } from '../../interfaces/dto';
-import { ENDPOINTS, Game, RiotRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { ENDPOINTS, RiotRegion } from '../../../riot-api';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
+import { TakesPUUID, TakesGame, TakesRegion } from '../mixins';
 
-class GetActiveShard extends Action {
+const BaseAction =
+TakesPUUID(
+    TakesGame(
+        TakesRegion<RiotRegion>(
+            Action)));
+
+export class GetActiveShard extends BaseAction<ActiveShardInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.ACCOUNT.ACTIVE_SHARDS;
         this.payload.type = 'riot';
-    }
-
-    public region: (region: RiotRegion) => this = super.region;
-
-    public puuid(puuid: string): this {
-        this.payload.puuid = puuid;
-        return this;
-    }
-
-    public game(game: Game): this {
-        this.payload.game = game;
-        return this;
-    }
-
-    public async exec(): Promise<ActiveShardInterface> {
-        return this.run<ActiveShardInterface>();
+        this.payload.method = 'GET';
     }
 }
-
-export default GetActiveShard;

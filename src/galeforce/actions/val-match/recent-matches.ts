@@ -1,25 +1,19 @@
-import Action from '../action';
+import { Action } from '../action';
 import { ValRecentMatchesInterface } from '../../interfaces/dto';
 import { ENDPOINTS, ValorantQueue, ValorantRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
+import { TakesQueue, TakesRegion } from '../mixins';
 
-class GetValorantRecentMatches extends Action {
+const BaseAction =
+TakesQueue<ValorantQueue>(
+    TakesRegion<ValorantRegion>(
+        Action));
+
+export class GetValorantRecentMatches extends BaseAction<ValRecentMatchesInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.VAL_MATCH.RECENT;
         this.payload.type = 'val';
-    }
-
-    public region: (region: ValorantRegion) => this = super.region;
-
-    public queue(queue: ValorantQueue): this {
-        this.payload.queue = queue;
-        return this;
-    }
-
-    public async exec(): Promise<ValRecentMatchesInterface> {
-        return this.run<ValRecentMatchesInterface>();
+        this.payload.method = 'GET';
     }
 }
-
-export default GetValorantRecentMatches;

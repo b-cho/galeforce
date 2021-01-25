@@ -9,7 +9,7 @@ process.env.RIOT_KEY = 'RIOT-API-KEY-2';
 process.env.CACHE_TYPE = 'null';
 process.env.REDIS_URL = '';
 
-const getConfig = require('../dist/galeforce/configs/default').default;
+const getConfig = require('../dist/galeforce/configs/default').getConfig;
 
 // Set fake environment variables
 

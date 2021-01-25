@@ -1,20 +1,16 @@
-import Action from '../action';
+import { Action } from '../action';
 import { ENDPOINTS, LeagueRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { PlatformDataInterface } from '../../interfaces/dto';
+import { TakesRegion } from '../mixins';
 
-class GetLeaguePlatformData extends Action {
+const BaseAction = TakesRegion<LeagueRegion>(Action);
+
+export class GetLeaguePlatformData extends BaseAction<PlatformDataInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.STATUS.PLATFORM_DATA;
         this.payload.type = 'lol';
-    }
-
-    public region: (region: LeagueRegion) => this = super.region;
-
-    public async exec(): Promise<PlatformDataInterface> {
-        return this.run<PlatformDataInterface>();
+        this.payload.method = 'GET';
     }
 }
-
-export default GetLeaguePlatformData;

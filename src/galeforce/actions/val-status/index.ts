@@ -1,20 +1,16 @@
-import Action from '../action';
+import { Action } from '../action';
 import { ENDPOINTS, ValorantRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { PlatformDataInterface } from '../../interfaces/dto';
+import { TakesRegion } from '../mixins';
 
-class GetValorantPlatformData extends Action {
+const BaseAction = TakesRegion<ValorantRegion>(Action);
+
+export class GetValorantPlatformData extends BaseAction<PlatformDataInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.VAL_STATUS.PLATFORM_DATA;
         this.payload.type = 'val';
-    }
-
-    public region: (region: ValorantRegion) => this = super.region;
-
-    public async exec(): Promise<PlatformDataInterface> {
-        return this.run<PlatformDataInterface>();
+        this.payload.method = 'GET';
     }
 }
-
-export default GetValorantPlatformData;

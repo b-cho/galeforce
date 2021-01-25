@@ -1,39 +1,32 @@
-import Action from '../action';
+import { Action } from '../action';
 import { AccountInterface } from '../../interfaces/dto';
 import { ENDPOINTS, RiotRegion } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
+import { TakesPUUID, TakesRiotId, TakesRegion } from '../mixins';
 
-class GetAccount extends Action {
+const BaseAction =
+TakesPUUID(
+    TakesRiotId(
+        TakesRegion<RiotRegion>(
+            Action)));
+
+export class GetAccount extends BaseAction<AccountInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
         this.payload.endpoint = ENDPOINTS.ACCOUNT.PUUID;
         this.payload.type = 'riot';
-    }
-
-    public region: (region: RiotRegion) => this = super.region;
-
-    public puuid(puuid: string): this {
-        this.payload.puuid = puuid;
-        return this;
-    }
-
-    public gameName(gameName: string): this {
-        this.payload.gameName = gameName;
-        return this;
-    }
-
-    public tagLine(tagLine: string): this {
-        this.payload.endpoint = ENDPOINTS.ACCOUNT.RIOT_ID;
-        this.payload.tagLine = tagLine;
-        return this;
+        this.payload.method = 'GET';
     }
 
     public async exec(): Promise<AccountInterface> {
-        if (this.payload.gameName && !this.payload.tagLine) {
-            throw new Error('[galeforce]: .gameName() must be chained with .tagLine().');
+        if(this.payload.puuid) {
+            this.payload.endpoint = ENDPOINTS.ACCOUNT.PUUID;
+        } else if (this.payload.gameName || this.payload.tagLine) {
+            this.payload.endpoint = ENDPOINTS.ACCOUNT.RIOT_ID;
+        } else {
+            throw new Error('[galeforce]: Not enough parameters provided to select API endpoint.');
         }
-        return this.run<AccountInterface>();
+
+        return super.exec();
     }
 }
-
-export default GetAccount;

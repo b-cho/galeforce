@@ -1,53 +1,45 @@
-import Action from '../action';
+import { Action } from '../action';
 import { LeagueListInterface } from '../../interfaces/dto';
 import {
-    ENDPOINTS, LeagueRegion, LeagueQueue, Tier,
+    ENDPOINTS, LeagueRegion, Tier,
 } from '../../../riot-api';
-import SubmoduleMapInterface from '../../interfaces/submodule-map';
+import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
+import { TakesTier, TakesRegion, TakesLeagueId } from '../mixins';
 
-class GetTFTLeagueList extends Action {
+const BaseAction = 
+TakesTier(
+    TakesLeagueId(
+        TakesRegion<LeagueRegion>(
+            Action)));
+                    
+export class GetTFTLeagueList extends BaseAction<LeagueListInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {
         super(SubmoduleMap);
-        this.payload.endpoint = ENDPOINTS.TFT_LEAGUE.LEAGUE_ID;
         this.payload.type = 'lol';
-    }
-
-    public region: (region: LeagueRegion) => this = super.region;
-
-    public queue(queue: LeagueQueue): this {
-        this.payload.queue = queue;
-        return this;
-    }
-
-    public tier(tier: Tier): this {
-        switch (tier) {
-        case Tier.CHALLENGER:
-            this.payload.endpoint = ENDPOINTS.TFT_LEAGUE.CHALLENGER_LEAGUE;
-            break;
-        case Tier.GRANDMASTER:
-            this.payload.endpoint = ENDPOINTS.TFT_LEAGUE.GRANDMASTER_LEAGUE;
-            break;
-        case Tier.MASTER:
-            this.payload.endpoint = ENDPOINTS.TFT_LEAGUE.MASTER_LEAGUE;
-            break;
-        default:
-            throw new Error('[galeforce]: .tier() must be CHALLENGER, GRANDMASTER, or MASTER.');
-        }
-        this.payload.tier = tier;
-        return this;
-    }
-
-    public leagueId(leagueId: string): this {
-        this.payload.leagueId = leagueId;
-        return this;
+        this.payload.method = 'GET';
     }
 
     public async exec(): Promise<LeagueListInterface> {
-        if (this.payload.queue && !this.payload.tier) {
-            throw new Error('[galeforce]: .queue() must be chained with .tier().');
+        if (this.payload.leagueId) {
+            this.payload.endpoint = ENDPOINTS.TFT_LEAGUE.LEAGUE_ID;
+        } else if (this.payload.tier) {
+            switch (this.payload.tier) {
+            case Tier.CHALLENGER:
+                this.payload.endpoint = ENDPOINTS.TFT_LEAGUE.CHALLENGER_LEAGUE;
+                break;
+            case Tier.GRANDMASTER:
+                this.payload.endpoint = ENDPOINTS.TFT_LEAGUE.GRANDMASTER_LEAGUE;
+                break;
+            case Tier.MASTER:
+                this.payload.endpoint = ENDPOINTS.TFT_LEAGUE.MASTER_LEAGUE;
+                break;
+            default:
+                throw new Error('[galeforce]: .tier() must be CHALLENGER, GRANDMASTER, or MASTER.');
+            }
+        } else {
+            throw new Error('[galeforce]: Not enough parameters provided to select API endpoint.');
         }
-        return this.run<LeagueListInterface>();
+
+        return super.exec();
     }
 }
-
-export default GetTFTLeagueList;
