@@ -1,7 +1,0 @@
-riot-api:
-  key: RIOT-API-KEY # (string) Your Riot API key from https://developer.riotgames.com
-rate-limit: # key <secs>: value <number of requests>. Requires a cache to be configured.
-  prefix: riotapi-ratelimit- # The prefix for the Riot API rate limit keys in the cache.
-  intervals:
-    120: 100
-    1: 20
