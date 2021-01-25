@@ -5,9 +5,8 @@ import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TakesPUUID, TakesRegion } from '../mixins';
 
 const BaseAction = TakesPUUID(
-    TakesRegion<ValorantRegion>(
-        Action,
-    ),
+    TakesRegion({} as ValorantRegion,
+        Action),
 );
 
 export class GetValorantMatchlist extends BaseAction<ValMatchlistInterface> {

@@ -10,11 +10,9 @@ type GetValorantRankedLeaderboardQuery = {
 }
 
 const BaseAction = TakesActId(
-    TakesQuery<GetValorantRankedLeaderboardQuery>(
-        TakesRegion<ValorantRegion>(
-            Action,
-        ),
-    ),
+    TakesQuery({} as GetValorantRankedLeaderboardQuery,
+        TakesRegion({} as ValorantRegion,
+            Action)),
 );
 
 export class GetValorantRankedLeaderboard extends BaseAction<ValLeaderboardInterface> {

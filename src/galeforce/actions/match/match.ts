@@ -6,9 +6,8 @@ import { TakesMatchId, TakesRegion, TakesTournamentCode } from '../mixins';
 
 const BaseAction = TakesMatchId(
     TakesTournamentCode(
-        TakesRegion<LeagueRegion>(
-            Action,
-        ),
+        TakesRegion({} as LeagueRegion,
+            Action),
     ),
 );
 

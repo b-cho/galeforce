@@ -21,6 +21,11 @@ export class Action<R> {
 
     protected SubmoduleMap: SubmoduleMapInterface;
 
+    /**
+     * The payload containing the data (endpoint, request type, parameters, etc.) related to the
+     * associated Action. The type guards associated with setting certain properties of the payload
+     * are checked at runtime and may throw errors when provided invalid values.
+     */
     public payload: Payload;
 
     /**

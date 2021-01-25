@@ -4,7 +4,7 @@ import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { LorLeaderboardInterface } from '../../interfaces/dto';
 import { TakesRegion } from '../mixins';
 
-const BaseAction = TakesRegion<RiotRegion>(Action);
+const BaseAction = TakesRegion({} as RiotRegion, Action);
 
 export class GetLorRankedLeaderboard extends BaseAction<LorLeaderboardInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

@@ -1,5 +1,4 @@
 import { Region } from '../../../riot-api';
-import { Action } from '../action';
 import { Constructor, Executable } from './executable';
 
 /**
@@ -14,9 +13,11 @@ export interface RegionChainable<TRegion extends Region = Region> {
  * A mixin for the `.region()` method.
  * @template TRegion The type of the region. Defaults to `Region`, but should be specified.
  * @template TBase The type of the object inside. Defaults to `typeof Action`.
+ * @param type A dummy parameter to allow for type inference. Use by passing in `<T>{}` or
+ * an expression of that form.
  * @param Base The target class.
  */
-export function TakesRegion<TRegion extends Region = Region, TBase extends Constructor = typeof Action>(Base: TBase) {
+export function TakesRegion<TRegion extends Region, TBase extends Constructor>(type: TRegion, Base: TBase) {
     return class extends Base implements RegionChainable<TRegion> {
         /**
          * Modifies the **region** associated with the Action object it is called from.

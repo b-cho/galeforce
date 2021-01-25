@@ -4,7 +4,7 @@ import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { PlatformDataInterface } from '../../interfaces/dto';
 import { TakesRegion } from '../mixins';
 
-const BaseAction = TakesRegion<LeagueRegion>(Action);
+const BaseAction = TakesRegion({} as LeagueRegion, Action);
 
 export class GetLeaguePlatformData extends BaseAction<PlatformDataInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

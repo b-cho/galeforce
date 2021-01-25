@@ -4,9 +4,8 @@ import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TakesRegion, TakesSummonerId } from '../mixins';
 
 const BaseAction = TakesSummonerId(
-    TakesRegion<LeagueRegion>(
-        Action,
-    ),
+    TakesRegion({} as LeagueRegion,
+        Action),
 );
 
 export class GetThirdPartyCode extends BaseAction<string> {

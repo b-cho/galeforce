@@ -4,7 +4,7 @@ import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { PlatformDataInterface } from '../../interfaces/dto';
 import { TakesRegion } from '../mixins';
 
-const BaseAction = TakesRegion<ValorantRegion>(Action);
+const BaseAction = TakesRegion({} as ValorantRegion, Action);
 
 export class GetValorantPlatformData extends BaseAction<PlatformDataInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

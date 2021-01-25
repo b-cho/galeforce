@@ -113,6 +113,11 @@ const replyValues = {
             all: require('./test-json/v1.val-content.contents.json'),
             locale: require('./test-json/v1.val-content.locale.json'),
         },
+        valMatch: {
+            match: require('./test-json/v1.val-match.match.json'),
+            matchlist: require('./test-json/v1.val-match.matchlist.json'),
+            recent: require('./test-json/v1.val-match.recent-matches.json'),
+        },
         valRanked: {
             leaderboard: require('./test-json/v1.val-ranked.leaderboards.json'),
         },
@@ -270,6 +275,12 @@ const naAPI = nock('https://na.api.riotgames.com')
         .reply(200, replyValues.v1.valContent.all)
     .get('/val/content/v1/contents?locale=ja-JP')
         .reply(200, replyValues.v1.valContent.locale)
+    .get('/val/match/v1/matches/1234')
+        .reply(200, replyValues.v1.valMatch.match)
+    .get('/val/match/v1/matchlists/by-puuid/puuid')
+        .reply(200, replyValues.v1.valMatch.matchlist)
+    .get('/val/match/v1/recent-matches/by-queue/competitive')
+        .reply(200, replyValues.v1.valMatch.recent)
     .get('/val/ranked/v1/leaderboards/by-act/97b6e739-44cc-ffa7-49ad-398ba502ceb0')
         .reply(200, replyValues.v1.valRanked.leaderboard)
     .get('/val/ranked/v1/leaderboards/by-act/actId?size=10&startIndex=5')
@@ -473,15 +484,15 @@ describe('/galeforce/actions', () => {
                         });
                     });
                 });
-                describe('.matchlist()', () => {
+                describe('.list()', () => {
                     describe('.accountId()', () => {
                         it('should return correct JSON for the /lol/match/v4/matchlists/by-account/ Riot API endpoint', () => {
-                            return expect(Galeforce.lol.match.matchlist().region(Galeforce.regions.lol.NORTH_AMERICA).accountId('xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4').exec())
+                            return expect(Galeforce.lol.match.list().region(Galeforce.regions.lol.NORTH_AMERICA).accountId('xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4').exec())
                                 .to.eventually.deep.equal(replyValues.v4.match.matchlistByAccountId);
                         });
                         describe('.query()', () => {
                             it('should return correct JSON for the /lol/match/v4/matchlists/by-account/ Riot API endpoint with query', () => {
-                                return expect(Galeforce.lol.match.matchlist().region(Galeforce.regions.lol.NORTH_AMERICA).accountId('accountId').query({ champion: 498, endIndex: 10 }).exec())
+                                return expect(Galeforce.lol.match.list().region(Galeforce.regions.lol.NORTH_AMERICA).accountId('accountId').query({ champion: 498, endIndex: 10 }).exec())
                                     .to.eventually.deep.equal(replyValues.v4.match.matchlistFiltered);
                             });
                         })
@@ -714,10 +725,10 @@ describe('/galeforce/actions', () => {
                         });
                     });
                 });
-                describe('.matchlist()', () => {
+                describe('.list()', () => {
                     describe('.puuid()', () => {
                         it('should return correct JSON for the /lor/match/v1/matches/by-puuid/{puuid}/ids endpoint', () => {
-                            return expect(Galeforce.lor.match.matchlist().region(Galeforce.regions.riot.AMERICAS).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
+                            return expect(Galeforce.lor.match.list().region(Galeforce.regions.riot.AMERICAS).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
                                 .to.eventually.deep.equal(replyValues.v1.lorMatch.matchlist);
                         });
                     });
@@ -816,14 +827,14 @@ describe('/galeforce/actions', () => {
                         });
                     });
                 });
-                describe('.matchlist()', () => {
+                describe('.list()', () => {
                     describe('.puuid()', () => {
                         it('should return correct JSON for the /tft/match/v1/matches/by-puuid/{puuid}/ids endpoint', () => {
-                            return expect(Galeforce.tft.match.matchlist().region(Galeforce.regions.riot.AMERICAS).puuid('E5oZTZY5yXPsNAAz-tI2G5ImSD19NLnmw7ApUGxGArns2L2XZmjptRpAWR5PfFiNHp4cv4__Oljing').exec())
+                            return expect(Galeforce.tft.match.list().region(Galeforce.regions.riot.AMERICAS).puuid('E5oZTZY5yXPsNAAz-tI2G5ImSD19NLnmw7ApUGxGArns2L2XZmjptRpAWR5PfFiNHp4cv4__Oljing').exec())
                                 .to.eventually.deep.equal(replyValues.v1.tftMatch.matchlist);
                         });
                         it('should return correct JSON for the /tft/match/v1/matches/by-puuid/{puuid}/ids endpoint with query', () => {
-                            return expect(Galeforce.tft.match.matchlist().region(Galeforce.regions.riot.AMERICAS).puuid('puuid').query({count: 5}).exec())
+                            return expect(Galeforce.tft.match.list().region(Galeforce.regions.riot.AMERICAS).puuid('puuid').query({count: 5}).exec())
                                 .to.eventually.deep.equal(replyValues.v1.tftMatch.matchlist);
                         });
                     });
@@ -870,6 +881,26 @@ describe('/galeforce/actions', () => {
                     it('should return correct JSON for the /val/content/v1/contents?locale Riot API endpoint', () => {
                         return expect(Galeforce.val.content().region(Galeforce.regions.val.NORTH_AMERICA).query({locale: 'ja-JP'}).exec())
                             .to.eventually.deep.equal(replyValues.v1.valContent.locale);
+                    });
+                });
+            });
+            describe('.match', () => {
+                describe('.match()', () => {
+                    it('should return correct JSON for the /val/match/v1/matches Riot API endpoint', () => {
+                        return expect(Galeforce.val.match.match().region(Galeforce.regions.val.NORTH_AMERICA).matchId('1234').exec())
+                            .to.eventually.deep.equal(replyValues.v1.valMatch.match);
+                    });
+                });
+                describe('.list()', () => {
+                    it('should return correct JSON for the /val/match/v1/matches Riot API endpoint', () => {
+                        return expect(Galeforce.val.match.list().region(Galeforce.regions.val.NORTH_AMERICA).puuid('puuid').exec())
+                            .to.eventually.deep.equal(replyValues.v1.valMatch.matchlist);
+                    });
+                });
+                describe('.recent()', () => {
+                    it('should return correct JSON for the /val/match/v1/matches Riot API endpoint', () => {
+                        return expect(Galeforce.val.match.recent().region(Galeforce.regions.val.NORTH_AMERICA).queue(Galeforce.queues.val.COMPETITIVE).exec())
+                            .to.eventually.deep.equal(replyValues.v1.valMatch.recent);
                     });
                 });
             });

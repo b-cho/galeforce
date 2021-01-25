@@ -1,4 +1,4 @@
-import { Tier, Division } from '../../../riot-api';
+import { Tier } from '../../../riot-api';
 import { Constructor, Executable } from './executable';
 
 /**

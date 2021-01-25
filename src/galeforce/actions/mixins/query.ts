@@ -1,4 +1,3 @@
-import { Action } from '../action';
 import { Constructor, Executable } from './executable';
 
 /**
@@ -13,9 +12,11 @@ export interface QueryChainable<TQuery extends object = object> {
  * A mixin for the `.query()` method.
  * @template TQuery The type of the request body. Defaults to `object`, but should be specified.
  * @template TBase The type of the object inside. Defaults to `typeof Action`.
+ * @param type A dummy parameter to allow for type inference. Use by passing in `<T>{}` or
+ * an expression of that form.
  * @param Base The target class.
  */
-export function TakesQuery<TQuery extends object = object, TBase extends Constructor = typeof Action>(Base: TBase) {
+export function TakesQuery<TQuery extends object, TBase extends Constructor>(type: TQuery, Base: TBase) {
     return class extends Base implements QueryChainable<TQuery> {
         /**
          * Modifies the **query** associated with the Action object it is called from.

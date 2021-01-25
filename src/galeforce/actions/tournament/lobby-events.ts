@@ -5,9 +5,8 @@ import { LobbyEventInterfaceWrapper } from '../../interfaces/dto';
 import { TakesTournamentCode, TakesRegion } from '../mixins';
 
 const BaseAction = TakesTournamentCode(
-    TakesRegion<LeagueRegion>(
-        Action,
-    ),
+    TakesRegion({} as LeagueRegion,
+        Action),
 );
 
 export class GetLobbyEvents extends BaseAction<LobbyEventInterfaceWrapper> {

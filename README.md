@@ -14,10 +14,13 @@
 
 A customizable, promise-based, and command-oriented TypeScript library for the Riot Games API.
 
+**Documentation** available [here](https://bcho04.github.io/galeforce/) and in the section [below](#documentation).
+
 ## Table of Contents
 - [Galeforce](#galeforce)
   - [Table of Contents](#table-of-contents)
   - [Examples](#examples)
+  - [Documentation](#documentation)
   - [Config structure](#config-structure)
 
 ---
@@ -79,13 +82,19 @@ const matchData = await galeforce.lol.match.match()
 <summary>Get total number of mastery points for a summoner</summary>
 
 ```javascript
-const totalMasteryPoints = (await galeforce.lol.mastery.summoner()
+const totalMasteryPoints = (await galeforce.lol.mastery.list()
     .region(galeforce.regions.lol.NORTH_AMERICA)
     .summonerId(summonerId)
     .exec())
     .reduce((previous, current) => previous + current.championPoints, 0);
 ```
 </details>
+
+---
+
+## Documentation
+
+See [here](https://bcho04.github.io/galeforce/) for further documentation.
 
 ---
 

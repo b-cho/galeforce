@@ -4,11 +4,9 @@ import { ENDPOINTS, ValorantQueue, ValorantRegion } from '../../../riot-api';
 import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TakesQueue, TakesRegion } from '../mixins';
 
-const BaseAction = TakesQueue<ValorantQueue>(
-    TakesRegion<ValorantRegion>(
-        Action,
-    ),
-);
+const BaseAction = TakesQueue({} as ValorantQueue,
+    TakesRegion({} as ValorantRegion,
+        Action));
 
 export class GetValorantRecentMatches extends BaseAction<ValRecentMatchesInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

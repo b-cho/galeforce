@@ -5,9 +5,8 @@ import { CurrentGameInfoInterface } from '../../interfaces/dto';
 import { TakesRegion, TakesSummonerId } from '../mixins';
 
 const BaseAction = TakesSummonerId(
-    TakesRegion<LeagueRegion>(
-        Action,
-    ),
+    TakesRegion({} as LeagueRegion,
+        Action),
 );
 
 export class GetCurrentGameInfo extends BaseAction<CurrentGameInfoInterface> {

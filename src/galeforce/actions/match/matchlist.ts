@@ -15,11 +15,9 @@ type GetMatchlistQuery = {
 }
 
 const BaseAction = TakesAccountId(
-    TakesQuery<GetMatchlistQuery>(
-        TakesRegion<LeagueRegion>(
-            Action,
-        ),
-    ),
+    TakesQuery({} as GetMatchlistQuery,
+        TakesRegion({} as LeagueRegion,
+            Action)),
 );
 
 export class GetMatchlist extends BaseAction<MatchlistInterface> {

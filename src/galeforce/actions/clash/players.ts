@@ -5,9 +5,8 @@ import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TakesSummonerId, TakesRegion } from '../mixins';
 
 const BaseAction = TakesSummonerId(
-    TakesRegion<LeagueRegion>(
-        Action,
-    ),
+    TakesRegion({} as LeagueRegion,
+        Action),
 );
 
 export class GetClashPlayers extends BaseAction<PlayerInterface[]> {

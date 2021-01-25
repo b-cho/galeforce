@@ -8,9 +8,8 @@ import { TakesTier, TakesRegion, TakesLeagueId } from '../mixins';
 
 const BaseAction = TakesTier(
     TakesLeagueId(
-        TakesRegion<LeagueRegion>(
-            Action,
-        ),
+        TakesRegion({} as LeagueRegion,
+            Action),
     ),
 );
 

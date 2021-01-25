@@ -70,7 +70,7 @@ interface GaleforceInterface {
         match: {
             match: () => GetMatch;
             timeline: () => GetTimeline;
-            matchlist: () => GetMatchlist;
+            list: () => GetMatchlist;
             tournament: () => GetTournamentMatches;
         };
         platform: {
@@ -108,7 +108,7 @@ interface GaleforceInterface {
     lor: {
         match: {
             match: () => GetLorMatch;
-            matchlist: () => GetLorMatchlist;
+            list: () => GetLorMatchlist;
         };
         ranked: {
             leaderboard: () => GetLorRankedLeaderboard;
@@ -122,7 +122,7 @@ interface GaleforceInterface {
         };
         match: {
             match: () => GetTFTMatch;
-            matchlist: () => GetTFTMatchlist;
+            list: () => GetTFTMatchlist;
         };
         summoner: () => GetTFTSummoner;
     };
@@ -135,7 +135,7 @@ interface GaleforceInterface {
         content: () => GetValorantContent;
         match: {
             match: () => GetValorantMatch;
-            matchlist: () => GetValorantMatchlist;
+            list: () => GetValorantMatchlist;
             recent: () => GetValorantRecentMatches;
         };
         ranked: {
@@ -263,7 +263,7 @@ export default class Galeforce implements GaleforceInterface {
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/match/v4/matchlists/by-account/{encryptedAccountId}`
              */
-            matchlist: (): GetMatchlist => new GetMatchlist(this.SubmoduleMap),
+            list: (): GetMatchlist => new GetMatchlist(this.SubmoduleMap),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/match/v4/matches/{matchId}/by-tournament-code/{tournamentCode}`
@@ -415,7 +415,7 @@ export default class Galeforce implements GaleforceInterface {
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lor/match/v1/matches/by-puuid/{puuid}/ids`
              */
-            matchlist: (): GetLorMatchlist => new GetLorMatchlist(this.SubmoduleMap),
+            list: (): GetLorMatchlist => new GetLorMatchlist(this.SubmoduleMap),
         },
         ranked: {
             /**
@@ -467,7 +467,7 @@ export default class Galeforce implements GaleforceInterface {
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lor/ranked/v1/leaderboards`
              */
-            matchlist: (): GetTFTMatchlist => new GetTFTMatchlist(this.SubmoduleMap),
+            list: (): GetTFTMatchlist => new GetTFTMatchlist(this.SubmoduleMap),
         },
         /**
          * Action constructor corresponding to the following endpoints:
@@ -500,7 +500,7 @@ export default class Galeforce implements GaleforceInterface {
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/val/match/v1/matchlists/by-puuid/{puuid}`
              */
-            matchlist: (): GetValorantMatchlist => new GetValorantMatchlist(this.SubmoduleMap),
+            list: (): GetValorantMatchlist => new GetValorantMatchlist(this.SubmoduleMap),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/val/match/v1/recent-matches/by-queue/{queue}`

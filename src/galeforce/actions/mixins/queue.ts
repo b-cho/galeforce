@@ -1,5 +1,4 @@
 import { Queue } from '../../../riot-api';
-import { Action } from '../action';
 import { Constructor, Executable } from './executable';
 
 /**
@@ -7,16 +6,18 @@ import { Constructor, Executable } from './executable';
  * @template TQueue The type of the queue. Defaults to `Queue`, but should be specified.
  */
 export interface QueueChainable<TQueue extends Queue = Queue> {
-    queue?: <K extends QueueChainable<TQueue> & Executable>(this: K, region: TQueue) => Omit<K, 'queue'>;
+    queue?: <K extends QueueChainable<TQueue> & Executable>(this: K, queue: TQueue) => Omit<K, 'queue'>;
 }
 
 /**
  * A mixin for the `.queue()` method.
  * @template TQueue The type of the queue. Defaults to `Queue`, but should be specified.
  * @template TBase The type of the object inside. Defaults to `typeof Action`.
+ * @param type A dummy parameter to allow for type inference. Use by passing in `<T>{}` or
+ * an expression of that form.
  * @param Base The target class.
  */
-export function TakesQueue<TQueue extends Queue = Queue, TBase extends Constructor = typeof Action>(Base: TBase) {
+export function TakesQueue<TQueue extends Queue, TBase extends Constructor>(type: TQueue, Base: TBase) {
     return class extends Base implements QueueChainable<TQueue> {
         /**
          * Modifies the **queue** associated with the Action object it is called from.

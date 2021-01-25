@@ -4,7 +4,7 @@ import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { PlatformDataInterface } from '../../interfaces/dto';
 import { TakesRegion } from '../mixins';
 
-const BaseAction = TakesRegion<RiotRegion>(Action);
+const BaseAction = TakesRegion({} as RiotRegion, Action);
 
 export class GetLorPlatformData extends BaseAction<PlatformDataInterface> {
     constructor(SubmoduleMap: SubmoduleMapInterface) {

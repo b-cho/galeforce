@@ -4,9 +4,8 @@ import { SubmoduleMapInterface } from '../../interfaces/submodule-map';
 import { TakesPUUID, TakesRegion } from '../mixins';
 
 const BaseAction = TakesPUUID(
-    TakesRegion<RiotRegion>(
-        Action,
-    ),
+    TakesRegion({} as RiotRegion,
+        Action),
 );
 
 export class GetLorMatchlist extends BaseAction<string[]> {
