@@ -73,7 +73,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol">&lt;</span><a href="../enums/internals_riot_api.leaguequeue.html" class="tsd-signature-type">LeagueQueue</a><span class="tsd-signature-symbol">, </span><a href="internal_actions.action.html" class="tsd-signature-type">Action</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><a href="internal_actions.action.html" class="tsd-signature-type">Action</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/internal_interfaces.leaguelistinterface.html" class="tsd-signature-type">LeagueListInterface</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">&gt;</span>
+						<span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol">&lt;</span><a href="../enums/internals_riot_api.leaguequeue.html" class="tsd-signature-type">LeagueQueue</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol"> &amp; </span><a href="internal_actions.action.html" class="tsd-signature-type">Action</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol"> &amp; </span><a href="internal_actions.action.html" class="tsd-signature-type">Action</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol"> &amp; </span><a href="internal_actions.action.html" class="tsd-signature-type">Action</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol">&lt;</span><a href="../enums/internals_riot_api.leagueregion.html" class="tsd-signature-type">LeagueRegion</a><span class="tsd-signature-symbol">, </span><a href="internal_actions.action.html" class="tsd-signature-type">Action</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><a href="internal_actions.action.html" class="tsd-signature-type">Action</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/internal_interfaces.leaguelistinterface.html" class="tsd-signature-type">LeagueListInterface</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">GetLeagueList</span>
@@ -86,6 +86,9 @@
 				<h3>Implements</h3>
 				<ul class="tsd-hierarchy">
 					<li><a href="../interfaces/internal_actions.queuechainable.html" class="tsd-signature-type">QueueChainable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TQueue</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li><a href="../interfaces/internal_actions.tierchainable.html" class="tsd-signature-type">TierChainable</a></li>
+					<li><a href="../interfaces/internal_actions.leagueidchainable.html" class="tsd-signature-type">LeagueIdChainable</a></li>
+					<li><a href="../interfaces/internal_actions.regionchainable.html" class="tsd-signature-type">RegionChainable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TRegion</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -108,7 +111,10 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="internal_actions.getleaguelist.html#exec" class="tsd-kind-icon">exec</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="internal_actions.getleaguelist.html#leagueid" class="tsd-kind-icon">league<wbr>Id</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="internal_actions.getleaguelist.html#queue" class="tsd-kind-icon">queue</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="internal_actions.getleaguelist.html#region" class="tsd-kind-icon">region</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="internal_actions.getleaguelist.html#tier" class="tsd-kind-icon">tier</a></li>
 							</ul>
 						</section>
 					</div>
@@ -127,7 +133,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="internal_actions.action.html">Action</a>.<a href="internal_actions.action.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/364fef2/src/galeforce/actions/league/leagues.ts#L16">src/galeforce/actions/league/leagues.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/8e28fbe/src/galeforce/actions/league/leagues.ts#L19">src/galeforce/actions/league/leagues.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -150,9 +156,16 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="internal_actions.action.html">Action</a>.<a href="internal_actions.action.html#payload">payload</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/364fef2/src/galeforce/actions/action.ts#L24">src/galeforce/actions/action.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/8e28fbe/src/galeforce/actions/action.ts#L29">src/galeforce/actions/action.ts:29</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The payload containing the data (endpoint, request type, parameters, etc.) related to the
+								associated Action. The type guards associated with setting certain properties of the payload
+							are checked at runtime and may throw errors when provided invalid values.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -168,10 +181,51 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="internal_actions.action.html">Action</a>.<a href="internal_actions.action.html#exec">exec</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/364fef2/src/galeforce/actions/league/leagues.ts#L23">src/galeforce/actions/league/leagues.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/8e28fbe/src/galeforce/actions/league/leagues.ts#L26">src/galeforce/actions/league/leagues.ts:26</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/internal_interfaces.leaguelistinterface.html" class="tsd-signature-type">LeagueListInterface</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+					<a name="leagueid" class="tsd-anchor"></a>
+					<h3>league<wbr>Id</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">league<wbr>Id&lt;K&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, leagueId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"leagueId"</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="internal_actions.getleaguelist.html">GetLeagueList</a>.<a href="internal_actions.getleaguelist.html#leagueid">leagueId</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/8e28fbe/src/galeforce/actions/mixins/league-id.ts#L21">src/galeforce/actions/mixins/league-id.ts:21</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Modifies the <strong>leagueId</strong> associated with the Action object it is called from.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>K<span class="tsd-signature-symbol">: </span><a href="../interfaces/internal_actions.leagueidchainable.html" class="tsd-signature-type">LeagueIdChainable</a><span class="tsd-signature-symbol"> &amp; </span><a href="../interfaces/internal_actions.executable.html" class="tsd-signature-type">Executable</a></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <span class="tsd-signature-type">K</span></h5>
+								</li>
+								<li>
+									<h5>leagueId: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The league ID to update the calling Action object with.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"leagueId"</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -186,7 +240,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="internal_actions.getleagueentries.html">GetLeagueEntries</a>.<a href="internal_actions.getleagueentries.html#queue">queue</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/364fef2/src/galeforce/actions/mixins/queue.ts#L29">src/galeforce/actions/mixins/queue.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/8e28fbe/src/galeforce/actions/mixins/queue.ts#L30">src/galeforce/actions/mixins/queue.ts:30</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -221,6 +275,104 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"queue"</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+					<a name="region" class="tsd-anchor"></a>
+					<h3>region</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">region&lt;K&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, region<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TRegion</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"region"</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="internal_actions.getmatch.html">GetMatch</a>.<a href="internal_actions.getmatch.html#region">region</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/8e28fbe/src/galeforce/actions/mixins/region.ts#L30">src/galeforce/actions/mixins/region.ts:30</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Modifies the <strong>region</strong> associated with the Action object it is called from.
+										Note that associated runtime type checks are performed to ensure that
+									the provided region matches one of the expected API regions.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>Will throw an error if an invalid region is provided or the provided
+										region fails the runtime type check.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>K<span class="tsd-signature-symbol">: </span><a href="../interfaces/internal_actions.regionchainable.html" class="tsd-signature-type">RegionChainable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TRegion</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><a href="../interfaces/internal_actions.executable.html" class="tsd-signature-type">Executable</a></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <span class="tsd-signature-type">K</span></h5>
+								</li>
+								<li>
+									<h5>region: <span class="tsd-signature-type">TRegion</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The region to update the calling Action object with.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"region"</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+					<a name="tier" class="tsd-anchor"></a>
+					<h3>tier</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">tier&lt;K&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, tier<span class="tsd-signature-symbol">: </span><a href="../enums/internals_riot_api.tier.html" class="tsd-signature-type">Tier</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"tier"</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="internal_actions.getleagueentries.html">GetLeagueEntries</a>.<a href="internal_actions.getleagueentries.html#tier">tier</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/8e28fbe/src/galeforce/actions/mixins/tier.ts#L26">src/galeforce/actions/mixins/tier.ts:26</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Modifies the <strong>tier</strong> associated with the Action object it is called from.
+										Note that associated runtime type checks are performed to ensure that
+									the provided tier matches one of the expected queues for the corresponding game.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>Will throw an error if an invalid tier is provided or the provided
+										tier fails the runtime type check.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>K<span class="tsd-signature-symbol">: </span><a href="../interfaces/internal_actions.tierchainable.html" class="tsd-signature-type">TierChainable</a><span class="tsd-signature-symbol"> &amp; </span><a href="../interfaces/internal_actions.executable.html" class="tsd-signature-type">Executable</a></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <span class="tsd-signature-type">K</span></h5>
+								</li>
+								<li>
+									<h5>tier: <a href="../enums/internals_riot_api.tier.html" class="tsd-signature-type">Tier</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The tier to update the calling Action object with.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"tier"</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -269,7 +421,16 @@
 								<a href="internal_actions.getleaguelist.html#exec" class="tsd-kind-icon">exec</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="internal_actions.getleaguelist.html#leagueid" class="tsd-kind-icon">league<wbr>Id</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 								<a href="internal_actions.getleaguelist.html#queue" class="tsd-kind-icon">queue</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="internal_actions.getleaguelist.html#region" class="tsd-kind-icon">region</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="internal_actions.getleaguelist.html#tier" class="tsd-kind-icon">tier</a>
 							</li>
 						</ul>
 					</li>

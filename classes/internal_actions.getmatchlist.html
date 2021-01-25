@@ -73,7 +73,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol"> &amp; </span><a href="internal_actions.action.html" class="tsd-signature-type">Action</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/internal_actions.html#getmatchlistquery" class="tsd-signature-type">GetMatchlistQuery</a><span class="tsd-signature-symbol">, </span><a href="internal_actions.action.html" class="tsd-signature-type">Action</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><a href="internal_actions.action.html" class="tsd-signature-type">Action</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/internal_interfaces.matchlistinterface.html" class="tsd-signature-type">MatchlistInterface</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">&gt;</span>
+						<span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol"> &amp; </span><a href="internal_actions.action.html" class="tsd-signature-type">Action</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/internal_actions.html#getmatchlistquery" class="tsd-signature-type">GetMatchlistQuery</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol"> &amp; </span><a href="internal_actions.action.html" class="tsd-signature-type">Action</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">(Anonymous class)</span><span class="tsd-signature-symbol">&lt;</span><a href="../enums/internals_riot_api.leagueregion.html" class="tsd-signature-type">LeagueRegion</a><span class="tsd-signature-symbol">, </span><a href="internal_actions.action.html" class="tsd-signature-type">Action</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><a href="internal_actions.action.html" class="tsd-signature-type">Action</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/internal_interfaces.matchlistinterface.html" class="tsd-signature-type">MatchlistInterface</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">GetMatchlist</span>
@@ -87,6 +87,7 @@
 				<ul class="tsd-hierarchy">
 					<li><a href="../interfaces/internal_actions.accountidchainable.html" class="tsd-signature-type">AccountIdChainable</a></li>
 					<li><a href="../interfaces/internal_actions.querychainable.html" class="tsd-signature-type">QueryChainable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TQuery</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li><a href="../interfaces/internal_actions.regionchainable.html" class="tsd-signature-type">RegionChainable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TRegion</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -111,6 +112,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="internal_actions.getmatchlist.html#accountid" class="tsd-kind-icon">account<wbr>Id</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="internal_actions.getmatchlist.html#exec" class="tsd-kind-icon">exec</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="internal_actions.getmatchlist.html#query" class="tsd-kind-icon">query</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="internal_actions.getmatchlist.html#region" class="tsd-kind-icon">region</a></li>
 							</ul>
 						</section>
 					</div>
@@ -129,7 +131,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="internal_actions.action.html">Action</a>.<a href="internal_actions.action.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/364fef2/src/galeforce/actions/match/matchlist.ts#L22">src/galeforce/actions/match/matchlist.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/8e28fbe/src/galeforce/actions/match/matchlist.ts#L23">src/galeforce/actions/match/matchlist.ts:23</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -152,9 +154,16 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="internal_actions.action.html">Action</a>.<a href="internal_actions.action.html#payload">payload</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/364fef2/src/galeforce/actions/action.ts#L24">src/galeforce/actions/action.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/8e28fbe/src/galeforce/actions/action.ts#L29">src/galeforce/actions/action.ts:29</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The payload containing the data (endpoint, request type, parameters, etc.) related to the
+								associated Action. The type guards associated with setting certain properties of the payload
+							are checked at runtime and may throw errors when provided invalid values.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
@@ -170,7 +179,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="internal_actions.getsummoner.html">GetSummoner</a>.<a href="internal_actions.getsummoner.html#accountid">accountId</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/364fef2/src/galeforce/actions/mixins/account-id.ts#L25">src/galeforce/actions/mixins/account-id.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/8e28fbe/src/galeforce/actions/mixins/account-id.ts#L25">src/galeforce/actions/mixins/account-id.ts:25</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -219,7 +228,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="internal_actions.action.html">Action</a>.<a href="internal_actions.action.html#exec">exec</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/364fef2/src/galeforce/actions/action.ts#L46">src/galeforce/actions/action.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/8e28fbe/src/galeforce/actions/action.ts#L51">src/galeforce/actions/action.ts:51</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -250,7 +259,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="internal_actions.getmatchlist.html">GetMatchlist</a>.<a href="internal_actions.getmatchlist.html#query">query</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/364fef2/src/galeforce/actions/mixins/query.ts#L24">src/galeforce/actions/mixins/query.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/8e28fbe/src/galeforce/actions/mixins/query.ts#L25">src/galeforce/actions/mixins/query.ts:25</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -277,6 +286,55 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"query"</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+					<a name="region" class="tsd-anchor"></a>
+					<h3>region</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">region&lt;K&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, region<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TRegion</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"region"</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="internal_actions.getmatch.html">GetMatch</a>.<a href="internal_actions.getmatch.html#region">region</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/8e28fbe/src/galeforce/actions/mixins/region.ts#L30">src/galeforce/actions/mixins/region.ts:30</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Modifies the <strong>region</strong> associated with the Action object it is called from.
+										Note that associated runtime type checks are performed to ensure that
+									the provided region matches one of the expected API regions.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>Will throw an error if an invalid region is provided or the provided
+										region fails the runtime type check.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>K<span class="tsd-signature-symbol">: </span><a href="../interfaces/internal_actions.regionchainable.html" class="tsd-signature-type">RegionChainable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TRegion</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><a href="../interfaces/internal_actions.executable.html" class="tsd-signature-type">Executable</a></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <span class="tsd-signature-type">K</span></h5>
+								</li>
+								<li>
+									<h5>region: <span class="tsd-signature-type">TRegion</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The region to update the calling Action object with.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"region"</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -329,6 +387,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 								<a href="internal_actions.getmatchlist.html#query" class="tsd-kind-icon">query</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="internal_actions.getmatchlist.html#region" class="tsd-kind-icon">region</a>
 							</li>
 						</ul>
 					</li>
