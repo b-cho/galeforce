@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Action | galeforce - v0.1.1</title>
-	<meta name="description" content="Documentation for galeforce - v0.1.1">
+	<title>Action | galeforce - v0.2.0</title>
+	<meta name="description" content="Documentation for galeforce - v0.2.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">galeforce - v0.1.1</a>
+					<a href="../index.html" class="title">galeforce - v0.2.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -62,7 +62,7 @@
 					<a href="internal_actions.action.html">Action</a>
 				</li>
 			</ul>
-			<h1>Class Action&lt;R&gt;</h1>
+			<h1>Class Action&lt;TResult&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -71,18 +71,13 @@
 		<div class="col-8 col-content">
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
-					<dl class="tsd-comment-tags">
-						<dt>template</dt>
-						<dd><p>The type/enum corresponding to the valid endpoint regions.</p>
-						</dd>
-					</dl>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-type-parameters">
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
-						<h4>R</h4>
+						<h4>TResult</h4>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>The return type of the Action.</p>
@@ -96,6 +91,17 @@
 				<ul class="tsd-hierarchy">
 					<li>
 						<span class="target">Action</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<a href="internal_actions.getdatadragonversions.html" class="tsd-signature-type">GetDataDragonVersions</a>
+							</li>
+							<li>
+								<a href="internal_actions.getdatadragonlanguages.html" class="tsd-signature-type">GetDataDragonLanguages</a>
+							</li>
+							<li>
+								<a href="internal_actions.getdatadragonscoreboardart.html" class="tsd-signature-type">GetDataDragonScoreboardArt</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -130,13 +136,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Action<span class="tsd-signature-symbol">(</span>SubmoduleMap<span class="tsd-signature-symbol">: </span><a href="../interfaces/internal_interfaces.submodulemapinterface.html" class="tsd-signature-type">SubmoduleMapInterface</a>, payload<span class="tsd-signature-symbol">?: </span><a href="../modules/internal_actions.html#payload" class="tsd-signature-type">Payload</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.action.html" class="tsd-signature-type">Action</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Action<span class="tsd-signature-symbol">(</span>submodules<span class="tsd-signature-symbol">: </span><a href="../interfaces/internal_interfaces.submodulemap.html" class="tsd-signature-type">SubmoduleMap</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.action.html" class="tsd-signature-type">Action</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/8e28fbe/src/galeforce/actions/action.ts#L29">src/galeforce/actions/action.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/galeforce/actions/action.ts#L29">src/galeforce/actions/action.ts:29</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -144,13 +150,10 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>SubmoduleMap: <a href="../interfaces/internal_interfaces.submodulemapinterface.html" class="tsd-signature-type">SubmoduleMapInterface</a></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> payload: <a href="../modules/internal_actions.html#payload" class="tsd-signature-type">Payload</a></h5>
+									<h5>submodules: <a href="../interfaces/internal_interfaces.submodulemap.html" class="tsd-signature-type">SubmoduleMap</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>The mutable payload object that is passed to <a href="internals_riot_api.request.html">Request</a> when <code>.exec()</code> is called.</p>
+											<p>The reference to the submodules (<a href="../interfaces/internal_interfaces.submodulemap.html#riotapi">RiotAPI</a>, <a href="internal_caches.cache.html">Cache</a>). Passed into the action.</p>
 										</div>
 									</div>
 								</li>
@@ -168,7 +171,7 @@
 					<div class="tsd-signature tsd-kind-icon">payload<span class="tsd-signature-symbol">:</span> <a href="../modules/internal_actions.html#payload" class="tsd-signature-type">Payload</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/8e28fbe/src/galeforce/actions/action.ts#L29">src/galeforce/actions/action.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/galeforce/actions/action.ts#L29">src/galeforce/actions/action.ts:29</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -186,13 +189,13 @@
 					<a name="exec" class="tsd-anchor"></a>
 					<h3>exec</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">exec<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">exec<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TResult</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/8e28fbe/src/galeforce/actions/action.ts#L51">src/galeforce/actions/action.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/galeforce/actions/action.ts#L51">src/galeforce/actions/action.ts:51</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -208,7 +211,7 @@
 									</dd>
 								</dl>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TResult</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>

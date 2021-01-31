@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>galeforce - v0.1.1</title>
-	<meta name="description" content="Documentation for galeforce - v0.1.1">
+	<title>galeforce - v0.2.0</title>
+	<meta name="description" content="Documentation for galeforce - v0.2.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 </head>
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">galeforce - v0.1.1</a>
+					<a href="index.html" class="title">galeforce - v0.2.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1>galeforce - v0.1.1</h1>
+			<h1>galeforce - v0.2.0</h1>
 		</div>
 	</div>
 </header>
@@ -68,7 +68,7 @@
 					<h1>Galeforce</h1>
 				</a>
 				<hr>
-				<p><a href="https://www.npmjs.com/package/galeforce"><img src="https://nodei.co/npm/galeforce.png?mini=true" alt="NPM"></a></p>
+				<p><a href="https://www.npmjs.com/package/galeforce"><img src="https://nodei.co/npm/galeforce.png?compact=true" alt="NPM"></a></p>
 				<p><a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
 					<img src="https://img.shields.io/npm/dt/galeforce" alt="npm">
 					<a href="https://github.com/bcho04/galeforce/workflows/Node%20CI/badge.svg"><img src="https://github.com/bcho04/galeforce/workflows/Node%20CI/badge.svg" alt="Node CI"></a>
@@ -77,16 +77,30 @@
 					<a href="https://codecov.io/gh/bcho04/galeforce"><img src="https://codecov.io/gh/bcho04/galeforce/branch/master/graph/badge.svg?token=7BJHF5KVX9" alt="codecov"></a>
 					<a href="https://david-dm.org/bcho04/galeforce"><img src="https://david-dm.org/bcho04/galeforce.svg" alt="David"></a>
 				<a href="https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat"><img src="https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat" alt="GitHub last commit"></a> </p>
-				<p>A customizable, promise-based, and command-oriented TypeScript library for the Riot Games API.</p>
+				<p>A customizable, promise-based, and command-oriented TypeScript library and fluent interface for the Riot Games API.</p>
+				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
+					<h2>Features</h2>
+				</a>
+				<ul>
+					<li><strong>Full API support</strong> for all Riot games and Data Dragon<ul>
+							<li>Environment variable config integration for API keys and other properties on both the desktop and platforms including Heroku.</li>
+						</ul>
+					</li>
+					<li><strong>Automatic rate limiting</strong> using Redis</li>
+					<li><strong>Fully-typed DTOs and parameters</strong> for <em>all</em> endpoints</li>
+					<li><strong>Fluent interface</strong> for seamless method chaining</li>
+					<li><strong>Built-in, customizable debugging</strong> using <code>debug</code></li>
+				</ul>
 				<p><strong>Documentation</strong> available <a href="https://bcho04.github.io/galeforce/">here</a> and in the section <a href="#documentation">below</a>.</p>
 				<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
 					<h2>Table of Contents</h2>
 				</a>
 				<ul>
 					<li><a href="#galeforce">Galeforce</a><ul>
+							<li><a href="#features">Features</a></li>
 							<li><a href="#table-of-contents">Table of Contents</a></li>
 							<li><a href="#examples">Examples</a></li>
-							<li><a href="#documentation">Documentation</a></li>
+							<li><a href="#guide">Guide</a></li>
 							<li><a href="#config-structure">Config structure</a></li>
 						</ul>
 					</li>
@@ -100,56 +114,89 @@
 
 <span class="hljs-keyword">const</span> galeforce = <span class="hljs-keyword">new</span> GaleforceModule(<span class="hljs-comment">/* config */</span>);</code></pre>
 				<p>to use the project. Or, if you&#39;re using <strong>CommonJS</strong> and <code>require()</code>, add Galeforce to your project like this:</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> GaleforceModule = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;galeforce&#x27;</span>).default;
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> GaleforceModule = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;galeforce&#x27;</span>);
 
 <span class="hljs-keyword">const</span> galeforce = <span class="hljs-keyword">new</span> GaleforceModule(<span class="hljs-comment">/* config */</span>);</code></pre>
 				<details>
 					<summary>Get summoner data for a list of summoners</summary>
 					<pre><code class="language-javascript"><span class="hljs-keyword">const</span> summoners = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>];
 <span class="hljs-keyword">const</span> promises = summoners.map(<span class="hljs-function"><span class="hljs-params">summoner</span> =&gt;</span> galeforce.lol.summoner()
-    .region(galeforce.regions.lol.NORTH_AMERICA)
-    .name(summoner)
-    .exec()
+  .region(galeforce.regions.lol.NORTH_AMERICA)
+  .name(summoner)
+  .exec()
 ); <span class="hljs-comment">// list of request promises</span>
 <span class="hljs-built_in">Promise</span>.all(promises).then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(result); <span class="hljs-comment">// [{ name: &#x27;a&#x27;, ... }, ...]</span>
+  <span class="hljs-built_in">console</span>.log(result); <span class="hljs-comment">// [{ name: &#x27;a&#x27;, ... }, ...]</span>
 });</code></pre>
 				</details>
 				<details>
 					<summary>Get list of recent matchId values for a given accountId</summary>
-					<pre><code class="language-javascript"><span class="hljs-keyword">const</span> matchIds = (<span class="hljs-keyword">await</span> galeforce.lol.match.matchlist()
-    .region(galeforce.regions.lol.NORTH_AMERICA)
-    .accountId(accountId)
-    .exec())
-    .matches.map(<span class="hljs-function"><span class="hljs-params">matchInfo</span> =&gt;</span> matchInfo.gameId);</code></pre>
+					<pre><code class="language-javascript"><span class="hljs-keyword">const</span> matchIds = (<span class="hljs-keyword">await</span> galeforce.lol.match.list()
+  .region(galeforce.regions.lol.NORTH_AMERICA)
+  .accountId(accountId)
+  .exec())
+  .matches.map(<span class="hljs-function"><span class="hljs-params">matchInfo</span> =&gt;</span> matchInfo.gameId);</code></pre>
 				</details>
 				<details>
 					<summary>Get match data using await</summary>
 					<pre><code class="language-javascript"><span class="hljs-keyword">const</span> matchData = <span class="hljs-keyword">await</span> galeforce.lol.match.match()
-    .region(galeforce.regions.lol.NORTH_AMERICA)
-    .matchId(matchId)
-    .exec();</code></pre>
+  .region(galeforce.regions.lol.NORTH_AMERICA)
+  .matchId(matchId)
+  .exec();</code></pre>
 				</details>
 				<details>
 					<summary>Get total number of mastery points for a summoner</summary>
 					<pre><code class="language-javascript"><span class="hljs-keyword">const</span> totalMasteryPoints = (<span class="hljs-keyword">await</span> galeforce.lol.mastery.list()
-    .region(galeforce.regions.lol.NORTH_AMERICA)
-    .summonerId(summonerId)
-    .exec())
-    .reduce(<span class="hljs-function">(<span class="hljs-params">previous, current</span>) =&gt;</span> previous + current.championPoints, <span class="hljs-number">0</span>);</code></pre>
+  .region(galeforce.regions.lol.NORTH_AMERICA)
+  .summonerId(summonerId)
+  .exec())
+  .reduce(<span class="hljs-function">(<span class="hljs-params">previous, current</span>) =&gt;</span> previous + current.championPoints, <span class="hljs-number">0</span>);</code></pre>
 				</details>
 				<hr>
-				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
-					<h2>Documentation</h2>
+				<a href="#guide" id="guide" style="color: inherit; text-decoration: none;">
+					<h2>Guide</h2>
 				</a>
-				<p>See <a href="https://bcho04.github.io/galeforce/">here</a> for further documentation.</p>
+				<p>Each endpoint in the Galeforce library is an instance of an <code>Action</code> containing the following methods:</p>
+				<details>
+					<summary><code>.exec()</code></summary>
+					<blockquote>
+						<p>Executes the <code>Action</code> with the parameters set by methods such as <code>.region()</code>, <code>.summonerId()</code>, etc., returning a <em>Promise</em>.</p>
+						<p><strong>Example</strong></p>
+						<pre><code class="language-javascript"><span class="hljs-comment">/* Gets Valorant platform and status data. */</span>
+galeforce.val.status() <span class="hljs-comment">// Target the /val/status/v1/platform-data endpoint</span>
+  .region(galeforce.regions.val.NORTH_AMERICA) <span class="hljs-comment">// See below for documentation.</span>
+  .exec() <span class="hljs-comment">// Sends a Valorant server status request to the val-status-v1 endpoint</span>
+  .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> { <span class="hljs-comment">// Use the returned data</span>
+    <span class="hljs-comment">/* manipulate status data */</span>
+  });</code></pre>
+					</blockquote>
+				</details>
+				<details>
+					<summary><code>.<em>&ltproperty&gt</em>()</code></summary>
+					<blockquote>
+						<p>Sets the <em>property</em> (<code>region</code>, <code>summonerId</code>, <code>puuid</code>, etc.) in the Action request payload. Different methods are exposed for each endpoint depending on the required path, query, and body parameters.</p>
+						<p><strong>Example</strong></p>
+						<pre><code class="language-javascript"><span class="hljs-comment">/* Gets current game info for a specific summonerId. */</span>
+<span class="hljs-keyword">const</span> currentGameInfo = <span class="hljs-keyword">await</span> galeforce.lol.spectator.active() <span class="hljs-comment">// Target the /lol/spectator/v4/active-games/by-summoner/{summonerId} endpoint</span>
+  .region(galeforce.regions.lol.NORTH_AMERICA) <span class="hljs-comment">// Sets the request region to &#x27;na1&#x27; (i.e., target the NA server)</span>
+  .summonerId(<span class="hljs-string">&#x27;summonerId&#x27;</span>) <span class="hljs-comment">// Sets the request summonerId to &#x27;summonerId&#x27;</span>
+  .exec() <span class="hljs-comment">// See .exec() above.</span></code></pre>
+						<p><code>.&lt;property&gt;()</code> methods may only be called once and are removed from the Action after being used.</p>
+						<p><strong>Example</strong></p>
+						<pre><code class="language-javascript"><span class="hljs-comment">/* Gets current game info for a specific summonerId. */</span>
+<span class="hljs-keyword">const</span> currentGameInfo = <span class="hljs-keyword">await</span> galeforce.lol.spectator.active() <span class="hljs-comment">// Target the /lol/spectator/v4/active-games/by-summoner/{summonerId} endpoint</span>
+  .region(galeforce.regions.lol.NORTH_AMERICA) <span class="hljs-comment">// Sets the request region to &#x27;na1&#x27; (i.e., target the NA server)</span>
+  .region(galeforce.regions.lol.KOREA) <span class="hljs-comment">// galeforce.lol.spectator.active(...).region(...).region is not a function</span></code></pre>
+					</blockquote>
+				</details>
+				<p>See <a href="https://bcho04.github.io/galeforce/">here</a> for further documentation and a complete list of methods.</p>
 				<hr>
 				<a href="#config-structure" id="config-structure" style="color: inherit; text-decoration: none;">
 					<h2>Config structure</h2>
 				</a>
 				<p>When initializing Galeforce, a config object (JSON) or a path to a YAML file must be passed to the <code>GaleforceModule()</code> constructor as an argument:</p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> galeforce = <span class="hljs-keyword">new</span> GaleforceModule(<span class="hljs-comment">/* config file path or object */</span>);</code></pre>
-				<p>Such an object must have the following structure:</p>
+				<p>Template string-like values (such as <code>${RIOT_KEY}</code>) will be evaluated using environment variables in <code>process.env</code>. Such an object must have the following structure:</p>
 				<pre><code class="language-yaml"><span class="hljs-attr">riot-api:</span> <span class="hljs-comment"># REQUIRED</span>
   <span class="hljs-attr">key:</span> <span class="hljs-string">${RIOT_KEY}</span> <span class="hljs-comment"># (string) Your Riot API key from https://developer.riotgames.com</span>
 <span class="hljs-attr">cache:</span> <span class="hljs-comment"># OPTIONAL</span>
@@ -159,7 +206,8 @@
   <span class="hljs-attr">prefix:</span> <span class="hljs-string">riotapi-ratelimit-</span> <span class="hljs-comment"># The prefix for the Riot API rate limit keys in the cache.</span>
   <span class="hljs-attr">intervals:</span> <span class="hljs-comment"># key &lt;secs&gt;: value &lt;number of requests&gt;. </span>
     <span class="hljs-attr">120:</span> <span class="hljs-number">100</span>
-    <span class="hljs-attr">1:</span> <span class="hljs-number">20</span></code></pre>
+    <span class="hljs-attr">1:</span> <span class="hljs-number">20</span>
+<span class="hljs-attr">debug:</span> [] <span class="hljs-comment"># OPTIONAL, A list containing any of &#x27;action&#x27;, &#x27;payload&#x27;, &#x27;rate-limit&#x27;, &#x27;riot-api&#x27;, &#x27;*&#x27; (all).</span></code></pre>
 				<hr>
 				<p><strong>Disclaimer</strong></p>
 				<p>Galeforce isn&#39;t endorsed by Riot Games and doesn&#39;t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.</p>
