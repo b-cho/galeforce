@@ -10,7 +10,7 @@
 
 import { Cache } from './cache';
 
-export default class NullCache extends Cache {
+export class NullCache extends Cache {
     constructor() {
         super({ prefix: '', intervals: [] });
     }

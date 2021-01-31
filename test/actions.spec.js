@@ -11,7 +11,7 @@ rewiremock('redis').with(redisMock);
 rewiremock(() => require('redis')).with(redisMock);
 rewiremock.enable();
 
-const GaleforceModule = require('../dist').default;
+const GaleforceModule = require('../dist');
 
 const Galeforce = new GaleforceModule({
     'riot-api': {
@@ -302,6 +302,10 @@ const naAPI = nock('https://na.api.riotgames.com')
         .reply(200, replyValues.v1.valStatus.platformData)
 
 const dataDragonAPI = nock('https://ddragon.leagueoflegends.com')
+    .get('/cdn/dragontail-11.2.1.tgz')
+        .reply(200, '11.2.1')
+    .get('/cdn/dragontail-10.10.5.zip')
+        .reply(200, '10.10.5')
     .get('/cdn/languages.json')
         .reply(200, replyValues.ddragon.languages)
     .get('/api/versions.json')
@@ -324,6 +328,8 @@ const dataDragonAPI = nock('https://ddragon.leagueoflegends.com')
         .reply(200, 'splash')
     .get('/cdn/11.2.1/img/champion/Xayah.png')
         .reply(200, 'championIcon')
+    .get('/cdn/11.2.1/img/passive/XayahPassive.png')
+        .reply(200, 'passive')
     .get('/cdn/11.2.1/img/spell/XayahR.png')
         .reply(200, 'spell')
     .get('/cdn/11.2.1/img/item/6671.png')
@@ -994,6 +1000,16 @@ describe('/galeforce/actions', () => {
         });
     });
     describe('.ddragon', () => {
+        describe('.tail()', () => {
+            it('should pull JSON from the appropriate Data Dragon URL', () => {
+                return expect(Galeforce.ddragon.tail().version('11.2.1').exec())
+                    .to.eventually.be.a('string');
+            });
+            it('should pull JSON from the appropriate Data Dragon URL', () => {
+                return expect(Galeforce.ddragon.tail().version('10.10.5').exec())
+                    .to.eventually.be.a('string');
+            });
+        });
         describe('.versions()', () => {
             it('should pull JSON from the appropriate Data Dragon URL', () => {
                 return expect(Galeforce.ddragon.versions().exec())
@@ -1068,10 +1084,18 @@ describe('/galeforce/actions', () => {
                         });
                     });
                 });
-                describe('.version().icon()', () => {
-                    describe('.champion()', () => {
+                describe('.icon()', () => {
+                    describe('.version().champion()', () => {
                         it('should pull image from the appropriate Data Dragon URL', () => {
                             return expect(Galeforce.ddragon.champion.art.icon().version('11.2.1').champion('Xayah').exec())
+                                .to.eventually.be.a('string');
+                        });
+                    });
+                });
+                describe('.passive()', () => {
+                    describe('.version().spell()', () => {
+                        it('should pull image from the appropriate Data Dragon URL', () => {
+                            return expect(Galeforce.ddragon.champion.art.passive().version('11.2.1').spell('XayahPassive').exec())
                                 .to.eventually.be.a('string');
                         });
                     });
@@ -1106,11 +1130,11 @@ describe('/galeforce/actions', () => {
                 });
             });
         });
-        describe('.summonerSpells', () => {
+        describe('.summonerSpell', () => {
             describe('.list()', () => {
                 describe('.version().locale()', () => {
                     it('should pull JSON from the appropriate Data Dragon URL', () => {
-                        return expect(Galeforce.ddragon.summonerSpells.list().version('11.2.1').locale('en_US').exec())
+                        return expect(Galeforce.ddragon.summonerSpell.list().version('11.2.1').locale('en_US').exec())
                             .to.eventually.have.property('data');
                     });
                 });

@@ -8,7 +8,7 @@ import { getConfig, validate } from './galeforce/configs/default';
 import { ConfigInterface } from './galeforce/interfaces/config';
 import { Cache } from './galeforce/caches/cache';
 import { RedisCache } from './galeforce/caches/redis';
-import NullCache from './galeforce/caches/null';
+import { NullCache } from './galeforce/caches/null';
 import SubmoduleMap from './galeforce/interfaces/submodule-map';
 import GetMatch from './galeforce/actions/lol/match/match';
 import GetSummoner from './galeforce/actions/lol/summoner';
@@ -69,152 +69,10 @@ import GetDataDragonProfileIconList from './galeforce/actions/data-dragon/profil
 import GetDataDragonMinimapArt from './galeforce/actions/data-dragon/minimap-art';
 import GetDataDragonSpriteArt from './galeforce/actions/data-dragon/sprite-art';
 import GetDataDragonScoreboardArt from './galeforce/actions/data-dragon/scoreboard-icon-art';
+import GetDataDragonChampionPassiveArt from './galeforce/actions/data-dragon/champion-passive-art';
+import GetDataDragonTail from './galeforce/actions/data-dragon/dragon-tail';
 
-/**
- * Type definitions for the Galeforce module.
- */
-interface GaleforceInterface {
-    lol: {
-        summoner: () => GetSummoner;
-        mastery: {
-            list: () => GetMasteryList;
-            champion: () => GetMasteryByChampion;
-            score: () => GetMasteryScore;
-        };
-        league: {
-            entries: () => GetLeagueEntries;
-            league: () => GetLeagueList;
-        };
-        match: {
-            match: () => GetMatch;
-            timeline: () => GetTimeline;
-            list: () => GetMatchlist;
-            tournament: () => GetTournamentMatches;
-        };
-        platform: {
-            thirdPartyCode: () => GetThirdPartyCode;
-            championRotations: () => GetChampionRotations;
-        };
-        status: () => GetLeaguePlatformData;
-        clash: {
-            players: () => GetClashPlayers;
-            team: () => GetClashTeam;
-            tournament: () => GetClashTournament;
-            upcoming: () => GetUpcomingClashTournaments;
-        };
-        spectator: {
-            active: () => GetCurrentGameInfo;
-            featured: () => GetFeaturedGames;
-        };
-        tournament: {
-            code: {
-                create: () => PostTournamentCodes;
-                get: () => GetTournamentCodes;
-                update: () => PutTournamentCodes;
-            };
-            event: () => GetLobbyEvents;
-            provider: () => PostProviders;
-            tournament: () => PostTournaments;
-        };
-    };
-    riot: {
-        account: {
-            account: () => GetAccount;
-            activeShard: () => GetActiveShard;
-        };
-    };
-    lor: {
-        match: {
-            match: () => GetLorMatch;
-            list: () => GetLorMatchlist;
-        };
-        ranked: {
-            leaderboard: () => GetLorRankedLeaderboard;
-        };
-        status: () => GetLorPlatformData;
-    };
-    tft: {
-        league: {
-            entries: () => GetTFTLeagueEntries;
-            league: () => GetTFTLeagueList;
-        };
-        match: {
-            match: () => GetTFTMatch;
-            list: () => GetTFTMatchlist;
-        };
-        summoner: () => GetTFTSummoner;
-    };
-    val: {
-        content: () => GetValorantContent;
-        match: {
-            match: () => GetValorantMatch;
-            list: () => GetValorantMatchlist;
-            recent: () => GetValorantRecentMatches;
-        };
-        ranked: {
-            leaderboard: () => GetValorantRankedLeaderboard;
-        };
-        status: () => GetValorantPlatformData;
-    };
-    ddragon: {
-        versions: () => GetDataDragonVersions;
-        realm: () => GetDataDragonRegionInfo;
-        languages: () => GetDataDragonLanguages;
-        champion: {
-            list: () => GetDataDragonChampionList;
-            details: () => GetDataDragonChampionJSON;
-            art: {
-                splash: () => GetDataDragonSplashArt;
-                loading: () => GetDataDragonLoadingArt;
-                icon: () => GetDataDragonChampionSquareArt;
-            };
-        };
-        spell: {
-            art: () => GetDataDragonSpellArt;
-        };
-        item: {
-            list: () => GetDataDragonItemList;
-            art: () => GetDataDragonItemArt;
-        };
-        summonerSpells: {
-            list: () => GetDataDragonSummonerSpellList;
-        };
-        profileIcon: {
-            list: () => GetDataDragonProfileIconList;
-            art: () => GetDataDragonProfileIconArt;
-        };
-        minimap: {
-            art: () => GetDataDragonMinimapArt;
-        };
-        sprite: {
-            art: () => GetDataDragonSpriteArt;
-        };
-        scoreboard: {
-            art: {
-                champion: () => GetDataDragonScoreboardArt;
-                items: () => GetDataDragonScoreboardArt;
-                minion: () => GetDataDragonScoreboardArt;
-                score: () => GetDataDragonScoreboardArt;
-                spells: () => GetDataDragonScoreboardArt;
-            };
-        };
-    };
-    regions: {
-        lol: typeof LeagueRegion;
-        val: typeof ValorantRegion;
-        riot: typeof RiotRegion;
-        ddragon: typeof DataDragonRegion;
-    };
-    queues: {
-        lol: typeof LeagueQueue;
-        val: typeof ValorantQueue;
-    };
-    tiers: typeof Tier;
-    divisions: typeof Division;
-    games: typeof Game;
-}
-
-export default class Galeforce implements GaleforceInterface {
+class Galeforce {
     /**
      * The configuration for the module instance. Can only be set
      * in the constructor.
@@ -262,7 +120,7 @@ export default class Galeforce implements GaleforceInterface {
     }
 
     /**
-     * Object containing actions corresponding to the the `/lol` set of endpoints.
+     * Object containing actions corresponding to the `/lol` set of endpoints.
      */
     public lol = {
         /**
@@ -445,11 +303,11 @@ export default class Galeforce implements GaleforceInterface {
     }
 
     /**
-     * Object containing actions corresponding to the the `/riot` set of endpoints.
+     * Object containing actions corresponding to the `/riot` set of endpoints.
      */
     public riot = {
         /**
-         * Object containing actions corresponding to the the `/riot/account` set of endpoints.
+         * Object containing actions corresponding to the `/riot/account` set of endpoints.
          */
         account: {
             /**
@@ -467,11 +325,11 @@ export default class Galeforce implements GaleforceInterface {
     }
 
     /**
-     * Object containing actions corresponding to the the `/lor` set of endpoints.
+     * Object containing actions corresponding to the `/lor` set of endpoints.
      */
     public lor = {
         /**
-         * Object containing actions corresponding to the the `/lor/match` set of endpoints.
+         * Object containing actions corresponding to the `/lor/match` set of endpoints.
          */
         match: {
             /**
@@ -500,11 +358,11 @@ export default class Galeforce implements GaleforceInterface {
     }
 
     /**
-     * Object containing actions corresponding to the the `/tft` set of endpoints.
+     * Object containing actions corresponding to the `/tft` set of endpoints.
      */
     public tft = {
         /**
-         * Object containing actions corresponding to the the `/tft/league` set of endpoints.
+         * Object containing actions corresponding to the `/tft/league` set of endpoints.
          */
         league: {
             /**
@@ -523,7 +381,7 @@ export default class Galeforce implements GaleforceInterface {
             league: (): GetTFTLeagueList => new GetTFTLeagueList(this.submodules),
         },
         /**
-         * Object containing actions corresponding to the the `/tft/match` set of endpoints.
+         * Object containing actions corresponding to the `/tft/match` set of endpoints.
          */
         match: {
             /**
@@ -545,7 +403,7 @@ export default class Galeforce implements GaleforceInterface {
     }
 
     /**
-     * Object containing actions corresponding to the the `/val` set of endpoints.
+     * Object containing actions corresponding to the `/val` set of endpoints.
      */
     public val = {
         /**
@@ -554,7 +412,7 @@ export default class Galeforce implements GaleforceInterface {
          */
         content: (): GetValorantContent => new GetValorantContent(this.submodules),
         /**
-         * Object containing actions corresponding to the the `/val/match` set of endpoints.
+         * Object containing actions corresponding to the `/val/match` set of endpoints.
          * Note that these endpoints require a Valorant-approved **production** key to use.
          * Please visit [here](https://developer.riotgames.com) for more information.
          */
@@ -576,7 +434,7 @@ export default class Galeforce implements GaleforceInterface {
             recent: (): GetValorantRecentMatches => new GetValorantRecentMatches(this.submodules),
         },
         /**
-         * Object containing actions corresponding to the the `/val/ranked` set of endpoints.
+         * Object containing actions corresponding to the `/val/ranked` set of endpoints.
          */
         ranked: {
             /**
@@ -592,45 +450,146 @@ export default class Galeforce implements GaleforceInterface {
         status: (): GetValorantPlatformData => new GetValorantPlatformData(this.submodules),
     }
 
+    /**
+     * Object containing actions corresponding to Data Dragon endpoints.
+     */
     public ddragon = {
+        /**
+         * Action constructor corresponding to the following Data Dragon files:
+         * - (**GET**) `/cdn/dragontail-{version}.tgz`
+         * Swaps to a *.zip* file automatically when fetching data for patch 10.10.5.
+         */
+        tail: (): GetDataDragonTail => new GetDataDragonTail(this.submodules),
+        /**
+         * Action constructor corresponding to the following Data Dragon files:
+         * - (**GET**) `/api/versions.json`
+         */
         versions: (): GetDataDragonVersions => new GetDataDragonVersions(this.submodules),
+        /**
+         * Action constructor corresponding to the following Data Dragon files:
+         * - (**GET**) `/realms/{region}.json`
+         */
         realm: (): GetDataDragonRegionInfo => new GetDataDragonRegionInfo(this.submodules),
+        /**
+         * Action constructor corresponding to the following Data Dragon files:
+         * - (**GET**) `/cdn/languages.json`
+         */
         languages: (): GetDataDragonLanguages => new GetDataDragonLanguages(this.submodules),
+        /**
+         *
+         */
         champion: {
+            /**
+             * Action constructor corresponding to the following Data Dragon files:
+             * - (**GET**) `/cdn/{version}/data/{locale}/champion.json`
+             */
             list: (): GetDataDragonChampionList => new GetDataDragonChampionList(this.submodules),
+            /**
+             * Action constructor corresponding to the following Data Dragon files:
+             * - (**GET**) `/cdn/{version}/data/{locale}/champion/{champion}.json`
+             */
             details: (): GetDataDragonChampionJSON => new GetDataDragonChampionJSON(this.submodules),
             art: {
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/img/champion/splash/{champion}_{skin}.jpg`
+                 */
                 splash: (): GetDataDragonSplashArt => new GetDataDragonSplashArt(this.submodules),
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/img/champion/loading/{champion}_{skin}.jpg`
+                 */
                 loading: (): GetDataDragonLoadingArt => new GetDataDragonLoadingArt(this.submodules),
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/{version}/img/champion/{champion}.png`
+                 */
                 icon: (): GetDataDragonChampionSquareArt => new GetDataDragonChampionSquareArt(this.submodules),
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/{version}/img/passive/{spell}.png`
+                 */
+                passive: (): GetDataDragonChampionPassiveArt => new GetDataDragonChampionPassiveArt(this.submodules),
             },
         },
         spell: {
+            /**
+             * Action constructor corresponding to the following Data Dragon files:
+             * - (**GET**) `/cdn/{version}/img/spell/{spell}.png`
+             */
             art: (): GetDataDragonSpellArt => new GetDataDragonSpellArt(this.submodules),
         },
         item: {
+            /**
+             * Action constructor corresponding to the following Data Dragon files:
+             * - (**GET**) `/cdn/{version}/data/{locale}/item.json`
+             */
             list: (): GetDataDragonItemList => new GetDataDragonItemList(this.submodules),
+            /**
+             * Action constructor corresponding to the following Data Dragon files:
+             * - (**GET**) `/cdn/{version}/img/item/{assetId}.png`
+             */
             art: (): GetDataDragonItemArt => new GetDataDragonItemArt(this.submodules),
         },
-        summonerSpells: {
+        summonerSpell: {
+            /**
+             * Action constructor corresponding to the following Data Dragon files:
+             * - (**GET**) `/cdn/{version}/data/{locale}/summoner.json`
+             */
             list: (): GetDataDragonSummonerSpellList => new GetDataDragonSummonerSpellList(this.submodules),
         },
         profileIcon: {
+            /**
+             * Action constructor corresponding to the following Data Dragon files:
+             * - (**GET**) `/cdn/{version}/data/{locale}/profileicon.json`
+             */
             list: (): GetDataDragonProfileIconList => new GetDataDragonProfileIconList(this.submodules),
+            /**
+             * Action constructor corresponding to the following Data Dragon files:
+             * - (**GET**) `/cdn/{version}/img/profileicon/{assetId}.png`
+             */
             art: (): GetDataDragonProfileIconArt => new GetDataDragonProfileIconArt(this.submodules),
         },
         minimap: {
+            /**
+             * Action constructor corresponding to the following Data Dragon files:
+             * - (**GET**) `/cdn/{version}/img/map/map{assetId}.png`
+             */
             art: (): GetDataDragonMinimapArt => new GetDataDragonMinimapArt(this.submodules),
         },
         sprite: {
+            /**
+             * Action constructor corresponding to the following Data Dragon files:
+             * - (**GET**) `/cdn/{version}/img/sprite/spell{assetId}.png`
+             */
             art: (): GetDataDragonSpriteArt => new GetDataDragonSpriteArt(this.submodules),
         },
         scoreboard: {
             art: {
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/5.5.1/img/ui/champion.png`
+                 */
                 champion: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'champion'),
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/5.5.1/img/ui/items.png`
+                 */
                 items: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'items'),
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/5.5.1/img/ui/minion.png`
+                 */
                 minion: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'minion'),
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/5.5.1/img/ui/score.png`
+                 */
                 score: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'score'),
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/5.5.1/img/ui/spells.png`
+                 */
                 spells: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'spells'),
             },
         },
@@ -670,3 +629,5 @@ export default class Galeforce implements GaleforceInterface {
      */
     public games: typeof Game = Game;
 }
+
+export = Galeforce;

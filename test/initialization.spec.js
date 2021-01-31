@@ -11,7 +11,7 @@ rewiremock('redis').with(redisMock);
 rewiremock(() => require('redis')).with(redisMock);
 
 rewiremock.enable();
-const GaleforceModule = require('../dist').default;
+const GaleforceModule = require('../dist');
 
 process.env.RIOT_KEY = 'RIOT-API-KEY-2';
 process.env.CACHE_TYPE = 'null';

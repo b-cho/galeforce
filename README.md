@@ -1,7 +1,7 @@
 # Galeforce
 
 ---
-[![NPM](https://nodei.co/npm/galeforce.png?mini=true)](https://www.npmjs.com/package/galeforce)
+[![NPM](https://nodei.co/npm/galeforce.png?compact=true)](https://www.npmjs.com/package/galeforce)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![npm](https://img.shields.io/npm/dt/galeforce)
@@ -12,9 +12,15 @@
 [![David](https://david-dm.org/bcho04/galeforce.svg)](https://david-dm.org/bcho04/galeforce)
 [![GitHub last commit](https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat)](https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat) 
 
-A customizable, promise-based, and command-oriented TypeScript library for the Riot Games API.
+A customizable, promise-based, and command-oriented TypeScript library and fluent interface for the Riot Games API.
 
 ## Features
+- **Full API support** for all Riot games and Data Dragon
+  - Environment variable config integration for API keys and other properties on both the desktop and platforms including Heroku.
+- **Automatic rate limiting** using Redis
+- **Fully-typed DTOs and parameters** for *all* endpoints
+- **Fluent interface** for seamless method chaining
+- **Built-in, customizable debugging** using `debug`
 
 **Documentation** available [here](https://bcho04.github.io/galeforce/) and in the section [below](#documentation).
 
@@ -38,7 +44,7 @@ const galeforce = new GaleforceModule(/* config */);
 ```
 to use the project. Or, if you're using **CommonJS** and `require()`, add Galeforce to your project like this:
 ```javascript
-const GaleforceModule = require('galeforce').default;
+const GaleforceModule = require('galeforce');
 
 const galeforce = new GaleforceModule(/* config */);
 ```
@@ -107,7 +113,7 @@ When initializing Galeforce, a config object (JSON) or a path to a YAML file mus
 ```javascript
 const galeforce = new GaleforceModule(/* config file path or object */);
 ```
-Such an object must have the following structure:
+Template string-like values (such as `${RIOT_KEY}`) will be evaluated using environment variables in `process.env`. Such an object must have the following structure:
 
 ```yaml
 riot-api: # REQUIRED

@@ -12,12 +12,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### [0.2.0]
 #### Added
-- Debugging features for action, payload, riot-api, and rate-limit.
+- Debugging features for action, payload, riot-api, and rate-limit using the **`debug`** library.
 - Full Data Dragon endpoint support under **`galeforce.ddragon`**.
 
 #### Changed
 - **[breaking]** Rename the ~~`galeforce.*.match.matchlist`~~ functions to **`galeforce.*.match.list`**.
 - **[breaking]** Split ~~`galeforce.lol.mastery.summoner`~~ into **`galeforce.lol.mastery.champion`** and **`galeforce.lol.mastery.list`**.
+- **[breaking]** Change CommonJS / `require()` import method to no longer allow `.default`.
 
 ### [0.1.1]
 #### Changed

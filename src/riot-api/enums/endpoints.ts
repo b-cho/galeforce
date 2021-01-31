@@ -135,6 +135,8 @@ export const VAL_STATUS = {
 };
 
 export const DATA_DRAGON = {
+    DRAGON_TAIL: 'https://ddragon.leagueoflegends.com/cdn/dragontail-${version}.tgz',
+    DRAGON_TAIL_ZIP: 'https://ddragon.leagueoflegends.com/cdn/dragontail-${version}.zip',
     VERSIONS: 'https://ddragon.leagueoflegends.com/api/versions.json',
     REGIONS: 'https://ddragon.leagueoflegends.com/realms/${region}.json',
     LANGUAGES: 'https://ddragon.leagueoflegends.com/cdn/languages.json',
