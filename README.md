@@ -122,7 +122,7 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 > ```
 </details>
 <details>
-<summary><code>.<em>&ltproperty&gt</em>()</code></summary>
+<summary><code>.<em>&lt;property&gt;</em>()</code></summary>
 
 > Sets the *property* (`region`, `summonerId`, `puuid`, etc.) in the Action request payload. Different methods are exposed for each endpoint depending on the required path, query, and body parameters.
 > 
