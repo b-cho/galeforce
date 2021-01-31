@@ -20,7 +20,7 @@ export function TakesChampion<TBase extends Constructor>(Base: TBase) {
          */
         public champion<K extends ChampionChainable & Executable>(this: K, champion: string): Omit<K, 'champion'> {
             this.payload.champion = champion;
-            delete this.champion;
+            this.champion = undefined;
             return this;
         }
     };

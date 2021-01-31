@@ -23,7 +23,7 @@ export function TakesLocale<TBase extends Constructor>(Base: TBase) {
          */
         public locale<K extends LocaleChainable & Executable>(this: K, locale: string): Omit<K, 'locale'> {
             this.payload.locale = locale;
-            delete this.locale;
+            this.locale = undefined;
             return this;
         }
     };

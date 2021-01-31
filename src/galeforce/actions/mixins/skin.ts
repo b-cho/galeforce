@@ -20,7 +20,7 @@ export function TakesSkin<TBase extends Constructor>(Base: TBase) {
          */
         public skin<K extends SkinChainable & Executable>(this: K, skin: number): Omit<K, 'skin'> {
             this.payload.skin = skin;
-            delete this.skin;
+            this.skin = undefined;
             return this;
         }
     };

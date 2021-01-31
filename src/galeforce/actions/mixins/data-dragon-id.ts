@@ -20,7 +20,7 @@ export function TakesDataDragonId<TBase extends Constructor>(Base: TBase) {
          */
         public assetId<K extends DataDragonIdChainable & Executable>(this: K, assetId: string | number): Omit<K, 'assetId'> {
             this.payload.assetId = assetId;
-            delete this.assetId;
+            this.assetId = undefined;
             return this;
         }
     };

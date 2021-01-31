@@ -25,7 +25,7 @@ export function TakesTier<TBase extends Constructor>(Base: TBase) {
          */
         public tier<K extends TierChainable & Executable>(this: K, tier: Tier): Omit<K, 'tier'> {
             this.payload.tier = tier;
-            delete this.tier;
+            this.tier = undefined;
             return this;
         }
     };

@@ -25,7 +25,7 @@ export function TakesDivision<TBase extends Constructor>(Base: TBase) {
          */
         public division<K extends DivisionChainable & Executable>(this: K, division: Division): Omit<K, 'division'> {
             this.payload.division = division;
-            delete this.division;
+            this.division = undefined;
             return this;
         }
     };

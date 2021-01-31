@@ -26,7 +26,7 @@ export function TakesVersion<TBase extends Constructor>(Base: TBase) {
          */
         public version<K extends VersionChainable & Executable>(this: K, version: string): Omit<K, 'version'> {
             this.payload.version = version;
-            delete this.version;
+            this.version = undefined;
             return this;
         }
     };

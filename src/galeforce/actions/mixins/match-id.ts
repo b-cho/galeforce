@@ -20,7 +20,7 @@ export function TakesMatchId<TBase extends Constructor>(Base: TBase) {
          */
         public matchId<K extends MatchIdChainable & Executable>(this: K, matchId: number | string): Omit<K, 'matchId'> {
             this.payload.matchId = matchId;
-            delete this.matchId;
+            this.matchId = undefined;
             return this;
         }
     };

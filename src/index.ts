@@ -457,6 +457,7 @@ class Galeforce {
         /**
          * Action constructor corresponding to the following Data Dragon files:
          * - (**GET**) `/cdn/dragontail-{version}.tgz`
+         * 
          * Swaps to a *.zip* file automatically when fetching data for patch 10.10.5.
          */
         tail: (): GetDataDragonTail => new GetDataDragonTail(this.submodules),

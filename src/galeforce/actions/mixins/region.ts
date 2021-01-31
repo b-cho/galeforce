@@ -29,7 +29,7 @@ export function TakesRegion<TRegion extends Region, TBase extends Constructor>(t
          */
         public region<K extends RegionChainable<TRegion> & Executable>(this: K, region: TRegion): Omit<K, 'region'> {
             this.payload.region = region;
-            delete this.region;
+            this.region = undefined;
             return this;
         }
     };

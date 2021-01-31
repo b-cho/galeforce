@@ -20,7 +20,7 @@ export function TakesLeagueId<TBase extends Constructor>(Base: TBase) {
          */
         public leagueId<K extends LeagueIdChainable & Executable>(this: K, leagueId: string): Omit<K, 'leagueId'> {
             this.payload.leagueId = leagueId;
-            delete this.leagueId;
+            this.leagueId = undefined;
             return this;
         }
     };

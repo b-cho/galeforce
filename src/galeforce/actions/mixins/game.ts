@@ -25,7 +25,7 @@ export function TakesGame<TBase extends Constructor>(Base: TBase) {
          */
         public game<K extends GameChainable & Executable>(this: K, game: Game): Omit<K, 'game'> {
             this.payload.game = game;
-            delete this.game;
+            this.game = undefined;
             return this;
         }
     };

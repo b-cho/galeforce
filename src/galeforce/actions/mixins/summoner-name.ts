@@ -21,7 +21,7 @@ export function TakesSummonerName<TBase extends Constructor>(Base: TBase) {
          */
         public name<K extends SummonerNameChainable & Executable>(this: K, summonerName: string): Omit<K, 'name'> {
             this.payload.summonerName = summonerName;
-            delete this.name;
+            this.name = undefined;
             return this;
         }
     };

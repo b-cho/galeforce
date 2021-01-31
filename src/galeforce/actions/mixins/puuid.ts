@@ -24,7 +24,7 @@ export function TakesPUUID<TBase extends Constructor>(Base: TBase) {
          */
         public puuid<K extends PUUIDChainable & Executable>(this: K, puuid: string): Omit<K, 'puuid'> {
             this.payload.puuid = puuid;
-            delete this.puuid;
+            this.puuid = undefined;
             return this;
         }
     };

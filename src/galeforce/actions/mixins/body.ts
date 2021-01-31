@@ -24,7 +24,7 @@ export function TakesBody<TBody extends object, TBase extends Constructor>(type:
          */
         public body<K extends BodyChainable<TBody> & Executable>(this: K, body: TBody): Omit<K, 'body'> {
             this.payload.body = body;
-            delete this.body;
+            this.body = undefined;
             return this;
         }
     };

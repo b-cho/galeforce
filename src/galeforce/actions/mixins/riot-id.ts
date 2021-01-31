@@ -22,7 +22,7 @@ export function TakesRiotId<TBase extends Constructor>(Base: TBase) {
          */
         public gameName<K extends RiotIdChainable & Executable>(this: K, gameName: string): Omit<K, 'gameName'> {
             this.payload.gameName = gameName;
-            delete this.gameName;
+            this.gameName = undefined;
             return this;
         }
 

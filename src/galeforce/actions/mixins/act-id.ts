@@ -20,7 +20,7 @@ export function TakesActId<TBase extends Constructor>(Base: TBase) {
          */
         public actId<K extends ActIdChainable & Executable>(this: K, actId: string): Omit<K, 'actId'> {
             this.payload.actId = actId;
-            delete this.actId;
+            this.actId = undefined;
             return this;
         }
     };

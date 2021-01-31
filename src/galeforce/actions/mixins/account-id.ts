@@ -24,7 +24,7 @@ export function TakesAccountId<TBase extends Constructor>(Base: TBase) {
          */
         public accountId<K extends AccountIdChainable & Executable>(this: K, accountId: string): Omit<K, 'accountId'> {
             this.payload.accountId = accountId;
-            delete this.accountId;
+            this.accountId = undefined;
             return this;
         }
     };

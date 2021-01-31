@@ -20,7 +20,7 @@ export function TakesTournamentCode<TBase extends Constructor>(Base: TBase) {
          */
         public tournamentCode<K extends TournamentCodeChainable & Executable>(this: K, tournamentCode: string): Omit<K, 'tournamentCode'> {
             this.payload.tournamentCode = tournamentCode;
-            delete this.tournamentCode;
+            this.tournamentCode = undefined;
             return this;
         }
     };

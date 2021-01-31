@@ -24,7 +24,7 @@ export function TakesQuery<TQuery extends object, TBase extends Constructor>(typ
          */
         public query<K extends QueryChainable<TQuery> & Executable>(this: K, query: TQuery): Omit<K, 'query'> {
             this.payload.query = query;
-            delete this.query;
+            this.query = undefined;
             return this;
         }
     };

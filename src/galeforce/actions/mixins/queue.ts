@@ -29,7 +29,7 @@ export function TakesQueue<TQueue extends Queue, TBase extends Constructor>(type
          */
         public queue<K extends QueueChainable<TQueue> & Executable>(this: K, queue: TQueue): Omit<K, 'queue'> {
             this.payload.queue = queue;
-            delete this.queue;
+            this.queue = undefined;
             return this;
         }
     };

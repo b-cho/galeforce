@@ -29,7 +29,7 @@ A customizable, promise-based, and command-oriented TypeScript library and fluen
   - [Features](#features)
   - [Table of Contents](#table-of-contents)
   - [Examples](#examples)
-  - [Documentation](#documentation)
+  - [Guide](#guide)
   - [Config structure](#config-structure)
 
 ---
@@ -54,12 +54,12 @@ const galeforce = new GaleforceModule(/* config */);
 ```javascript
 const summoners = ['a', 'b', 'c'];
 const promises = summoners.map(summoner => galeforce.lol.summoner()
-    .region(galeforce.regions.lol.NORTH_AMERICA)
-    .name(summoner)
-    .exec()
+  .region(galeforce.regions.lol.NORTH_AMERICA)
+  .name(summoner)
+  .exec()
 ); // list of request promises
 Promise.all(promises).then((result) => {
-    console.log(result); // [{ name: 'a', ... }, ...]
+  console.log(result); // [{ name: 'a', ... }, ...]
 });
 ```
 </details>
@@ -69,10 +69,10 @@ Promise.all(promises).then((result) => {
 
 ```javascript
 const matchIds = (await galeforce.lol.match.list()
-    .region(galeforce.regions.lol.NORTH_AMERICA)
-    .accountId(accountId)
-    .exec())
-    .matches.map(matchInfo => matchInfo.gameId);
+  .region(galeforce.regions.lol.NORTH_AMERICA)
+  .accountId(accountId)
+  .exec())
+  .matches.map(matchInfo => matchInfo.gameId);
 ```
 </details>
 
@@ -81,9 +81,9 @@ const matchIds = (await galeforce.lol.match.list()
 
 ```javascript
 const matchData = await galeforce.lol.match.match()
-    .region(galeforce.regions.lol.NORTH_AMERICA)
-    .matchId(matchId)
-    .exec();
+  .region(galeforce.regions.lol.NORTH_AMERICA)
+  .matchId(matchId)
+  .exec();
 ```
 </details>
 
@@ -92,18 +92,63 @@ const matchData = await galeforce.lol.match.match()
 
 ```javascript
 const totalMasteryPoints = (await galeforce.lol.mastery.list()
-    .region(galeforce.regions.lol.NORTH_AMERICA)
-    .summonerId(summonerId)
-    .exec())
-    .reduce((previous, current) => previous + current.championPoints, 0);
+  .region(galeforce.regions.lol.NORTH_AMERICA)
+  .summonerId(summonerId)
+  .exec())
+  .reduce((previous, current) => previous + current.championPoints, 0);
 ```
 </details>
 
 ---
 
-## Documentation
+## Guide
 
-See [here](https://bcho04.github.io/galeforce/) for further documentation.
+Each endpoint in the Galeforce library is an instance of an `Action` containing the following methods:
+
+<details>
+<summary><code>.exec()</code></summary>
+
+> Executes the `Action` with the parameters set by methods such as `.region()`, `.summonerId()`, etc., returning a *Promise*.
+> 
+> **Example**
+> ```javascript
+> /* Gets Valorant platform and status data. */
+> galeforce.val.status() // Target the /val/status/v1/platform-data endpoint
+>   .region(galeforce.regions.val.NORTH_AMERICA) // See below for documentation.
+>   .exec() // Sends a Valorant server status request to the val-status-v1 endpoint
+>   .then((data) => { // Use the returned data
+>     /* manipulate status data */
+>   });
+> ```
+</details>
+<details>
+<summary><code>.<em>&ltproperty&gt</em>()</code></summary>
+
+> Sets the *property* (`region`, `summonerId`, `puuid`, etc.) in the Action request payload. Different methods are exposed for each endpoint depending on the required path, query, and body parameters.
+> 
+> **Example**
+> ```javascript
+> /* Gets current game info for a specific summonerId. */
+> const currentGameInfo = await galeforce.lol.spectator.active() // Target the /lol/spectator/v4/active-games/by-summoner/{summonerId} endpoint
+>   .region(galeforce.regions.lol.NORTH_AMERICA) // Sets the request region to 'na1' (i.e., target the NA server)
+>   .summonerId('summonerId') // Sets the request summonerId to 'summonerId'
+>   .exec() // See .exec() above.
+> ```
+>
+> `.<property>()` methods may only be called once and are removed from the Action after being used.
+> 
+> **Example**
+> ```javascript
+> /* Gets current game info for a specific summonerId. */
+> const currentGameInfo = await galeforce.lol.spectator.active() // Target the /lol/spectator/v4/active-games/by-summoner/{summonerId} endpoint
+>   .region(galeforce.regions.lol.NORTH_AMERICA) // Sets the request region to 'na1' (i.e., target the NA server)
+>   .region(galeforce.regions.lol.KOREA) // galeforce.lol.spectator.active(...).region(...).region is not a function
+> ```
+</details>
+
+
+
+See [here](https://bcho04.github.io/galeforce/) for further documentation and a complete list of methods.
 
 ---
 

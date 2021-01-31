@@ -20,7 +20,7 @@ export function TakesSpell<TBase extends Constructor>(Base: TBase) {
          */
         public spell<K extends SpellChainable & Executable>(this: K, spell: string): Omit<K, 'spell'> {
             this.payload.spell = spell;
-            delete this.spell;
+            this.spell = undefined;
             return this;
         }
     };

@@ -23,7 +23,7 @@ export function TakesSummonerId<TBase extends Constructor>(Base: TBase) {
          */
         public summonerId<K extends SummonerIdChainable & Executable>(this: K, summonerId: string): Omit<K, 'summonerId'> {
             this.payload.summonerId = summonerId;
-            delete this.summonerId;
+            this.summonerId = undefined;
             return this;
         }
     };

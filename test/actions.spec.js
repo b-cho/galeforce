@@ -366,6 +366,10 @@ describe('/galeforce/actions', () => {
                         return expect(() => Galeforce.lol.summoner().region(Galeforce.regions.riot.AMERICAS))
                             .to.throw('[galeforce]: Invalid /lol region provided.');
                     });
+                    it('should throw when .region() is called twice', () => {
+                        return expect(() => Galeforce.lol.summoner().region(Galeforce.regions.riot.AMERICAS).region(Galeforce.regions.riot.ASIA))
+                            .to.throw();
+                    });
                     it('should throw when not provided a region', () => {
                         return expect(Galeforce.lol.summoner().name('SSG Xayah').exec())
                             .to.eventually.be.rejectedWith('[galeforce]: Action payload region is required but undefined.');
