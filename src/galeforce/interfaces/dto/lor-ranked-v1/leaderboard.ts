@@ -1,9 +1,9 @@
-interface PlayerInterface {
+interface PlayerDTO {
     name: string;
     rank: number;
     lp: number;
 }
 
-export interface LorLeaderboardInterface {
-    players: PlayerInterface[];
+export interface LorLeaderboardDTO {
+    players: PlayerDTO[];
 }

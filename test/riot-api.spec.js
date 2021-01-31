@@ -37,10 +37,10 @@ const na1API = nock('https://na1.api.riotgames.com')
     .get('/lol/summoner/v4/summoners/by-name/SSG%20Xayah')
     .reply(200, v4SummonerByNameReply);
 
-const dataDragon = nock('http://static.developer.riotgames.com')
-    .persist()
-    .get('/docs/lol/gameTypes.json')
-    .reply(200, dataDragonGameTypesReply);
+// const dataDragon = nock('http://static.developer.riotgames.com')
+//     .persist()
+//     .get('/docs/lol/gameTypes.json')
+//     .reply(200, dataDragonGameTypesReply);
 
 const RiotAPI = new RiotAPIModule('RIOT-API-KEY');
 
@@ -53,10 +53,10 @@ describe('/riot-api', () => {
             expect(RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { region: LeagueRegion.NORTH_AMERICA, summonerName: 'TEST' })['targetURL'])
                 .to.equal('https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/TEST')
         });
-        it('should generate correct RiotAPI.dataDragonRequest URLs from template strings', () => {
-            expect(RiotAPI.dataDragonRequest(ENDPOINTS.DATA_DRAGON.CHAMPION, '10.25.1')['targetURL'])
-                .to.equal('http://ddragon.leagueoflegends.com/cdn/10.25.1/data/en_US/champion.json')
-        });
+        // it('should generate correct RiotAPI.dataDragonRequest URLs from template strings', () => {
+        //     expect(RiotAPI.dataDragonRequest(ENDPOINTS.DATA_DRAGON.CHAMPION, '10.25.1')['targetURL'])
+        //         .to.equal('http://ddragon.leagueoflegends.com/cdn/10.25.1/data/en_US/champion.json')
+        // });
         it('should throw when a required parameter is missing', () => {
             expect(() => RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { region: LeagueRegion.NORTH_AMERICA }))
                 .to.throw('[galeforce]: Action payload summonerName is required but undefined.')
@@ -67,9 +67,9 @@ describe('/riot-api', () => {
             return expect(RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { region: LeagueRegion.NORTH_AMERICA, summonerName: 'SSG Xayah' }).get())
                 .to.eventually.have.property('data').to.deep.equal(v4SummonerByNameReply);
         });
-        it('should return correct JSON for the /docs/lol/gameTypes.json Data Dragon endpoint', () => {
-            return expect(RiotAPI.dataDragonRequest(ENDPOINTS.DATA_DRAGON.GAME_TYPES, '10.25.1').get())
-                .to.eventually.have.property('data').to.deep.equal(dataDragonGameTypesReply);
-        })
+        // it('should return correct JSON for the /docs/lol/gameTypes.json Data Dragon endpoint', () => {
+        //     return expect(RiotAPI.dataDragonRequest(ENDPOINTS.DATA_DRAGON.GAME_TYPES, '10.25.1').get())
+        //         .to.eventually.have.property('data').to.deep.equal(dataDragonGameTypesReply);
+        // })
     });
 });

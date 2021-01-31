@@ -1,8 +1,8 @@
 /*
-    The ActiveShardInterface is an interface for account data returned from V1 endpoints.
+    The ActiveShardDTO is an interface for account data returned from V1 endpoints.
 */
 
-export interface ActiveShardInterface {
+export interface ActiveShardDTO {
     puuid: string;
     game: string;
     activeShard: string;

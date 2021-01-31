@@ -1,56 +1,74 @@
+import debug from 'debug';
 import {
     RiotAPIModule, Tier, Division, Game,
     ValorantRegion, LeagueRegion, RiotRegion,
-    LeagueQueue, ValorantQueue,
+    LeagueQueue, ValorantQueue, DataDragonRegion,
 } from './riot-api';
 import { getConfig, validate } from './galeforce/configs/default';
 import { ConfigInterface } from './galeforce/interfaces/config';
-import { GetMatch } from './galeforce/actions/match/match';
-import { GetSummoner } from './galeforce/actions/summoner';
-import { GetThirdPartyCode } from './galeforce/actions/third-party-code';
 import { Cache } from './galeforce/caches/cache';
 import { RedisCache } from './galeforce/caches/redis';
-import { SubmoduleMapInterface } from './galeforce/interfaces/submodule-map';
-import { NullCache } from './galeforce/caches/null';
-import { GetTimeline } from './galeforce/actions/match/timeline';
-import { GetMatchlist } from './galeforce/actions/match/matchlist';
-import { GetMasteryList } from './galeforce/actions/champion-mastery/by-summoner';
-import { GetLeagueEntries } from './galeforce/actions/league/entries';
-import { GetLeagueList } from './galeforce/actions/league/leagues';
-import { GetLeaguePlatformData } from './galeforce/actions/lol-status';
-import { GetChampionRotations } from './galeforce/actions/champion';
-import { GetClashPlayers } from './galeforce/actions/clash/players';
-import { GetClashTeam } from './galeforce/actions/clash/teams';
-import { GetClashTournament } from './galeforce/actions/clash/tournaments';
-import { GetTournamentMatches } from './galeforce/actions/match/tournament-matches';
-import { GetCurrentGameInfo } from './galeforce/actions/spectator/active-games';
-import { GetFeaturedGames } from './galeforce/actions/spectator/featured-games';
-import { GetMasteryScore } from './galeforce/actions/champion-mastery/score';
-import { GetAccount } from './galeforce/actions/account/account';
-import { GetActiveShard } from './galeforce/actions/account/active-shard';
-import { PostTournamentCodes } from './galeforce/actions/tournament/create-codes';
-import { GetTournamentCodes } from './galeforce/actions/tournament/get-tournament-by-code';
-import { PutTournamentCodes } from './galeforce/actions/tournament/update-tournament';
-import { PostProviders } from './galeforce/actions/tournament/providers';
-import { PostTournaments } from './galeforce/actions/tournament/tournaments';
-import { GetLobbyEvents } from './galeforce/actions/tournament/lobby-events';
-import { GetUpcomingClashTournaments } from './galeforce/actions/clash/upcoming-tournaments';
-import { GetLorMatch } from './galeforce/actions/lor-match/match';
-import { GetLorMatchlist } from './galeforce/actions/lor-match/matchlist';
-import { GetLorRankedLeaderboard } from './galeforce/actions/lor-ranked/leaderboard';
-import { GetLorPlatformData } from './galeforce/actions/lor-status';
-import { GetTFTLeagueEntries } from './galeforce/actions/tft-league/entries';
-import { GetTFTLeagueList } from './galeforce/actions/tft-league/leagues';
-import { GetTFTMatch } from './galeforce/actions/tft-match/match';
-import { GetTFTMatchlist } from './galeforce/actions/tft-match/matchlist';
-import { GetTFTSummoner } from './galeforce/actions/tft-summoner';
-import { GetValorantContent } from './galeforce/actions/val-content/contents';
-import { GetValorantMatch } from './galeforce/actions/val-match/match';
-import { GetValorantMatchlist } from './galeforce/actions/val-match/matchlist';
-import { GetValorantRecentMatches } from './galeforce/actions/val-match/recent-matches';
-import { GetValorantRankedLeaderboard } from './galeforce/actions/val-ranked/leaderboard';
-import { GetValorantPlatformData } from './galeforce/actions/val-status';
-import { GetMasteryByChampion } from './galeforce/actions/champion-mastery/by-champion';
+import NullCache from './galeforce/caches/null';
+import SubmoduleMap from './galeforce/interfaces/submodule-map';
+import GetMatch from './galeforce/actions/lol/match/match';
+import GetSummoner from './galeforce/actions/lol/summoner';
+import GetThirdPartyCode from './galeforce/actions/lol/third-party-code';
+import GetTimeline from './galeforce/actions/lol/match/timeline';
+import GetMatchlist from './galeforce/actions/lol/match/matchlist';
+import GetMasteryList from './galeforce/actions/lol/champion-mastery/by-summoner';
+import GetLeagueEntries from './galeforce/actions/lol/league/entries';
+import GetLeagueList from './galeforce/actions/lol/league/leagues';
+import GetLeaguePlatformData from './galeforce/actions/lol/lol-status';
+import GetChampionRotations from './galeforce/actions/lol/champion';
+import GetClashPlayers from './galeforce/actions/lol/clash/players';
+import GetClashTeam from './galeforce/actions/lol/clash/teams';
+import GetClashTournament from './galeforce/actions/lol/clash/tournaments';
+import GetTournamentMatches from './galeforce/actions/lol/match/tournament-matches';
+import GetCurrentGameInfo from './galeforce/actions/lol/spectator/active-games';
+import GetFeaturedGames from './galeforce/actions/lol/spectator/featured-games';
+import GetMasteryScore from './galeforce/actions/lol/champion-mastery/score';
+import GetAccount from './galeforce/actions/riot/account/account';
+import GetActiveShard from './galeforce/actions/riot/account/active-shard';
+import PostTournamentCodes from './galeforce/actions/lol/tournament/create-codes';
+import GetTournamentCodes from './galeforce/actions/lol/tournament/get-tournament-by-code';
+import PutTournamentCodes from './galeforce/actions/lol/tournament/update-tournament';
+import PostProviders from './galeforce/actions/lol/tournament/providers';
+import PostTournaments from './galeforce/actions/lol/tournament/tournaments';
+import GetLobbyEvents from './galeforce/actions/lol/tournament/lobby-events';
+import GetUpcomingClashTournaments from './galeforce/actions/lol/clash/upcoming-tournaments';
+import GetLorMatch from './galeforce/actions/lor/lor-match/match';
+import GetLorMatchlist from './galeforce/actions/lor/lor-match/matchlist';
+import GetLorRankedLeaderboard from './galeforce/actions/lor/lor-ranked/leaderboard';
+import GetLorPlatformData from './galeforce/actions/lor/lor-status';
+import GetTFTLeagueEntries from './galeforce/actions/tft/tft-league/entries';
+import GetTFTLeagueList from './galeforce/actions/tft/tft-league/leagues';
+import GetTFTMatch from './galeforce/actions/tft/tft-match/match';
+import GetTFTMatchlist from './galeforce/actions/tft/tft-match/matchlist';
+import GetTFTSummoner from './galeforce/actions/tft/tft-summoner';
+import GetValorantContent from './galeforce/actions/valorant/val-content/contents';
+import GetValorantMatch from './galeforce/actions/valorant/val-match/match';
+import GetValorantMatchlist from './galeforce/actions/valorant/val-match/matchlist';
+import GetValorantRecentMatches from './galeforce/actions/valorant/val-match/recent-matches';
+import GetValorantRankedLeaderboard from './galeforce/actions/valorant/val-ranked/leaderboard';
+import GetValorantPlatformData from './galeforce/actions/valorant/val-status';
+import GetMasteryByChampion from './galeforce/actions/lol/champion-mastery/by-champion';
+import GetDataDragonVersions from './galeforce/actions/data-dragon/versions';
+import GetDataDragonRegionInfo from './galeforce/actions/data-dragon/regions';
+import GetDataDragonLanguages from './galeforce/actions/data-dragon/languages';
+import GetDataDragonChampionList from './galeforce/actions/data-dragon/champion-list';
+import GetDataDragonChampionJSON from './galeforce/actions/data-dragon/champion';
+import GetDataDragonSplashArt from './galeforce/actions/data-dragon/splash-art';
+import GetDataDragonLoadingArt from './galeforce/actions/data-dragon/loading-art';
+import GetDataDragonChampionSquareArt from './galeforce/actions/data-dragon/champion-square-art';
+import GetDataDragonSpellArt from './galeforce/actions/data-dragon/spell-art';
+import GetDataDragonItemList from './galeforce/actions/data-dragon/item-list';
+import GetDataDragonItemArt from './galeforce/actions/data-dragon/item-art';
+import GetDataDragonSummonerSpellList from './galeforce/actions/data-dragon/summoner-spell-list';
+import GetDataDragonProfileIconArt from './galeforce/actions/data-dragon/profile-icon-art';
+import GetDataDragonProfileIconList from './galeforce/actions/data-dragon/profile-icon-list';
+import GetDataDragonMinimapArt from './galeforce/actions/data-dragon/minimap-art';
+import GetDataDragonSpriteArt from './galeforce/actions/data-dragon/sprite-art';
+import GetDataDragonScoreboardArt from './galeforce/actions/data-dragon/scoreboard-icon-art';
 
 /**
  * Type definitions for the Galeforce module.
@@ -126,11 +144,6 @@ interface GaleforceInterface {
         };
         summoner: () => GetTFTSummoner;
     };
-    regions: {
-        lol: typeof LeagueRegion;
-        val: typeof ValorantRegion;
-        riot: typeof RiotRegion;
-    };
     val: {
         content: () => GetValorantContent;
         match: {
@@ -142,7 +155,55 @@ interface GaleforceInterface {
             leaderboard: () => GetValorantRankedLeaderboard;
         };
         status: () => GetValorantPlatformData;
-
+    };
+    ddragon: {
+        versions: () => GetDataDragonVersions;
+        realm: () => GetDataDragonRegionInfo;
+        languages: () => GetDataDragonLanguages;
+        champion: {
+            list: () => GetDataDragonChampionList;
+            details: () => GetDataDragonChampionJSON;
+            art: {
+                splash: () => GetDataDragonSplashArt;
+                loading: () => GetDataDragonLoadingArt;
+                icon: () => GetDataDragonChampionSquareArt;
+            };
+        };
+        spell: {
+            art: () => GetDataDragonSpellArt;
+        };
+        item: {
+            list: () => GetDataDragonItemList;
+            art: () => GetDataDragonItemArt;
+        };
+        summonerSpells: {
+            list: () => GetDataDragonSummonerSpellList;
+        };
+        profileIcon: {
+            list: () => GetDataDragonProfileIconList;
+            art: () => GetDataDragonProfileIconArt;
+        };
+        minimap: {
+            art: () => GetDataDragonMinimapArt;
+        };
+        sprite: {
+            art: () => GetDataDragonSpriteArt;
+        };
+        scoreboard: {
+            art: {
+                champion: () => GetDataDragonScoreboardArt;
+                items: () => GetDataDragonScoreboardArt;
+                minion: () => GetDataDragonScoreboardArt;
+                score: () => GetDataDragonScoreboardArt;
+                spells: () => GetDataDragonScoreboardArt;
+            };
+        };
+    };
+    regions: {
+        lol: typeof LeagueRegion;
+        val: typeof ValorantRegion;
+        riot: typeof RiotRegion;
+        ddragon: typeof DataDragonRegion;
     };
     queues: {
         lol: typeof LeagueQueue;
@@ -160,7 +221,7 @@ export default class Galeforce implements GaleforceInterface {
      */
     readonly config: ConfigInterface;
 
-    private SubmoduleMap: SubmoduleMapInterface;
+    private submodules: SubmoduleMap;
 
     /**
      * Initializes the Galeforce module with a provided configuration object.
@@ -171,6 +232,13 @@ export default class Galeforce implements GaleforceInterface {
      */
     constructor(options: ConfigInterface | string) {
         this.config = typeof options === 'string' ? getConfig(options) : options;
+
+        if (this.config.debug) {
+            this.config.debug.forEach((module) => {
+                const previouslyEnabled = debug.disable();
+                debug.enable(`${previouslyEnabled},galeforce:${module}`);
+            });
+        }
 
         if (!validate(this.config)) throw new Error('Invalid config provided (config failed JSON schema validation).');
 
@@ -190,7 +258,7 @@ export default class Galeforce implements GaleforceInterface {
             cache = new NullCache();
         }
 
-        this.SubmoduleMap = { RiotAPI, cache };
+        this.submodules = { RiotAPI, cache };
     }
 
     /**
@@ -204,7 +272,7 @@ export default class Galeforce implements GaleforceInterface {
          * - (**GET**) `/lol/summoner/v4/summoners/by-puuid/{encryptedPUUID}`
          * - (**GET**) `/lol/summoner/v4/summoners/{encryptedSummonerId}`
          */
-        summoner: (): GetSummoner => new GetSummoner(this.SubmoduleMap),
+        summoner: (): GetSummoner => new GetSummoner(this.submodules),
         /**
          * Object containing actions corresponding to the `/lol/champion-mastery` set of endpoints.
          */
@@ -213,17 +281,17 @@ export default class Galeforce implements GaleforceInterface {
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}`
              */
-            list: (): GetMasteryList => new GetMasteryList(this.SubmoduleMap),
+            list: (): GetMasteryList => new GetMasteryList(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}/by-champion/{championId}`
              */
-            champion: (): GetMasteryByChampion => new GetMasteryByChampion(this.SubmoduleMap),
+            champion: (): GetMasteryByChampion => new GetMasteryByChampion(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/champion-mastery/v4/scores/by-summoner/{encryptedSummonerId}`
              */
-            score: (): GetMasteryScore => new GetMasteryScore(this.SubmoduleMap),
+            score: (): GetMasteryScore => new GetMasteryScore(this.submodules),
         },
         /**
          * Object containing actions corresponding to the `/lol/league` set of endpoints.
@@ -234,7 +302,7 @@ export default class Galeforce implements GaleforceInterface {
              * - (**GET**) `/lol/league/v4/entries/by-summoner/{encryptedSummonerId}`
              * - (**GET**) `/lol/league/v4/entries/{queue}/{tier}/{division}`
              */
-            entries: (): GetLeagueEntries => new GetLeagueEntries(this.SubmoduleMap),
+            entries: (): GetLeagueEntries => new GetLeagueEntries(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/league/v4/challengerleagues/by-queue/{queue}`
@@ -242,7 +310,7 @@ export default class Galeforce implements GaleforceInterface {
              * - (**GET**) `/lol/league/v4/masterleagues/by-queue/{queue}`
              * - (**GET**) `/lol/league/v4/entries/by-summoner/{encryptedSummonerId}`
              */
-            league: (): GetLeagueList => new GetLeagueList(this.SubmoduleMap),
+            league: (): GetLeagueList => new GetLeagueList(this.submodules),
         },
         /**
          * Object containing actions corresponding to the `/lol/match` set of endpoints.
@@ -253,22 +321,22 @@ export default class Galeforce implements GaleforceInterface {
              * - (**GET**) `/lol/match/v4/matches/{matchId}`
              * - (**GET**) `/lol/match/v4/matches/by-tournament-code/{tournamentCode}/ids`
              */
-            match: (): GetMatch => new GetMatch(this.SubmoduleMap),
+            match: (): GetMatch => new GetMatch(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/match/v4/timelines/by-match/{matchId}`
              */
-            timeline: (): GetTimeline => new GetTimeline(this.SubmoduleMap),
+            timeline: (): GetTimeline => new GetTimeline(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/match/v4/matchlists/by-account/{encryptedAccountId}`
              */
-            list: (): GetMatchlist => new GetMatchlist(this.SubmoduleMap),
+            list: (): GetMatchlist => new GetMatchlist(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/match/v4/matches/{matchId}/by-tournament-code/{tournamentCode}`
              */
-            tournament: (): GetTournamentMatches => new GetTournamentMatches(this.SubmoduleMap),
+            tournament: (): GetTournamentMatches => new GetTournamentMatches(this.submodules),
         },
         /**
          * Object containing actions corresponding to the `/lol/platform` set of endpoints.
@@ -279,18 +347,18 @@ export default class Galeforce implements GaleforceInterface {
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/platform/v4/third-party-code/by-summoner/{encryptedSummonerId}`
              */
-            thirdPartyCode: (): GetThirdPartyCode => new GetThirdPartyCode(this.SubmoduleMap),
+            thirdPartyCode: (): GetThirdPartyCode => new GetThirdPartyCode(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**)  `/lol/platform/v3/champion-rotations`
              */
-            championRotations: (): GetChampionRotations => new GetChampionRotations(this.SubmoduleMap),
+            championRotations: (): GetChampionRotations => new GetChampionRotations(this.submodules),
         },
         /**
          * Action constructor corresponding to the following endpoints:
          * - (**GET**)  `/lol/status/v4/platform-data`
          */
-        status: (): GetLeaguePlatformData => new GetLeaguePlatformData(this.SubmoduleMap),
+        status: (): GetLeaguePlatformData => new GetLeaguePlatformData(this.submodules),
         /**
          * Object containing actions corresponding to the `/lol/clash` set of endpoints.
          */
@@ -299,23 +367,23 @@ export default class Galeforce implements GaleforceInterface {
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/clash/v1/players/by-summoner/{summonerId}`
              */
-            players: (): GetClashPlayers => new GetClashPlayers(this.SubmoduleMap),
+            players: (): GetClashPlayers => new GetClashPlayers(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/clash/v1/teams/{teamId}`
              */
-            team: (): GetClashTeam => new GetClashTeam(this.SubmoduleMap),
+            team: (): GetClashTeam => new GetClashTeam(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/clash/v1/tournaments/by-team/{teamId}`
              * - (**GET**) `/lol/clash/v1/tournaments/{tournamentId}`
              */
-            tournament: (): GetClashTournament => new GetClashTournament(this.SubmoduleMap),
+            tournament: (): GetClashTournament => new GetClashTournament(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/clash/v1/tournaments`
              */
-            upcoming: (): GetUpcomingClashTournaments => new GetUpcomingClashTournaments(this.SubmoduleMap),
+            upcoming: (): GetUpcomingClashTournaments => new GetUpcomingClashTournaments(this.submodules),
         },
         /**
          * Object containing actions corresponding to the `/lol/spectator` set of endpoints.
@@ -325,12 +393,12 @@ export default class Galeforce implements GaleforceInterface {
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/spectator/v4/active-games/by-summoner/{encryptedSummonerId}`
              */
-            active: (): GetCurrentGameInfo => new GetCurrentGameInfo(this.SubmoduleMap),
+            active: (): GetCurrentGameInfo => new GetCurrentGameInfo(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/spectator/v4/featured-games`
              */
-            featured: (): GetFeaturedGames => new GetFeaturedGames(this.SubmoduleMap),
+            featured: (): GetFeaturedGames => new GetFeaturedGames(this.submodules),
         },
         /**
          * Object containing actions corresponding to the `/lol/tournament` set of endpoints.
@@ -346,33 +414,33 @@ export default class Galeforce implements GaleforceInterface {
                  * Action constructor corresponding to the following endpoints:
                  * - (**POST**) `/lol/tournament/v4/codes`
                  */
-                create: (): PostTournamentCodes => new PostTournamentCodes(this.SubmoduleMap),
+                create: (): PostTournamentCodes => new PostTournamentCodes(this.submodules),
                 /**
                  * Action constructor corresponding to the following endpoints:
                  * - (**GET**) `/lol/tournament/v4/codes/{tournamentCode}`
                  */
-                get: (): GetTournamentCodes => new GetTournamentCodes(this.SubmoduleMap),
+                get: (): GetTournamentCodes => new GetTournamentCodes(this.submodules),
                 /**
                  * Action constructor corresponding to the following endpoints:
                  * - (**PUT**) `/lol/tournament/v4/codes/{tournamentCode}`
                  */
-                update: (): PutTournamentCodes => new PutTournamentCodes(this.SubmoduleMap),
+                update: (): PutTournamentCodes => new PutTournamentCodes(this.submodules),
             },
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/tournament/v4/lobby-events/by-code/{tournamentCode}`
              */
-            event: (): GetLobbyEvents => new GetLobbyEvents(this.SubmoduleMap),
+            event: (): GetLobbyEvents => new GetLobbyEvents(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**POST**) `/lol/tournament/v4/providers`
              */
-            provider: (): PostProviders => new PostProviders(this.SubmoduleMap),
+            provider: (): PostProviders => new PostProviders(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**POST**) `/lol/tournament/v4/tournaments`
              */
-            tournament: (): PostTournaments => new PostTournaments(this.SubmoduleMap),
+            tournament: (): PostTournaments => new PostTournaments(this.submodules),
         },
     }
 
@@ -389,12 +457,12 @@ export default class Galeforce implements GaleforceInterface {
              * - (**GET**) `/riot/account/v1/accounts/by-puuid/{puuid}`
              * - (**GET**) `/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}`
              */
-            account: (): GetAccount => new GetAccount(this.SubmoduleMap),
+            account: (): GetAccount => new GetAccount(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/riot/account/v1/active-shards/by-game/{game}/by-puuid/{puuid}`
              */
-            activeShard: (): GetActiveShard => new GetActiveShard(this.SubmoduleMap),
+            activeShard: (): GetActiveShard => new GetActiveShard(this.submodules),
         },
     }
 
@@ -410,25 +478,25 @@ export default class Galeforce implements GaleforceInterface {
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lor/match/v1/matches/{matchId}`
              */
-            match: (): GetLorMatch => new GetLorMatch(this.SubmoduleMap),
+            match: (): GetLorMatch => new GetLorMatch(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lor/match/v1/matches/by-puuid/{puuid}/ids`
              */
-            list: (): GetLorMatchlist => new GetLorMatchlist(this.SubmoduleMap),
+            list: (): GetLorMatchlist => new GetLorMatchlist(this.submodules),
         },
         ranked: {
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lor/ranked/v1/leaderboards`
              */
-            leaderboard: (): GetLorRankedLeaderboard => new GetLorRankedLeaderboard(this.SubmoduleMap),
+            leaderboard: (): GetLorRankedLeaderboard => new GetLorRankedLeaderboard(this.submodules),
         },
         /**
          * Action constructor corresponding to the following endpoints:
          * - (**GET**) `/lor/status/v1/platform-data`
          */
-        status: (): GetLorPlatformData => new GetLorPlatformData(this.SubmoduleMap),
+        status: (): GetLorPlatformData => new GetLorPlatformData(this.submodules),
     }
 
     /**
@@ -444,7 +512,7 @@ export default class Galeforce implements GaleforceInterface {
              * - (**GET**) `/tft/league/v1/entries/by-summoner/{encryptedSummonerId}`
              * - (**GET**) `/tft/league/v1/entries/{tier}/{division}`
              */
-            entries: (): GetTFTLeagueEntries => new GetTFTLeagueEntries(this.SubmoduleMap),
+            entries: (): GetTFTLeagueEntries => new GetTFTLeagueEntries(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/tft/league/v1/challenger`
@@ -452,7 +520,7 @@ export default class Galeforce implements GaleforceInterface {
              * - (**GET**) `/tft/league/v1/master`
              * - (**GET**) `/tft/league/v1/leagues/{leagueId} `
              */
-            league: (): GetTFTLeagueList => new GetTFTLeagueList(this.SubmoduleMap),
+            league: (): GetTFTLeagueList => new GetTFTLeagueList(this.submodules),
         },
         /**
          * Object containing actions corresponding to the the `/tft/match` set of endpoints.
@@ -462,18 +530,18 @@ export default class Galeforce implements GaleforceInterface {
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lor/ranked/v1/leaderboards`
              */
-            match: (): GetTFTMatch => new GetTFTMatch(this.SubmoduleMap),
+            match: (): GetTFTMatch => new GetTFTMatch(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lor/ranked/v1/leaderboards`
              */
-            list: (): GetTFTMatchlist => new GetTFTMatchlist(this.SubmoduleMap),
+            list: (): GetTFTMatchlist => new GetTFTMatchlist(this.submodules),
         },
         /**
          * Action constructor corresponding to the following endpoints:
          * - (**GET**) `/lor/ranked/v1/leaderboards`
          */
-        summoner: (): GetTFTSummoner => new GetTFTSummoner(this.SubmoduleMap),
+        summoner: (): GetTFTSummoner => new GetTFTSummoner(this.submodules),
     }
 
     /**
@@ -484,7 +552,7 @@ export default class Galeforce implements GaleforceInterface {
          * Action constructor corresponding to the following endpoints:
          * - (**GET**) `/val/content/v1/contents`
          */
-        content: (): GetValorantContent => new GetValorantContent(this.SubmoduleMap),
+        content: (): GetValorantContent => new GetValorantContent(this.submodules),
         /**
          * Object containing actions corresponding to the the `/val/match` set of endpoints.
          * Note that these endpoints require a Valorant-approved **production** key to use.
@@ -495,17 +563,17 @@ export default class Galeforce implements GaleforceInterface {
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/val/match/v1/matches/{matchId}`
              */
-            match: (): GetValorantMatch => new GetValorantMatch(this.SubmoduleMap),
+            match: (): GetValorantMatch => new GetValorantMatch(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/val/match/v1/matchlists/by-puuid/{puuid}`
              */
-            list: (): GetValorantMatchlist => new GetValorantMatchlist(this.SubmoduleMap),
+            list: (): GetValorantMatchlist => new GetValorantMatchlist(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/val/match/v1/recent-matches/by-queue/{queue}`
              */
-            recent: (): GetValorantRecentMatches => new GetValorantRecentMatches(this.SubmoduleMap),
+            recent: (): GetValorantRecentMatches => new GetValorantRecentMatches(this.submodules),
         },
         /**
          * Object containing actions corresponding to the the `/val/ranked` set of endpoints.
@@ -515,13 +583,57 @@ export default class Galeforce implements GaleforceInterface {
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/val/ranked/v1/leaderboards/by-act/{actId}`
              */
-            leaderboard: (): GetValorantRankedLeaderboard => new GetValorantRankedLeaderboard(this.SubmoduleMap),
+            leaderboard: (): GetValorantRankedLeaderboard => new GetValorantRankedLeaderboard(this.submodules),
         },
         /**
          * Action constructor corresponding to the following endpoints:
          * - (**GET**) `/val/status/v1/platform-data`
          */
-        status: (): GetValorantPlatformData => new GetValorantPlatformData(this.SubmoduleMap),
+        status: (): GetValorantPlatformData => new GetValorantPlatformData(this.submodules),
+    }
+
+    public ddragon = {
+        versions: (): GetDataDragonVersions => new GetDataDragonVersions(this.submodules),
+        realm: (): GetDataDragonRegionInfo => new GetDataDragonRegionInfo(this.submodules),
+        languages: (): GetDataDragonLanguages => new GetDataDragonLanguages(this.submodules),
+        champion: {
+            list: (): GetDataDragonChampionList => new GetDataDragonChampionList(this.submodules),
+            details: (): GetDataDragonChampionJSON => new GetDataDragonChampionJSON(this.submodules),
+            art: {
+                splash: (): GetDataDragonSplashArt => new GetDataDragonSplashArt(this.submodules),
+                loading: (): GetDataDragonLoadingArt => new GetDataDragonLoadingArt(this.submodules),
+                icon: (): GetDataDragonChampionSquareArt => new GetDataDragonChampionSquareArt(this.submodules),
+            },
+        },
+        spell: {
+            art: (): GetDataDragonSpellArt => new GetDataDragonSpellArt(this.submodules),
+        },
+        item: {
+            list: (): GetDataDragonItemList => new GetDataDragonItemList(this.submodules),
+            art: (): GetDataDragonItemArt => new GetDataDragonItemArt(this.submodules),
+        },
+        summonerSpells: {
+            list: (): GetDataDragonSummonerSpellList => new GetDataDragonSummonerSpellList(this.submodules),
+        },
+        profileIcon: {
+            list: (): GetDataDragonProfileIconList => new GetDataDragonProfileIconList(this.submodules),
+            art: (): GetDataDragonProfileIconArt => new GetDataDragonProfileIconArt(this.submodules),
+        },
+        minimap: {
+            art: (): GetDataDragonMinimapArt => new GetDataDragonMinimapArt(this.submodules),
+        },
+        sprite: {
+            art: (): GetDataDragonSpriteArt => new GetDataDragonSpriteArt(this.submodules),
+        },
+        scoreboard: {
+            art: {
+                champion: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'champion'),
+                items: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'items'),
+                minion: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'minion'),
+                score: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'score'),
+                spells: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'spells'),
+            },
+        },
     }
 
     /**
@@ -531,6 +643,7 @@ export default class Galeforce implements GaleforceInterface {
         lol: LeagueRegion,
         val: ValorantRegion,
         riot: RiotRegion,
+        ddragon: DataDragonRegion,
     };
 
     /**

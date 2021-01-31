@@ -12,4 +12,5 @@ export interface ConfigInterface {
             [key: number]: number;
         };
     };
+    debug?: string[];
 }

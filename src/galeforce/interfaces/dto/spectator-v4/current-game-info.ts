@@ -1,5 +1,5 @@
 /*
-    The CurrentGameInfoInterface is an interface for active spectator data returned from V4 endpoints.
+    The CurrentGameInfoDTO is an interface for active spectator data returned from V4 endpoints.
 */
 
 interface Perks {
@@ -8,12 +8,12 @@ interface Perks {
     perkSubStyle: number;
 }
 
-interface GameCustomizationObjectInterface {
+interface GameCustomizationObjectDTO {
     category: string;
     content: string;
 }
 
-export interface BannedChampionInterface {
+export interface BannedChampionDTO {
     championId: number;
     pickTurn: number;
     teamId: number;
@@ -23,7 +23,7 @@ export interface Observer {
     encryptionKey: string;
 }
 
-interface CurrentGameParticipantInterface {
+interface CurrentGameParticipantDTO {
     championId: number;
     perks: Perks;
     profileIconId: number;
@@ -33,10 +33,10 @@ interface CurrentGameParticipantInterface {
     summonerId: string;
     spell1Id: number;
     spell2Id: number;
-    gameCustomizationObjects: GameCustomizationObjectInterface[];
+    gameCustomizationObjects: GameCustomizationObjectDTO[];
 }
 
-export interface CurrentGameInfoInterface {
+export interface CurrentGameInfoDTO {
     gameId: number;
     gameType: string;
     gameStartTime: number;
@@ -44,8 +44,8 @@ export interface CurrentGameInfoInterface {
     gameLength: number;
     platformId: string;
     gameMode: string;
-    bannedChampions: BannedChampionInterface[];
+    bannedChampions: BannedChampionDTO[];
     gameQueueConfigId: number;
     observers: Observer;
-    participants: CurrentGameParticipantInterface[];
+    participants: CurrentGameParticipantDTO[];
 }

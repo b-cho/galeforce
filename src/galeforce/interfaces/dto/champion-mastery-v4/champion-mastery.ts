@@ -1,8 +1,8 @@
 /*
-    The ChampionMasteryInterface is an interface for mastery data returned from V4 endpoints.
+    The ChampionMasteryDTO is an interface for mastery data returned from V4 endpoints.
 */
 
-export interface ChampionMasteryInterface { // Use as list
+export interface ChampionMasteryDTO { // Use as list
     championId: number;
     championLevel: number;
     championPoints: number;

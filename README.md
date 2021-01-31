@@ -14,10 +14,13 @@
 
 A customizable, promise-based, and command-oriented TypeScript library for the Riot Games API.
 
+## Features
+
 **Documentation** available [here](https://bcho04.github.io/galeforce/) and in the section [below](#documentation).
 
 ## Table of Contents
 - [Galeforce](#galeforce)
+  - [Features](#features)
   - [Table of Contents](#table-of-contents)
   - [Examples](#examples)
   - [Documentation](#documentation)
@@ -59,7 +62,7 @@ Promise.all(promises).then((result) => {
 <summary>Get list of recent matchId values for a given accountId</summary>
 
 ```javascript
-const matchIds = (await galeforce.lol.match.matchlist()
+const matchIds = (await galeforce.lol.match.list()
     .region(galeforce.regions.lol.NORTH_AMERICA)
     .accountId(accountId)
     .exec())
@@ -117,6 +120,7 @@ rate-limit: # OPTIONAL, Requires a cache to be configured.
   intervals: # key <secs>: value <number of requests>. 
     120: 100
     1: 20
+debug: [] # OPTIONAL, A list containing any of 'action', 'payload', 'rate-limit', 'riot-api', '*' (all).
 ```
 
 ---

@@ -1,15 +1,15 @@
 /*
-    The LeagueEntryInterface is an interface for league data returned from V4 endpoints.
+    The LeagueEntryDTO is an interface for league data returned from V4 endpoints.
 */
 
-export interface MiniSeriesDTOInterface {
+export interface MiniSeriesDTO {
     losses: number;
     progress: string;
     target: number;
     wins: number;
 }
 
-export interface LeagueEntryInterface {
+export interface LeagueEntryDTO {
     leagueId: string;
     queueType: string;
     tier: string;
@@ -23,5 +23,5 @@ export interface LeagueEntryInterface {
     inactive: boolean;
     freshBlood: boolean;
     hotStreak: boolean;
-    miniSeries?: MiniSeriesDTOInterface;
+    miniSeries?: MiniSeriesDTO;
 }

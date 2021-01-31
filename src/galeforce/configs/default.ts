@@ -31,11 +31,11 @@ function generateTemplateString(template: string): string {
 }
 
 /**
- * @param {Object} obj An object to substitute values from process.env for
+ * @param {Record<string, unknown>} obj An object to substitute values from process.env for
  *
- * @return {Object} Substituted version of template with process.env replaced values
+ * @return {Record<string, unknown>} Substituted version of template with process.env replaced values
  */
-function recursivelySubstitute(obj: object): object {
+function recursivelySubstitute(obj: Record<string, unknown>): Record<string, unknown> {
     const newObj: any = JSON.parse(JSON.stringify(obj));
 
     Object.keys(newObj).forEach((key) => {
@@ -48,7 +48,7 @@ function recursivelySubstitute(obj: object): object {
         }
     });
 
-    return newObj as object;
+    return newObj as Record<string, unknown>;
 }
 
 /**

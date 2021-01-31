@@ -135,7 +135,31 @@ export const VAL_STATUS = {
 };
 
 export const DATA_DRAGON = {
-    CHAMPION: 'http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json',
+    VERSIONS: 'https://ddragon.leagueoflegends.com/api/versions.json',
+    REGIONS: 'https://ddragon.leagueoflegends.com/realms/${region}.json',
+    LANGUAGES: 'https://ddragon.leagueoflegends.com/cdn/languages.json',
+    CHAMPION_LIST: 'https://ddragon.leagueoflegends.com/cdn/${version}/data/${locale}/champion.json',
+    CHAMPION: 'https://ddragon.leagueoflegends.com/cdn/${version}/data/${locale}/champion/${champion}.json',
+    SPLASH_ART: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion}_${skin}.jpg',
+    LOADING_ART: 'https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion}_${skin}.jpg',
+    SQUARE_ART: 'https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champion}.png',
+    CHAMPION_PASSIVE_ART: 'https://ddragon.leagueoflegends.com/cdn/${version}/img/passive/${spell}.png',
+    SPELL_ART: 'https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell}.png',
+    ITEM_LIST: 'https://ddragon.leagueoflegends.com/cdn/${version}/data/${locale}/item.json',
+    ITEM_ART: 'https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${assetId}.png',
+    SUMMONER_SPELL_LIST: 'https://ddragon.leagueoflegends.com/cdn/${version}/data/${locale}/summoner.json',
+    PROFILE_ICON_LIST: 'https://ddragon.leagueoflegends.com/cdn/${version}/data/${locale}/profileicon.json',
+    PROFILE_ICON_ART: 'https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${assetId}.png',
+    MINIMAP_ART: 'https://ddragon.leagueoflegends.com/cdn/${version}/img/map/map${assetId}.png',
+    SPRITES_ART: 'https://ddragon.leagueoflegends.com/cdn/${version}/img/sprite/spell${assetId}.png',
+    SCOREBOARD_ICONS_CHAMPION_ART: 'https://ddragon.leagueoflegends.com/cdn/5.5.1/img/ui/champion.png',
+    SCOREBOARD_ICONS_ITEMS_ART: 'https://ddragon.leagueoflegends.com/cdn/5.5.1/img/ui/items.png',
+    SCOREBOARD_ICONS_MINION_ART: 'https://ddragon.leagueoflegends.com/cdn/5.5.1/img/ui/minion.png',
+    SCOREBOARD_ICONS_SCORE_ART: 'https://ddragon.leagueoflegends.com/cdn/5.5.1/img/ui/score.png',
+    SCOREBOARD_ICONS_SPELLS_ART: 'https://ddragon.leagueoflegends.com/cdn/5.5.1/img/ui/spells.png',
+};
+
+export const STATIC = {
     SEASONS: 'http://static.developer.riotgames.com/docs/lol/seasons.json',
     QUEUES: 'http://static.developer.riotgames.com/docs/lol/queues.json',
     MAPS: 'http://static.developer.riotgames.com/docs/lol/maps.json',

@@ -1,10 +1,10 @@
 /*
-    The FeaturedGamesInterface is an interface for featured game data returned from V4 endpoints.
+    The FeaturedGamesDTO is an interface for featured game data returned from V4 endpoints.
 */
 
-import { BannedChampionInterface, Observer } from './current-game-info';
+import { BannedChampionDTO, Observer } from './current-game-info';
 
-interface ParticipantInterface {
+interface ParticipantDTO {
     bot: boolean;
     spell2Id: number;
     summonerName: string;
@@ -13,21 +13,21 @@ interface ParticipantInterface {
     spell1Id: number;
 }
 
-interface FeaturedGameInfoInterface {
+interface FeaturedGameInfoDTO {
     gameMode: string;
     gameLength: number;
     mapId: number;
     gameType: string;
-    bannedChampions: BannedChampionInterface[];
+    bannedChampions: BannedChampionDTO[];
     gameId: number;
     observers: Observer;
     gameQueueConfigId: number;
     gameStartTime: number;
-    participants: ParticipantInterface[];
+    participants: ParticipantDTO[];
     platformId: string;
 }
 
-export interface FeaturedGamesInterface {
-    gameList: FeaturedGameInfoInterface[];
+export interface FeaturedGamesDTO {
+    gameList: FeaturedGameInfoDTO[];
     clientRefreshInterval: number;
 }

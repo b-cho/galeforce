@@ -1,16 +1,16 @@
 /*
-    The TeamInterface is an interface for Clash team data returned from V1 endpoints.
+    The TeamDTO is an interface for Clash team data returned from V1 endpoints.
 */
 
 import { Position, Role } from './player';
 
-interface PlayerInterface {
+interface PlayerDTO {
     summonerId: string;
     position: Position;
     role: Role;
 }
 
-export interface TeamInterface {
+export interface TeamDTO {
     id: string;
     tournamentId: number;
     name: string;
@@ -18,5 +18,5 @@ export interface TeamInterface {
     tier: number;
     captain: string; // Summoner ID of the team captain.
     abbreviation: string;
-    players: PlayerInterface[]; // Team members.
+    players: PlayerDTO[]; // Team members.
 }

@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 enum GameMode {
     Constructed = 'Constructed',
     Expeditions = 'Expeditions',
@@ -14,7 +16,7 @@ enum GameType {
     StandardGauntlet = 'StandardGauntlet',
 }
 
-interface PlayerInterface {
+interface PlayerDTO {
     puuid: string;
     deck_id: string;
     deck_code: string;
@@ -23,22 +25,22 @@ interface PlayerInterface {
     order_of_play: number;
 }
 
-interface InfoInterface {
+interface InfoDTO {
     game_mode: GameMode; // (Legal values: Constructed, Expeditions, Tutorial)
     game_type: GameType; // (Legal values: Ranked, Normal, AI, Tutorial, VanillaTrial, Singleton, StandardGauntlet)
     game_start_time_utc: string;
     game_version: string;
-    players: PlayerInterface[];
+    players: PlayerDTO[];
     total_turn_count: number;
 }
 
-interface MetadataInterface {
+interface MetadataDTO {
     data_version: string;
     match_id: string;
     participants: string[];
 }
 
-export interface LorMatchInterface {
-    metadata: MetadataInterface;
-    info: InfoInterface;
+export interface LorMatchDTO {
+    metadata: MetadataDTO;
+    info: InfoDTO;
 }

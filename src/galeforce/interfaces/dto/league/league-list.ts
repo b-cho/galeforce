@@ -2,13 +2,13 @@
     The LeagueList is an interface for league data returned from V4 endpoints.
 */
 
-import { MiniSeriesDTOInterface } from './league-entry';
+import { MiniSeriesDTO } from './league-entry';
 
-interface LeagueItemInterface {
+interface LeagueItemDTO {
     freshBlood: boolean;
     wins: number;
     summonerName: string;
-    miniSeries?: MiniSeriesDTOInterface;
+    miniSeries?: MiniSeriesDTO;
     inactive: boolean;
     veteran: boolean;
     hotStreak: boolean;
@@ -18,9 +18,9 @@ interface LeagueItemInterface {
     summonerId: string;
 }
 
-export interface LeagueListInterface {
+export interface LeagueListDTO {
     leagueId: string;
-    entries: LeagueItemInterface[];
+    entries: LeagueItemDTO[];
     tier: string;
     name: string;
     queue: string;

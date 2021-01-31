@@ -1,10 +1,10 @@
-interface MatchlistEntryInterface {
+interface MatchlistEntryDTO {
     matchId: string;
     gameStartTimeMillis: number;
     teamId: string;
 }
 
-export interface ValMatchlistInterface {
+export interface ValMatchlistDTO {
     puuid: string;
-    history: MatchlistEntryInterface;
+    history: MatchlistEntryDTO;
 }

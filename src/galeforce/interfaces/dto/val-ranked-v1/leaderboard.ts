@@ -1,4 +1,4 @@
-interface PlayerInterface {
+interface PlayerDTO {
     puuid: string;
     gameName: string;
     tagLine: string;
@@ -7,9 +7,9 @@ interface PlayerInterface {
     numberOfWins: number;
 }
 
-export interface ValLeaderboardInterface {
+export interface ValLeaderboardDTO {
     shard: string;
     actId: string;
     totalPlayers: number;
-    players: PlayerInterface[];
+    players: PlayerDTO[];
 }

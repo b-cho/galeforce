@@ -4,10 +4,10 @@
     information relevant to that request.
 */
 
-import { Request } from './request';
+import Request from './request';
 
-export class RiotAPIRequest extends Request {
-    constructor(URLTemplate: string, parameters: { [key: string]: unknown }, key: string, query: object, body: object) {
+export default class RiotAPIRequest extends Request {
+    constructor(key: string, URLTemplate: string, parameters: Record<string, unknown>, query: object, body: object) {
         super(Request.generateTemplateString(URLTemplate, parameters), { 'X-Riot-Token': key }, query, body);
     }
 }

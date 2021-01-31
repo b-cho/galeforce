@@ -11,8 +11,8 @@ export interface RegionChainable<TRegion extends Region = Region> {
 
 /**
  * A mixin for the `.region()` method.
- * @template TRegion The type of the region. Defaults to `Region`, but should be specified.
- * @template TBase The type of the object inside. Defaults to `typeof Action`.
+ * @template TRegion The type of the region. Specified by the type of the `type` parameter.
+ * @template TBase The type of the object inside.
  * @param type A dummy parameter to allow for type inference. Use by passing in `<T>{}` or
  * an expression of that form.
  * @param Base The target class.

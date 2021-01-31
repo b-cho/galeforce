@@ -4,22 +4,27 @@
     @packageDocumentation
 */
 
+import debug from 'debug';
+import chalk from 'chalk';
 import async from 'async';
+import { v4 as uuidv4 } from 'uuid';
 import { RiotAPIModule, Region } from '../../riot-api';
 import { Payload, CreatePayloadProxy } from './payload';
 import { Cache } from '../caches/cache';
-import { SubmoduleMapInterface } from '../interfaces/submodule-map';
+import SubmoduleMap from '../interfaces/submodule-map';
+
+const actionDebug = debug('galeforce:action');
+const rateLimitDebug = debug('galeforce:rate-limit');
 
 /**
- * @template T The type/enum corresponding to the valid endpoint regions.
- * @template R The return type of the Action.
+ * @template TResult The return type of the Action.
  */
-export class Action<R> {
+export default class Action<TResult> {
     protected RiotAPI: RiotAPIModule;
 
     protected cache: Cache;
 
-    protected SubmoduleMap: SubmoduleMapInterface;
+    protected submodules: SubmoduleMap;
 
     /**
      * The payload containing the data (endpoint, request type, parameters, etc.) related to the
@@ -28,17 +33,21 @@ export class Action<R> {
      */
     public payload: Payload;
 
+    protected id: string = uuidv4();
+
     /**
      *
-     * @param SubmoduleMap
-     * @param payload The mutable payload object that is passed to {@link Request} when `.exec()` is called.
+     * @param submodules The reference to the submodules ({@link RiotAPI}, {@link Cache}). Passed into the action.
      */
-    constructor(SubmoduleMap: SubmoduleMapInterface, payload?: Payload) {
-        this.SubmoduleMap = SubmoduleMap;
-        this.RiotAPI = SubmoduleMap.RiotAPI;
-        this.cache = SubmoduleMap.cache;
+    constructor(submodules: SubmoduleMap) {
+        this.submodules = submodules;
+        this.RiotAPI = submodules.RiotAPI;
+        this.cache = submodules.cache;
+        this.payload = CreatePayloadProxy({
+            _id: uuidv4(),
+        });
 
-        this.payload = payload || CreatePayloadProxy({});
+        actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('initialize')}`);
     }
 
     /**
@@ -48,13 +57,14 @@ export class Action<R> {
      * *body* on POST or PUT requests, etc.) is missing or the HTTP request
      * fails with an error.
      */
-    public async exec(): Promise<R> {
+    public async exec(): Promise<TResult> {
+        actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('execute')} \u00AB %O`, this.payload);
         try {
-            if (typeof this.payload.region === 'undefined' || typeof this.payload.endpoint === 'undefined') {
-                throw new Error('[galeforce]: Action payload region or endpoint is required but undefined.');
+            if (typeof this.payload.endpoint === 'undefined') {
+                throw new Error('[galeforce]: Action endpoint is required but undefined.');
             }
             if (typeof this.payload.method === 'undefined') {
-                throw new Error('[galeforce]: Action payload method is required but undefined.');
+                throw new Error('[galeforce]: Action method is required but undefined.');
             }
 
             // Execute-time property checks
@@ -63,8 +73,16 @@ export class Action<R> {
                 throw new Error('[galeforce]: .gameName() must be chained with .tagLine().');
             }
 
-            await this.waitForRateLimit(this.payload.region);
-            await this.incrementRateLimit(this.payload.region);
+            // Increment rate limit for non-Data Dragon requests.
+            if (this.payload.type !== 'ddragon') {
+                if (typeof this.payload.region !== 'undefined') {
+                    await this.waitForRateLimit(this.payload.region);
+                    await this.incrementRateLimit(this.payload.region);
+                } else {
+                    throw new Error('[galeforce]: Action payload region is required but undefined.');
+                }
+            }
+
             const request = this.RiotAPI.request(
                 this.payload.endpoint,
                 this.payload,
@@ -76,14 +94,18 @@ export class Action<R> {
             if (this.payload.method === 'GET') {
                 ({ data } = await request.get() as any);
             } else if (this.payload.method === 'POST') {
-                if (typeof this.payload.body === 'undefined') throw new Error('[galeforce]: Action payload body is required but undefined.');
+                if (typeof this.payload.body === 'undefined') {
+                    throw new Error('[galeforce]: Action payload body is required but undefined.');
+                }
                 ({ data } = await request.post() as any);
             } else if (this.payload.method === 'PUT') {
-                if (typeof this.payload.body === 'undefined') throw new Error('[galeforce]: Action payload body is required but undefined.');
+                if (typeof this.payload.body === 'undefined') {
+                    throw new Error('[galeforce]: Action payload body is required but undefined.');
+                }
                 ({ data } = await request.put() as any);
             }
 
-            return data as R;
+            return data as TResult;
         } catch (e) {
             if (e.response?.status) {
                 if (e.response.status === 403) {
@@ -110,11 +132,14 @@ export class Action<R> {
     }
 
     protected async waitForRateLimit(region: Region): Promise<void> {
+        rateLimitDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.red('wait')} ${region}`);
         return new Promise((resolve) => {
             const WRLLoop = (): void => {
                 this.checkRateLimit(region).then((ready: boolean) => {
-                    if (ready) resolve();
-                    else setTimeout(WRLLoop, 0);
+                    if (ready) {
+                        rateLimitDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.red('OK')} ${region}`);
+                        resolve();
+                    } else setTimeout(WRLLoop, 0);
                 });
             };
             WRLLoop();
@@ -122,6 +147,7 @@ export class Action<R> {
     }
 
     protected async incrementRateLimit(region: Region): Promise<void> {
+        rateLimitDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.red('increment')} ${region}`);
         const { intervals, prefix } = this.cache.RLConfig;
         async.each(Object.keys(intervals), async (key: string, callback: (err?: object) => void) => {
             const queries: number = await this.getQueries(key, region);

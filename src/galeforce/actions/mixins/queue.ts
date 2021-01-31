@@ -11,8 +11,8 @@ export interface QueueChainable<TQueue extends Queue = Queue> {
 
 /**
  * A mixin for the `.queue()` method.
- * @template TQueue The type of the queue. Defaults to `Queue`, but should be specified.
- * @template TBase The type of the object inside. Defaults to `typeof Action`.
+ * @template TQueue The type of the queue. Specified by the type of the `type` parameter.
+ * @template TBase The type of the object inside.
  * @param type A dummy parameter to allow for type inference. Use by passing in `<T>{}` or
  * an expression of that form.
  * @param Base The target class.

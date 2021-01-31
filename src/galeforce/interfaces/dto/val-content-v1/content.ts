@@ -1,4 +1,4 @@
-interface LocalizedNamesInterface {
+interface LocalizedNamesDTO {
     'ar-AE': string;
     'de-DE': string;
     'en-GB': string;
@@ -20,35 +20,35 @@ interface LocalizedNamesInterface {
     'zh-TW': string;
 }
 
-interface ContentItemInterface {
+interface ContentItemDTO {
     name: string;
-    localizedNames?: LocalizedNamesInterface;
+    localizedNames?: LocalizedNamesDTO;
     id: string;
     assetName: string;
     assetPath?: string;
 }
 
-interface ActInterface {
+interface ActDTO {
     name: string;
-    localizedNames?: LocalizedNamesInterface;
+    localizedNames?: LocalizedNamesDTO;
     id: string;
     isActive: boolean;
 }
 
-export interface ValContentInterface {
+export interface ValContentDTO {
     version: string;
-    characters: ContentItemInterface[];
-    maps: ContentItemInterface[];
-    chromas: ContentItemInterface[];
-    skins: ContentItemInterface[];
-    skinLevels: ContentItemInterface[];
-    equips: ContentItemInterface[];
-    gameModes: ContentItemInterface[];
-    sprays: ContentItemInterface[];
-    sprayLevels: ContentItemInterface[];
-    charms: ContentItemInterface[];
-    charmLevels: ContentItemInterface[];
-    playerCards: ContentItemInterface[];
-    playerTitles: ContentItemInterface[];
-    acts: ActInterface[];
+    characters: ContentItemDTO[];
+    maps: ContentItemDTO[];
+    chromas: ContentItemDTO[];
+    skins: ContentItemDTO[];
+    skinLevels: ContentItemDTO[];
+    equips: ContentItemDTO[];
+    gameModes: ContentItemDTO[];
+    sprays: ContentItemDTO[];
+    sprayLevels: ContentItemDTO[];
+    charms: ContentItemDTO[];
+    charmLevels: ContentItemDTO[];
+    playerCards: ContentItemDTO[];
+    playerTitles: ContentItemDTO[];
+    acts: ActDTO[];
 }

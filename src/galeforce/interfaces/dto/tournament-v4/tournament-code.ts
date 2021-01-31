@@ -19,7 +19,7 @@ enum SpectatorType {
     ALL = 'ALL',
 }
 
-export interface TournamentCodeInterface {
+export interface TournamentCodeDTO {
     code: string;
     spectators: string;
     lobbyName: string;

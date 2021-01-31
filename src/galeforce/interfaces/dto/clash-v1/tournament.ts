@@ -1,18 +1,18 @@
 /*
-    The TournamentInterface is an interface for Clash tournament data returned from V1 endpoints.
+    The TournamentDTO is an interface for Clash tournament data returned from V1 endpoints.
 */
 
-interface TournamentPhaseInterface {
+interface TournamentPhaseDTO {
     id: number;
     registrationTime: number;
     startTime: number;
     cancelled: boolean;
 }
 
-export interface TournamentInterface {
+export interface TournamentDTO {
     id: number;
     themeId: number;
     nameKey: string;
     nameKeySecondary: string;
-    schedule: TournamentPhaseInterface[];
+    schedule: TournamentPhaseDTO[];
 }

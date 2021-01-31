@@ -1,4 +1,4 @@
-interface MatchInfoInterface {
+interface MatchInfoDTO {
     matchId: string;
     mapId: string;
     gameLengthMillis: number;
@@ -12,37 +12,37 @@ interface MatchInfoInterface {
     seasonId: string;
 }
 
-interface AbilityCastsInterface {
+interface AbilityCastsDTO {
     grenadeCasts: number;
     ability1Casts: number;
     ability2Casts: number;
     ultimateCasts: number;
 }
 
-interface PlayerStatsInterface {
+interface PlayerStatsDTO {
     score: number;
     roundsPlayed: number;
     kills: number;
     deaths: number;
     assists: number;
     playtimeMillis: number;
-    abilityCasts: AbilityCastsInterface;
+    abilityCasts: AbilityCastsDTO;
 }
 
-interface PlayerInterface {
+interface PlayerDTO {
     puuid: string;
     gameName: string;
     tagLine: string;
     teamId: string;
     partyId: string;
     characterId: string;
-    stats: PlayerStatsInterface;
+    stats: PlayerStatsDTO;
     competitiveTier: number;
     playerCard: string;
     playerTitle: string;
 }
 
-interface TeamInterface {
+interface TeamDTO {
     teamId: string;
     won: boolean;
     roundsPlayed: number;
@@ -50,35 +50,35 @@ interface TeamInterface {
     numPoints: number;
 }
 
-interface LocationInterface {
+interface LocationDTO {
     x: number;
     y: number;
 }
 
-interface PlayerLocationsInterface {
+interface PlayerLocationsDTO {
     puuid: string;
     viewRadians: number;
-    location: LocationInterface;
+    location: LocationDTO;
 }
 
-interface FinishingDamageInterface {
+interface FinishingDamageDTO {
     damageType: string;
     damageItem: string;
     isSecondaryFireMode: boolean;
 }
 
-interface KillInterface {
+interface KillDTO {
     timeSinceGameStartMillis: number;
     timeSinceRoundStartMillis: number;
     killer: string;
     victim: string;
-    victimLocation: LocationInterface;
+    victimLocation: LocationDTO;
     assistants: string[];
-    playerLocations: PlayerLocationsInterface[];
-    finishingDamage: FinishingDamageInterface;
+    playerLocations: PlayerLocationsDTO[];
+    finishingDamage: FinishingDamageDTO;
 }
 
-interface DamageInterface {
+interface DamageDTO {
     receiver: string;
     damage: number;
     legshots: number;
@@ -86,7 +86,7 @@ interface DamageInterface {
     headshots: number;
 }
 
-interface EconomyInterface {
+interface EconomyDTO {
     loadoutValue: number;
     weapon: string;
     armor: string;
@@ -94,23 +94,23 @@ interface EconomyInterface {
     spent: number;
 }
 
-interface AbilityInterface {
+interface AbilityDTO {
     grenadeEffects: string;
     ability1Effects: string;
     ability2Effects: string;
     ultimateEffects: string;
 }
 
-interface PlayerRoundStatsInterface {
+interface PlayerRoundStatsDTO {
     puuid: string;
-    kills: KillInterface[];
-    damage: DamageInterface[];
+    kills: KillDTO[];
+    damage: DamageDTO[];
     score: number;
-    economy: EconomyInterface;
-    ability: AbilityInterface;
+    economy: EconomyDTO;
+    ability: AbilityDTO;
 }
 
-interface RoundResultInterface {
+interface RoundResultDTO {
     roundNum: number;
     roundResult: string;
     roundCeremony: string;
@@ -118,19 +118,19 @@ interface RoundResultInterface {
     bombPlanter: string;
     bombDefuser: string;
     plantRoundTime: number;
-    plantPlayerLocations: PlayerLocationsInterface[];
-    plantLocation: LocationInterface;
+    plantPlayerLocations: PlayerLocationsDTO[];
+    plantLocation: LocationDTO;
     plantSite: string;
     defuseRoundTime: number;
-    defusePlayerLocations: PlayerLocationsInterface[];
-    defuseLocation: LocationInterface;
-    playerStats: PlayerRoundStatsInterface;
+    defusePlayerLocations: PlayerLocationsDTO[];
+    defuseLocation: LocationDTO;
+    playerStats: PlayerRoundStatsDTO;
     roundResultCode: string;
 }
 
-export interface ValMatchInterface {
-    matchInfo: MatchInfoInterface;
-    players: PlayerInterface[];
-    teams: TeamInterface[];
-    roundResults: RoundResultInterface[];
+export interface ValMatchDTO {
+    matchInfo: MatchInfoDTO;
+    players: PlayerDTO[];
+    teams: TeamDTO[];
+    roundResults: RoundResultDTO[];
 }

@@ -28,8 +28,22 @@ enum ValorantRegion {
     PBE = 'pbe1',
 }
 
-type Region = LeagueRegion | RiotRegion | ValorantRegion;
+enum DataDragonRegion {
+    BRAZIL = 'br',
+    EUROPE_NORTHEAST = 'eune',
+    EUROPE_WEST = 'euw',
+    KOREA = 'kr',
+    LATIN_AMERICA_NORTH = 'lan',
+    LATIN_AMERICA_SOUTH = 'las',
+    NORTH_AMERICA = 'na',
+    OCEANIA = 'oce',
+    RUSSIA = 'ru',
+    TURKEY = 'tr',
+    JAPAN = 'jp',
+}
+
+type Region = LeagueRegion | RiotRegion | ValorantRegion | DataDragonRegion;
 
 export {
-    LeagueRegion, RiotRegion, ValorantRegion, Region,
+    LeagueRegion, RiotRegion, ValorantRegion, Region, DataDragonRegion,
 };

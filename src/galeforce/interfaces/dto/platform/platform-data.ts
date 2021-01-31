@@ -1,5 +1,6 @@
+/* eslint-disable camelcase */
 /*
-    The PlatformDataInterface is an interface for status data returned from V4 endpoints.
+    The PlatformDataDTO is an interface for status data returned from V4 endpoints.
 */
 
 enum MaintenanceStatus {
@@ -30,27 +31,27 @@ enum PublishLocations {
     GAME = 'game',
 }
 
-interface ContentInterface {
+interface ContentDTO {
     locale: string;
     content: string;
 }
 
-interface UpdateInterface {
+interface UpdateDTO {
     id: number;
     author: string;
     publish: boolean;
     publish_locations: PublishLocations[]; // (Legal values: riotclient, riotstatus, game)
-    translations: ContentInterface[];
+    translations: ContentDTO[];
     created_at: string;
     updated_at: string;
 }
 
-interface StatusInterface {
+interface StatusDTO {
     id: number;
     maintenance_status: MaintenanceStatus | null; // (Legal values: scheduled, in_progress, complete)
     incident_severity: IncidentSeverity; // (Legal values: info, warning, critical)
-    titles: ContentInterface[];
-    updates: UpdateInterface[];
+    titles: ContentDTO[];
+    updates: UpdateDTO[];
     created_at: string;
     archive_at: string | null;
     updated_at: string | null;
@@ -58,10 +59,10 @@ interface StatusInterface {
 
 }
 
-export interface PlatformDataInterface {
+export interface PlatformDataDTO {
     id: string;
     name: string;
     locales: string[];
-    maintenances: StatusInterface[];
-    incidents: StatusInterface[];
+    maintenances: StatusDTO[];
+    incidents: StatusDTO[];
 }

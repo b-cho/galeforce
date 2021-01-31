@@ -1,16 +1,18 @@
-interface MetadataInterface {
+/* eslint-disable camelcase */
+
+interface MetadataDTO {
     data_version: string;
     match_id: string;
     participants: string[];
 }
 
-interface CompanionInterface {
+interface CompanionDTO {
 
 }
 
 type StyleType = 0 | 1 | 2 | 3 | 4;
 
-interface TraitInterface {
+interface TraitDTO {
     name: string;
     num_units: number;
     style: StyleType;
@@ -18,7 +20,7 @@ interface TraitInterface {
     tier_total: number;
 }
 
-interface UnitInterface {
+interface UnitDTO {
     items: number[];
     character_id: string;
     chosen?: string;
@@ -27,8 +29,8 @@ interface UnitInterface {
     tier: number;
 }
 
-interface ParticipantInterface {
-    companion: CompanionInterface;
+interface ParticipantDTO {
+    companion: CompanionDTO;
     gold_left: number;
     last_round: number;
     level: number;
@@ -37,21 +39,21 @@ interface ParticipantInterface {
     puuid: string;
     time_eliminated: number;
     total_damage_to_players: number;
-    traits: TraitInterface[];
-    units: UnitInterface[];
+    traits: TraitDTO[];
+    units: UnitDTO[];
 }
 
-interface InfoInterface {
+interface InfoDTO {
     game_datetime: number;
     game_length: number;
     game_variation?: string;
     game_version: string;
-    participants: ParticipantInterface[];
+    participants: ParticipantDTO[];
     queue_id: number;
     tft_set_number: number;
 }
 
-export interface TFTMatchInterface {
-    metadata: MetadataInterface;
-    info: InfoInterface;
+export interface TFTMatchDTO {
+    metadata: MetadataDTO;
+    info: InfoDTO;
 }

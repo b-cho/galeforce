@@ -1,8 +1,8 @@
 /*
-    The TimelineInterface is an interface for timeline data returned from V4 endpoints.
+    The TimelineDTO is an interface for timeline data returned from V4 endpoints.
 */
 
-interface MatchPositionInterface {
+interface MatchPositionDTO {
     x: number;
     y: number;
 }
@@ -23,7 +23,7 @@ enum MatchEventType {
     PORO_KING_SUMMON = 'PORO_KING_SUMMON',
 }
 
-interface MatchEventInterface {
+interface MatchEventDTO {
     laneType?: string;
     skillSlot?: number;
     ascendedType?: string;
@@ -41,7 +41,7 @@ interface MatchEventInterface {
     monsterType?: string;
     monsterSubType?: string;
     teamId?: number;
-    position?: MatchPositionInterface;
+    position?: MatchPositionDTO;
     killerId?: number;
     timestamp: number;
     assistingParticipants?: number[];
@@ -49,7 +49,7 @@ interface MatchEventInterface {
     victimId?: number;
 }
 
-interface MatchParticipantFrameInterface {
+interface MatchParticipantFrameDTO {
     participantId: number;
     minionsKilled: number;
     teamScore: number;
@@ -58,17 +58,17 @@ interface MatchParticipantFrameInterface {
     level: number;
     xp: number;
     currentGold: number;
-    position: MatchPositionInterface;
+    position: MatchPositionDTO;
     jungleMinionsKilled: number;
 }
 
-interface MatchFrameInterface {
-    participantFrames: Record<string, MatchParticipantFrameInterface>;
-    events: MatchEventInterface[];
+interface MatchFrameDTO {
+    participantFrames: Record<string, MatchParticipantFrameDTO>;
+    events: MatchEventDTO[];
     timestamp: number;
 }
 
-export interface MatchTimelineInterface {
-    frames: MatchFrameInterface[];
+export interface MatchTimelineDTO {
+    frames: MatchFrameDTO[];
     frameInterval: number;
 }

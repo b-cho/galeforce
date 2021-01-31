@@ -68,7 +68,7 @@ module.exports = {
         "prefer-destructuring": "warn",
         "no-undef": "off",
         "class-methods-use-this": "error",
-        "max-len": "warn",
+        "max-len": ["warn", {"code": 120, "ignoreStrings": true}],
     },
     "settings": {
         "import/extensions": [".js", ".jsx", ".ts", ".tsx"],

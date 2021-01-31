@@ -1,7 +1,7 @@
 {
     "entryPoint": "./src/index.ts",
     "out": "docs",
-    "theme": "minimal",
+    "theme": "default",
     "includeVersion": true,
     "excludePrivate": true,
     "excludeProtected": true,

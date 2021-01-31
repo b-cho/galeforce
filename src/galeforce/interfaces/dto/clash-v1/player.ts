@@ -1,5 +1,5 @@
 /*
-    The PlayerInterface is an interface for Clash player data returned from V1 endpoints.
+    The PlayerDTO is an interface for Clash player data returned from V1 endpoints.
 */
 
 export enum Position {
@@ -17,7 +17,7 @@ export enum Role {
     MEMBER = 'MEMBER',
 }
 
-export interface PlayerInterface {
+export interface PlayerDTO {
     summonerId: string;
     teamId: string;
     position: Position;

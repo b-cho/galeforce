@@ -1,5 +1,5 @@
 /*
-    The MatchInterface is an interface for match data returned from V4 endpoints.
+    The MatchDTO is an interface for match data returned from V4 endpoints.
 */
 
 enum Tier {
@@ -40,7 +40,7 @@ enum Lane {
     BOTTOM = 'BOTTOM'
 }
 
-interface MatchPlayerInterface { // Originally PlayerInterface
+interface MatchPlayerDTO { // Originally PlayerDTO
     profileIcon: number;
     accountId: string;
     matchHistoryUri: string;
@@ -51,22 +51,22 @@ interface MatchPlayerInterface { // Originally PlayerInterface
     platformId: string;
 }
 
-interface ParticipantIdentityInterface {
+interface ParticipantIdentityDTO {
     participantId: number;
-    player?: MatchPlayerInterface;
+    player?: MatchPlayerDTO;
 }
 
-interface TeamBansInterface {
+interface TeamBansDTO {
     championId: number;
     pickTurn: number;
 }
 
-interface TeamStatsInterface {
+interface TeamStatsDTO {
     towerKills: number;
     riftHeraldKills: number;
     firstBlood: boolean;
     inhibitorKills: number;
-    bans: TeamBansInterface[];
+    bans: TeamBansDTO[];
     firstBaron: boolean;
     firstDragon: boolean;
     dominionVictoryScore: number;
@@ -80,12 +80,12 @@ interface TeamStatsInterface {
     win: MatchResult; // string, but only two legal values
 }
 
-interface RuneInterface {
+interface RuneDTO {
     runeId: number;
     rank: number;
 }
 
-interface ParticipantStatsInterface {
+interface ParticipantStatsDTO {
     item0: number;
     item2: number;
     totalUnitsHealed: number;
@@ -199,7 +199,7 @@ interface ParticipantStatsInterface {
     statPerk2: number;
 }
 
-interface ParticipantTimelineInterface {
+interface ParticipantTimelineDTO {
     participantId: number;
     csDiffPerMinDeltas: Record<string, number>;
     damageTakenPerMinDeltas: Record<string, number>;
@@ -212,25 +212,25 @@ interface ParticipantTimelineInterface {
     goldPerMinDeltas: Record<string, number>;
 }
 
-interface MasteryInterface {
+interface MasteryDTO {
     rank: number;
     masteryId: number;
 }
 
-interface ParticipantInterface {
+interface ParticipantDTO {
     participantId: number;
     championId: number;
-    runes?: RuneInterface[];
-    stats: ParticipantStatsInterface;
+    runes?: RuneDTO[];
+    stats: ParticipantStatsDTO;
     teamId: Team; // number, but only two legal values
-    timeline: ParticipantTimelineInterface;
+    timeline: ParticipantTimelineDTO;
     spell1Id: number;
     spell2Id: number;
     highestAchievedSeasonTier?: Tier;
-    masteries?: MasteryInterface;
+    masteries?: MasteryDTO;
 }
 
-export interface MatchInterface {
+export interface MatchDTO {
     gameId: number;
     gameCreation: number;
     gameDuration: number;
@@ -238,10 +238,10 @@ export interface MatchInterface {
     gameType: string;
     gameVersion: string;
     mapId: number;
-    participantIdentities: ParticipantIdentityInterface[];
-    participants: ParticipantInterface[];
+    participantIdentities: ParticipantIdentityDTO[];
+    participants: ParticipantDTO[];
     platformId: string;
     queueId: number;
     seasonId: number;
-    teams: TeamStatsInterface[];
+    teams: TeamStatsDTO[];
 }

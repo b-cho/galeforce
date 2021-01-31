@@ -10,8 +10,8 @@ export interface QueryChainable<TQuery extends object = object> {
 
 /**
  * A mixin for the `.query()` method.
- * @template TQuery The type of the request body. Defaults to `object`, but should be specified.
- * @template TBase The type of the object inside. Defaults to `typeof Action`.
+ * @template TQuery The type of the request query. Specified by the type of the `type` parameter.
+ * @template TBase The type of the object inside.
  * @param type A dummy parameter to allow for type inference. Use by passing in `<T>{}` or
  * an expression of that form.
  * @param Base The target class.
