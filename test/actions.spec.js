@@ -376,7 +376,11 @@ const gameClientAPI = nock('https://127.0.0.1:2999')
     .get('/liveclientdata/eventdata')
         .reply(200, replyValues.gc.events)
     .get('/liveclientdata/gamestats')
-        .reply(200, replyValues.gc.gameData);
+        .reply(200, replyValues.gc.gameData)
+    .get('/swagger/v2/swagger.json')
+        .reply(200, 'swagger')
+    .get('/swagger/v3/openapi.json')
+        .reply(200, 'openapi');
 
 describe('/galeforce/actions', () => {
     describe('galeforce', () => {
@@ -1242,6 +1246,18 @@ describe('/galeforce/actions', () => {
             });
         });
         describe('.gc', () => {
+            describe('.swagger()', () => {
+                it('should pull JSON from the appropriate Game Client URL', () => {
+                    return expect(Galeforce.gc.swagger().exec())
+                        .to.eventually.deep.equal('swagger');
+                });
+            });
+            describe('.openAPI()', () => {
+                it('should pull JSON from the appropriate Game Client URL', () => {
+                    return expect(Galeforce.gc.openAPI().exec())
+                        .to.eventually.deep.equal('openapi');
+                });
+            });
             describe('.all()', () => {
                 it('should pull JSON from the appropriate Game Client URL', () => {
                     return expect(Galeforce.gc.all().exec())
@@ -1315,7 +1331,7 @@ describe('/galeforce/actions', () => {
             describe('.stats()', () => {
                 it('should pull JSON from the appropriate Game Client URL', () => {
                     return expect(Galeforce.gc.stats().exec())
-                        .to.eventually.deep.equal(replyValues.gc.stats);
+                        .to.eventually.deep.equal(replyValues.gc.gameData);
                 });
             });
         });
