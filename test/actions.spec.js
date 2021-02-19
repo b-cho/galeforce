@@ -137,7 +137,8 @@ const replyValues = {
         profileIcon: require('./test-json/ddragon.profile-icon.list.json'),
         region: require('./test-json/ddragon.region.json'),
         summonerSpells: require('./test-json/ddragon.summoner-spells.list.json'),
-    }
+    },
+    gc: require('./test-json/liveclientdata.json'),
 };
 
 const na1API = nock('https://na1.api.riotgames.com')
@@ -259,7 +260,7 @@ const na1API = nock('https://na1.api.riotgames.com')
     .get('/tft/summoner/v1/summoners/by-account/xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4')
         .reply(200, replyValues.v1.tftSummoner)
     .get('/tft/summoner/v1/summoners/by-puuid/jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g')
-        .reply(200, replyValues.v1.tftSummoner)
+        .reply(200, replyValues.v1.tftSummoner);
 
 const americasAPI = nock('https://americas.api.riotgames.com')
     .get('/riot/account/v1/accounts/by-puuid/jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g')
@@ -281,7 +282,7 @@ const americasAPI = nock('https://americas.api.riotgames.com')
     .get('/tft/match/v1/matches/by-puuid/puuid/ids?count=5')
         .reply(200, replyValues.v1.tftMatch.matchlist)
     .get('/tft/match/v1/matches/NA1_3701236130')
-        .reply(200, replyValues.v1.tftMatch.match)
+        .reply(200, replyValues.v1.tftMatch.match);
 
 const naAPI = nock('https://na.api.riotgames.com')
     .get('/val/content/v1/contents')
@@ -299,7 +300,7 @@ const naAPI = nock('https://na.api.riotgames.com')
     .get('/val/ranked/v1/leaderboards/by-act/actId?size=10&startIndex=5')
         .reply(200, replyValues.v1.valRanked.leaderboard)
     .get('/val/status/v1/platform-data')
-        .reply(200, replyValues.v1.valStatus.platformData)
+        .reply(200, replyValues.v1.valStatus.platformData);
 
 const dataDragonAPI = nock('https://ddragon.leagueoflegends.com')
     .get('/cdn/dragontail-11.2.1.tgz')
@@ -349,12 +350,36 @@ const dataDragonAPI = nock('https://ddragon.leagueoflegends.com')
     .get('/cdn/5.5.1/img/ui/score.png')
         .reply(200, 'scoreboardChampion')
     .get('/cdn/5.5.1/img/ui/spells.png')
-        .reply(200, 'scoreboardChampion')
+        .reply(200, 'scoreboardChampion');
 
-    
+const gameClientAPI = nock('https://127.0.0.1:2999')
+    .get('/liveclientdata/allgamedata')
+        .reply(200, replyValues.gc)
+    .get('/liveclientdata/activeplayer')
+        .reply(200, replyValues.gc.activePlayer)
+    .get('/liveclientdata/activeplayername')
+        .reply(200, replyValues.gc.activePlayer.summonerName)
+    .get('/liveclientdata/activeplayerabilities')
+        .reply(200, replyValues.gc.activePlayer.abilities)
+    .get('/liveclientdata/activeplayerrunes')
+        .reply(200, replyValues.gc.activePlayer.fullRunes)
+    .get('/liveclientdata/playerlist')
+        .reply(200, replyValues.gc.allPlayers)
+    .get('/liveclientdata/playerscores?summonerName=SSG%20Xayah')
+        .reply(200, replyValues.gc.allPlayers[0].scores)
+    .get('/liveclientdata/playersummonerspells?summonerName=SSG%20Xayah')
+        .reply(200, replyValues.gc.allPlayers[0].summonerSpells)
+    .get('/liveclientdata/playermainrunes?summonerName=SSG%20Xayah')
+        .reply(200, replyValues.gc.allPlayers[0].runes)
+    .get('/liveclientdata/playeritems?summonerName=SSG%20Xayah')
+        .reply(200, replyValues.gc.allPlayers[0].items)
+    .get('/liveclientdata/eventdata')
+        .reply(200, replyValues.gc.events)
+    .get('/liveclientdata/gamestats')
+        .reply(200, replyValues.gc.gameData);
 
 describe('/galeforce/actions', () => {
-    describe('Galeforce', () => {
+    describe('galeforce', () => {
         describe('.lol', () => {
             describe('.summoner()', () => {
                 describe('.name()', () => {
@@ -1002,217 +1027,295 @@ describe('/galeforce/actions', () => {
                 });
             });
         });
-    });
-    describe('.ddragon', () => {
-        describe('.tail()', () => {
-            it('should pull JSON from the appropriate Data Dragon URL', () => {
-                return expect(Galeforce.ddragon.tail().version('11.2.1').exec())
-                    .to.eventually.be.a('string');
-            });
-            it('should pull JSON from the appropriate Data Dragon URL', () => {
-                return expect(Galeforce.ddragon.tail().version('10.10.5').exec())
-                    .to.eventually.be.a('string');
-            });
-        });
-        describe('.versions()', () => {
-            it('should pull JSON from the appropriate Data Dragon URL', () => {
-                return expect(Galeforce.ddragon.versions().exec())
-                    .to.eventually.be.a('Array');
-            });
-        });
-        describe('.realm()', () => {
-            describe('.region()', () => {
+        describe('.ddragon', () => {
+            describe('.tail()', () => {
                 it('should pull JSON from the appropriate Data Dragon URL', () => {
-                    return expect(Galeforce.ddragon.realm().region(Galeforce.regions.ddragon.NORTH_AMERICA).exec())
-                        .to.eventually.have.property('n');
+                    return expect(Galeforce.ddragon.tail().version('11.2.1').exec())
+                        .to.eventually.be.a('string');
                 });
-                it('should throw when provided an invalid region', () => {
-                    return expect(() => Galeforce.ddragon.realm().region(Galeforce.regions.lol.NORTH_AMERICA))
-                        .to.throw('[galeforce]: Invalid Data Dragon region provided.');
+                it('should pull JSON from the appropriate Data Dragon URL', () => {
+                    return expect(Galeforce.ddragon.tail().version('10.10.5').exec())
+                        .to.eventually.be.a('string');
                 });
             });
-        });
-        describe('.languages()', () => {
-            it('should pull JSON from the appropriate Data Dragon URL', () => {
-                return expect(Galeforce.ddragon.languages().exec())
-                    .to.eventually.be.a('Array');
+            describe('.versions()', () => {
+                it('should pull JSON from the appropriate Data Dragon URL', () => {
+                    return expect(Galeforce.ddragon.versions().exec())
+                        .to.eventually.be.a('Array');
+                });
             });
-        });
-        describe('.champion', () => {
-            describe('.list()', () => {
-                describe('.version().locale()', () => {
+            describe('.realm()', () => {
+                describe('.region()', () => {
                     it('should pull JSON from the appropriate Data Dragon URL', () => {
-                        return expect(Galeforce.ddragon.champion.list().version('11.2.1').locale('en_US').exec())
-                            .to.eventually.have.property('data');
+                        return expect(Galeforce.ddragon.realm().region(Galeforce.regions.ddragon.NORTH_AMERICA).exec())
+                            .to.eventually.have.property('n');
                     });
-                    it('should throw when provided an invalid version (not string)', () => {
-                        return expect(() => Galeforce.ddragon.champion.list().version(100))
-                            .to.throw('[galeforce]: version must be a string.');
-                    });
-                    it('should throw when provided an invalid version (fails regex check)', () => {
-                        return expect(() => Galeforce.ddragon.champion.list().version('1.4.5.a'))
-                            .to.throw('[galeforce]: Invalid version provided (failed regex check).');
-                    });
-                    it('should throw when provided an invalid locale (not string)', () => {
-                        return expect(() => Galeforce.ddragon.champion.list().locale(100))
-                            .to.throw('[galeforce]: locale must be a string.');
-                    });
-                    it('should throw when provided an invalid locale (fails regex check)', () => {
-                        return expect(() => Galeforce.ddragon.champion.list().locale('abc_US'))
-                            .to.throw('[galeforce]: Invalid locale provided (failed regex check).');
+                    it('should throw when provided an invalid region', () => {
+                        return expect(() => Galeforce.ddragon.realm().region(Galeforce.regions.lol.NORTH_AMERICA))
+                            .to.throw('[galeforce]: Invalid Data Dragon region provided.');
                     });
                 });
             });
-            describe('.details()', () => {
-                describe('.version().locale().champion()', () => {
-                    it('should pull JSON from the appropriate Data Dragon URL', () => {
-                        return expect(Galeforce.ddragon.champion.details().version('11.2.1').locale('en_US').champion('Xayah').exec())
-                            .to.eventually.have.property('data');
+            describe('.languages()', () => {
+                it('should pull JSON from the appropriate Data Dragon URL', () => {
+                    return expect(Galeforce.ddragon.languages().exec())
+                        .to.eventually.be.a('Array');
+                });
+            });
+            describe('.champion', () => {
+                describe('.list()', () => {
+                    describe('.version().locale()', () => {
+                        it('should pull JSON from the appropriate Data Dragon URL', () => {
+                            return expect(Galeforce.ddragon.champion.list().version('11.2.1').locale('en_US').exec())
+                                .to.eventually.have.property('data');
+                        });
+                        it('should throw when provided an invalid version (not string)', () => {
+                            return expect(() => Galeforce.ddragon.champion.list().version(100))
+                                .to.throw('[galeforce]: version must be a string.');
+                        });
+                        it('should throw when provided an invalid version (fails regex check)', () => {
+                            return expect(() => Galeforce.ddragon.champion.list().version('1.4.5.a'))
+                                .to.throw('[galeforce]: Invalid version provided (failed regex check).');
+                        });
+                        it('should throw when provided an invalid locale (not string)', () => {
+                            return expect(() => Galeforce.ddragon.champion.list().locale(100))
+                                .to.throw('[galeforce]: locale must be a string.');
+                        });
+                        it('should throw when provided an invalid locale (fails regex check)', () => {
+                            return expect(() => Galeforce.ddragon.champion.list().locale('abc_US'))
+                                .to.throw('[galeforce]: Invalid locale provided (failed regex check).');
+                        });
+                    });
+                });
+                describe('.details()', () => {
+                    describe('.version().locale().champion()', () => {
+                        it('should pull JSON from the appropriate Data Dragon URL', () => {
+                            return expect(Galeforce.ddragon.champion.details().version('11.2.1').locale('en_US').champion('Xayah').exec())
+                                .to.eventually.have.property('data');
+                        });
+                    });
+                });
+                describe('.art', () => {
+                    describe('.splash()', () => {
+                        describe('.champion().skin()', () => {
+                            it('should pull image from the appropriate Data Dragon URL', () => {
+                                return expect(Galeforce.ddragon.champion.art.splash().champion('Xayah').skin(0).exec())
+                                    .to.eventually.be.a('string');
+                            });
+                        });
+                    });
+                    describe('.loading()', () => {
+                        describe('.champion().skin()', () => {
+                            it('should pull image from the appropriate Data Dragon URL', () => {
+                                return expect(Galeforce.ddragon.champion.art.loading().champion('Xayah').skin(0).exec())
+                                    .to.eventually.be.a('string');
+                            });
+                        });
+                    });
+                    describe('.icon()', () => {
+                        describe('.version().champion()', () => {
+                            it('should pull image from the appropriate Data Dragon URL', () => {
+                                return expect(Galeforce.ddragon.champion.art.icon().version('11.2.1').champion('Xayah').exec())
+                                    .to.eventually.be.a('string');
+                            });
+                        });
+                    });
+                    describe('.passive()', () => {
+                        describe('.version().spell()', () => {
+                            it('should pull image from the appropriate Data Dragon URL', () => {
+                                return expect(Galeforce.ddragon.champion.art.passive().version('11.2.1').spell('XayahPassive').exec())
+                                    .to.eventually.be.a('string');
+                            });
+                        });
                     });
                 });
             });
-            describe('.art', () => {
-                describe('.splash()', () => {
-                    describe('.champion().skin()', () => {
-                        it('should pull image from the appropriate Data Dragon URL', () => {
-                            return expect(Galeforce.ddragon.champion.art.splash().champion('Xayah').skin(0).exec())
-                                .to.eventually.be.a('string');
-                        });
-                    });
-                });
-                describe('.loading()', () => {
-                    describe('.champion().skin()', () => {
-                        it('should pull image from the appropriate Data Dragon URL', () => {
-                            return expect(Galeforce.ddragon.champion.art.loading().champion('Xayah').skin(0).exec())
-                                .to.eventually.be.a('string');
-                        });
-                    });
-                });
-                describe('.icon()', () => {
-                    describe('.version().champion()', () => {
-                        it('should pull image from the appropriate Data Dragon URL', () => {
-                            return expect(Galeforce.ddragon.champion.art.icon().version('11.2.1').champion('Xayah').exec())
-                                .to.eventually.be.a('string');
-                        });
-                    });
-                });
-                describe('.passive()', () => {
+            describe('.spell', () => {
+                describe('.art()', () => {
                     describe('.version().spell()', () => {
                         it('should pull image from the appropriate Data Dragon URL', () => {
-                            return expect(Galeforce.ddragon.champion.art.passive().version('11.2.1').spell('XayahPassive').exec())
+                            return expect(Galeforce.ddragon.spell.art().version('11.2.1').spell('XayahR').exec())
+                                .to.eventually.be.a('string');
+                        });
+                    });
+                });
+            });
+            describe('.item', () => {
+                describe('.list()', () => {
+                    describe('.version().locale()', () => {
+                        it('should pull JSON from the appropriate Data Dragon URL', () => {
+                            return expect(Galeforce.ddragon.item.list().version('11.2.1').locale('en_US').exec())
+                                .to.eventually.have.property('data');
+                        });
+                    });
+                });
+                describe('.art()', () => {
+                    describe('.version().assetId()', () => {
+                        it('should pull image from the appropriate Data Dragon URL', () => {
+                            return expect(Galeforce.ddragon.item.art().version('11.2.1').assetId(6671).exec())
+                                .to.eventually.be.a('string');
+                        });
+                    });
+                });
+            });
+            describe('.summonerSpell', () => {
+                describe('.list()', () => {
+                    describe('.version().locale()', () => {
+                        it('should pull JSON from the appropriate Data Dragon URL', () => {
+                            return expect(Galeforce.ddragon.summonerSpell.list().version('11.2.1').locale('en_US').exec())
+                                .to.eventually.have.property('data');
+                        });
+                    });
+                });
+            });
+            describe('.item', () => {
+                describe('.list()', () => {
+                    describe('.version().locale()', () => {
+                        it('should pull JSON from the appropriate Data Dragon URL', () => {
+                            return expect(Galeforce.ddragon.profileIcon.list().version('11.2.1').locale('en_US').exec())
+                                .to.eventually.have.property('data');
+                        });
+                    });
+                });
+                describe('.art()', () => {
+                    describe('.version().assetId()', () => {
+                        it('should pull image from the appropriate Data Dragon URL', () => {
+                            return expect(Galeforce.ddragon.profileIcon.art().version('11.2.1').assetId(3560).exec())
+                                .to.eventually.be.a('string');
+                        });
+                    });
+                });
+            });
+            describe('.minimap', () => {
+                describe('.art()', () => {
+                    describe('.version().assetId()', () => {
+                        it('should pull image from the appropriate Data Dragon URL', () => {
+                            return expect(Galeforce.ddragon.minimap.art().version('11.2.1').assetId(11).exec())
+                                .to.eventually.be.a('string');
+                        });
+                    });
+                });
+            });
+            describe('.sprite', () => {
+                describe('.art()', () => {
+                    describe('.version().assetId()', () => {
+                        it('should pull image from the appropriate Data Dragon URL', () => {
+                            return expect(Galeforce.ddragon.sprite.art().version('11.2.1').assetId(0).exec())
+                                .to.eventually.be.a('string');
+                        });
+                    });
+                });
+            });
+            describe('.scoreboard', () => {
+                describe('.art', () => {
+                    describe('.champion()', () => {
+                        it('should pull image from the appropriate Data Dragon URL', () => {
+                            return expect(Galeforce.ddragon.scoreboard.art.champion().exec())
+                                .to.eventually.be.a('string');
+                        });
+                    });
+                    describe('.items()', () => {
+                        it('should pull image from the appropriate Data Dragon URL', () => {
+                            return expect(Galeforce.ddragon.scoreboard.art.items().exec())
+                                .to.eventually.be.a('string');
+                        });
+                    });
+                    describe('.minion()', () => {
+                        it('should pull image from the appropriate Data Dragon URL', () => {
+                            return expect(Galeforce.ddragon.scoreboard.art.minion().exec())
+                                .to.eventually.be.a('string');
+                        });
+                    });
+                    describe('.score()', () => {
+                        it('should pull image from the appropriate Data Dragon URL', () => {
+                            return expect(Galeforce.ddragon.scoreboard.art.score().exec())
+                                .to.eventually.be.a('string');
+                        });
+                    });
+                    describe('.spells()', () => {
+                        it('should pull image from the appropriate Data Dragon URL', () => {
+                            return expect(Galeforce.ddragon.scoreboard.art.spells().exec())
                                 .to.eventually.be.a('string');
                         });
                     });
                 });
             });
         });
-        describe('.spell', () => {
-            describe('.art()', () => {
-                describe('.version().spell()', () => {
-                    it('should pull image from the appropriate Data Dragon URL', () => {
-                        return expect(Galeforce.ddragon.spell.art().version('11.2.1').spell('XayahR').exec())
-                            .to.eventually.be.a('string');
+        describe('.gc', () => {
+            describe('.all()', () => {
+                it('should pull JSON from the appropriate Game Client URL', () => {
+                    return expect(Galeforce.gc.all().exec())
+                        .to.eventually.deep.equal(replyValues.gc);
+                });
+            });
+            describe('.active', () => {
+                describe('.player()', () => {
+                    it('should pull JSON from the appropriate Game Client URL', () => {
+                        return expect(Galeforce.gc.active.player().exec())
+                            .to.eventually.deep.equal(replyValues.gc.activePlayer);
+                    });
+                });
+                describe('.name()', () => {
+                    it('should pull JSON from the appropriate Game Client URL', () => {
+                        return expect(Galeforce.gc.active.name().exec())
+                            .to.eventually.deep.equal(replyValues.gc.activePlayer.summonerName);
+                    });
+                });
+                describe('.abilities()', () => {
+                    it('should pull JSON from the appropriate Game Client URL', () => {
+                        return expect(Galeforce.gc.active.abilities().exec())
+                            .to.eventually.deep.equal(replyValues.gc.activePlayer.abilities);
+                    });
+                });
+                describe('.runes()', () => {
+                    it('should pull JSON from the appropriate Game Client URL', () => {
+                        return expect(Galeforce.gc.active.runes().exec())
+                            .to.eventually.deep.equal(replyValues.gc.activePlayer.fullRunes);
                     });
                 });
             });
-        });
-        describe('.item', () => {
-            describe('.list()', () => {
-                describe('.version().locale()', () => {
-                    it('should pull JSON from the appropriate Data Dragon URL', () => {
-                        return expect(Galeforce.ddragon.item.list().version('11.2.1').locale('en_US').exec())
-                            .to.eventually.have.property('data');
+            describe('.player', () => {
+                describe('.list()', () => {
+                    it('should pull JSON from the appropriate Game Client URL', () => {
+                        return expect(Galeforce.gc.player.list().exec())
+                            .to.eventually.deep.equal(replyValues.gc.allPlayers);
                     });
                 });
-            });
-            describe('.art()', () => {
-                describe('.version().assetId()', () => {
-                    it('should pull image from the appropriate Data Dragon URL', () => {
-                        return expect(Galeforce.ddragon.item.art().version('11.2.1').assetId(6671).exec())
-                            .to.eventually.be.a('string');
+                describe('.scores()', () => {
+                    it('should pull JSON from the appropriate Game Client URL', () => {
+                        return expect(Galeforce.gc.player.scores().name('SSG Xayah').exec())
+                            .to.eventually.deep.equal(replyValues.gc.allPlayers[0].scores);
                     });
                 });
-            });
-        });
-        describe('.summonerSpell', () => {
-            describe('.list()', () => {
-                describe('.version().locale()', () => {
-                    it('should pull JSON from the appropriate Data Dragon URL', () => {
-                        return expect(Galeforce.ddragon.summonerSpell.list().version('11.2.1').locale('en_US').exec())
-                            .to.eventually.have.property('data');
+                describe('.summonerSpells()', () => {
+                    it('should pull JSON from the appropriate Game Client URL', () => {
+                        return expect(Galeforce.gc.player.summonerSpells().name('SSG Xayah').exec())
+                            .to.eventually.deep.equal(replyValues.gc.allPlayers[0].summonerSpells);
                     });
                 });
-            });
-        });
-        describe('.item', () => {
-            describe('.list()', () => {
-                describe('.version().locale()', () => {
-                    it('should pull JSON from the appropriate Data Dragon URL', () => {
-                        return expect(Galeforce.ddragon.profileIcon.list().version('11.2.1').locale('en_US').exec())
-                            .to.eventually.have.property('data');
-                    });
-                });
-            });
-            describe('.art()', () => {
-                describe('.version().assetId()', () => {
-                    it('should pull image from the appropriate Data Dragon URL', () => {
-                        return expect(Galeforce.ddragon.profileIcon.art().version('11.2.1').assetId(3560).exec())
-                            .to.eventually.be.a('string');
-                    });
-                });
-            });
-        });
-        describe('.minimap', () => {
-            describe('.art()', () => {
-                describe('.version().assetId()', () => {
-                    it('should pull image from the appropriate Data Dragon URL', () => {
-                        return expect(Galeforce.ddragon.minimap.art().version('11.2.1').assetId(11).exec())
-                            .to.eventually.be.a('string');
-                    });
-                });
-            });
-        });
-        describe('.sprite', () => {
-            describe('.art()', () => {
-                describe('.version().assetId()', () => {
-                    it('should pull image from the appropriate Data Dragon URL', () => {
-                        return expect(Galeforce.ddragon.sprite.art().version('11.2.1').assetId(0).exec())
-                            .to.eventually.be.a('string');
-                    });
-                });
-            });
-        });
-        describe('.scoreboard', () => {
-            describe('.art', () => {
-                describe('.champion()', () => {
-                    it('should pull image from the appropriate Data Dragon URL', () => {
-                        return expect(Galeforce.ddragon.scoreboard.art.champion().exec())
-                            .to.eventually.be.a('string');
+                describe('.runes()', () => {
+                    it('should pull JSON from the appropriate Game Client URL', () => {
+                        return expect(Galeforce.gc.player.runes().name('SSG Xayah').exec())
+                            .to.eventually.deep.equal(replyValues.gc.allPlayers[0].runes);
                     });
                 });
                 describe('.items()', () => {
-                    it('should pull image from the appropriate Data Dragon URL', () => {
-                        return expect(Galeforce.ddragon.scoreboard.art.items().exec())
-                            .to.eventually.be.a('string');
+                    it('should pull JSON from the appropriate Game Client URL', () => {
+                        return expect(Galeforce.gc.player.items().name('SSG Xayah').exec())
+                            .to.eventually.deep.equal(replyValues.gc.allPlayers[0].items);
                     });
                 });
-                describe('.minion()', () => {
-                    it('should pull image from the appropriate Data Dragon URL', () => {
-                        return expect(Galeforce.ddragon.scoreboard.art.minion().exec())
-                            .to.eventually.be.a('string');
-                    });
+            });
+            describe('.events()', () => {
+                it('should pull JSON from the appropriate Game Client URL', () => {
+                    return expect(Galeforce.gc.events().exec())
+                        .to.eventually.deep.equal(replyValues.gc.events);
                 });
-                describe('.score()', () => {
-                    it('should pull image from the appropriate Data Dragon URL', () => {
-                        return expect(Galeforce.ddragon.scoreboard.art.score().exec())
-                            .to.eventually.be.a('string');
-                    });
-                });
-                describe('.spells()', () => {
-                    it('should pull image from the appropriate Data Dragon URL', () => {
-                        return expect(Galeforce.ddragon.scoreboard.art.spells().exec())
-                            .to.eventually.be.a('string');
-                    });
+            });
+            describe('.stats()', () => {
+                it('should pull JSON from the appropriate Game Client URL', () => {
+                    return expect(Galeforce.gc.stats().exec())
+                        .to.eventually.deep.equal(replyValues.gc.stats);
                 });
             });
         });

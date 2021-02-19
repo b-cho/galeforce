@@ -1,0 +1,616 @@
+{
+	"activePlayer": {
+		"abilities": {
+			"E": {
+				"abilityLevel": 5,
+				"displayName": "Bladecaller",
+				"id": "XayahE",
+				"rawDescription": "GeneratedTip_Spell_XayahE_Description",
+				"rawDisplayName": "GeneratedTip_Spell_XayahE_DisplayName"
+			},
+			"Passive": {
+				"displayName": "Clean Cuts",
+				"id": "XayahPassive",
+				"rawDescription": "GeneratedTip_Passive_XayahPassive_Description",
+				"rawDisplayName": "GeneratedTip_Passive_XayahPassive_DisplayName"
+			},
+			"Q": {
+				"abilityLevel": 5,
+				"displayName": "Double Daggers",
+				"id": "XayahQ",
+				"rawDescription": "GeneratedTip_Spell_XayahQ_Description",
+				"rawDisplayName": "GeneratedTip_Spell_XayahQ_DisplayName"
+			},
+			"R": {
+				"abilityLevel": 3,
+				"displayName": "Featherstorm",
+				"id": "XayahR",
+				"rawDescription": "GeneratedTip_Spell_XayahR_Description",
+				"rawDisplayName": "GeneratedTip_Spell_XayahR_DisplayName"
+			},
+			"W": {
+				"abilityLevel": 5,
+				"displayName": "Deadly Plumage",
+				"id": "XayahW",
+				"rawDescription": "GeneratedTip_Spell_XayahW_Description",
+				"rawDisplayName": "GeneratedTip_Spell_XayahW_DisplayName"
+			}
+		},
+		"championStats": {
+			"abilityPower": 0.0,
+			"armor": 80.56000518798828,
+			"armorPenetrationFlat": 0.0,
+			"armorPenetrationPercent": 1.0,
+			"attackDamage": 441.8959655761719,
+			"attackRange": 525.0,
+			"attackSpeed": 1.4456250667572022,
+			"bonusArmorPenetrationPercent": 1.0,
+			"bonusMagicPenetrationPercent": 1.0,
+			"cooldownReduction": 0.0,
+			"critChance": 1.0,
+			"critDamage": 209.99998474121095,
+			"currentHealth": 2086.0,
+			"healthRegenRate": 3.200000286102295,
+			"lifeSteal": 0.27799999713897707,
+			"magicLethality": 0.0,
+			"magicPenetrationFlat": 0.0,
+			"magicPenetrationPercent": 1.0,
+			"magicResist": 49.290000915527347,
+			"maxHealth": 2086.0,
+			"moveSpeed": 414.3999938964844,
+			"physicalLethality": 0.0,
+			"resourceMax": 1020.0000610351563,
+			"resourceRegenRate": 4.200000286102295,
+			"resourceType": "MANA",
+			"resourceValue": 1020.0000610351563,
+			"spellVamp": 0.0,
+			"tenacity": 0.0
+		},
+		"currentGold": 70618.1328125,
+		"fullRunes": {
+			"generalRunes": [
+				{
+					"displayName": "Lethal Tempo",
+					"id": 8008,
+					"rawDescription": "perk_tooltip_LethalTempo",
+					"rawDisplayName": "perk_displayname_LethalTempo"
+				},
+				{
+					"displayName": "Presence of Mind",
+					"id": 8009,
+					"rawDescription": "perk_tooltip_PresenceOfMind",
+					"rawDisplayName": "perk_displayname_PresenceOfMind"
+				},
+				{
+					"displayName": "Legend: Bloodline",
+					"id": 9103,
+					"rawDescription": "perk_tooltip_9103",
+					"rawDisplayName": "perk_displayname_9103"
+				},
+				{
+					"displayName": "Coup de Grace",
+					"id": 8014,
+					"rawDescription": "perk_tooltip_CoupDeGrace",
+					"rawDisplayName": "perk_displayname_CoupDeGrace"
+				},
+				{
+					"displayName": "Taste of Blood",
+					"id": 8139,
+					"rawDescription": "perk_tooltip_TasteOfBlood",
+					"rawDisplayName": "perk_displayname_TasteOfBlood"
+				},
+				{
+					"displayName": "Ravenous Hunter",
+					"id": 8135,
+					"rawDescription": "perk_tooltip_RavenousHunter",
+					"rawDisplayName": "perk_displayname_RavenousHunter"
+				}
+			],
+			"keystone": {
+				"displayName": "Lethal Tempo",
+				"id": 8008,
+				"rawDescription": "perk_tooltip_LethalTempo",
+				"rawDisplayName": "perk_displayname_LethalTempo"
+			},
+			"primaryRuneTree": {
+				"displayName": "Precision",
+				"id": 8000,
+				"rawDescription": "perkstyle_tooltip_7201",
+				"rawDisplayName": "perkstyle_displayname_7201"
+			},
+			"secondaryRuneTree": {
+				"displayName": "Domination",
+				"id": 8100,
+				"rawDescription": "perkstyle_tooltip_7200",
+				"rawDisplayName": "perkstyle_displayname_7200"
+			},
+			"statRunes": [
+				{
+					"id": 5005,
+					"rawDescription": "perk_tooltip_StatModAttackSpeed"
+				},
+				{
+					"id": 5008,
+					"rawDescription": "perk_tooltip_StatModAdaptive"
+				},
+				{
+					"id": 5003,
+					"rawDescription": "perk_tooltip_StatModMagicResist"
+				}
+			]
+		},
+		"level": 18,
+		"summonerName": "SSG Xayah"
+	},
+	"allPlayers": [
+		{
+			"championName": "Xayah",
+			"isBot": false,
+			"isDead": false,
+			"items": [
+				{
+					"canUse": false,
+					"consumable": false,
+					"count": 1,
+					"displayName": "Berserker's Greaves",
+					"itemID": 3006,
+					"price": 500,
+					"rawDescription": "GeneratedTip_Item_3006_Description",
+					"rawDisplayName": "Item_3006_Name",
+					"slot": 0
+				},
+				{
+					"canUse": true,
+					"consumable": false,
+					"count": 1,
+					"displayName": "Galeforce",
+					"itemID": 6671,
+					"price": 625,
+					"rawDescription": "GeneratedTip_Item_6671_Description",
+					"rawDisplayName": "Item_6671_Name",
+					"slot": 1
+				},
+				{
+					"canUse": false,
+					"consumable": false,
+					"count": 1,
+					"displayName": "Essence Reaver",
+					"itemID": 3508,
+					"price": 500,
+					"rawDescription": "GeneratedTip_Item_3508_Description",
+					"rawDisplayName": "Item_3508_Name",
+					"slot": 2
+				},
+				{
+					"canUse": false,
+					"consumable": false,
+					"count": 1,
+					"displayName": "Infinity Edge",
+					"itemID": 3031,
+					"price": 625,
+					"rawDescription": "GeneratedTip_Item_3031_Description",
+					"rawDisplayName": "Item_3031_Name",
+					"slot": 3
+				},
+				{
+					"canUse": false,
+					"consumable": false,
+					"count": 1,
+					"displayName": "Navori Quickblades",
+					"itemID": 6675,
+					"price": 825,
+					"rawDescription": "GeneratedTip_Item_6675_Description",
+					"rawDisplayName": "Item_6675_Name",
+					"slot": 4
+				},
+				{
+					"canUse": false,
+					"consumable": false,
+					"count": 1,
+					"displayName": "Bloodthirster",
+					"itemID": 3072,
+					"price": 600,
+					"rawDescription": "GeneratedTip_Item_3072_Description",
+					"rawDisplayName": "Item_3072_Name",
+					"slot": 5
+				},
+				{
+					"canUse": true,
+					"consumable": false,
+					"count": 1,
+					"displayName": "Stealth Ward",
+					"itemID": 3340,
+					"price": 0,
+					"rawDescription": "GeneratedTip_Item_3340_Description",
+					"rawDisplayName": "Item_3340_Name",
+					"slot": 6
+				}
+			],
+			"level": 18,
+			"position": "",
+			"rawChampionName": "game_character_displayname_Xayah",
+			"rawSkinName": "game_character_skin_displayname_Xayah_14",
+			"respawnTimer": 0.0,
+			"runes": {
+				"keystone": {
+					"displayName": "Lethal Tempo",
+					"id": 8008,
+					"rawDescription": "perk_tooltip_LethalTempo",
+					"rawDisplayName": "perk_displayname_LethalTempo"
+				},
+				"primaryRuneTree": {
+					"displayName": "Precision",
+					"id": 8000,
+					"rawDescription": "perkstyle_tooltip_7201",
+					"rawDisplayName": "perkstyle_displayname_7201"
+				},
+				"secondaryRuneTree": {
+					"displayName": "Domination",
+					"id": 8100,
+					"rawDescription": "perkstyle_tooltip_7200",
+					"rawDisplayName": "perkstyle_displayname_7200"
+				}
+			},
+			"scores": {
+				"assists": 0,
+				"creepScore": 90,
+				"deaths": 0,
+				"kills": 4,
+				"wardScore": 2.25
+			},
+			"skinID": 14,
+			"skinName": "Elderwood Xayah",
+			"summonerName": "SSG Xayah",
+			"summonerSpells": {
+				"summonerSpellOne": {
+					"displayName": "Flash",
+					"rawDescription": "GeneratedTip_SummonerSpell_SummonerFlash_Description",
+					"rawDisplayName": "GeneratedTip_SummonerSpell_SummonerFlash_DisplayName"
+				},
+				"summonerSpellTwo": {
+					"displayName": "Heal",
+					"rawDescription": "GeneratedTip_SummonerSpell_SummonerHeal_Description",
+					"rawDisplayName": "GeneratedTip_SummonerSpell_SummonerHeal_DisplayName"
+				}
+			},
+			"team": "ORDER"
+		},
+		{
+			"championName": "Nasus",
+			"isBot": true,
+			"isDead": true,
+			"items": [
+				{
+					"canUse": false,
+					"consumable": false,
+					"count": 1,
+					"displayName": "Doran's Blade",
+					"itemID": 1055,
+					"price": 450,
+					"rawDescription": "GeneratedTip_Item_1055_Description",
+					"rawDisplayName": "Item_1055_Name",
+					"slot": 0
+				},
+				{
+					"canUse": false,
+					"consumable": false,
+					"count": 1,
+					"displayName": "Boots",
+					"itemID": 1001,
+					"price": 300,
+					"rawDescription": "GeneratedTip_Item_1001_Description",
+					"rawDisplayName": "Item_1001_Name",
+					"slot": 1
+				},
+				{
+					"canUse": false,
+					"consumable": false,
+					"count": 1,
+					"displayName": "Kindlegem",
+					"itemID": 3067,
+					"price": 400,
+					"rawDescription": "GeneratedTip_Item_3067_Description",
+					"rawDisplayName": "Item_3067_Name",
+					"slot": 2
+				},
+				{
+					"canUse": false,
+					"consumable": false,
+					"count": 1,
+					"displayName": "Sheen",
+					"itemID": 3057,
+					"price": 700,
+					"rawDescription": "GeneratedTip_Item_3057_Description",
+					"rawDisplayName": "Item_3057_Name",
+					"slot": 3
+				},
+				{
+					"canUse": false,
+					"consumable": false,
+					"count": 1,
+					"displayName": "Dagger",
+					"itemID": 1042,
+					"price": 300,
+					"rawDescription": "GeneratedTip_Item_1042_Description",
+					"rawDisplayName": "Item_1042_Name",
+					"slot": 4
+				},
+				{
+					"canUse": true,
+					"consumable": false,
+					"count": 1,
+					"displayName": "Stealth Ward",
+					"itemID": 3340,
+					"price": 0,
+					"rawDescription": "GeneratedTip_Item_3340_Description",
+					"rawDisplayName": "Item_3340_Name",
+					"slot": 6
+				}
+			],
+			"level": 15,
+			"position": "",
+			"rawChampionName": "game_character_displayname_Nasus",
+			"respawnTimer": 31.55975341796875,
+			"runes": {
+				"keystone": {
+					"displayName": "Grasp of the Undying",
+					"id": 8437,
+					"rawDescription": "perk_tooltip_GraspOfTheUndying",
+					"rawDisplayName": "perk_displayname_GraspOfTheUndying"
+				},
+				"primaryRuneTree": {
+					"displayName": "Resolve",
+					"id": 8400,
+					"rawDescription": "perkstyle_tooltip_7204",
+					"rawDisplayName": "perkstyle_displayname_7204"
+				},
+				"secondaryRuneTree": {
+					"displayName": "Sorcery",
+					"id": 8200,
+					"rawDescription": "perkstyle_tooltip_7202",
+					"rawDisplayName": "perkstyle_displayname_7202"
+				}
+			},
+			"scores": {
+				"assists": 0,
+				"creepScore": 10,
+				"deaths": 4,
+				"kills": 0,
+				"wardScore": 0.0
+			},
+			"skinID": 0,
+			"summonerName": "Nasus Bot",
+			"summonerSpells": {
+				"summonerSpellOne": {
+					"displayName": "Teleport",
+					"rawDescription": "GeneratedTip_SummonerSpell_SummonerTeleport_Description",
+					"rawDisplayName": "GeneratedTip_SummonerSpell_SummonerTeleport_DisplayName"
+				},
+				"summonerSpellTwo": {
+					"displayName": "Ghost",
+					"rawDescription": "GeneratedTip_SummonerSpell_SummonerHaste_Description",
+					"rawDisplayName": "GeneratedTip_SummonerSpell_SummonerHaste_DisplayName"
+				}
+			},
+			"team": "CHAOS"
+		}
+	],
+	"events": {
+		"Events": [
+			{
+				"EventID": 0,
+				"EventName": "GameStart",
+				"EventTime": 0.05383339896798134
+			},
+			{
+				"EventID": 1,
+				"EventName": "MinionsSpawning",
+				"EventTime": 65.08386993408203
+			},
+			{
+				"Assisters": [],
+				"DragonType": "Air",
+				"EventID": 2,
+				"EventName": "DragonKill",
+				"EventTime": 100.93509674072266,
+				"KillerName": "SSG Xayah",
+				"Stolen": "False"
+			},
+			{
+				"Assisters": [],
+				"DragonType": "Earth",
+				"EventID": 3,
+				"EventName": "DragonKill",
+				"EventTime": 114.44171142578125,
+				"KillerName": "SSG Xayah",
+				"Stolen": "False"
+			},
+			{
+				"Assisters": [],
+				"DragonType": "Fire",
+				"EventID": 4,
+				"EventName": "DragonKill",
+				"EventTime": 127.5857925415039,
+				"KillerName": "SSG Xayah",
+				"Stolen": "False"
+			},
+			{
+				"Assisters": [],
+				"DragonType": "Water",
+				"EventID": 5,
+				"EventName": "DragonKill",
+				"EventTime": 141.53086853027345,
+				"KillerName": "SSG Xayah",
+				"Stolen": "False"
+			},
+			{
+				"Assisters": [],
+				"DragonType": "Elder",
+				"EventID": 6,
+				"EventName": "DragonKill",
+				"EventTime": 155.41091918945313,
+				"KillerName": "SSG Xayah",
+				"Stolen": "False"
+			},
+			{
+				"Assisters": [],
+				"EventID": 7,
+				"EventName": "ChampionKill",
+				"EventTime": 160.0361785888672,
+				"KillerName": "SSG Xayah",
+				"VictimName": "Nasus Bot"
+			},
+			{
+				"EventID": 8,
+				"EventName": "FirstBlood",
+				"EventTime": 160.0361785888672,
+				"Recipient": "SSG Xayah"
+			},
+			{
+				"Acer": "SSG Xayah",
+				"AcingTeam": "ORDER",
+				"EventID": 9,
+				"EventName": "Ace",
+				"EventTime": 160.0361785888672
+			},
+			{
+				"Assisters": [],
+				"EventID": 10,
+				"EventName": "HeraldKill",
+				"EventTime": 182.30137634277345,
+				"KillerName": "SSG Xayah",
+				"Stolen": "False"
+			},
+			{
+				"Assisters": [],
+				"EventID": 11,
+				"EventName": "BaronKill",
+				"EventTime": 207.6060333251953,
+				"KillerName": "SSG Xayah",
+				"Stolen": "False"
+			},
+			{
+				"Assisters": [],
+				"EventID": 12,
+				"EventName": "TurretKilled",
+				"EventTime": 247.56329345703126,
+				"KillerName": "SSG Xayah",
+				"TurretKilled": "Turret_T2_C_05_A"
+			},
+			{
+				"EventID": 13,
+				"EventName": "FirstBrick",
+				"EventTime": 247.56329345703126,
+				"KillerName": "SSG Xayah"
+			},
+			{
+				"Assisters": [],
+				"EventID": 14,
+				"EventName": "ChampionKill",
+				"EventTime": 876.9762573242188,
+				"KillerName": "SSG Xayah",
+				"VictimName": "Nasus Bot"
+			},
+			{
+				"Acer": "SSG Xayah",
+				"AcingTeam": "ORDER",
+				"EventID": 15,
+				"EventName": "Ace",
+				"EventTime": 876.9762573242188
+			},
+			{
+				"Assisters": [],
+				"EventID": 16,
+				"EventName": "TurretKilled",
+				"EventTime": 901.2820434570313,
+				"KillerName": "SSG Xayah",
+				"TurretKilled": "Turret_T2_L_03_A"
+			},
+			{
+				"Assisters": [],
+				"EventID": 17,
+				"EventName": "TurretKilled",
+				"EventTime": 951.4487915039063,
+				"KillerName": "SSG Xayah",
+				"TurretKilled": "Turret_T2_R_03_A"
+			},
+			{
+				"Assisters": [],
+				"EventID": 18,
+				"EventName": "ChampionKill",
+				"EventTime": 955.8347778320313,
+				"KillerName": "SSG Xayah",
+				"VictimName": "Nasus Bot"
+			},
+			{
+				"Acer": "SSG Xayah",
+				"AcingTeam": "ORDER",
+				"EventID": 19,
+				"EventName": "Ace",
+				"EventTime": 955.8347778320313
+			},
+			{
+				"Assisters": [],
+				"EventID": 20,
+				"EventName": "TurretKilled",
+				"EventTime": 973.2086791992188,
+				"KillerName": "Minion_T100L1S09N0054",
+				"TurretKilled": "Turret_T2_C_04_A"
+			},
+			{
+				"Assisters": [],
+				"EventID": 21,
+				"EventName": "TurretKilled",
+				"EventTime": 985.40625,
+				"KillerName": "SSG Xayah",
+				"TurretKilled": "Turret_T2_C_03_A"
+			},
+			{
+				"Assisters": [],
+				"EventID": 22,
+				"EventName": "InhibKilled",
+				"EventTime": 990.88623046875,
+				"InhibKilled": "Barracks_T2_C1",
+				"KillerName": "SSG Xayah"
+			},
+			{
+				"Assisters": [],
+				"EventID": 23,
+				"EventName": "TurretKilled",
+				"EventTime": 1001.0999145507813,
+				"KillerName": "SSG Xayah",
+				"TurretKilled": "Turret_T2_C_01_A"
+			},
+			{
+				"Assisters": [],
+				"EventID": 24,
+				"EventName": "ChampionKill",
+				"EventTime": 1006.48486328125,
+				"KillerName": "SSG Xayah",
+				"VictimName": "Nasus Bot"
+			},
+			{
+				"Acer": "SSG Xayah",
+				"AcingTeam": "ORDER",
+				"EventID": 25,
+				"EventName": "Ace",
+				"EventTime": 1006.48486328125
+			},
+			{
+				"Assisters": [],
+				"EventID": 26,
+				"EventName": "TurretKilled",
+				"EventTime": 1014.6438598632813,
+				"KillerName": "SSG Xayah",
+				"TurretKilled": "Turret_T2_C_02_A"
+			}
+		]
+	},
+	"gameData": {
+		"gameMode": "PRACTICETOOL",
+		"gameTime": 1020.6035766601563,
+		"mapName": "Map11",
+		"mapNumber": 11,
+		"mapTerrain": "Ocean"
+	}
+}

@@ -11,7 +11,7 @@ const BaseAction = TakesTournamentCode(
 export default class GetTournamentMatches extends BaseAction<number[]> {
     constructor(submodules: SubmoduleMap) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.MATCH.MATCH.TOURNAMENT_CODE;
+        this.payload.endpoint = ENDPOINTS.MATCH.TOURNAMENT_CODE;
         this.payload.type = 'lol';
         this.payload.method = 'GET';
     }

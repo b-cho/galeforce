@@ -10,13 +10,13 @@ import chalk from 'chalk';
 const requestDebug = debug('galeforce:riot-api');
 
 export default abstract class Request {
-    private targetURL: string;
+    protected targetURL: string;
 
-    private headers: Record<string, unknown>;
+    protected headers: Record<string, unknown>;
 
-    private query: object;
+    protected query: object;
 
-    private body: object;
+    protected body: object;
 
     constructor(targetURL: string, headers: Record<string, unknown>, query: object, body: object) {
         this.targetURL = targetURL;

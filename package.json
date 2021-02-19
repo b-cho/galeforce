@@ -33,6 +33,7 @@
     "node": ">=10.13.0"
   },
   "dependencies": {
+    "@apidevtools/swagger-parser": "^10.0.2",
     "ajv": "^7.0.3",
     "async": "^3.2.0",
     "axios": "^0.21.1",
@@ -74,6 +75,7 @@
     "lint": "npx eslint --ext .ts,.tsx,.js,.jsx ./src/",
     "lint:fix": "npx eslint --ext .ts,.tsx,.js,.jsx ./src/ --fix",
     "build": "npx tsc --project tsconfig.json",
-    "test": "mocha --exit"
+    "test": "mocha --exit",
+    "postinstall": "node ./scripts/postinstall.js"
   }
 }

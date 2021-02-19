@@ -9,7 +9,7 @@ const BaseAction = TakesRegion({} as LeagueRegion, Action);
 export default class GetUpcomingClashTournaments extends BaseAction<TournamentDTO[]> {
     constructor(submodules: SubmoduleMap) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.CLASH.TOURNAMENTS.ALL;
+        this.payload.endpoint = ENDPOINTS.CLASH.ALL_TOURNAMENTS;
         this.payload.type = 'lol';
         this.payload.method = 'GET';
     }

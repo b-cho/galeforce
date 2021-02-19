@@ -23,7 +23,7 @@ const BaseAction = TakesAccountId(
 export default class GetMatchlist extends BaseAction<MatchlistDTO> {
     constructor(submodules: SubmoduleMap) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.MATCH.MATCHLIST.ACCOUNT_ID;
+        this.payload.endpoint = ENDPOINTS.MATCH.MATCHLIST;
         this.payload.type = 'lol';
         this.payload.method = 'GET';
     }

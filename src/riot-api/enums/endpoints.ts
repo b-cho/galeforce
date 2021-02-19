@@ -14,10 +14,8 @@ export const SUMMONER = {
 };
 
 export const CHAMPION_MASTERY = {
-    SUMMONER_ID: {
-        LIST: 'https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}',
-        CHAMPION: 'https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}/by-champion/${championId}',
-    },
+    LIST: 'https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}',
+    CHAMPION: 'https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}/by-champion/${championId}',
     SCORE: 'https://${region}.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/${summonerId}',
 };
 
@@ -37,17 +35,11 @@ export const LEAGUE = {
 };
 
 export const MATCH = {
-    MATCHLIST: {
-        ACCOUNT_ID: 'https://${region}.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}',
-    },
-    MATCH: {
-        MATCH_ID: 'https://${region}.api.riotgames.com/lol/match/v4/matches/${matchId}',
-        MATCH_ID_TOURNAMENT: 'https://${region}.api.riotgames.com/lol/match/v4/matches/${matchId}/by-tournament-code/${tournamentCode}',
-        TOURNAMENT_CODE: 'https://${region}.api.riotgames.com/lol/match/v4/matches/by-tournament-code/${tournamentCode}/ids',
-    },
-    TIMELINE: {
-        MATCH_ID: 'https://${region}.api.riotgames.com/lol/match/v4/timelines/by-match/${matchId}',
-    },
+    MATCHLIST: 'https://${region}.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}',
+    MATCH_ID: 'https://${region}.api.riotgames.com/lol/match/v4/matches/${matchId}',
+    MATCH_ID_TOURNAMENT: 'https://${region}.api.riotgames.com/lol/match/v4/matches/${matchId}/by-tournament-code/${tournamentCode}',
+    TOURNAMENT_CODE: 'https://${region}.api.riotgames.com/lol/match/v4/matches/by-tournament-code/${tournamentCode}/ids',
+    TIMELINE: 'https://${region}.api.riotgames.com/lol/match/v4/timelines/by-match/${matchId}',
 };
 
 export const PLATFORM = {
@@ -65,18 +57,14 @@ export const CHAMPION = {
 export const CLASH = {
     PLAYERS: 'https://${region}.api.riotgames.com/lol/clash/v1/players/by-summoner/${summonerId}',
     TEAMS: 'https://${region}.api.riotgames.com/lol/clash/v1/teams/${teamId}',
-    TOURNAMENTS: {
-        ALL: 'https://${region}.api.riotgames.com/lol/clash/v1/tournaments',
-        TEAM: 'https://${region}.api.riotgames.com/lol/clash/v1/tournaments/by-team/${teamId}',
-        TOURNAMENT: 'https://${region}.api.riotgames.com/lol/clash/v1/tournaments/${tournamentId}',
-    },
+    ALL_TOURNAMENTS: 'https://${region}.api.riotgames.com/lol/clash/v1/tournaments',
+    GET_TEAM_TOURNAMENT: 'https://${region}.api.riotgames.com/lol/clash/v1/tournaments/by-team/${teamId}',
+    GET_TOURNAMENT: 'https://${region}.api.riotgames.com/lol/clash/v1/tournaments/${tournamentId}',
 };
 
 export const TOURNAMENT = {
-    CODES: {
-        CREATE: 'https://${region}.api.riotgames.com/lol/tournament/v4/codes',
-        BY_CODE: 'https://${region}.api.riotgames.com/lol/tournament/v4/codes/${tournamentCode}',
-    },
+    CREATE_CODE: 'https://${region}.api.riotgames.com/lol/tournament/v4/codes',
+    BY_CODE: 'https://${region}.api.riotgames.com/lol/tournament/v4/codes/${tournamentCode}',
     EVENTS: 'https://${region}.api.riotgames.com/lol/tournament/v4/lobby-events/by-code/${tournamentCode}',
     PROVIDERS: 'https://${region}.api.riotgames.com/lol/tournament/v4/providers',
     TOURNAMENTS: 'https://${region}.api.riotgames.com/lol/tournament/v4/tournaments',
@@ -168,3 +156,20 @@ export const STATIC = {
     GAME_MODES: 'http://static.developer.riotgames.com/docs/lol/gameModes.json',
     GAME_TYPES: 'http://static.developer.riotgames.com/docs/lol/gameTypes.json',
 };
+
+export const GAME_CLIENT = {
+    SWAGGER: 'https://127.0.0.1:2999/swagger/v2/swagger.json',
+    OPEN_API: 'https://127.0.0.1:2999/swagger/v3/openapi.json',
+    ALL_GAME_DATA: 'https://127.0.0.1:2999/liveclientdata/allgamedata',
+    ACTIVE_PLAYER: '​https://127.0.0.1:2999/liveclientdata/activeplayer',
+    ACTIVE_PLAYER_NAME: 'https://127.0.0.1:2999/liveclientdata/activeplayername',
+    ACTIVE_PLAYER_ABILITIES: '​https://127.0.0.1:2999/liveclientdata/activeplayerabilities',
+    ACTIVE_PLAYER_RUNES: 'https://127.0.0.1:2999/liveclientdata/activeplayerrunes',
+    PLAYER_LIST: '​https://127.0.0.1:2999/liveclientdata/playerlist',
+    PLAYER_SCORES: 'https://127.0.0.1:2999/liveclientdata/playerscores?summonerName=${summonerName}',
+    PLAYER_SUMMONER_SPELLS: 'https://127.0.0.1:2999/liveclientdata/playersummonerspells?summonerName=${summonerName}',
+    PLAYER_RUNES: 'https://127.0.0.1:2999/liveclientdata/playermainrunes?summonerName=${summonerName}',
+    PLAYER_ITEMS: 'https://127.0.0.1:2999/liveclientdata/playeritems?summonerName=${summonerName}',
+    EVENTS: 'https://127.0.0.1:2999/liveclientdata/eventdata',
+    GAME_STATS: '​https://127.0.0.1:2999/liveclientdata/gamestats',
+}

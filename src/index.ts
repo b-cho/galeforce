@@ -71,6 +71,20 @@ import GetDataDragonSpriteArt from './galeforce/actions/data-dragon/sprite-art';
 import GetDataDragonScoreboardArt from './galeforce/actions/data-dragon/scoreboard-icon-art';
 import GetDataDragonChampionPassiveArt from './galeforce/actions/data-dragon/champion-passive-art';
 import GetDataDragonTail from './galeforce/actions/data-dragon/dragon-tail';
+import GetGameClientSwagger from './galeforce/actions/game-client/swagger';
+import GetGameClientOpenAPI from './galeforce/actions/game-client/open-api';
+import GetLiveClientAllGameData from './galeforce/actions/game-client/live-client-data/all-game-data';
+import GetLiveClientActivePlayer from './galeforce/actions/game-client/live-client-data/active-player';
+import GetLiveClientActivePlayerName from './galeforce/actions/game-client/live-client-data/active-player-name';
+import GetLiveClientActivePlayerAbilities from './galeforce/actions/game-client/live-client-data/active-player-abilities';
+import GetLiveClientActivePlayerRunes from './galeforce/actions/game-client/live-client-data/active-player-runes';
+import GetLiveClientPlayerList from './galeforce/actions/game-client/live-client-data/player-list';
+import GetLiveClientPlayerScores from './galeforce/actions/game-client/live-client-data/player-scores';
+import GetLiveClientPlayerSummonerSpells from './galeforce/actions/game-client/live-client-data/player-summoner-spells';
+import GetLiveClientPlayerRunes from './galeforce/actions/game-client/live-client-data/player-runes';
+import GetLiveClientPlayerItems from './galeforce/actions/game-client/live-client-data/player-items';
+import GetLiveClientEvents from './galeforce/actions/game-client/live-client-data/events';
+import GetLiveClientGameStats from './galeforce/actions/game-client/live-client-data/game-stats';
 
 class Galeforce {
     /**
@@ -457,7 +471,7 @@ class Galeforce {
         /**
          * Action constructor corresponding to the following Data Dragon files:
          * - (**GET**) `/cdn/dragontail-{version}.tgz`
-         * 
+         *
          * Swaps to a *.zip* file automatically when fetching data for patch 10.10.5.
          */
         tail: (): GetDataDragonTail => new GetDataDragonTail(this.submodules),
@@ -595,6 +609,32 @@ class Galeforce {
             },
         },
     }
+
+    /**
+     * Object containing functions corresponding to the Live Client Data endpoints.
+     * The Live Client Data API is hosted locally during a League of Legends match
+     * at https://127.0.0.1/2999.
+     */
+    public gc = {
+        swagger: (): GetGameClientSwagger => new GetGameClientSwagger(this.submodules),
+        openAPI: (): GetGameClientOpenAPI => new GetGameClientOpenAPI(this.submodules),
+        all: (): GetLiveClientAllGameData => new GetLiveClientAllGameData(this.submodules),
+        active: {
+            player: (): GetLiveClientActivePlayer => new GetLiveClientActivePlayer(this.submodules),
+            name: (): GetLiveClientActivePlayerName => new GetLiveClientActivePlayerName(this.submodules),
+            abilities: (): GetLiveClientActivePlayerAbilities => new GetLiveClientActivePlayerAbilities(this.submodules),
+            runes: (): GetLiveClientActivePlayerRunes => new GetLiveClientActivePlayerRunes(this.submodules),
+        },
+        player: {
+            list: (): GetLiveClientPlayerList => new GetLiveClientPlayerList(this.submodules),
+            scores: (): GetLiveClientPlayerScores => new GetLiveClientPlayerScores(this.submodules),
+            summonerSpells: (): GetLiveClientPlayerSummonerSpells => new GetLiveClientPlayerSummonerSpells(this.submodules),
+            runes: (): GetLiveClientPlayerRunes => new GetLiveClientPlayerRunes(this.submodules),
+            items: (): GetLiveClientPlayerItems => new GetLiveClientPlayerItems(this.submodules),
+        },
+        events: (): GetLiveClientEvents => new GetLiveClientEvents(this.submodules),
+        stats: (): GetLiveClientGameStats => new GetLiveClientGameStats(this.submodules),
+    };
 
     /**
      * Object containing enums corresponding to different API regions.

@@ -12,7 +12,7 @@ const BaseAction = TakesSummonerId(
 export default class GetMasteryList extends BaseAction<ChampionMasteryDTO[]> {
     constructor(submodules: SubmoduleMap) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.CHAMPION_MASTERY.SUMMONER_ID.LIST;
+        this.payload.endpoint = ENDPOINTS.CHAMPION_MASTERY.LIST;
         this.payload.type = 'lol';
         this.payload.method = 'GET';
     }

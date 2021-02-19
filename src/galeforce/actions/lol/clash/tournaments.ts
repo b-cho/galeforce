@@ -20,9 +20,9 @@ export default class GetClashTournament extends BaseAction<TournamentDTO> {
 
     public async exec(): Promise<TournamentDTO> {
         if (this.payload.tournamentId) {
-            this.payload.endpoint = ENDPOINTS.CLASH.TOURNAMENTS.TOURNAMENT;
+            this.payload.endpoint = ENDPOINTS.CLASH.GET_TOURNAMENT;
         } else if (this.payload.teamId) {
-            this.payload.endpoint = ENDPOINTS.CLASH.TOURNAMENTS.TEAM;
+            this.payload.endpoint = ENDPOINTS.CLASH.GET_TEAM_TOURNAMENT;
         } else {
             throw new Error('[galeforce]: Not enough parameters provided to select API endpoint.');
         }

@@ -12,7 +12,7 @@ const BaseAction = TakesMatchId(
 export default class GetTimeline extends BaseAction<MatchTimelineDTO> {
     constructor(submodules: SubmoduleMap) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.MATCH.TIMELINE.MATCH_ID;
+        this.payload.endpoint = ENDPOINTS.MATCH.TIMELINE;
         this.payload.type = 'lol';
         this.payload.method = 'GET';
     }

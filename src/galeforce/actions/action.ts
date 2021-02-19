@@ -65,7 +65,7 @@ export default class Action<TResult> {
             }
 
             // Increment rate limit for non-Data Dragon requests.
-            if (this.payload.type !== 'ddragon') {
+            if (this.payload.type && ['lol', 'val', 'riot'].includes(this.payload.type)) {
                 if (typeof this.payload.region !== 'undefined') {
                     await this.waitForRateLimit(this.payload.region);
                     await this.incrementRateLimit(this.payload.region);
@@ -74,12 +74,22 @@ export default class Action<TResult> {
                 }
             }
 
-            const request = this.submodules.RiotAPI.request(
-                this.payload.endpoint,
-                this.payload,
-                this.payload.query,
-                this.payload.body,
-            );
+            let request;
+            if (this.payload.type === 'gc') {
+                request = this.submodules.RiotAPI.gcrequest(
+                    this.payload.endpoint,
+                    this.payload,
+                    this.payload.query,
+                    this.payload.body,
+                );
+            } else {
+                request = this.submodules.RiotAPI.request(
+                    this.payload.endpoint,
+                    this.payload,
+                    this.payload.query,
+                    this.payload.body,
+                );
+            }
 
             let data: unknown;
             if (this.payload.method === 'GET') {

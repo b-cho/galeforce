@@ -344,5 +344,117 @@ describe('/galeforce/interfaces', () => {
                 expect(valid).to.be.true;
             });
         });
+
+        const liveClientData = require('./test-json/liveclientdata.json');
+        describe('LiveClientAbilitiesDTO', () => {
+            it('should match with Live Client JSON data', () => {
+                const schema = generator.getSchemaForSymbol('LiveClientAbilitiesDTO');
+
+                const validate = ajv.compile(schema);
+                let valid = validate(liveClientData.activePlayer.abilities);
+                if(!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('LiveClientActivePlayerDTO', () => {
+            it('should match with Live Client JSON data', () => {
+                const schema = generator.getSchemaForSymbol('LiveClientActivePlayerDTO');
+
+                const validate = ajv.compile(schema);
+                let valid = validate(liveClientData.activePlayer);
+                if(!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('LiveClientAllGameDataDTO', () => {
+            it('should match with Live Client JSON data', () => {
+                const schema = generator.getSchemaForSymbol('LiveClientAllGameDataDTO');
+
+                const validate = ajv.compile(schema);
+                let valid = validate(liveClientData);
+                if(!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('LiveClientPlayerDTO', () => {
+            it('should match with Live Client JSON data', () => {
+                const schema = generator.getSchemaForSymbol('LiveClientPlayerDTO');
+
+                const validate = ajv.compile(schema);
+                let valid = validate(liveClientData.allPlayers[0]);
+                if(!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('LiveClientEventsDTO', () => {
+            it('should match with Live Client JSON data', () => {
+                const schema = generator.getSchemaForSymbol('LiveClientEventsDTO');
+
+                const validate = ajv.compile(schema);
+                let valid = validate(liveClientData.events);
+                if(!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('LiveClientGameStatsDTO', () => {
+            it('should match with Live Client JSON data', () => {
+                const schema = generator.getSchemaForSymbol('LiveClientGameStatsDTO');
+
+                const validate = ajv.compile(schema);
+                let valid = validate(liveClientData.gameData);
+                if(!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('LiveClientItemDTO', () => {
+            it('should match with Live Client JSON data', () => {
+                const schema = generator.getSchemaForSymbol('LiveClientItemDTO');
+
+                const validate = ajv.compile(schema);
+                let valid = validate(liveClientData.allPlayers[0].items[0]);
+                if(!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('LiveClientScoreDTO', () => {
+            it('should match with Live Client JSON data', () => {
+                const schema = generator.getSchemaForSymbol('LiveClientScoreDTO');
+
+                const validate = ajv.compile(schema);
+                let valid = validate(liveClientData.allPlayers[0].scores);
+                if(!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('LiveClientFullRunesDTO', () => {
+            it('should match with Live Client JSON data', () => {
+                const schema = generator.getSchemaForSymbol('LiveClientFullRunesDTO');
+
+                const validate = ajv.compile(schema);
+                let valid = validate(liveClientData.activePlayer.fullRunes);
+                if(!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('LiveClientMainRunesDTO', () => {
+            it('should match with Live Client JSON data', () => {
+                const schema = generator.getSchemaForSymbol('LiveClientMainRunesDTO');
+
+                const validate = ajv.compile(schema);
+                let valid = validate(liveClientData.allPlayers[0].runes);
+                if(!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('LiveClientSummonerSpellsDTO', () => {
+            it('should match with Live Client JSON data', () => {
+                const schema = generator.getSchemaForSymbol('LiveClientSummonerSpellsDTO');
+
+                const validate = ajv.compile(schema);
+                let valid = validate(liveClientData.allPlayers[0].summonerSpells);
+                if(!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
     });
 });

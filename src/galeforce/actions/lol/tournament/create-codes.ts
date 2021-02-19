@@ -17,7 +17,7 @@ const BaseAction = TakesBody({} as TournamentCodeParameters,
 export default class PostTournamentCodes extends BaseAction<string[]> {
     constructor(submodules: SubmoduleMap) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.TOURNAMENT.CODES.CREATE;
+        this.payload.endpoint = ENDPOINTS.TOURNAMENT.CREATE_CODE;
         this.payload.type = 'lol';
         this.payload.method = 'POST';
     }

@@ -20,9 +20,9 @@ export default class GetMatch extends BaseAction<MatchDTO> {
 
     public async exec(): Promise<MatchDTO> {
         if (this.payload.tournamentCode) {
-            this.payload.endpoint = ENDPOINTS.MATCH.MATCH.MATCH_ID_TOURNAMENT;
+            this.payload.endpoint = ENDPOINTS.MATCH.MATCH_ID_TOURNAMENT;
         } else {
-            this.payload.endpoint = ENDPOINTS.MATCH.MATCH.MATCH_ID;
+            this.payload.endpoint = ENDPOINTS.MATCH.MATCH_ID;
         }
 
         return super.exec();

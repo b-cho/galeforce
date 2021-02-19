@@ -13,7 +13,7 @@ const BaseAction = TakesBody({} as TournamentCodeUpdateParameters,
 export default class PutTournamentCodes extends BaseAction<void> {
     constructor(submodules: SubmoduleMap) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.TOURNAMENT.CODES.BY_CODE;
+        this.payload.endpoint = ENDPOINTS.TOURNAMENT.BY_CODE;
         this.payload.type = 'lol';
         this.payload.method = 'PUT';
     }
