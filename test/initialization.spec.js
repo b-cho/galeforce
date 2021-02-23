@@ -5,7 +5,7 @@ const rewiremock = require('rewiremock/node');
 const process = require('process');
 
 chai.use(chaiAsPromised);
-const expect = chai.expect;
+const { expect } = chai;
 
 rewiremock('redis').with(redisMock);
 rewiremock(() => require('redis')).with(redisMock);
@@ -132,7 +132,7 @@ describe('/galeforce', () => {
                 },
             },
         })).to.have.property('regions');
-    })
+    });
 });
 
 rewiremock.disable();

@@ -71,8 +71,8 @@
     "typescript": "^4.0.5"
   },
   "scripts": {
-    "lint": "npx eslint --ext .ts,.tsx,.js,.jsx ./src/",
-    "lint:fix": "npx eslint --ext .ts,.tsx,.js,.jsx ./src/ --fix",
+    "lint": "npx eslint --ext .ts,.tsx,.js,.jsx ./src ./test ./scripts",
+    "lint:fix": "npx eslint --ext .ts,.tsx,.js,.jsx ./src ./test ./scripts --fix",
     "build": "npx tsc --project tsconfig.json",
     "test": "mocha --exit",
     "postinstall": "node ./scripts/postinstall.js"

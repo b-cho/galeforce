@@ -3,26 +3,23 @@
     that needs to be implemented by other methods to be effective.
 */
 
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import debug from 'debug';
 import chalk from 'chalk';
 
 const requestDebug = debug('galeforce:riot-api');
 
-export default abstract class Request {
+export default class Request {
     protected targetURL: string;
-
-    protected headers: Record<string, unknown>;
-
-    protected query: object;
 
     protected body: object;
 
-    constructor(targetURL: string, headers: Record<string, unknown>, query: object, body: object) {
+    protected axiosOptions: AxiosRequestConfig;
+
+    constructor(targetURL: string, body: object, axiosOptions?: AxiosRequestConfig) {
         this.targetURL = targetURL;
-        this.headers = headers;
-        this.query = query;
         this.body = body;
+        this.axiosOptions = axiosOptions || {};
         requestDebug(`${chalk.italic(this.targetURL)} | ${chalk.bold.green('initialize')}`);
     }
 
@@ -53,11 +50,8 @@ export default abstract class Request {
      * @return {Promise} Return JSON data as a promise (due to delayed request completion).
      */
     public async get(): Promise<object> {
-        requestDebug(`${chalk.italic(this.targetURL)} | ${chalk.bold.green.inverse('GET')} \u00AB ${chalk.bold('query')} %O`, this.query);
-        return axios.get(encodeURI(this.targetURL), {
-            headers: this.headers,
-            params: this.query,
-        });
+        requestDebug(`${chalk.italic(this.targetURL)} | ${chalk.bold.green.inverse('GET')} \u00AB ${chalk.bold('query')} %O`, this.axiosOptions.params);
+        return axios.get(encodeURI(this.targetURL), this.axiosOptions);
     }
 
     /**
@@ -69,11 +63,8 @@ export default abstract class Request {
      * @return {Promise} Return JSON data as a promise (due to delayed request completion).
      */
     public async post(): Promise<object> {
-        requestDebug(`${chalk.italic(this.targetURL)} | ${chalk.bold.green.inverse('POST')} \u00AB ${chalk.bold('query')} %O ${chalk.bold('body')} %O`, this.query, this.body);
-        return axios.post(encodeURI(this.targetURL), this.body, {
-            headers: this.headers,
-            params: this.query,
-        });
+        requestDebug(`${chalk.italic(this.targetURL)} | ${chalk.bold.green.inverse('POST')} \u00AB ${chalk.bold('query')} %O ${chalk.bold('body')} %O`, this.axiosOptions.params, this.body);
+        return axios.post(encodeURI(this.targetURL), this.body, this.axiosOptions);
     }
 
     /**
@@ -85,10 +76,7 @@ export default abstract class Request {
      * @return {Promise} Return JSON data as a promise (due to delayed request completion).
      */
     public async put(): Promise<object> {
-        requestDebug(`${chalk.italic(this.targetURL)} | ${chalk.bold.green.inverse('PUT')} \u00AB ${chalk.bold('query')} %O ${chalk.bold('body')} %O`, this.query, this.body);
-        return axios.put(encodeURI(this.targetURL), this.body, {
-            headers: this.headers,
-            params: this.query,
-        });
+        requestDebug(`${chalk.italic(this.targetURL)} | ${chalk.bold.green.inverse('PUT')} \u00AB ${chalk.bold('query')} %O ${chalk.bold('body')} %O`, this.axiosOptions.params, this.body);
+        return axios.put(encodeURI(this.targetURL), this.body, this.axiosOptions);
     }
 }

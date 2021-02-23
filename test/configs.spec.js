@@ -3,13 +3,13 @@ const process = require('process');
 const chaiAsPromised = require('chai-as-promised');
 
 chai.use(chaiAsPromised);
-const expect = chai.expect;
+const { expect } = chai;
 
 process.env.RIOT_KEY = 'RIOT-API-KEY-2';
 process.env.CACHE_TYPE = 'null';
 process.env.REDIS_URL = '';
 
-const getConfig = require('../dist/galeforce/configs/default').getConfig;
+const { getConfig } = require('../dist/galeforce/configs/default');
 
 // Set fake environment variables
 

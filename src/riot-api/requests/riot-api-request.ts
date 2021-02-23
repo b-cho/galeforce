@@ -8,6 +8,9 @@ import Request from './request';
 
 export default class RiotAPIRequest extends Request {
     constructor(key: string, URLTemplate: string, parameters: Record<string, unknown>, query: object, body: object) {
-        super(Request.generateTemplateString(URLTemplate, parameters), { 'X-Riot-Token': key }, query, body);
+        super(Request.generateTemplateString(URLTemplate, parameters), body, {
+            params: query,
+            headers: { 'X-Riot-Token': key },
+        });
     }
 }
