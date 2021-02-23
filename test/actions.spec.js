@@ -3,6 +3,7 @@ const redisMock = require('redis-mock');
 const nock = require('nock');
 const rewiremock = require('rewiremock/node');
 const chaiAsPromised = require('chai-as-promised');
+const fs = require('fs');
 
 chai.use(chaiAsPromised);
 const expect = chai.expect;
@@ -35,110 +36,110 @@ rewiremock.disable();
 // Set up nock
 const replyValues = {
     v4: {
-        summoner: require('./test-json/v4.summoner.by-name.json'),
+        summoner: require('./test-data/v4.summoner.by-name.json'),
         league: {
-            entriesBySummonerId: require('./test-json/v4.league.entries.by-summoner-id.json'),
-            league: require('./test-json/v4.league.league.json'),
-            master: require('./test-json/v4.league.master.json'),
-            grandmaster: require('./test-json/v4.league.grandmaster.json'),
-            challenger: require('./test-json/v4.league.challenger.json'),
-            diamondIV: require('./test-json/v4.league.diamond4.json'),
-            masterExp: require('./test-json/v4.league-exp.json'),
+            entriesBySummonerId: require('./test-data/v4.league.entries.by-summoner-id.json'),
+            league: require('./test-data/v4.league.league.json'),
+            master: require('./test-data/v4.league.master.json'),
+            grandmaster: require('./test-data/v4.league.grandmaster.json'),
+            challenger: require('./test-data/v4.league.challenger.json'),
+            diamondIV: require('./test-data/v4.league.diamond4.json'),
+            masterExp: require('./test-data/v4.league-exp.json'),
         },
         match: {
-            matchByMatchId: require('./test-json/v4.match.match.by-match.json'),
-            timelineByMatchId: require('./test-json/v4.match.timeline.by-match.json'),
-            matchlistByAccountId: require('./test-json/v4.match.matchlist.by-account.json'),
-            matchesByTournament: require('./test-json/v4.match.matchlist.by-tournament.json'),
-            matchlistFiltered: require('./test-json/v4.match.matchlist.by-account.filtered.json'),
+            matchByMatchId: require('./test-data/v4.match.match.by-match.json'),
+            timelineByMatchId: require('./test-data/v4.match.timeline.by-match.json'),
+            matchlistByAccountId: require('./test-data/v4.match.matchlist.by-account.json'),
+            matchesByTournament: require('./test-data/v4.match.matchlist.by-tournament.json'),
+            matchlistFiltered: require('./test-data/v4.match.matchlist.by-account.filtered.json'),
         },
         championMastery: {
-            bySummonerId: require('./test-json/v4.champion-mastery.by-summoner.json'),
-            byChampionId: require('./test-json/v4.champion-mastery.by-summoner.by-champion.json'),
-            score: require('./test-json/v4.champion-mastery.by-summoner.score.json'),
+            bySummonerId: require('./test-data/v4.champion-mastery.by-summoner.json'),
+            byChampionId: require('./test-data/v4.champion-mastery.by-summoner.by-champion.json'),
+            score: require('./test-data/v4.champion-mastery.by-summoner.score.json'),
         },
         thirdPartyCode: {
-            bySummonerId: require('./test-json/v4.third-party-code.json'),
+            bySummonerId: require('./test-data/v4.third-party-code.json'),
         },
-        status: require('./test-json/v4.lol-status.platform-data.json'),
+        status: require('./test-data/v4.lol-status.platform-data.json'),
         spectator: {
-            active: require('./test-json/v4.spectator.active.json'),
-            featured: require('./test-json/v4.spectator.featured.json'),
+            active: require('./test-data/v4.spectator.active.json'),
+            featured: require('./test-data/v4.spectator.featured.json'),
         },
         tournament: {
-            events: require('./test-json/v4.tournament.lobby-events.json'),
-            codes: require('./test-json/v4.tournament.codes.json'),
+            events: require('./test-data/v4.tournament.lobby-events.json'),
+            codes: require('./test-data/v4.tournament.codes.json'),
         },
     },
     v3: {
-        champion: require('./test-json/v3.champion.champion-rotations.json'),
+        champion: require('./test-data/v3.champion.champion-rotations.json'),
     },
     v1: {
         clash: {
             tournaments: {
-                all: require('./test-json/v1.clash.tournaments.all.json'),
-                byTournament: require('./test-json/v1.clash.tournaments.by-tournament.json'),
-                byTeam: require('./test-json/v1.clash.tournaments.by-team.json'),
+                all: require('./test-data/v1.clash.tournaments.all.json'),
+                byTournament: require('./test-data/v1.clash.tournaments.by-tournament.json'),
+                byTeam: require('./test-data/v1.clash.tournaments.by-team.json'),
             },
-            players: require('./test-json/v1.clash.players.json'),
-            team: require('./test-json/v1.clash.teams.json'),
+            players: require('./test-data/v1.clash.players.json'),
+            team: require('./test-data/v1.clash.teams.json'),
         },
         account: {
-            account: require('./test-json/v1.account.accounts.json'),
-            activeShard: require('./test-json/v1.account.active-shards.json'),
+            account: require('./test-data/v1.account.accounts.json'),
+            activeShard: require('./test-data/v1.account.active-shards.json'),
         },
         lorMatch: {
-            match: require('./test-json/v1.lor-match.match.json'),
-            matchlist: require('./test-json/v1.lor-match.matchlist.json'),
+            match: require('./test-data/v1.lor-match.match.json'),
+            matchlist: require('./test-data/v1.lor-match.matchlist.json'),
         },
         lorRanked: {
-            leaderboards: require('./test-json/v1.lor-ranked.leaderboards.json'),
+            leaderboards: require('./test-data/v1.lor-ranked.leaderboards.json'),
         },
         lorStatus: {
-            platformData: require('./test-json/v1.lor-status.platform-data.json'),
+            platformData: require('./test-data/v1.lor-status.platform-data.json'),
         },
         tftLeague: {
-            entriesBySummonerId: require('./test-json/v1.tft-league.entries.by-summoner-id.json'),
-            league: require('./test-json/v1.tft-league.league.json'),
-            master: require('./test-json/v1.tft-league.master.json'),
-            grandmaster: require('./test-json/v1.tft-league.grandmaster.json'),
-            challenger: require('./test-json/v1.tft-league.challenger.json'),
-            diamondIV: require('./test-json/v1.tft-league.diamond4.json'),
+            entriesBySummonerId: require('./test-data/v1.tft-league.entries.by-summoner-id.json'),
+            league: require('./test-data/v1.tft-league.league.json'),
+            master: require('./test-data/v1.tft-league.master.json'),
+            grandmaster: require('./test-data/v1.tft-league.grandmaster.json'),
+            challenger: require('./test-data/v1.tft-league.challenger.json'),
+            diamondIV: require('./test-data/v1.tft-league.diamond4.json'),
         },
         tftMatch: {
-            match: require('./test-json/v1.tft-match.match.json'),
-            matchlist: require('./test-json/v1.tft-match.matchlist.json'),
+            match: require('./test-data/v1.tft-match.match.json'),
+            matchlist: require('./test-data/v1.tft-match.matchlist.json'),
         },
-        tftSummoner: require('./test-json/v1.tft-summoner.by-name.json'),
+        tftSummoner: require('./test-data/v1.tft-summoner.by-name.json'),
         valContent: {
-            all: require('./test-json/v1.val-content.contents.json'),
-            locale: require('./test-json/v1.val-content.locale.json'),
+            all: require('./test-data/v1.val-content.contents.json'),
+            locale: require('./test-data/v1.val-content.locale.json'),
         },
         valMatch: {
-            match: require('./test-json/v1.val-match.match.json'),
-            matchlist: require('./test-json/v1.val-match.matchlist.json'),
-            recent: require('./test-json/v1.val-match.recent-matches.json'),
+            match: require('./test-data/v1.val-match.match.json'),
+            matchlist: require('./test-data/v1.val-match.matchlist.json'),
+            recent: require('./test-data/v1.val-match.recent-matches.json'),
         },
         valRanked: {
-            leaderboard: require('./test-json/v1.val-ranked.leaderboards.json'),
+            leaderboard: require('./test-data/v1.val-ranked.leaderboards.json'),
         },
         valStatus: {
-            platformData: require('./test-json/v1.val-status.platform-data.json'),
+            platformData: require('./test-data/v1.val-status.platform-data.json'),
         },
     },
     ddragon: {
-        versions: require('./test-json/ddragon.versions.json'),
-        languages: require('./test-json/ddragon.languages.json'),
+        versions: require('./test-data/ddragon.versions.json'),
+        languages: require('./test-data/ddragon.languages.json'),
         champion: {
-            list: require('./test-json/ddragon.champion.list.json'),
-            details: require('./test-json/ddragon.champion.details.json'),
+            list: require('./test-data/ddragon.champion.list.json'),
+            details: require('./test-data/ddragon.champion.details.json'),
         },
-        item: require('./test-json/ddragon.item.list.json'),
-        profileIcon: require('./test-json/ddragon.profile-icon.list.json'),
-        region: require('./test-json/ddragon.region.json'),
-        summonerSpells: require('./test-json/ddragon.summoner-spells.list.json'),
+        item: require('./test-data/ddragon.item.list.json'),
+        profileIcon: require('./test-data/ddragon.profile-icon.list.json'),
+        region: require('./test-data/ddragon.region.json'),
+        summonerSpells: require('./test-data/ddragon.summoner-spells.list.json'),
     },
-    gc: require('./test-json/liveclientdata.json'),
+    gc: require('./test-data/liveclientdata.json'),
 };
 
 const na1API = nock('https://na1.api.riotgames.com')
@@ -304,9 +305,9 @@ const naAPI = nock('https://na.api.riotgames.com')
 
 const dataDragonAPI = nock('https://ddragon.leagueoflegends.com')
     .get('/cdn/dragontail-11.2.1.tgz')
-        .reply(200, '11.2.1')
+        .replyWithFile(200, __dirname + '/test-data/example-image.png')
     .get('/cdn/dragontail-10.10.5.zip')
-        .reply(200, '10.10.5')
+        .replyWithFile(200, __dirname + '/test-data/example-image.png')
     .get('/cdn/languages.json')
         .reply(200, replyValues.ddragon.languages)
     .get('/api/versions.json')
@@ -324,33 +325,33 @@ const dataDragonAPI = nock('https://ddragon.leagueoflegends.com')
     .get('/cdn/11.2.1/data/en_US/profileicon.json')
         .reply(200, replyValues.ddragon.profileIcon)
     .get('/cdn/img/champion/loading/Xayah_0.jpg')
-        .reply(200, 'loading')
+        .replyWithFile(200, __dirname + '/test-data/example-image.jpg')
     .get('/cdn/img/champion/splash/Xayah_0.jpg')
-        .reply(200, 'splash')
+        .replyWithFile(200, __dirname + '/test-data/example-image.jpg')
     .get('/cdn/11.2.1/img/champion/Xayah.png')
-        .reply(200, 'championIcon')
+        .replyWithFile(200, __dirname + '/test-data/example-image.png')
     .get('/cdn/11.2.1/img/passive/XayahPassive.png')
-        .reply(200, 'passive')
+        .replyWithFile(200, __dirname + '/test-data/example-image.png')
     .get('/cdn/11.2.1/img/spell/XayahR.png')
-        .reply(200, 'spell')
+        .replyWithFile(200, __dirname + '/test-data/example-image.png')
     .get('/cdn/11.2.1/img/item/6671.png')
-        .reply(200, 'item')
+        .replyWithFile(200, __dirname + '/test-data/example-image.png')
     .get('/cdn/11.2.1/img/profileicon/3560.png')
-        .reply(200, 'summonerIcon')
+        .replyWithFile(200, __dirname + '/test-data/example-image.png')
     .get('/cdn/11.2.1/img/map/map11.png')
-        .reply(200, 'minimap')
+        .replyWithFile(200, __dirname + '/test-data/example-image.png')
     .get('/cdn/11.2.1/img/sprite/spell0.png')
-        .reply(200, 'sprites')
+        .replyWithFile(200, __dirname + '/test-data/example-image.png')
     .get('/cdn/5.5.1/img/ui/champion.png')
-        .reply(200, 'scoreboardChampion')
+        .replyWithFile(200, __dirname + '/test-data/example-image.png')
     .get('/cdn/5.5.1/img/ui/items.png')
-        .reply(200, 'scoreboardChampion')
+        .replyWithFile(200, __dirname + '/test-data/example-image.png')
     .get('/cdn/5.5.1/img/ui/minion.png')
-        .reply(200, 'scoreboardChampion')
+        .replyWithFile(200, __dirname + '/test-data/example-image.png')
     .get('/cdn/5.5.1/img/ui/score.png')
-        .reply(200, 'scoreboardChampion')
+        .replyWithFile(200, __dirname + '/test-data/example-image.png')
     .get('/cdn/5.5.1/img/ui/spells.png')
-        .reply(200, 'scoreboardChampion');
+        .replyWithFile(200, __dirname + '/test-data/example-image.png');
 
 const gameClientAPI = nock('https://127.0.0.1:2999')
     .get('/liveclientdata/allgamedata')
@@ -1033,13 +1034,13 @@ describe('/galeforce/actions', () => {
         });
         describe('.ddragon', () => {
             describe('.tail()', () => {
-                it('should pull JSON from the appropriate Data Dragon URL', () => {
+                it('should pull tarfile from the appropriate Data Dragon URL', () => {
                     return expect(Galeforce.ddragon.tail().version('11.2.1').exec())
-                        .to.eventually.be.a('string');
+                        .to.eventually.be.instanceof(Buffer);
                 });
-                it('should pull JSON from the appropriate Data Dragon URL', () => {
+                it('should pull tarfile from the appropriate Data Dragon URL', () => {
                     return expect(Galeforce.ddragon.tail().version('10.10.5').exec())
-                        .to.eventually.be.a('string');
+                        .to.eventually.be.instanceof(Buffer);
                 });
             });
             describe('.versions()', () => {
@@ -1104,7 +1105,7 @@ describe('/galeforce/actions', () => {
                         describe('.champion().skin()', () => {
                             it('should pull image from the appropriate Data Dragon URL', () => {
                                 return expect(Galeforce.ddragon.champion.art.splash().champion('Xayah').skin(0).exec())
-                                    .to.eventually.be.a('string');
+                                    .to.eventually.be.instanceof(Buffer);
                             });
                         });
                     });
@@ -1112,7 +1113,7 @@ describe('/galeforce/actions', () => {
                         describe('.champion().skin()', () => {
                             it('should pull image from the appropriate Data Dragon URL', () => {
                                 return expect(Galeforce.ddragon.champion.art.loading().champion('Xayah').skin(0).exec())
-                                    .to.eventually.be.a('string');
+                                    .to.eventually.be.instanceof(Buffer);
                             });
                         });
                     });
@@ -1120,7 +1121,7 @@ describe('/galeforce/actions', () => {
                         describe('.version().champion()', () => {
                             it('should pull image from the appropriate Data Dragon URL', () => {
                                 return expect(Galeforce.ddragon.champion.art.icon().version('11.2.1').champion('Xayah').exec())
-                                    .to.eventually.be.a('string');
+                                    .to.eventually.be.instanceof(Buffer);
                             });
                         });
                     });
@@ -1128,7 +1129,7 @@ describe('/galeforce/actions', () => {
                         describe('.version().spell()', () => {
                             it('should pull image from the appropriate Data Dragon URL', () => {
                                 return expect(Galeforce.ddragon.champion.art.passive().version('11.2.1').spell('XayahPassive').exec())
-                                    .to.eventually.be.a('string');
+                                    .to.eventually.be.instanceof(Buffer);
                             });
                         });
                     });
@@ -1139,7 +1140,7 @@ describe('/galeforce/actions', () => {
                     describe('.version().spell()', () => {
                         it('should pull image from the appropriate Data Dragon URL', () => {
                             return expect(Galeforce.ddragon.spell.art().version('11.2.1').spell('XayahR').exec())
-                                .to.eventually.be.a('string');
+                                .to.eventually.be.instanceof(Buffer);
                         });
                     });
                 });
@@ -1157,7 +1158,7 @@ describe('/galeforce/actions', () => {
                     describe('.version().assetId()', () => {
                         it('should pull image from the appropriate Data Dragon URL', () => {
                             return expect(Galeforce.ddragon.item.art().version('11.2.1').assetId(6671).exec())
-                                .to.eventually.be.a('string');
+                                .to.eventually.be.instanceof(Buffer);
                         });
                     });
                 });
@@ -1185,7 +1186,7 @@ describe('/galeforce/actions', () => {
                     describe('.version().assetId()', () => {
                         it('should pull image from the appropriate Data Dragon URL', () => {
                             return expect(Galeforce.ddragon.profileIcon.art().version('11.2.1').assetId(3560).exec())
-                                .to.eventually.be.a('string');
+                                .to.eventually.be.instanceof(Buffer);
                         });
                     });
                 });
@@ -1195,7 +1196,7 @@ describe('/galeforce/actions', () => {
                     describe('.version().assetId()', () => {
                         it('should pull image from the appropriate Data Dragon URL', () => {
                             return expect(Galeforce.ddragon.minimap.art().version('11.2.1').assetId(11).exec())
-                                .to.eventually.be.a('string');
+                                .to.eventually.be.instanceof(Buffer);
                         });
                     });
                 });
@@ -1205,7 +1206,7 @@ describe('/galeforce/actions', () => {
                     describe('.version().assetId()', () => {
                         it('should pull image from the appropriate Data Dragon URL', () => {
                             return expect(Galeforce.ddragon.sprite.art().version('11.2.1').assetId(0).exec())
-                                .to.eventually.be.a('string');
+                                .to.eventually.be.instanceof(Buffer);
                         });
                     });
                 });
@@ -1215,31 +1216,31 @@ describe('/galeforce/actions', () => {
                     describe('.champion()', () => {
                         it('should pull image from the appropriate Data Dragon URL', () => {
                             return expect(Galeforce.ddragon.scoreboard.art.champion().exec())
-                                .to.eventually.be.a('string');
+                                .to.eventually.be.instanceof(Buffer);
                         });
                     });
                     describe('.items()', () => {
                         it('should pull image from the appropriate Data Dragon URL', () => {
                             return expect(Galeforce.ddragon.scoreboard.art.items().exec())
-                                .to.eventually.be.a('string');
+                                .to.eventually.be.instanceof(Buffer);
                         });
                     });
                     describe('.minion()', () => {
                         it('should pull image from the appropriate Data Dragon URL', () => {
                             return expect(Galeforce.ddragon.scoreboard.art.minion().exec())
-                                .to.eventually.be.a('string');
+                                .to.eventually.be.instanceof(Buffer);
                         });
                     });
                     describe('.score()', () => {
                         it('should pull image from the appropriate Data Dragon URL', () => {
                             return expect(Galeforce.ddragon.scoreboard.art.score().exec())
-                                .to.eventually.be.a('string');
+                                .to.eventually.be.instanceof(Buffer);
                         });
                     });
                     describe('.spells()', () => {
                         it('should pull image from the appropriate Data Dragon URL', () => {
                             return expect(Galeforce.ddragon.scoreboard.art.spells().exec())
-                                .to.eventually.be.a('string');
+                                .to.eventually.be.instanceof(Buffer);
                         });
                     });
                 });
@@ -1259,78 +1260,78 @@ describe('/galeforce/actions', () => {
                 });
             });
             describe('.all()', () => {
-                it('should pull JSON from the appropriate Game Client URL', () => {
-                    return expect(Galeforce.gc.all().exec())
+                it('should pull JSON from the appropriate Live Client Data URL', () => {
+                    return expect(Galeforce.lcd.all().exec())
                         .to.eventually.deep.equal(replyValues.gc);
                 });
             });
             describe('.active', () => {
                 describe('.player()', () => {
-                    it('should pull JSON from the appropriate Game Client URL', () => {
-                        return expect(Galeforce.gc.active.player().exec())
+                    it('should pull JSON from the appropriate Live Client Data URL', () => {
+                        return expect(Galeforce.lcd.active.player().exec())
                             .to.eventually.deep.equal(replyValues.gc.activePlayer);
                     });
                 });
                 describe('.name()', () => {
-                    it('should pull JSON from the appropriate Game Client URL', () => {
-                        return expect(Galeforce.gc.active.name().exec())
+                    it('should pull JSON from the appropriate Live Client Data URL', () => {
+                        return expect(Galeforce.lcd.active.name().exec())
                             .to.eventually.deep.equal(replyValues.gc.activePlayer.summonerName);
                     });
                 });
                 describe('.abilities()', () => {
-                    it('should pull JSON from the appropriate Game Client URL', () => {
-                        return expect(Galeforce.gc.active.abilities().exec())
+                    it('should pull JSON from the appropriate Live Client Data URL', () => {
+                        return expect(Galeforce.lcd.active.abilities().exec())
                             .to.eventually.deep.equal(replyValues.gc.activePlayer.abilities);
                     });
                 });
                 describe('.runes()', () => {
-                    it('should pull JSON from the appropriate Game Client URL', () => {
-                        return expect(Galeforce.gc.active.runes().exec())
+                    it('should pull JSON from the appropriate Live Client Data URL', () => {
+                        return expect(Galeforce.lcd.active.runes().exec())
                             .to.eventually.deep.equal(replyValues.gc.activePlayer.fullRunes);
                     });
                 });
             });
             describe('.player', () => {
                 describe('.list()', () => {
-                    it('should pull JSON from the appropriate Game Client URL', () => {
-                        return expect(Galeforce.gc.player.list().exec())
+                    it('should pull JSON from the appropriate Live Client Data URL', () => {
+                        return expect(Galeforce.lcd.player.list().exec())
                             .to.eventually.deep.equal(replyValues.gc.allPlayers);
                     });
                 });
                 describe('.scores()', () => {
-                    it('should pull JSON from the appropriate Game Client URL', () => {
-                        return expect(Galeforce.gc.player.scores().name('SSG Xayah').exec())
+                    it('should pull JSON from the appropriate Live Client Data URL', () => {
+                        return expect(Galeforce.lcd.player.scores().name('SSG Xayah').exec())
                             .to.eventually.deep.equal(replyValues.gc.allPlayers[0].scores);
                     });
                 });
                 describe('.summonerSpells()', () => {
-                    it('should pull JSON from the appropriate Game Client URL', () => {
-                        return expect(Galeforce.gc.player.summonerSpells().name('SSG Xayah').exec())
+                    it('should pull JSON from the appropriate Live Client Data URL', () => {
+                        return expect(Galeforce.lcd.player.summonerSpells().name('SSG Xayah').exec())
                             .to.eventually.deep.equal(replyValues.gc.allPlayers[0].summonerSpells);
                     });
                 });
                 describe('.runes()', () => {
-                    it('should pull JSON from the appropriate Game Client URL', () => {
-                        return expect(Galeforce.gc.player.runes().name('SSG Xayah').exec())
+                    it('should pull JSON from the appropriate Live Client Data URL', () => {
+                        return expect(Galeforce.lcd.player.runes().name('SSG Xayah').exec())
                             .to.eventually.deep.equal(replyValues.gc.allPlayers[0].runes);
                     });
                 });
                 describe('.items()', () => {
-                    it('should pull JSON from the appropriate Game Client URL', () => {
-                        return expect(Galeforce.gc.player.items().name('SSG Xayah').exec())
+                    it('should pull JSON from the appropriate Live Client Data URL', () => {
+                        return expect(Galeforce.lcd.player.items().name('SSG Xayah').exec())
                             .to.eventually.deep.equal(replyValues.gc.allPlayers[0].items);
                     });
                 });
             });
             describe('.events()', () => {
-                it('should pull JSON from the appropriate Game Client URL', () => {
-                    return expect(Galeforce.gc.events().exec())
+                it('should pull JSON from the appropriate Live Client Data URL', () => {
+                    return expect(Galeforce.lcd.events().exec())
                         .to.eventually.deep.equal(replyValues.gc.events);
                 });
             });
             describe('.stats()', () => {
-                it('should pull JSON from the appropriate Game Client URL', () => {
-                    return expect(Galeforce.gc.stats().exec())
+                it('should pull JSON from the appropriate Live Client Data URL', () => {
+                    return expect(Galeforce.lcd.stats().exec())
                         .to.eventually.deep.equal(replyValues.gc.gameData);
                 });
             });

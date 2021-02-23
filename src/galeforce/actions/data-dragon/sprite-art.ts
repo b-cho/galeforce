@@ -9,11 +9,11 @@ const BaseAction = TakesVersion(
     ),
 );
 
-export default class GetDataDragonSpriteArt extends BaseAction<string> {
+export default class GetDataDragonSpriteArt extends BaseAction<Buffer> {
     constructor(submodules: SubmoduleMap) {
         super(submodules);
         this.payload.endpoint = ENDPOINTS.DATA_DRAGON.SPRITES_ART;
-        this.payload.type = 'ddragon';
+        this.payload.type = 'ddragon-buffer';
         this.payload.method = 'GET';
     }
 }

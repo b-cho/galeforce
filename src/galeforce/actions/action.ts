@@ -82,6 +82,13 @@ export default class Action<TResult> {
                     this.payload.query,
                     this.payload.body,
                 );
+            } else if (this.payload.type === 'ddragon-buffer') {
+                request = this.submodules.RiotAPI.bufferRequest(
+                    this.payload.endpoint,
+                    this.payload,
+                    this.payload.query,
+                    this.payload.body,
+                );
             } else {
                 request = this.submodules.RiotAPI.request(
                     this.payload.endpoint,
@@ -106,9 +113,11 @@ export default class Action<TResult> {
                 ({ data } = await request.put() as any);
             }
 
+            actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('return')} \u00AB ${chalk.bold.green(200)}`);
             return data as TResult;
         } catch (e) {
             if (e.response?.status) {
+                actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('return')} \u00AB ${chalk.bold.red(e.response.status)}`);
                 if (e.response.status === 403) {
                     throw new Error('[galeforce]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)');
                 } else {
@@ -116,6 +125,7 @@ export default class Action<TResult> {
                 }
             }
 
+            actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('return')} \u00AB ${chalk.bold.red('error')}`);
             throw e;
         }
     }

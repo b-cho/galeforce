@@ -9,7 +9,7 @@ const requestDebug = debug('galeforce:riot-api');
 const initDebug = debug('galeforce:init');
 
 initDebug(`${chalk.bold('loading Game Client certificate chain')}`);
-const httpsAgent = new https.Agent({ ca: fs.readFileSync('./resource/riotgames.pem') });
+const httpsAgent = new https.Agent({ ca: fs.readFileSync(__dirname + '/../../../resource/riotgames.pem') });
 
 export default class GameClientRequest extends Request {
     constructor(key: string, URLTemplate: string, parameters: Record<string, unknown>, query: object, body: object) {

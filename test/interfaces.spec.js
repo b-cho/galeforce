@@ -18,14 +18,14 @@ describe('/galeforce/interfaces', () => {
             it('should match with /lol/summoner/v4/summoners JSON data', () => {
                 const schema = generator.getSchemaForSymbol('SummonerDTO');
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v4.summoner.by-name.json'));
+                let valid = validate(require('./test-data/v4.summoner.by-name.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
             it('should match with /lol/tft-summoner/v1/summoners JSON data', () => {
                 const schema = generator.getSchemaForSymbol('SummonerDTO');
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v1.tft-summoner.by-name.json'));
+                let valid = validate(require('./test-data/v1.tft-summoner.by-name.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -34,7 +34,7 @@ describe('/galeforce/interfaces', () => {
             it('should match with /lol/match/v4/matches JSON data', () => {
                 const schema = generator.getSchemaForSymbol('MatchDTO');
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v4.match.match.by-match.json'));
+                let valid = validate(require('./test-data/v4.match.match.by-match.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -43,7 +43,7 @@ describe('/galeforce/interfaces', () => {
             it('should match with /lol/match/v4/timelines/by-match JSON data', () => {
                 const schema = generator.getSchemaForSymbol('MatchTimelineDTO');
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v4.match.timeline.by-match.json'));
+                let valid = validate(require('./test-data/v4.match.timeline.by-match.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -52,7 +52,7 @@ describe('/galeforce/interfaces', () => {
             it('should match with /lol/match/v4/matchlists/by-account/ JSON data', () => {
                 const schema = generator.getSchemaForSymbol('MatchlistDTO');
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v4.match.matchlist.by-account.json'));
+                let valid = validate(require('./test-data/v4.match.matchlist.by-account.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -61,14 +61,14 @@ describe('/galeforce/interfaces', () => {
             it('should match with /lol/league/v4/entries/by-summoner JSON data', () => {
                 const schema = generator.getSchemaForSymbol('LeagueEntryDTO');
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v4.league.entries.by-summoner-id.json')[0]);
+                let valid = validate(require('./test-data/v4.league.entries.by-summoner-id.json')[0]);
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
             it('should match with /lol/league/v4/entries/by-summoner JSON data', () => {
                 const schema = generator.getSchemaForSymbol('LeagueEntryDTO');
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v1.tft-league.entries.by-summoner-id.json')[0]);
+                let valid = validate(require('./test-data/v1.tft-league.entries.by-summoner-id.json')[0]);
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -77,14 +77,14 @@ describe('/galeforce/interfaces', () => {
             it('should match with /lol/league/v4/challengerleagues/by-queue/{queue} JSON data', () => {
                 const schema = generator.getSchemaForSymbol('LeagueListDTO');
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v4.league.challenger.json'));
+                let valid = validate(require('./test-data/v4.league.challenger.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
             it('should match with /tft/league/v1/challenger JSON data', () => {
                 const schema = generator.getSchemaForSymbol('LeagueListDTO');
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v1.tft-league.challenger.json'));
+                let valid = validate(require('./test-data/v1.tft-league.challenger.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -93,7 +93,7 @@ describe('/galeforce/interfaces', () => {
             it('should match with /lol/champion-mastery/v4/champion-masteries/by-summoner JSON data', () => {
                 const schema = generator.getSchemaForSymbol('ChampionMasteryDTO');
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v4.champion-mastery.by-summoner.json')[0]);
+                let valid = validate(require('./test-data/v4.champion-mastery.by-summoner.json')[0]);
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -108,19 +108,19 @@ describe('/galeforce/interfaces', () => {
 
             it('should match with /lol/status/v4/platform-data JSON data', () => {
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v4.lol-status.platform-data.json'));
+                let valid = validate(require('./test-data/v4.lol-status.platform-data.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
             it('should match with /lor/status/v1/platform-data JSON data', () => {
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v1.lor-status.platform-data.json'));
+                let valid = validate(require('./test-data/v1.lor-status.platform-data.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
             it('should match with /val/status/v1/platform-data JSON data', () => {
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v1.val-status.platform-data.json'));
+                let valid = validate(require('./test-data/v1.val-status.platform-data.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -129,7 +129,7 @@ describe('/galeforce/interfaces', () => {
             it('should match with /lol/platform/v3/champion-rotations JSON data', () => {
                 const schema = generator.getSchemaForSymbol('ChampionInfoDTO');
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v3.champion.champion-rotations.json'));
+                let valid = validate(require('./test-data/v3.champion.champion-rotations.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -138,7 +138,7 @@ describe('/galeforce/interfaces', () => {
             it('should match with /lol/clash/v1/players/by-summoner JSON data', () => {
                 const schema = generator.getSchemaForSymbol('PlayerDTO');
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v1.clash.players.json')[0]);
+                let valid = validate(require('./test-data/v1.clash.players.json')[0]);
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -147,7 +147,7 @@ describe('/galeforce/interfaces', () => {
             it('should match with /lol/clash/v1/teams JSON data', () => {
                 const schema = generator.getSchemaForSymbol('TeamDTO');
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v1.clash.teams.json'));
+                let valid = validate(require('./test-data/v1.clash.teams.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -156,7 +156,7 @@ describe('/galeforce/interfaces', () => {
             it('should match with /lol/clash/v1/tournaments JSON data', () => {
                 const schema = generator.getSchemaForSymbol('TournamentDTO');
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v1.clash.tournaments.all.json')[0]);
+                let valid = validate(require('./test-data/v1.clash.tournaments.all.json')[0]);
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -165,7 +165,7 @@ describe('/galeforce/interfaces', () => {
             it('should match with /lol/spectator/v4/active-games/by-summoner JSON data', () => {
                 const schema = generator.getSchemaForSymbol('CurrentGameInfoDTO');
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v4.spectator.active.json'));
+                let valid = validate(require('./test-data/v4.spectator.active.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -174,7 +174,7 @@ describe('/galeforce/interfaces', () => {
             it('should match with /lol/spectator/v4/featured-games JSON data', () => {
                 const schema = generator.getSchemaForSymbol('FeaturedGamesDTO');
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v4.spectator.featured.json'));
+                let valid = validate(require('./test-data/v4.spectator.featured.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -183,7 +183,7 @@ describe('/galeforce/interfaces', () => {
             it('should match with /riot/account/v1/accounts JSON data', () => {
                 const schema = generator.getSchemaForSymbol('AccountDTO');
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v1.account.accounts.json'));
+                let valid = validate(require('./test-data/v1.account.accounts.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -192,7 +192,7 @@ describe('/galeforce/interfaces', () => {
             it('should match with /riot/account/v1/active-shards JSON data', () => {
                 const schema = generator.getSchemaForSymbol('ActiveShardDTO');
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v1.account.active-shards.json'));
+                let valid = validate(require('./test-data/v1.account.active-shards.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -203,7 +203,7 @@ describe('/galeforce/interfaces', () => {
                 schema.definitions['LobbyEventDTO'].properties['summonerId'].type = ['string', 'null']; // Override schema type
 
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v4.tournament.lobby-events.json'));
+                let valid = validate(require('./test-data/v4.tournament.lobby-events.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -213,7 +213,7 @@ describe('/galeforce/interfaces', () => {
                 const schema = generator.getSchemaForSymbol('TournamentCodeDTO');
 
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v4.tournament.codes.json'));
+                let valid = validate(require('./test-data/v4.tournament.codes.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -223,7 +223,7 @@ describe('/galeforce/interfaces', () => {
                 const schema = generator.getSchemaForSymbol('LorMatchDTO');
 
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v1.lor-match.match.json'));
+                let valid = validate(require('./test-data/v1.lor-match.match.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -233,7 +233,7 @@ describe('/galeforce/interfaces', () => {
                 const schema = generator.getSchemaForSymbol('LorLeaderboardDTO');
 
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v1.lor-ranked.leaderboards.json'));
+                let valid = validate(require('./test-data/v1.lor-ranked.leaderboards.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -243,7 +243,7 @@ describe('/galeforce/interfaces', () => {
                 const schema = generator.getSchemaForSymbol('TFTMatchDTO');
 
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v1.tft-match.match.json'));
+                let valid = validate(require('./test-data/v1.tft-match.match.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -253,7 +253,7 @@ describe('/galeforce/interfaces', () => {
                 const schema = generator.getSchemaForSymbol('ValContentDTO');
 
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v1.val-content.contents.json'));
+                let valid = validate(require('./test-data/v1.val-content.contents.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -261,7 +261,7 @@ describe('/galeforce/interfaces', () => {
                 const schema = generator.getSchemaForSymbol('ValContentDTO');
 
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v1.val-content.locale.json'));
+                let valid = validate(require('./test-data/v1.val-content.locale.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -271,7 +271,7 @@ describe('/galeforce/interfaces', () => {
                 const schema = generator.getSchemaForSymbol('ValLeaderboardDTO');
 
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/v1.val-ranked.leaderboards.json'));
+                let valid = validate(require('./test-data/v1.val-ranked.leaderboards.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -281,7 +281,7 @@ describe('/galeforce/interfaces', () => {
                 const schema = generator.getSchemaForSymbol('DataDragonRegionDTO');
 
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/ddragon.region.json'));
+                let valid = validate(require('./test-data/ddragon.region.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -291,7 +291,7 @@ describe('/galeforce/interfaces', () => {
                 const schema = generator.getSchemaForSymbol('DataDragonChampionListDTO');
 
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/ddragon.champion.list.json'));
+                let valid = validate(require('./test-data/ddragon.champion.list.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -305,7 +305,7 @@ describe('/galeforce/interfaces', () => {
                     .properties['effectBurn']['items'].type = ['string', 'null']; // Override schema type to match interface
 
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/ddragon.champion.details.json'));
+                let valid = validate(require('./test-data/ddragon.champion.details.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -315,7 +315,7 @@ describe('/galeforce/interfaces', () => {
                 const schema = generator.getSchemaForSymbol('DataDragonItemListDTO');
 
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/ddragon.item.list.json'));
+                let valid = validate(require('./test-data/ddragon.item.list.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -329,7 +329,7 @@ describe('/galeforce/interfaces', () => {
                     .properties['effectBurn']['items'].type = ['string', 'null']; // Override schema type to match interface
 
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/ddragon.summoner-spells.list.json'));
+                let valid = validate(require('./test-data/ddragon.summoner-spells.list.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -339,13 +339,13 @@ describe('/galeforce/interfaces', () => {
                 const schema = generator.getSchemaForSymbol('DataDragonProfileIconListDTO');
 
                 const validate = ajv.compile(schema);
-                let valid = validate(require('./test-json/ddragon.profile-icon.list.json'));
+                let valid = validate(require('./test-data/ddragon.profile-icon.list.json'));
                 if(!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
         });
 
-        const liveClientData = require('./test-json/liveclientdata.json');
+        const liveClientData = require('./test-data/liveclientdata.json');
         describe('LiveClientAbilitiesDTO', () => {
             it('should match with Live Client JSON data', () => {
                 const schema = generator.getSchemaForSymbol('LiveClientAbilitiesDTO');

@@ -9,7 +9,7 @@ const payloadDebug = debug('galeforce:payload');
 
 export type Payload = {
     readonly _id: string;
-    type?: 'lol' | 'val' | 'riot' | 'ddragon' | 'lcu' | 'gc';
+    type?: 'lol' | 'val' | 'riot' | 'ddragon' | 'ddragon-buffer' | 'lcu' | 'gc';
     method?: 'GET' | 'POST' | 'PUT';
     endpoint?: string;
     query?: object;

@@ -12,6 +12,7 @@ import { Tier } from './enums/tiers';
 import { Division } from './enums/divisions';
 import { Game } from './enums/games';
 import GameClientRequest from './requests/game-client-request';
+import BufferRequest from './requests/buffer-request';
 
 export class RiotAPIModule {
     private key: string;
@@ -26,6 +27,10 @@ export class RiotAPIModule {
 
     public gcrequest(stringTemplate: string, parameters: Record<string, unknown>, query?: object, body?: object): GameClientRequest {
         return new GameClientRequest(this.key, stringTemplate, parameters, query || {}, body || {});
+    }
+
+    public bufferRequest(stringTemplate: string, parameters: Record<string, unknown>, query?: object, body?: object): BufferRequest {
+        return new BufferRequest(this.key, stringTemplate, parameters, query || {}, body || {});
     }
 }
 

@@ -9,11 +9,11 @@ const BaseAction = TakesSkin(
     ),
 );
 
-export default class GetDataDragonSplashArt extends BaseAction<string> {
+export default class GetDataDragonSplashArt extends BaseAction<Buffer> {
     constructor(submodules: SubmoduleMap) {
         super(submodules);
         this.payload.endpoint = ENDPOINTS.DATA_DRAGON.LOADING_ART;
-        this.payload.type = 'ddragon';
+        this.payload.type = 'ddragon-buffer';
         this.payload.method = 'GET';
     }
 }

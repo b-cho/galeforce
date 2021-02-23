@@ -124,7 +124,7 @@ class Galeforce {
             } else if (this.config.cache.type === 'null') {
                 cache = new NullCache();
             } else {
-                throw new Error('Invalid cache type specified in config.');
+                throw new Error('Invalid cache type specified in config or cache URI missing.');
             }
         } else {
             cache = new NullCache();
@@ -508,21 +508,29 @@ class Galeforce {
                 /**
                  * Action constructor corresponding to the following Data Dragon files:
                  * - (**GET**) `/cdn/img/champion/splash/{champion}_{skin}.jpg`
+                 * 
+                 * Returns data as a `Buffer` object.
                  */
                 splash: (): GetDataDragonSplashArt => new GetDataDragonSplashArt(this.submodules),
                 /**
                  * Action constructor corresponding to the following Data Dragon files:
                  * - (**GET**) `/cdn/img/champion/loading/{champion}_{skin}.jpg`
+                 * 
+                 * Returns data as a `Buffer` object.
                  */
                 loading: (): GetDataDragonLoadingArt => new GetDataDragonLoadingArt(this.submodules),
                 /**
                  * Action constructor corresponding to the following Data Dragon files:
                  * - (**GET**) `/cdn/{version}/img/champion/{champion}.png`
+                 * 
+                 * Returns data as a `Buffer` object.
                  */
                 icon: (): GetDataDragonChampionSquareArt => new GetDataDragonChampionSquareArt(this.submodules),
                 /**
                  * Action constructor corresponding to the following Data Dragon files:
                  * - (**GET**) `/cdn/{version}/img/passive/{spell}.png`
+                 * 
+                 * Returns data as a `Buffer` object.
                  */
                 passive: (): GetDataDragonChampionPassiveArt => new GetDataDragonChampionPassiveArt(this.submodules),
             },
@@ -531,6 +539,8 @@ class Galeforce {
             /**
              * Action constructor corresponding to the following Data Dragon files:
              * - (**GET**) `/cdn/{version}/img/spell/{spell}.png`
+             * 
+             * Returns data as a `Buffer` object.
              */
             art: (): GetDataDragonSpellArt => new GetDataDragonSpellArt(this.submodules),
         },
@@ -543,6 +553,8 @@ class Galeforce {
             /**
              * Action constructor corresponding to the following Data Dragon files:
              * - (**GET**) `/cdn/{version}/img/item/{assetId}.png`
+             * 
+             * Returns data as a `Buffer` object.
              */
             art: (): GetDataDragonItemArt => new GetDataDragonItemArt(this.submodules),
         },
@@ -562,6 +574,8 @@ class Galeforce {
             /**
              * Action constructor corresponding to the following Data Dragon files:
              * - (**GET**) `/cdn/{version}/img/profileicon/{assetId}.png`
+             * 
+             * Returns data as a `Buffer` object.
              */
             art: (): GetDataDragonProfileIconArt => new GetDataDragonProfileIconArt(this.submodules),
         },
@@ -569,6 +583,8 @@ class Galeforce {
             /**
              * Action constructor corresponding to the following Data Dragon files:
              * - (**GET**) `/cdn/{version}/img/map/map{assetId}.png`
+             * 
+             * Returns data as a `Buffer` object.
              */
             art: (): GetDataDragonMinimapArt => new GetDataDragonMinimapArt(this.submodules),
         },
@@ -576,6 +592,8 @@ class Galeforce {
             /**
              * Action constructor corresponding to the following Data Dragon files:
              * - (**GET**) `/cdn/{version}/img/sprite/spell{assetId}.png`
+             * 
+             * Returns data as a `Buffer` object.
              */
             art: (): GetDataDragonSpriteArt => new GetDataDragonSpriteArt(this.submodules),
         },
@@ -584,26 +602,36 @@ class Galeforce {
                 /**
                  * Action constructor corresponding to the following Data Dragon files:
                  * - (**GET**) `/cdn/5.5.1/img/ui/champion.png`
+                 * 
+                 * Returns data as a `Buffer` object.
                  */
                 champion: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'champion'),
                 /**
                  * Action constructor corresponding to the following Data Dragon files:
                  * - (**GET**) `/cdn/5.5.1/img/ui/items.png`
+                 * 
+                 * Returns data as a `Buffer` object.
                  */
                 items: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'items'),
                 /**
                  * Action constructor corresponding to the following Data Dragon files:
                  * - (**GET**) `/cdn/5.5.1/img/ui/minion.png`
+                 * 
+                 * Returns data as a `Buffer` object.
                  */
                 minion: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'minion'),
                 /**
                  * Action constructor corresponding to the following Data Dragon files:
                  * - (**GET**) `/cdn/5.5.1/img/ui/score.png`
+                 * 
+                 * Returns data as a `Buffer` object.
                  */
                 score: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'score'),
                 /**
                  * Action constructor corresponding to the following Data Dragon files:
                  * - (**GET**) `/cdn/5.5.1/img/ui/spells.png`
+                 * 
+                 * Returns data as a `Buffer` object.
                  */
                 spells: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'spells'),
             },
@@ -611,13 +639,21 @@ class Galeforce {
     }
 
     /**
-     * Object containing functions corresponding to the Live Client Data endpoints.
-     * The Live Client Data API is hosted locally during a League of Legends match
-     * at https://127.0.0.1/2999.
+     * Object containing functions corresponding to the Game Client endpoints.
+     * This includes the Live Client Data and Replay endpoints, which are hosted
+     * locally during a League of Legends match at https://127.0.0.1/2999.
      */
     public gc = {
         swagger: (): GetGameClientSwagger => new GetGameClientSwagger(this.submodules),
         openAPI: (): GetGameClientOpenAPI => new GetGameClientOpenAPI(this.submodules),
+    }
+
+    /**
+     * Object containing functions corresponding to the Live Client Data endpoints.
+     * The Live Client Data API is hosted locally during a League of Legends match
+     * at https://127.0.0.1/2999.
+     */
+    public lcd = {
         all: (): GetLiveClientAllGameData => new GetLiveClientAllGameData(this.submodules),
         active: {
             player: (): GetLiveClientActivePlayer => new GetLiveClientActivePlayer(this.submodules),
