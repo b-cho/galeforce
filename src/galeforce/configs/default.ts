@@ -2,16 +2,16 @@ import yaml from 'yaml';
 import fs from 'fs';
 import process from 'process';
 import Ajv, { JSONSchemaType } from 'ajv';
-import { resolve } from 'path';
 import * as TJS from 'typescript-json-schema';
-import { ConfigInterface } from '../interfaces/config';
 import debug from 'debug';
 import chalk from 'chalk';
+import path from 'path';
+import { ConfigInterface } from '../interfaces/config';
 
 const initDebug = debug('galeforce:init');
 
 initDebug(`${chalk.bold('reading config interface and converting to JSON schema')}`);
-const configInterfacePath = resolve(`${__dirname}/../interfaces/config.d.ts`);
+const configInterfacePath = path.join(__dirname, '..', 'interfaces', 'config.d.ts');
 const program: TJS.Program = TJS.getProgramFromFiles([configInterfacePath]);
 const ConfigSchema = TJS.generateSchema(program, 'ConfigInterface', { required: true }) as JSONSchemaType<ConfigInterface>;
 

@@ -1,7 +1,7 @@
-import Request from './request';
 import axios from 'axios';
 import debug from 'debug';
 import chalk from 'chalk';
+import Request from './request';
 
 const requestDebug = debug('galeforce:riot-api');
 
@@ -14,7 +14,8 @@ export default class BufferRequest extends Request {
             responseType: 'arraybuffer',
         });
     }
-    constructor(key: string, URLTemplate: string, parameters: Record<string, unknown>, query: object, body: object) {
-        super(Request.generateTemplateString(URLTemplate, parameters), { 'X-Riot-Token': key }, query, body);
+
+    constructor(URLTemplate: string, parameters: Record<string, unknown>, query: object, body: object) {
+        super(Request.generateTemplateString(URLTemplate, parameters), {}, query, body);
     }
 }

@@ -26,11 +26,11 @@ export class RiotAPIModule {
     }
 
     public gcrequest(stringTemplate: string, parameters: Record<string, unknown>, query?: object, body?: object): GameClientRequest {
-        return new GameClientRequest(this.key, stringTemplate, parameters, query || {}, body || {});
+        return new GameClientRequest(stringTemplate, parameters, query || {}, body || {});
     }
 
     public bufferRequest(stringTemplate: string, parameters: Record<string, unknown>, query?: object, body?: object): BufferRequest {
-        return new BufferRequest(this.key, stringTemplate, parameters, query || {}, body || {});
+        return new BufferRequest(stringTemplate, parameters, query || {}, body || {});
     }
 }
 

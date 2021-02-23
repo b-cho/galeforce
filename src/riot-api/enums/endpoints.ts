@@ -172,4 +172,4 @@ export const GAME_CLIENT = {
     PLAYER_ITEMS: 'https://127.0.0.1:2999/liveclientdata/playeritems?summonerName=${summonerName}',
     EVENTS: 'https://127.0.0.1:2999/liveclientdata/eventdata',
     GAME_STATS: 'https://127.0.0.1:2999/liveclientdata/gamestats',
-}
+};
