@@ -1,6 +1,7 @@
 # Galeforce
 
 ---
+
 [![NPM](https://nodei.co/npm/galeforce.png?compact=true)](https://www.npmjs.com/package/galeforce)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -10,13 +11,14 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/18a92440f7a5457db04632699c3546a6)](https://www.codacy.com/gh/bcho04/galeforce/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bcho04/galeforce&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/bcho04/galeforce/branch/master/graph/badge.svg?token=7BJHF5KVX9)](https://codecov.io/gh/bcho04/galeforce)
 [![David](https://david-dm.org/bcho04/galeforce.svg)](https://david-dm.org/bcho04/galeforce)
-[![GitHub last commit](https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat)](https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat) 
+[![GitHub last commit](https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat)](https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat)
 
 A customizable, promise-based, and command-oriented TypeScript library and fluent interface for the Riot Games API.
 
 ## Features
+
 - **Full API support** for all Riot games, Data Dragon, and the Live Client Data API
-  - Environment variable config integration for API keys and other properties on both the desktop and platforms including Heroku.
+  - Environment variable config integration for API keys and other values on both the desktop and platforms including Heroku.
 - **Automatic rate limiting** using Redis caches
 - **Fully-typed DTOs and parameters** for *all* endpoints
 - **Fluent interface** for seamless method chaining
@@ -25,6 +27,7 @@ A customizable, promise-based, and command-oriented TypeScript library and fluen
 **Documentation** available [here](https://bcho04.github.io/galeforce/) and in the section [below](#guide).
 
 ## Table of Contents
+
 - [Galeforce](#galeforce)
   - [Features](#features)
   - [Table of Contents](#table-of-contents)
@@ -32,25 +35,30 @@ A customizable, promise-based, and command-oriented TypeScript library and fluen
   - [Guide](#guide)
     - [Actions](#actions)
     - [Using DTOs](#using-dtos)
+    - [Config structure](#config-structure)
     - [Documentation](#documentation)
-  - [Config structure](#config-structure)
+  - [Disclaimer](#disclaimer)
 
 ---
 
 ## Examples
 
 If you're using **ES6/TypeScript**, simply add
+
 ```typescript
 import GaleforceModule from 'galeforce';
 
 const galeforce = new GaleforceModule(/* config */);
 ```
+
 to use the project. Or, if you're using **CommonJS** and `require()`, add Galeforce to your project like this:
+
 ```javascript
 const GaleforceModule = require('galeforce');
 
 const galeforce = new GaleforceModule(/* config */);
 ```
+
 <details>
 <summary>Get summoner data for a list of summoners</summary>
 
@@ -65,6 +73,7 @@ Promise.all(promises).then((result) => {
   console.log(result); // [{ name: 'a', ... }, ...]
 });
 ```
+
 </details>
 
 <details>
@@ -77,6 +86,7 @@ const matchIds = (await galeforce.lol.match.list()
   .exec())
   .matches.map(matchInfo => matchInfo.gameId);
 ```
+
 </details>
 
 <details>
@@ -88,6 +98,7 @@ const matchData = await galeforce.lol.match.match()
   .matchId(matchId)
   .exec();
 ```
+
 </details>
 
 <details>
@@ -100,21 +111,24 @@ const totalMasteryPoints = (await galeforce.lol.mastery.list()
   .exec())
   .reduce((previous, current) => previous + current.championPoints, 0);
 ```
+
 </details>
 
 ---
 
 ## Guide
 
-### Actions 
+### Actions
+
 Each endpoint in the Galeforce library is an instance of an `Action` containing the following methods:
 
 <details>
 <summary><code>.exec()</code></summary>
 
 > Executes the `Action` with the parameters set by methods such as `.region()`, `.summonerId()`, etc., returning a *Promise*.
-> 
+>
 > **Example**
+>
 > ```javascript
 > /* Gets Valorant platform and status data. */
 > galeforce.val.status() // Target the /val/status/v1/platform-data endpoint
@@ -124,13 +138,15 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 >     /* manipulate status data */
 >   });
 > ```
+>
 </details>
 <details>
 <summary><code>.<em>&lt;property&gt;</em>()</code></summary>
 
 > Sets the *property* (`region`, `summonerId`, `puuid`, etc.) in the Action request payload. Different methods are exposed for each endpoint depending on the required path, query, and body parameters.
-> 
+>
 > **Example**
+>
 > ```javascript
 > /* Gets current game info for a specific summonerId. */
 > const currentGameInfo = await galeforce.lol.spectator.active() // Target the /lol/spectator/v4/active-games/by-summoner/{summonerId} endpoint
@@ -140,19 +156,22 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 > ```
 >
 > `.<property>()` methods may only be called once and are removed from the Action after being used.
-> 
+>
 > **Example**
+>
 > ```javascript
 > /* Gets current game info for a specific summonerId. */
 > const currentGameInfo = await galeforce.lol.spectator.active() // Target the /lol/spectator/v4/active-games/by-summoner/{summonerId} endpoint
 >   .region(galeforce.regions.lol.NORTH_AMERICA) // Sets the request region to 'na1' (i.e., target the NA server)
 >   .region(galeforce.regions.lol.KOREA) // galeforce.lol.spectator.active(...).region(...).region is not a function
 > ```
+>
 </details>
 
 ### Using DTOs
 
 Galeforce includes DTOs for all Riot API responses as TypeScript interfaces. Although all actions already return an object typed with the corresponding DTO, these can be accessed explicitly via **`GaleforceModule.dto`** or as another export:
+  >
   > ```typescript
   > import GaleforceModule from 'galeforce';
   > 
@@ -167,17 +186,14 @@ Galeforce includes DTOs for all Riot API responses as TypeScript interfaces. Alt
   > // get summoner data
   > ```
 
-### Documentation
-See [here](https://bcho04.github.io/galeforce/) for further documentation and a complete list of methods.
-
----
-
-## Config structure
+### Config structure
 
 When initializing Galeforce, a config object (JSON) or a path to a YAML file must be passed to the `GaleforceModule()` constructor as an argument:
+
 ```javascript
 const galeforce = new GaleforceModule(/* config file path or object */);
 ```
+
 Template string-like values (such as `${RIOT_KEY}`) will be evaluated using environment variables in `process.env`. The configuration file must have the following structure:
 
 ```yaml
@@ -194,8 +210,12 @@ rate-limit: # OPTIONAL, Requires a cache to be configured.
 debug: [] # OPTIONAL, A list containing any of 'action', 'payload', 'rate-limit', 'riot-api', '*' (all).
 ```
 
+### Documentation
+
+See [here](https://bcho04.github.io/galeforce/) for further documentation and a complete list of methods.
+
 ---
 
-**Disclaimer**
+## Disclaimer
 
 Galeforce isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.
