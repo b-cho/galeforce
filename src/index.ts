@@ -85,6 +85,7 @@ import GetLiveClientPlayerRunes from './galeforce/actions/game-client/live-clien
 import GetLiveClientPlayerItems from './galeforce/actions/game-client/live-client-data/player-items';
 import GetLiveClientEvents from './galeforce/actions/game-client/live-client-data/events';
 import GetLiveClientGameStats from './galeforce/actions/game-client/live-client-data/game-stats';
+import { JavascriptCache } from './galeforce/caches/javascript';
 
 class Galeforce {
     /**
@@ -121,6 +122,8 @@ class Galeforce {
         if (this.config.cache) {
             if (this.config.cache.type === 'redis' && typeof this.config.cache.uri !== 'undefined') {
                 cache = new RedisCache(this.config.cache.uri, this.config['rate-limit']);
+            } else if (this.config.cache.type === 'javascript') {
+                cache = new JavascriptCache(this.config['rate-limit']);
             } else if (this.config.cache.type === 'null') {
                 cache = new NullCache();
             } else {
@@ -477,16 +480,16 @@ class Galeforce {
          * for a given patch. Note that Data Dragon is updated manually after each patch,
          * so it may not always be updated immediately after a new patch is released to
          * the live servers.
-         * 
+         *
          * Swaps to a *.zip* file automatically when fetching data for patch 10.10.5.
-         * 
+         *
          * Returns data as a `Buffer` object.
          */
         tail: (): GetDataDragonTail => new GetDataDragonTail(this.submodules),
         /**
          * Action constructor corresponding to the following Data Dragon files:
          * - (**GET**) `/api/versions.json`
-         * 
+         *
          * Returns a JSON file (an array) containing all valid Data Dragon versions.
          * Most patches will only have one associated build, but occasionally
          * multiple builds are necessary due to errors. As a result, use the latest
@@ -496,7 +499,7 @@ class Galeforce {
         /**
          * Action constructor corresponding to the following Data Dragon files:
          * - (**GET**) `/realms/{region}.json`
-         * 
+         *
          * Returns the latest Data Dragon version for a given region (realm). Note that
          * Data Dragon versions are *not* always equivalent to the League of Legends
          * client version within a given region.
@@ -505,7 +508,7 @@ class Galeforce {
         /**
          * Action constructor corresponding to the following Data Dragon files:
          * - (**GET**) `/cdn/languages.json`
-         * 
+         *
          * Returns a list of languages supported by Data Dragon. See the official documentation
          * for more information.
          */
@@ -517,7 +520,7 @@ class Galeforce {
             /**
              * Action constructor corresponding to the following Data Dragon files:
              * - (**GET**) `/cdn/{version}/data/{locale}/champion.json`
-             * 
+             *
              * Returns a list of champions along with a brief summary for each champion.
              * See the official API documentation for more information about interpreting spell text.
              */
@@ -525,7 +528,7 @@ class Galeforce {
             /**
              * Action constructor corresponding to the following Data Dragon files:
              * - (**GET**) `/cdn/{version}/data/{locale}/champion/{champion}.json`
-             * 
+             *
              * Returns detailed information and additional data about a single champion.
              * See the official API documentation for more information about interpreting spell text.
              */
@@ -536,9 +539,9 @@ class Galeforce {
                  * - (**GET**) `/cdn/img/champion/splash/{champion}_{skin}.jpg`
                  *
                  * Returns the splash art assets for a given champion and skin. The number corresponding
-                 * to each skin can be found under the `num` field in the skins section of each champion's 
+                 * to each skin can be found under the `num` field in the skins section of each champion's
                  * detailed Data Dragon file. `0` is always the default splash art.
-                 * 
+                 *
                  * Returns data as a `Buffer` object containing JPG data.
                  */
                 splash: (): GetDataDragonSplashArt => new GetDataDragonSplashArt(this.submodules),
@@ -547,9 +550,9 @@ class Galeforce {
                  * - (**GET**) `/cdn/img/champion/loading/{champion}_{skin}.jpg`
                  *
                  * Returns the loading art image for a given champion and skin. The number corresponding
-                 * to each skin can be found under the `num` field in the skins section of each champion's 
+                 * to each skin can be found under the `num` field in the skins section of each champion's
                  * detailed Data Dragon file. `0` is always the default splash art.
-                 * 
+                 *
                  * Returns data as a `Buffer` object containing JPG data.
                  */
                 loading: (): GetDataDragonLoadingArt => new GetDataDragonLoadingArt(this.submodules),
@@ -558,7 +561,7 @@ class Galeforce {
                  * - (**GET**) `/cdn/{version}/img/champion/{champion}.png`
                  *
                  * Returns the icon (square) art asset for a given champion.
-                 * 
+                 *
                  * Returns data as a `Buffer` object containing PNG data.
                  */
                 icon: (): GetDataDragonChampionSquareArt => new GetDataDragonChampionSquareArt(this.submodules),
@@ -567,8 +570,8 @@ class Galeforce {
                  * - (**GET**) `/cdn/{version}/img/passive/{spell}.png`
                  *
                  * Returns the icon art asset for a passive ability. The filename for each champion's passive can be
-                 * found in the `passive` field's `image` data (as the `full` field) within an individual champion's Data Dragon file. 
-                 * 
+                 * found in the `passive` field's `image` data (as the `full` field) within an individual champion's Data Dragon file.
+                 *
                  * Returns data as a `Buffer` object containing PNG data.
                  */
                 passive: (): GetDataDragonChampionPassiveArt => new GetDataDragonChampionPassiveArt(this.submodules),
@@ -581,8 +584,8 @@ class Galeforce {
              *
              * Returns the art asset for a non-passive ability. The filename corresponding to a given ability can be
              * found in the `full` entry of the image data within the `spells` field of an individual champion's Data Dragon file.
-             * 
-             * Returns data as a `Buffer` object containing PNG data. 
+             *
+             * Returns data as a `Buffer` object containing PNG data.
              */
             art: (): GetDataDragonSpellArt => new GetDataDragonSpellArt(this.submodules),
         },
@@ -590,10 +593,10 @@ class Galeforce {
             /**
              * Action constructor corresponding to the following Data Dragon files:
              * - (**GET**) `/cdn/{version}/data/{locale}/item.json`
-             * 
+             *
              * Returns detailed information about all items in League of Legends, including purchase value, sell value,
              * build path, stats, and descriptions. See the official Data Dragon API documentation for more information.
-             * 
+             *
              */
             list: (): GetDataDragonItemList => new GetDataDragonItemList(this.submodules),
             /**
@@ -601,7 +604,7 @@ class Galeforce {
              * - (**GET**) `/cdn/{version}/img/item/{assetId}.png`
              *
              * Returns the art asset for an item by item ID. A list of item IDs can be found in the item data file.
-             * 
+             *
              * Returns data as a `Buffer` object containing PNG data.
              */
             art: (): GetDataDragonItemArt => new GetDataDragonItemArt(this.submodules),
@@ -610,7 +613,7 @@ class Galeforce {
             /**
              * Action constructor corresponding to the following Data Dragon files:
              * - (**GET**) `/cdn/{version}/data/{locale}/summoner.json`
-             * 
+             *
              * Returns a list of summoner spells. Art assets for each summoner spell can be retrieved using the
              * `galeforce.ddragon.spell.art` method.
              */
@@ -620,7 +623,7 @@ class Galeforce {
             /**
              * Action constructor corresponding to the following Data Dragon files:
              * - (**GET**) `/cdn/{version}/data/{locale}/profileicon.json`
-             * 
+             *
              * Returns a list of summoner icons/profile icons.
              */
             list: (): GetDataDragonProfileIconList => new GetDataDragonProfileIconList(this.submodules),
@@ -629,7 +632,7 @@ class Galeforce {
              * - (**GET**) `/cdn/{version}/img/profileicon/{assetId}.png`
              *
              * Returns the art asset for a profile icon by ID.
-             * 
+             *
              * Returns data as a `Buffer` object containing PNG data.
              */
             art: (): GetDataDragonProfileIconArt => new GetDataDragonProfileIconArt(this.submodules),
@@ -641,7 +644,7 @@ class Galeforce {
              *
              * Returns the art asset for the minimap corresponding to a given map ID. Map IDs can be found
              * under *Game Constants > Map Names* in the official Riot API documentation.
-             * 
+             *
              * Returns data as a `Buffer` object containing PNG data.
              */
             art: (): GetDataDragonMinimapArt => new GetDataDragonMinimapArt(this.submodules),
@@ -652,7 +655,7 @@ class Galeforce {
              * - (**GET**) `/cdn/{version}/img/sprite/spell{assetId}.png`
              *
              * Returns the sprite art assets for a given asset ID.
-             * 
+             *
              * Returns data as a `Buffer` object containing PNG data.
              */
             art: (): GetDataDragonSpriteArt => new GetDataDragonSpriteArt(this.submodules),
@@ -708,7 +711,7 @@ class Galeforce {
      * Object containing actions corresponding to the Game Client API specifications.
      * This includes the Live Client Data and Replay endpoints, which are hosted
      * locally during a League of Legends match at https://127.0.0.1:2999.
-     * 
+     *
      * The Live Client Data API server is only active when playing a League of Legends match
      * or watching a replay.
      */
@@ -716,14 +719,14 @@ class Galeforce {
         /**
          * Action constructor corresponding to the following Live Client Data endpoints:
          * - (**GET**) `/swagger/v2/swagger.json`
-         * 
+         *
          * Requests the *Swagger v2* specs for the Game Client API.
          */
         swagger: (): GetGameClientSwagger => new GetGameClientSwagger(this.submodules),
         /**
          * Action constructor corresponding to the following Live Client Data endpoints:
          * - (**GET**) `/swagger/v3/openapi.json`
-         * 
+         *
          * Requests the *OpenAPI v3* specs for the Game Client API.
          */
         openAPI: (): GetGameClientOpenAPI => new GetGameClientOpenAPI(this.submodules),
@@ -734,7 +737,7 @@ class Galeforce {
      * The Live Client Data API is hosted locally during a League of Legends match
      * at https://127.0.0.1:2999. (All endpoints can be found under the *\/liveclientdata*
      * path.)
-     * 
+     *
      * The Live Client Data API server is only active when playing a League of Legends match
      * or watching a replay.
      */
@@ -742,7 +745,7 @@ class Galeforce {
         /**
          * Action constructor corresponding to the following Live Client Data endpoints:
          * - (**GET**) `/liveclientdata/allgamedata`
-         * 
+         *
          * Get all available data. You can find a sample response
          * [here](https://static.developer.riotgames.com/docs/lol/liveclientdata_sample.json).
          */
@@ -754,28 +757,28 @@ class Galeforce {
             /**
              * Action constructor corresponding to the following Live Client Data endpoints:
              * - (**GET**) `/liveclientdata/activeplayer`
-             * 
+             *
              * Get all data about the active player.
              */
             player: (): GetLiveClientActivePlayer => new GetLiveClientActivePlayer(this.submodules),
             /**
              * Action constructor corresponding to the following Live Client Data endpoints:
              * - (**GET**) `/liveclientdata/activeplayername`
-             * 
+             *
              * Returns the player name.
              */
             name: (): GetLiveClientActivePlayerName => new GetLiveClientActivePlayerName(this.submodules),
             /**
              * Action constructor corresponding to the following Live Client Data endpoints:
              * - (**GET**) `/liveclientdata/activeplayerabilities`
-             * 
+             *
              * Get the abilities for the active player.
              */
             abilities: (): GetLiveClientActivePlayerAbilities => new GetLiveClientActivePlayerAbilities(this.submodules),
             /**
              * Action constructor corresponding to the following Live Client Data endpoints:
              * - (**GET**) `/liveclientdata/activeplayerrunes`
-             * 
+             *
              * Retrieve the full list of runes for the active player.
              */
             runes: (): GetLiveClientActivePlayerRunes => new GetLiveClientActivePlayerRunes(this.submodules),
@@ -787,35 +790,35 @@ class Galeforce {
             /**
              * Action constructor corresponding to the following Live Client Data endpoints:
              * - (**GET**) `/liveclientdata/playerlist`
-             * 
+             *
              * Retrieve the list of players in the game and their stats.
              */
             list: (): GetLiveClientPlayerList => new GetLiveClientPlayerList(this.submodules),
             /**
              * Action constructor corresponding to the following Live Client Data endpoints:
              * - (**GET**) `/liveclientdata/playerscores`
-             * 
+             *
              * Retrieve the list of the current scores for the player.
              */
             scores: (): GetLiveClientPlayerScores => new GetLiveClientPlayerScores(this.submodules),
             /**
              * Action constructor corresponding to the following Live Client Data endpoints:
              * - (**GET**) `/liveclientdata/playersummonerspells`
-             * 
+             *
              * Retrieve the list of the summoner spells for the player.
              */
             summonerSpells: (): GetLiveClientPlayerSummonerSpells => new GetLiveClientPlayerSummonerSpells(this.submodules),
             /**
              * Action constructor corresponding to the following Live Client Data endpoints:
              * - (**GET**) `/liveclientdata/playermainrunes`
-             * 
+             *
              * Retrieve the basic runes of any player.
              */
             runes: (): GetLiveClientPlayerRunes => new GetLiveClientPlayerRunes(this.submodules),
             /**
              * Action constructor corresponding to the following Live Client Data endpoints:
              * - (**GET**) `/liveclientdata/playeritems`
-             * 
+             *
              * Retrieve the list of items for the player.
              */
             items: (): GetLiveClientPlayerItems => new GetLiveClientPlayerItems(this.submodules),
@@ -823,7 +826,7 @@ class Galeforce {
         /**
          * Action constructor corresponding to the following Live Client Data endpoints:
          * - (**GET**) `/liveclientdata/eventdata`
-         * 
+         *
          * Get a list of events that have occurred in the game. You can find a list of sample events
          * [here](https://static.developer.riotgames.com/docs/lol/liveclientdata_events.json).
          */
@@ -831,7 +834,7 @@ class Galeforce {
         /**
          * Action constructor corresponding to the following Live Client Data endpoints:
          * - (**GET**) `/liveclientdata/gamestats`
-         * 
+         *
          * Fetch basic data about the game.
          */
         stats: (): GetLiveClientGameStats => new GetLiveClientGameStats(this.submodules),

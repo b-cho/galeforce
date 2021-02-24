@@ -163,7 +163,7 @@ export default class Action<TResult> {
         async.each(Object.keys(intervals), async (key: string, callback: (err?: object) => void) => {
             const queries: number = await this.getQueries(key, region);
             if (Number.isNaN(queries) || queries === 0) {
-                await this.submodules.cache.setex(prefix + key + region, parseInt(key, 10), '1');
+                await this.submodules.cache.set(prefix + key + region, '1', parseInt(key, 10));
             } else {
                 await this.submodules.cache.incr(prefix + key + region);
             }

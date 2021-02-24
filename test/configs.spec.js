@@ -48,6 +48,7 @@ describe('/galeforce/configs', () => {
                     1: 20,
                 },
             },
+            debug: ['*'],
         });
     });
     it('should error when passed an invalid or incomplete YAML config', () => {

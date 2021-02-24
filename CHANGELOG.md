@@ -15,13 +15,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 #### Added
 - Live Client Data endpoint support under **`galeforce.lcd`**
 - Game Client endpoint information using **`galeforce.gc.swagger()`** and **`galeforce.gc.openAPI()`**
+- Support for an internal Javascript rate-limit cache using the **node-cache** library. (Use the *javascript* option in the `cache` section of your config.)
 
 #### Changed
 - **[breaking]** Change the output of Data Dragon image and tarfile actions to a `Buffer` object.
+  - Previous versions returned corrupted versions of the files which were unusable.
 
 ### [0.2.0]
 #### Added
-- Debugging features for action, payload, riot-api, and rate-limit using the **`debug`** library.
+- Debugging features for action, payload, riot-api, and rate-limit using the **debug** library.
 - Full Data Dragon endpoint support under **`galeforce.ddragon`**.
 
 #### Changed

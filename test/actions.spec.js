@@ -402,7 +402,7 @@ describe('/galeforce/actions', () => {
                     it('should timeout when rate limit exceeded', () => new Promise((resolve, reject) => {
                         const GaleforceRL = new GaleforceModule('./test/test-configs/1.yaml');
                         const autoTimeout = setTimeout(resolve, 500);
-                        GaleforceRL.submodules.cache.setex('riotapi-ratelimit-120na1', 120, '4000').then(() => {
+                        GaleforceRL.submodules.cache.set('riotapi-ratelimit-120na1', '4000', 120).then(() => {
                             GaleforceRL.lol.summoner().region(GaleforceRL.regions.lol.NORTH_AMERICA).name('SSG Xayah').exec()
                                 .then(() => {
                                     clearTimeout(autoTimeout);

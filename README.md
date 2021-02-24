@@ -15,9 +15,9 @@
 A customizable, promise-based, and command-oriented TypeScript library and fluent interface for the Riot Games API.
 
 ## Features
-- **Full API support** for all Riot games and Data Dragon
+- **Full API support** for all Riot games, Data Dragon, and the Live Client Data API
   - Environment variable config integration for API keys and other properties on both the desktop and platforms including Heroku.
-- **Automatic rate limiting** using Redis
+- **Automatic rate limiting** using Redis caches
 - **Fully-typed DTOs and parameters** for *all* endpoints
 - **Fluent interface** for seamless method chaining
 - **Built-in, customizable debugging** using `debug`
@@ -164,8 +164,8 @@ Template string-like values (such as `${RIOT_KEY}`) will be evaluated using envi
 riot-api: # REQUIRED
   key: ${RIOT_KEY} # (string) Your Riot API key from https://developer.riotgames.com
 cache: # OPTIONAL
-  type: ${CACHE_TYPE} # (string) What kind of cache to use ('redis', 'null')
-  uri: ${CACHE_URI} # (string) The cache URI to connect to (optional when type is 'null')
+  type: ${CACHE_TYPE} # (string) What kind of cache to use ('redis', 'javascript', 'null')
+  uri: ${CACHE_URI} # (string) The cache URI to connect to (required for 'redis' cache)
 rate-limit: # OPTIONAL, Requires a cache to be configured.
   prefix: riotapi-ratelimit- # The prefix for the Riot API rate limit keys in the cache.
   intervals: # key <secs>: value <number of requests>. 

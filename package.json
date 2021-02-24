@@ -17,7 +17,9 @@
     "league of legends",
     "teamfight tactics",
     "legends of runeterra",
-    "riot games"
+    "riot games",
+    "data dragon",
+    "ddragon"
   ],
   "homepage": "https://github.com/bcho04/galeforce",
   "repository": {
@@ -33,13 +35,13 @@
     "node": ">=10.13.0"
   },
   "dependencies": {
-    "@apidevtools/swagger-parser": "^10.0.2",
     "ajv": "^7.1.1",
     "async": "^3.2.0",
     "axios": "^0.21.1",
     "bluebird": "^3.7.2",
     "chalk": "^4.1.0",
     "debug": "^4.3.1",
+    "node-cache": "^5.1.2",
     "redis": "^3.0.2",
     "support-color": "^7.1.0",
     "typescript-json-schema": "^0.49.0",

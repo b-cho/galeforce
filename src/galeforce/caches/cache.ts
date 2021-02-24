@@ -19,9 +19,7 @@ abstract class Cache {
 
     public abstract get(key: string): Promise<string | null>;
 
-    public abstract set(key: string, value: string): Promise<void>;
-
-    public abstract setex(key: string, ttl: number, value: string): Promise<void>;
+    public abstract set(key: string, value: string, ttl?: number): Promise<void>;
 
     public abstract incr(key: string): Promise<void>;
 

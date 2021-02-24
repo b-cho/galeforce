@@ -67,6 +67,23 @@ describe('/galeforce', () => {
             },
         })).to.not.throw();
     });
+    it('should initialize properly from config object (4)', () => {
+        expect(() => new GaleforceModule({
+            'riot-api': {
+                key: 'RIOT-API-KEY',
+            },
+            cache: {
+                type: 'javascript',
+            },
+            'rate-limit': {
+                prefix: 'riotapi-ratelimit-',
+                intervals: {
+                    120: 100,
+                    1: 20,
+                },
+            },
+        })).to.not.throw();
+    });
     it('should initialize properly from config file', () => {
         expect(() => new GaleforceModule('./test/test-configs/4.yaml')).to.not.throw();
     });
