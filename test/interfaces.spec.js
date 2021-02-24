@@ -320,9 +320,9 @@ describe('/galeforce/interfaces', () => {
                 expect(valid).to.be.true;
             });
         });
-        describe('DataDragonSummonerListDTO', () => {
+        describe('DataDragonSummonerSpellListDTO', () => {
             it('should match with Data Dragon region JSON data', () => {
-                const schema = generator.getSchemaForSymbol('DataDragonSummonerListDTO');
+                const schema = generator.getSchemaForSymbol('DataDragonSummonerSpellListDTO');
                 schema.definitions.Data_2.additionalProperties
                     .properties.effect.items = { anyOf: [{ type: 'null' }, { type: 'array', items: { type: 'number' } }] }; // Override schema type to match interface
                 schema.definitions.Data_2.additionalProperties

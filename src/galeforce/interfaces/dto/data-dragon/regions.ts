@@ -19,5 +19,5 @@ export interface DataDragonRegionDTO {
     lg: string;
     css: string;
     profileiconmax: number;
-    store?: any;
+    store?: null;
 }

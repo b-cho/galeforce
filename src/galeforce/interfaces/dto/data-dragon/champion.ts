@@ -117,7 +117,7 @@ interface Recommended {
     sortrank: number;
     extensionPage: boolean;
     useObviousCheckmark?: boolean;
-    customPanel?: any;
+    customPanel?: null;
     blocks: Block[];
 }
 

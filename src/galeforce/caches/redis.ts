@@ -22,7 +22,7 @@ declare module 'redis' { // Async definitions for Redis
     }
 }
 
-export class RedisCache extends Cache {
+export default class RedisCache extends Cache {
     private client: RedisClient;
 
     constructor(uri: string, RLConfig?: RateLimitConfig) {

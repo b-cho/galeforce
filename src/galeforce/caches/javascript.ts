@@ -1,7 +1,7 @@
 import NodeCache from 'node-cache';
 import { Cache, RateLimitConfig } from './cache';
 
-export class JavascriptCache extends Cache {
+export default class JavascriptCache extends Cache {
     private client: NodeCache;
 
     constructor(RLConfig?: RateLimitConfig) {
@@ -22,7 +22,7 @@ export class JavascriptCache extends Cache {
         const currentValue: string | null = await this.get(key);
         if (currentValue !== null) {
             const incrValue: number = parseInt(currentValue, 10) + 1;
-            if (!isNaN(incrValue)) {
+            if (!Number.isNaN(incrValue)) {
                 const ttl: number | undefined = this.client.getTtl(key);
                 this.set(key, incrValue.toString(), ttl);
             }

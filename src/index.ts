@@ -7,9 +7,9 @@ import {
 import { getConfig, validate } from './galeforce/configs/default';
 import { ConfigInterface } from './galeforce/interfaces/config';
 import { Cache } from './galeforce/caches/cache';
-import { RedisCache } from './galeforce/caches/redis';
-import { NullCache } from './galeforce/caches/null';
-import { JavascriptCache } from './galeforce/caches/javascript';
+import RedisCache from './galeforce/caches/redis';
+import NullCache from './galeforce/caches/null';
+import JavascriptCache from './galeforce/caches/javascript';
 import SubmoduleMap from './galeforce/interfaces/submodule-map';
 import GetMatch from './galeforce/actions/lol/match/match';
 import GetSummoner from './galeforce/actions/lol/summoner';

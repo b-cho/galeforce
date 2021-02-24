@@ -68,6 +68,7 @@ module.exports = {
         "prefer-destructuring": "warn",
         "no-undef": "off",
         "class-methods-use-this": "error",
+        "no-underscore-dangle": "off",
         "max-len": ["warn", {"code": 120, "ignoreStrings": true}],
     },
     "settings": {

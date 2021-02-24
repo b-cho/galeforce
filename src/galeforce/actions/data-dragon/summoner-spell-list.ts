@@ -1,7 +1,7 @@
 import Action from '../action';
 import { ENDPOINTS } from '../../../riot-api';
 import SubmoduleMap from '../../interfaces/submodule-map';
-import { DataDragonSummonerListDTO } from '../../interfaces/dto';
+import { DataDragonSummonerSpellListDTO } from '../../interfaces/dto';
 import { TakesVersion, TakesLocale } from '../mixins';
 
 const BaseAction = TakesVersion(
@@ -10,7 +10,7 @@ const BaseAction = TakesVersion(
     ),
 );
 
-export default class GetDataDragonSummonerSpellList extends BaseAction<DataDragonSummonerListDTO> {
+export default class GetDataDragonSummonerSpellList extends BaseAction<DataDragonSummonerSpellListDTO> {
     constructor(submodules: SubmoduleMap) {
         super(submodules);
         this.payload.endpoint = ENDPOINTS.DATA_DRAGON.SUMMONER_SPELL_LIST;

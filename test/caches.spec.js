@@ -10,9 +10,9 @@ rewiremock('redis').with(redisMock);
 rewiremock(() => require('redis')).with(redisMock);
 rewiremock.enable();
 
-const { RedisCache } = require('../dist/galeforce/caches/redis');
-const { NullCache } = require('../dist/galeforce/caches/null');
-const { JavascriptCache } = require('../dist/galeforce/caches/javascript');
+const RedisCache = require('../dist/galeforce/caches/redis').default;
+const NullCache = require('../dist/galeforce/caches/null').default;
+const JavascriptCache = require('../dist/galeforce/caches/javascript').default;
 
 const MockJavascriptCache = new JavascriptCache();
 const MockRedisCache = new RedisCache('redis://127.0.0.1:6379');

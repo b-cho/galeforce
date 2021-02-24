@@ -98,23 +98,26 @@ export default class Action<TResult> {
                 );
             }
 
-            let data: unknown;
+            let response: TResult;
+
             if (this.payload.method === 'GET') {
-                ({ data } = await request.get() as any);
+                response = (await request.get() as { data: TResult }).data;
             } else if (this.payload.method === 'POST') {
                 if (typeof this.payload.body === 'undefined') {
                     throw new Error('[galeforce]: Action payload body is required but undefined.');
                 }
-                ({ data } = await request.post() as any);
+                response = (await request.post() as { data: TResult }).data;
             } else if (this.payload.method === 'PUT') {
                 if (typeof this.payload.body === 'undefined') {
                     throw new Error('[galeforce]: Action payload body is required but undefined.');
                 }
-                ({ data } = await request.put() as any);
+                response = (await request.put() as { data: TResult }).data;
+            } else {
+                throw new Error('[galeforce]: Invalid action method provided.');
             }
 
             actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('return')} \u00AB ${chalk.bold.green(200)}`);
-            return data as TResult;
+            return response;
         } catch (e) {
             if (e.response?.status) {
                 actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('return')} \u00AB ${chalk.bold.red(e.response.status)}`);

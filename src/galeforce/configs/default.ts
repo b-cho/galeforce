@@ -40,20 +40,20 @@ function generateTemplateString(template: string): string {
  *
  * @return {Record<string, unknown>} Substituted version of template with process.env replaced values
  */
-function recursivelySubstitute(obj: Record<string, unknown>): Record<string, unknown> {
-    const newObj: any = JSON.parse(JSON.stringify(obj));
+function recursivelySubstitute(obj: Record<string, string | object>): Record<string, string | object> {
+    const newObj: Record<string, string | object> = JSON.parse(JSON.stringify(obj));
 
     Object.keys(newObj).forEach((key) => {
         if (typeof newObj[key] === 'string') {
-            newObj[key] = generateTemplateString(newObj[key]);
+            newObj[key] = generateTemplateString(newObj[key] as string);
         }
 
         if (typeof newObj[key] === 'object') {
-            newObj[key] = recursivelySubstitute(newObj[key]);
+            newObj[key] = recursivelySubstitute(newObj[key] as Record<string, string | object>);
         }
     });
 
-    return newObj as Record<string, unknown>;
+    return newObj as Record<string, string | object>;
 }
 
 /**

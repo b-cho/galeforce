@@ -6,7 +6,7 @@ import { Payload } from '../payload';
  */
 export interface Executable {
     payload: Payload;
-    exec: () => Promise<unknown>;
+    exec: () => Promise<object>;
 }
 
 /**

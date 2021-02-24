@@ -28,7 +28,7 @@ export { DataDragonRegionDTO } from './dto/data-dragon/regions';
 export { DataDragonChampionListDTO } from './dto/data-dragon/champion-list';
 export { DataDragonChampionDTO } from './dto/data-dragon/champion';
 export { DataDragonItemListDTO } from './dto/data-dragon/item-list';
-export { DataDragonSummonerListDTO } from './dto/data-dragon/summoner-spells';
+export { DataDragonSummonerSpellListDTO } from './dto/data-dragon/summoner-spells';
 export { DataDragonProfileIconListDTO } from './dto/data-dragon/profile-icons';
 export { LiveClientAbilitiesDTO } from './dto/game-client/abilities';
 export { LiveClientActivePlayerDTO } from './dto/game-client/active-player';

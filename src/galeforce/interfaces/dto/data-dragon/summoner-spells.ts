@@ -12,6 +12,14 @@ interface Image {
     h: number;
 }
 
+type Coeff = number[] | number;
+
+interface Vars {
+    link: string;
+    coeff: Coeff;
+    key: string;
+}
+
 type Effect = number[] | null;
 
 type EffectBurn = string | null;
@@ -30,7 +38,7 @@ interface Data {
         datavalues: DataValues;
         effect: Effect[];
         effectBurn: EffectBurn[];
-        vars: any[];
+        vars: Vars[];
         key: string;
         summonerLevel: number;
         modes: string[];
@@ -43,7 +51,7 @@ interface Data {
     };
 }
 
-export interface DataDragonSummonerListDTO {
+export interface DataDragonSummonerSpellListDTO {
     type: string;
     version: string;
     data: Data;
