@@ -16,6 +16,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Live Client Data endpoint support under **`galeforce.lcd`**
 - Game Client endpoint information using **`galeforce.gc.swagger()`** and **`galeforce.gc.openAPI()`**
 - Support for an internal Javascript rate-limit cache using the **node-cache** library. (Use the *javascript* option in the `cache` section of your config.)
+- DTO interfaces for TypeScript are now public-facing and can be accessed directly via **`GaleforceModule.dto`** or as another export:
+  > ```typescript
+  > import GaleforceModule from 'galeforce';
+  > 
+  > const summonerData: GaleforceModule.dto.SummonerDTO = ... 
+  > // get summoner data
+  > ```
+
+  > ```typescript
+  > import GaleforceModule, { dto } from 'galeforce';
+  > 
+  > const summonerData: dto.SummonerDTO = ...
+  > // get summoner data
+  > ```
 
 #### Changed
 - **[breaking]** Change the output of Data Dragon image and tarfile actions to a `Buffer` object.

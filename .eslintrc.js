@@ -55,7 +55,7 @@ module.exports = {
         "@typescript-eslint/no-this-alias": "error",
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": "warn",
-        "no-use-before-define": "off",
+        "no-use-before-define": "error",
         "@typescript-eslint/no-use-before-define": "error",
         "@typescript-eslint/no-var-requires": "error",
         "@typescript-eslint/prefer-namespace-keyword": "error",

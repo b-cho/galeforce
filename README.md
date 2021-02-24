@@ -30,6 +30,9 @@ A customizable, promise-based, and command-oriented TypeScript library and fluen
   - [Table of Contents](#table-of-contents)
   - [Examples](#examples)
   - [Guide](#guide)
+    - [Actions](#actions)
+    - [Using DTOs](#using-dtos)
+    - [Documentation](#documentation)
   - [Config structure](#config-structure)
 
 ---
@@ -103,6 +106,7 @@ const totalMasteryPoints = (await galeforce.lol.mastery.list()
 
 ## Guide
 
+### Actions 
 Each endpoint in the Galeforce library is an instance of an `Action` containing the following methods:
 
 <details>
@@ -146,8 +150,24 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 > ```
 </details>
 
+### Using DTOs
 
+Galeforce includes DTOs for all Riot API responses as TypeScript interfaces. Although all actions already return an object typed with the corresponding DTO, these can be accessed explicitly via **`GaleforceModule.dto`** or as another export:
+  > ```typescript
+  > import GaleforceModule from 'galeforce';
+  > 
+  > const summonerData: GaleforceModule.dto.SummonerDTO = ... 
+  > // get summoner data
+  > ```
 
+  > ```typescript
+  > import GaleforceModule, { dto } from 'galeforce';
+  > 
+  > const summonerData: dto.SummonerDTO = ...
+  > // get summoner data
+  > ```
+
+### Documentation
 See [here](https://bcho04.github.io/galeforce/) for further documentation and a complete list of methods.
 
 ---
@@ -158,7 +178,7 @@ When initializing Galeforce, a config object (JSON) or a path to a YAML file mus
 ```javascript
 const galeforce = new GaleforceModule(/* config file path or object */);
 ```
-Template string-like values (such as `${RIOT_KEY}`) will be evaluated using environment variables in `process.env`. Such an object must have the following structure:
+Template string-like values (such as `${RIOT_KEY}`) will be evaluated using environment variables in `process.env`. The configuration file must have the following structure:
 
 ```yaml
 riot-api: # REQUIRED

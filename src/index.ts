@@ -9,6 +9,7 @@ import { ConfigInterface } from './galeforce/interfaces/config';
 import { Cache } from './galeforce/caches/cache';
 import { RedisCache } from './galeforce/caches/redis';
 import { NullCache } from './galeforce/caches/null';
+import { JavascriptCache } from './galeforce/caches/javascript';
 import SubmoduleMap from './galeforce/interfaces/submodule-map';
 import GetMatch from './galeforce/actions/lol/match/match';
 import GetSummoner from './galeforce/actions/lol/summoner';
@@ -85,7 +86,7 @@ import GetLiveClientPlayerRunes from './galeforce/actions/game-client/live-clien
 import GetLiveClientPlayerItems from './galeforce/actions/game-client/live-client-data/player-items';
 import GetLiveClientEvents from './galeforce/actions/game-client/live-client-data/events';
 import GetLiveClientGameStats from './galeforce/actions/game-client/live-client-data/game-stats';
-import { JavascriptCache } from './galeforce/caches/javascript';
+import * as DTO from './galeforce/interfaces/dto';
 
 class Galeforce {
     /**
@@ -873,6 +874,13 @@ class Galeforce {
      * `/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}` endpoint.
      */
     public games: typeof Game = Game;
+}
+
+declare namespace Galeforce {
+    /**
+     * An object containing all of the DTO interfaces associated with API responses for all endpoints.
+     */
+    export import dto = DTO;
 }
 
 export = Galeforce;
