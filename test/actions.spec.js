@@ -27,7 +27,7 @@ const Galeforce = new GaleforceModule({
             1: 2000,
         },
     },
-    debug: ['*'],
+    // debug: ['*'],
 });
 
 rewiremock.disable();
