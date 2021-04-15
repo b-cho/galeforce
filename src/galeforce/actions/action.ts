@@ -76,7 +76,7 @@ export default class Action<TResult> {
 
             let request;
             if (this.payload.type === 'gc') {
-                request = this.submodules.RiotAPI.gcrequest(
+                request = this.submodules.RiotAPI.gcRequest(
                     this.payload.endpoint,
                     this.payload,
                     this.payload.query,

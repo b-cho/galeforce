@@ -25,7 +25,7 @@ export class RiotAPIModule {
         return new RiotAPIRequest(this.key, stringTemplate, parameters, query || {}, body || {});
     }
 
-    public gcrequest(stringTemplate: string, parameters: Record<string, unknown>, query?: object, body?: object): GameClientRequest {
+    public gcRequest(stringTemplate: string, parameters: Record<string, unknown>, query?: object, body?: object): GameClientRequest {
         return new GameClientRequest(stringTemplate, parameters, query || {}, body || {});
     }
 

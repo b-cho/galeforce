@@ -1,4 +1,3 @@
-
 module.exports = function customMappingFunction(explicit, implicit, path, reflection, context) {
     const module = implicit.split('/')[0];
     const package = implicit.split('/')[1];
