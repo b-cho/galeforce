@@ -39,7 +39,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 #### Changed
 
 - **[breaking]** Change the output of Data Dragon image and tarfile actions to a `Buffer` object.
-- Previous versions returned corrupted versions of the files which were unusable.
+  - Previous versions returned corrupted versions of the files which were unusable.
+- Riot API keys are no longer required in the `GaleforceModule()` constructor, and the `options` parameter is now optional.
+
+> ```typescript
+  > import GaleforceModule from 'galeforce';
+  > 
+  > const galeforce = new GaleforceModule(); // now OK, but requests requiring an API key will return a 401 Unauthorized error.
+  > ```
 
 ### [0.2.0]
 

@@ -90,20 +90,8 @@ describe('/galeforce', () => {
     it('should initialize properly from config file with environment variables', () => {
         expect(() => new GaleforceModule('./test/test-configs/2.yaml')).to.not.throw();
     });
-    it('should error when passed an invalid config (1)', () => {
-        expect(() => new GaleforceModule({
-            cache: {
-                type: 'redis',
-                uri: 'redis://127.0.0.1:6379',
-            },
-            'rate-limit': {
-                prefix: 'riotapi-ratelimit-',
-                intervals: {
-                    120: 100,
-                    1: 20,
-                },
-            },
-        })).to.throw();
+    it('should initialize properly without being passed a config', () => {
+        expect(() => new GaleforceModule()).to.not.throw();
     });
     it('should error when passed an invalid config (2)', () => {
         expect(() => new GaleforceModule({

@@ -149,6 +149,8 @@ const na1API = nock('https://na1.api.riotgames.com')
     .reply(404)
     .get('/lol/summoner/v4/summoners/by-name/403')
     .reply(403)
+    .get('/lol/summoner/v4/summoners/by-name/401')
+    .reply(401)
     .get('/lol/summoner/v4/summoners/l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w')
     .reply(200, replyValues.v4.summoner)
     .get('/lol/summoner/v4/summoners/by-account/xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4')
@@ -398,7 +400,9 @@ describe('/galeforce/actions', () => {
                     it('should reject with correct error message when receiving a 404 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('404').exec())
                         .to.eventually.be.rejectedWith('[galeforce]: Data fetch failed with status code 404'));
                     it('should reject with correct error message when receiving a 403 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('403').exec())
-                        .to.eventually.be.rejectedWith('[galeforce]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)'));
+                        .to.eventually.be.rejectedWith('[galeforce]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (403 Forbidden)'));
+                    it('should reject with correct error message when receiving a 403 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('401').exec())
+                        .to.eventually.be.rejectedWith('[galeforce]: No Riot API key was provided. Please ensure that your key is present in your configuration file or object. (401 Unauthorized)'));
                     it('should timeout when rate limit exceeded', () => new Promise((resolve, reject) => {
                         const GaleforceRL = new GaleforceModule('./test/test-configs/1.yaml');
                         const autoTimeout = setTimeout(resolve, 500);

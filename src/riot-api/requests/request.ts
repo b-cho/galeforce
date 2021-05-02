@@ -6,11 +6,12 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import debug from 'debug';
 import chalk from 'chalk';
+import _ from 'lodash';
 
 const requestDebug = debug('galeforce:riot-api');
 
 export default class Request {
-    protected targetURL: string;
+    public readonly targetURL: string;
 
     protected body: object;
 
@@ -32,13 +33,11 @@ export default class Request {
      * @return {[String]} Substituted version of template with parameter values from match.
      */
     protected static generateTemplateString(template: string, match: Record<string, unknown>): string {
-        return template.replace(/\$\{([\s]*[^;\s{]+[\s]*)\}/g, (mt: string): string => {
-            const key = mt.substring(2, mt.length - 1);
-            if (!Object.keys(match).includes(key)) {
-                throw new Error(`[galeforce]: Action payload ${key} is required but undefined.`);
-            }
-            return match[key] as string;
-        });
+        try {
+            return _.template(template)(match);
+        } catch (e) {
+            throw new Error(`[galeforce]: Action payload ${e.message.split(' ')[0]} is required but undefined.`);
+        }
     }
 
     /**

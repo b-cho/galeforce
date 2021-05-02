@@ -104,7 +104,7 @@ class Galeforce {
      * @param options A JSON configuration object or a path to a valid YAML file.
      * @throws Will throw an Error if provided an invalid configuration file or object.
      */
-    constructor(options: ConfigInterface | string) {
+    constructor(options: ConfigInterface | string = {}) {
         this.config = typeof options === 'string' ? getConfig(options) : options;
 
         if (this.config.debug) {
@@ -118,7 +118,7 @@ class Galeforce {
 
         let cache: Cache;
 
-        const RiotAPI = new RiotAPIModule(this.config['riot-api'].key);
+        const RiotAPI: RiotAPIModule = new RiotAPIModule(this.config['riot-api']?.key || '');
 
         if (this.config.cache) {
             if (this.config.cache.type === 'redis' && typeof this.config.cache.uri !== 'undefined') {

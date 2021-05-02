@@ -1,5 +1,5 @@
 export interface ConfigInterface {
-    'riot-api': {
+    'riot-api'?: {
         key: string;
     };
     cache?: {

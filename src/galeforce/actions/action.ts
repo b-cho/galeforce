@@ -121,8 +121,10 @@ export default class Action<TResult> {
         } catch (e) {
             if (e.response?.status) {
                 actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('return')} \u00AB ${chalk.bold.red(e.response.status)}`);
-                if (e.response.status === 403) {
-                    throw new Error('[galeforce]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (sc-403)');
+                if (e.response.status === 401) {
+                    throw new Error('[galeforce]: No Riot API key was provided. Please ensure that your key is present in your configuration file or object. (401 Unauthorized)');
+                } else if (e.response.status === 403) {
+                    throw new Error('[galeforce]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (403 Forbidden)');
                 } else {
                     throw new Error(`[galeforce]: Data fetch failed with status code ${e.response.status}`);
                 }
