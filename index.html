@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>galeforce - v0.2.0</title>
-	<meta name="description" content="Documentation for galeforce - v0.2.0">
+	<title>galeforce - v0.3.0</title>
+	<meta name="description" content="Documentation for galeforce - v0.3.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 </head>
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">galeforce - v0.2.0</a>
+					<a href="index.html" class="title">galeforce - v0.3.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1>galeforce - v0.2.0</h1>
+			<h1>galeforce - v0.3.0</h1>
 		</div>
 	</div>
 </header>
@@ -76,22 +76,22 @@
 					<a href="https://www.codacy.com/gh/bcho04/galeforce/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bcho04/galeforce&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/18a92440f7a5457db04632699c3546a6" alt="Codacy Badge"></a>
 					<a href="https://codecov.io/gh/bcho04/galeforce"><img src="https://codecov.io/gh/bcho04/galeforce/branch/master/graph/badge.svg?token=7BJHF5KVX9" alt="codecov"></a>
 					<a href="https://david-dm.org/bcho04/galeforce"><img src="https://david-dm.org/bcho04/galeforce.svg" alt="David"></a>
-				<a href="https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat"><img src="https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat" alt="GitHub last commit"></a> </p>
+				<a href="https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat"><img src="https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat" alt="GitHub last commit"></a></p>
 				<p>A customizable, promise-based, and command-oriented TypeScript library and fluent interface for the Riot Games API.</p>
 				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
 					<h2>Features</h2>
 				</a>
 				<ul>
-					<li><strong>Full API support</strong> for all Riot games and Data Dragon<ul>
-							<li>Environment variable config integration for API keys and other properties on both the desktop and platforms including Heroku.</li>
+					<li><strong>Full API support</strong> for all Riot games, Data Dragon, and the Live Client Data API<ul>
+							<li>Environment variable config integration for API keys and other values on both the desktop and platforms including Heroku.</li>
 						</ul>
 					</li>
-					<li><strong>Automatic rate limiting</strong> using Redis</li>
+					<li><strong>Automatic rate limiting</strong> using Redis caches</li>
 					<li><strong>Fully-typed DTOs and parameters</strong> for <em>all</em> endpoints</li>
 					<li><strong>Fluent interface</strong> for seamless method chaining</li>
 					<li><strong>Built-in, customizable debugging</strong> using <code>debug</code></li>
 				</ul>
-				<p><strong>Documentation</strong> available <a href="https://bcho04.github.io/galeforce/">here</a> and in the section <a href="#documentation">below</a>.</p>
+				<p>Automatically-generated <strong>documentation</strong> is available <a href="https://bcho04.github.io/galeforce/">here</a>, and code <strong>examples</strong> can be found the section <a href="#guide">below</a>.</p>
 				<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
 					<h2>Table of Contents</h2>
 				</a>
@@ -100,8 +100,14 @@
 							<li><a href="#features">Features</a></li>
 							<li><a href="#table-of-contents">Table of Contents</a></li>
 							<li><a href="#examples">Examples</a></li>
-							<li><a href="#guide">Guide</a></li>
-							<li><a href="#config-structure">Config structure</a></li>
+							<li><a href="#guide">Guide</a><ul>
+									<li><a href="#actions">Actions</a></li>
+									<li><a href="#using-dtos">Using DTOs</a></li>
+									<li><a href="#config-structure">Config structure</a></li>
+									<li><a href="#documentation">Documentation</a></li>
+								</ul>
+							</li>
+							<li><a href="#disclaimer">Disclaimer</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -112,11 +118,13 @@
 				<p>If you&#39;re using <strong>ES6/TypeScript</strong>, simply add</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> GaleforceModule <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;galeforce&#x27;</span>;
 
-<span class="hljs-keyword">const</span> galeforce = <span class="hljs-keyword">new</span> GaleforceModule(<span class="hljs-comment">/* config */</span>);</code></pre>
+<span class="hljs-keyword">const</span> galeforce = <span class="hljs-keyword">new</span> GaleforceModule(<span class="hljs-comment">/* config */</span>);
+</code></pre>
 				<p>to use the project. Or, if you&#39;re using <strong>CommonJS</strong> and <code>require()</code>, add Galeforce to your project like this:</p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> GaleforceModule = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;galeforce&#x27;</span>);
 
-<span class="hljs-keyword">const</span> galeforce = <span class="hljs-keyword">new</span> GaleforceModule(<span class="hljs-comment">/* config */</span>);</code></pre>
+<span class="hljs-keyword">const</span> galeforce = <span class="hljs-keyword">new</span> GaleforceModule(<span class="hljs-comment">/* config */</span>);
+</code></pre>
 				<details>
 					<summary>Get summoner data for a list of summoners</summary>
 					<pre><code class="language-javascript"><span class="hljs-keyword">const</span> summoners = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>];
@@ -127,7 +135,8 @@
 ); <span class="hljs-comment">// list of request promises</span>
 <span class="hljs-built_in">Promise</span>.all(promises).then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
   <span class="hljs-built_in">console</span>.log(result); <span class="hljs-comment">// [{ name: &#x27;a&#x27;, ... }, ...]</span>
-});</code></pre>
+});
+</code></pre>
 				</details>
 				<details>
 					<summary>Get list of recent matchId values for a given accountId</summary>
@@ -135,14 +144,16 @@
   .region(galeforce.regions.lol.NORTH_AMERICA)
   .accountId(accountId)
   .exec())
-  .matches.map(<span class="hljs-function"><span class="hljs-params">matchInfo</span> =&gt;</span> matchInfo.gameId);</code></pre>
+  .matches.map(<span class="hljs-function"><span class="hljs-params">matchInfo</span> =&gt;</span> matchInfo.gameId);
+</code></pre>
 				</details>
 				<details>
 					<summary>Get match data using await</summary>
 					<pre><code class="language-javascript"><span class="hljs-keyword">const</span> matchData = <span class="hljs-keyword">await</span> galeforce.lol.match.match()
   .region(galeforce.regions.lol.NORTH_AMERICA)
   .matchId(matchId)
-  .exec();</code></pre>
+  .exec();
+</code></pre>
 				</details>
 				<details>
 					<summary>Get total number of mastery points for a summoner</summary>
@@ -150,11 +161,15 @@
   .region(galeforce.regions.lol.NORTH_AMERICA)
   .summonerId(summonerId)
   .exec())
-  .reduce(<span class="hljs-function">(<span class="hljs-params">previous, current</span>) =&gt;</span> previous + current.championPoints, <span class="hljs-number">0</span>);</code></pre>
+  .reduce(<span class="hljs-function">(<span class="hljs-params">previous, current</span>) =&gt;</span> previous + current.championPoints, <span class="hljs-number">0</span>);
+</code></pre>
 				</details>
 				<hr>
 				<a href="#guide" id="guide" style="color: inherit; text-decoration: none;">
 					<h2>Guide</h2>
+				</a>
+				<a href="#actions" id="actions" style="color: inherit; text-decoration: none;">
+					<h3>Actions</h3>
 				</a>
 				<p>Each endpoint in the Galeforce library is an instance of an <code>Action</code> containing the following methods:</p>
 				<details>
@@ -168,11 +183,27 @@ galeforce.val.status() <span class="hljs-comment">// Target the /val/status/v1/p
   .exec() <span class="hljs-comment">// Sends a Valorant server status request to the val-status-v1 endpoint</span>
   .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> { <span class="hljs-comment">// Use the returned data</span>
     <span class="hljs-comment">/* manipulate status data */</span>
-  });</code></pre>
+  });
+</code></pre>
 					</blockquote>
 				</details>
 				<details>
-					<summary><code>.<em>&ltproperty&gt</em>()</code></summary>
+					<summary><code>.URL()</code></summary>
+					<blockquote>
+						<p>Returns the endpoint URL associated with the <code>Action</code> and its previously-set parameters.</p>
+						<p><strong>Example</strong></p>
+						<pre><code class="language-javascript"><span class="hljs-comment">/* Gets the Data Dragon URL associated with the Galeforce icon. */</span>
+<span class="hljs-keyword">const</span> galeforceURL = galeforce.ddragon.item.art() <span class="hljs-comment">// Fetch item icon art from Data Dragon</span>
+  .version(<span class="hljs-string">&#x27;11.9.1&#x27;</span>) <span class="hljs-comment">// See the .&lt;property&gt;() section for documentation. Sets the version to retrieve data from.</span>
+  .assetId(<span class="hljs-string">&#x27;6671&#x27;</span>) <span class="hljs-comment">// See below for documentation. Get the icon for the Galeforce item.</span>
+  .URL(); <span class="hljs-comment">// Get the encoded URL corresponding with the selected endpoint as a string.</span>
+
+<span class="hljs-built_in">console</span>.log(galeforceURL); <span class="hljs-comment">// &#x27;https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/6671.png&#x27;</span>
+</code></pre>
+					</blockquote>
+				</details>
+				<details>
+					<summary><code>.<em>&lt;property&gt;</em>()</code></summary>
 					<blockquote>
 						<p>Sets the <em>property</em> (<code>region</code>, <code>summonerId</code>, <code>puuid</code>, etc.) in the Action request payload. Different methods are exposed for each endpoint depending on the required path, query, and body parameters.</p>
 						<p><strong>Example</strong></p>
@@ -180,36 +211,62 @@ galeforce.val.status() <span class="hljs-comment">// Target the /val/status/v1/p
 <span class="hljs-keyword">const</span> currentGameInfo = <span class="hljs-keyword">await</span> galeforce.lol.spectator.active() <span class="hljs-comment">// Target the /lol/spectator/v4/active-games/by-summoner/{summonerId} endpoint</span>
   .region(galeforce.regions.lol.NORTH_AMERICA) <span class="hljs-comment">// Sets the request region to &#x27;na1&#x27; (i.e., target the NA server)</span>
   .summonerId(<span class="hljs-string">&#x27;summonerId&#x27;</span>) <span class="hljs-comment">// Sets the request summonerId to &#x27;summonerId&#x27;</span>
-  .exec() <span class="hljs-comment">// See .exec() above.</span></code></pre>
+  .exec(); <span class="hljs-comment">// See .exec() above.</span>
+</code></pre>
 						<p><code>.&lt;property&gt;()</code> methods may only be called once and are removed from the Action after being used.</p>
-						<p><strong>Example</strong></p>
 						<pre><code class="language-javascript"><span class="hljs-comment">/* Gets current game info for a specific summonerId. */</span>
 <span class="hljs-keyword">const</span> currentGameInfo = <span class="hljs-keyword">await</span> galeforce.lol.spectator.active() <span class="hljs-comment">// Target the /lol/spectator/v4/active-games/by-summoner/{summonerId} endpoint</span>
   .region(galeforce.regions.lol.NORTH_AMERICA) <span class="hljs-comment">// Sets the request region to &#x27;na1&#x27; (i.e., target the NA server)</span>
-  .region(galeforce.regions.lol.KOREA) <span class="hljs-comment">// galeforce.lol.spectator.active(...).region(...).region is not a function</span></code></pre>
+  .region(galeforce.regions.lol.KOREA) <span class="hljs-comment">// galeforce.lol.spectator.active(...).region(...).region is not a function</span>
+</code></pre>
 					</blockquote>
 				</details>
-				<p>See <a href="https://bcho04.github.io/galeforce/">here</a> for further documentation and a complete list of methods.</p>
-				<hr>
-				<a href="#config-structure" id="config-structure" style="color: inherit; text-decoration: none;">
-					<h2>Config structure</h2>
+				<a href="#using-dtos" id="using-dtos" style="color: inherit; text-decoration: none;">
+					<h3>Using DTOs</h3>
 				</a>
-				<p>When initializing Galeforce, a config object (JSON) or a path to a YAML file must be passed to the <code>GaleforceModule()</code> constructor as an argument:</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> galeforce = <span class="hljs-keyword">new</span> GaleforceModule(<span class="hljs-comment">/* config file path or object */</span>);</code></pre>
-				<p>Template string-like values (such as <code>${RIOT_KEY}</code>) will be evaluated using environment variables in <code>process.env</code>. Such an object must have the following structure:</p>
-				<pre><code class="language-yaml"><span class="hljs-attr">riot-api:</span> <span class="hljs-comment"># REQUIRED</span>
+				<p>Galeforce includes DTOs for all Riot API responses as TypeScript interfaces. Although all actions already return an object typed with the corresponding DTO, these can be accessed explicitly via <strong><code>GaleforceModule.dto</code></strong> or as another export:</p>
+				<blockquote>
+					<pre><code class="language-typescript"><span class="hljs-keyword">import</span> GaleforceModule <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;galeforce&#x27;</span>;
+
+<span class="hljs-keyword">const</span> summonerData: GaleforceModule.dto.SummonerDTO = ... 
+<span class="hljs-comment">// get summoner data</span>
+</code></pre>
+				</blockquote>
+				<blockquote>
+					<pre><code class="language-typescript"><span class="hljs-keyword">import</span> GaleforceModule, { dto } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;galeforce&#x27;</span>;
+
+<span class="hljs-keyword">const</span> summonerData: dto.SummonerDTO = ...
+<span class="hljs-comment">// get summoner data</span>
+</code></pre>
+				</blockquote>
+				<a href="#config-structure" id="config-structure" style="color: inherit; text-decoration: none;">
+					<h3>Config structure</h3>
+				</a>
+				<p>When initializing Galeforce, a config object (JSON) or a path to a YAML file may <em>optionally</em> be passed to the <code>GaleforceModule()</code> constructor as an argument:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> galeforce = <span class="hljs-keyword">new</span> GaleforceModule(<span class="hljs-comment">/* config file path or object */</span>);
+</code></pre>
+				<p>Omitting the config will prevent Galeforce from being able to interface with the <a href="https://developer.riotgames.com/">Riot Games API</a> (as no API key will be specified), although Data Dragon and the Live Client Data API will still be available.</p>
+				<p>Template string-like values (such as <code>${RIOT_KEY}</code>) will be evaluated using environment variables in <code>process.env</code>. The configuration file must have the following structure (all top-level fields are optional):</p>
+				<pre><code class="language-yaml"><span class="hljs-attr">riot-api:</span>
   <span class="hljs-attr">key:</span> <span class="hljs-string">${RIOT_KEY}</span> <span class="hljs-comment"># (string) Your Riot API key from https://developer.riotgames.com</span>
-<span class="hljs-attr">cache:</span> <span class="hljs-comment"># OPTIONAL</span>
-  <span class="hljs-attr">type:</span> <span class="hljs-string">${CACHE_TYPE}</span> <span class="hljs-comment"># (string) What kind of cache to use (&#x27;redis&#x27;, &#x27;null&#x27;)</span>
-  <span class="hljs-attr">uri:</span> <span class="hljs-string">${CACHE_URI}</span> <span class="hljs-comment"># (string) The cache URI to connect to (optional when type is &#x27;null&#x27;)</span>
-<span class="hljs-attr">rate-limit:</span> <span class="hljs-comment"># OPTIONAL, Requires a cache to be configured.</span>
+<span class="hljs-attr">cache:</span>
+  <span class="hljs-attr">type:</span> <span class="hljs-string">${CACHE_TYPE}</span> <span class="hljs-comment"># (string) What kind of cache to use (&#x27;redis&#x27;, &#x27;javascript&#x27;, &#x27;null&#x27;)</span>
+  <span class="hljs-attr">uri:</span> <span class="hljs-string">${CACHE_URI}</span> <span class="hljs-comment"># (string) The cache URI to connect to (required for &#x27;redis&#x27; cache)</span>
+<span class="hljs-attr">rate-limit:</span> <span class="hljs-comment"># Requires a cache to be configured.</span>
   <span class="hljs-attr">prefix:</span> <span class="hljs-string">riotapi-ratelimit-</span> <span class="hljs-comment"># The prefix for the Riot API rate limit keys in the cache.</span>
   <span class="hljs-attr">intervals:</span> <span class="hljs-comment"># key &lt;secs&gt;: value &lt;number of requests&gt;. </span>
     <span class="hljs-attr">120:</span> <span class="hljs-number">100</span>
     <span class="hljs-attr">1:</span> <span class="hljs-number">20</span>
-<span class="hljs-attr">debug:</span> [] <span class="hljs-comment"># OPTIONAL, A list containing any of &#x27;action&#x27;, &#x27;payload&#x27;, &#x27;rate-limit&#x27;, &#x27;riot-api&#x27;, &#x27;*&#x27; (all).</span></code></pre>
+<span class="hljs-attr">debug:</span> [] <span class="hljs-comment"># A list containing any of &#x27;action&#x27;, &#x27;payload&#x27;, &#x27;rate-limit&#x27;, &#x27;riot-api&#x27;, &#x27;*&#x27; (all).</span>
+</code></pre>
+				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+					<h3>Documentation</h3>
+				</a>
+				<p>See <a href="https://bcho04.github.io/galeforce/">here</a> for further documentation and a complete list of methods.</p>
 				<hr>
-				<p><strong>Disclaimer</strong></p>
+				<a href="#disclaimer" id="disclaimer" style="color: inherit; text-decoration: none;">
+					<h2>Disclaimer</h2>
+				</a>
 				<p>Galeforce isn&#39;t endorsed by Riot Games and doesn&#39;t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.</p>
 			</div>
 		</div>
@@ -235,7 +292,7 @@ galeforce.val.status() <span class="hljs-comment">// Target the /val/status/v1/p
 						<a href="modules/internal_interfaces.html">internal/interfaces</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/internals_riot_api.html">internals/riot-<wbr>api</a>
+						<a href="modules/internal_riot_api.html">internal/riot-<wbr>api</a>
 					</li>
 				</ul>
 			</nav>

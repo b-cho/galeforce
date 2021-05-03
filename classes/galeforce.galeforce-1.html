@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Galeforce | galeforce - v0.2.0</title>
-	<meta name="description" content="Documentation for galeforce - v0.2.0">
+	<title>Galeforce | galeforce - v0.3.0</title>
+	<meta name="description" content="Documentation for galeforce - v0.3.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">galeforce - v0.2.0</a>
+					<a href="../index.html" class="title">galeforce - v0.3.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -94,12 +94,15 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="galeforce.galeforce-1.html#divisions" class="tsd-kind-icon">divisions</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="galeforce.galeforce-1.html#games" class="tsd-kind-icon">games</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="galeforce.galeforce-1.html#tiers" class="tsd-kind-icon">tiers</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="galeforce.galeforce-1.html#dto" class="tsd-kind-icon">dto</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Object literals</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-object-literal tsd-parent-kind-class"><a href="galeforce.galeforce-1.html#ddragon" class="tsd-kind-icon">ddragon</a></li>
+								<li class="tsd-kind-object-literal tsd-parent-kind-class"><a href="galeforce.galeforce-1.html#gc" class="tsd-kind-icon">gc</a></li>
+								<li class="tsd-kind-object-literal tsd-parent-kind-class"><a href="galeforce.galeforce-1.html#lcd" class="tsd-kind-icon">lcd</a></li>
 								<li class="tsd-kind-object-literal tsd-parent-kind-class"><a href="galeforce.galeforce-1.html#lol" class="tsd-kind-icon">lol</a></li>
 								<li class="tsd-kind-object-literal tsd-parent-kind-class"><a href="galeforce.galeforce-1.html#lor" class="tsd-kind-icon">lor</a></li>
 								<li class="tsd-kind-object-literal tsd-parent-kind-class"><a href="galeforce.galeforce-1.html#queues" class="tsd-kind-icon">queues</a></li>
@@ -118,13 +121,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Galeforce<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/internal_interfaces.configinterface.html" class="tsd-signature-type">ConfigInterface</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="galeforce.galeforce-1.html" class="tsd-signature-type">Galeforce</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Galeforce<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/internal_interfaces.configinterface.html" class="tsd-signature-type">ConfigInterface</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="galeforce.galeforce-1.html" class="tsd-signature-type">Galeforce</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L82">src/index.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L98">src/index.ts:98</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -142,7 +145,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>options: <a href="../interfaces/internal_interfaces.configinterface.html" class="tsd-signature-type">ConfigInterface</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> options: <a href="../interfaces/internal_interfaces.configinterface.html" class="tsd-signature-type">ConfigInterface</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = {}</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 											<p>A JSON configuration object or a path to a valid YAML file.</p>
@@ -163,7 +166,7 @@
 					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <a href="../interfaces/internal_interfaces.configinterface.html" class="tsd-signature-type">ConfigInterface</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L80">src/index.ts:80</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L96">src/index.ts:96</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -179,7 +182,7 @@
 					<div class="tsd-signature tsd-kind-icon">divisions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><span class="tsd-signature-type">Division</span><span class="tsd-signature-symbol"> = Division</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L625">src/index.ts:625</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L870">src/index.ts:870</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -194,7 +197,7 @@
 					<div class="tsd-signature tsd-kind-icon">games<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><span class="tsd-signature-type">Game</span><span class="tsd-signature-symbol"> = Game</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L631">src/index.ts:631</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L876">src/index.ts:876</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -210,12 +213,27 @@
 					<div class="tsd-signature tsd-kind-icon">tiers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="../enums/internal_interfaces.tier.html" class="tsd-signature-type">Tier</a><span class="tsd-signature-symbol"> = Tier</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L620">src/index.ts:620</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L865">src/index.ts:865</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Enum corresponding to ranked tiers in TFT and League of Legends.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="dto" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> dto</h3>
+					<div class="tsd-signature tsd-kind-icon">dto<span class="tsd-signature-symbol">:</span> <a href="../modules/internal_interfaces.html" class="tsd-signature-type">internal/interfaces</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L883">src/index.ts:883</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An object containing all of the DTO interfaces associated with API responses for all endpoints.</p>
 						</div>
 					</div>
 				</section>
@@ -228,12 +246,13 @@
 					<div class="tsd-signature tsd-kind-icon">ddragon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L456">src/index.ts:456</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L475">src/index.ts:475</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Object containing actions corresponding to Data Dragon endpoints.</p>
+							<p>Object containing actions corresponding to Data Dragon endpoints. See the official Data
+							Dragon documentation <a href="https://developer.riotgames.com/docs/lol#data-dragon">here</a>.</p>
 						</div>
 					</div>
 					<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
@@ -246,7 +265,7 @@
 							<li class="tsd-description">
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L478">src/index.ts:478</a></li>
+										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L516">src/index.ts:516</a></li>
 									</ul>
 								</aside>
 								<div class="tsd-comment tsd-typography">
@@ -256,6 +275,8 @@
 											<li>(<strong>GET</strong>) <code>/cdn/languages.json</code></li>
 										</ul>
 									</div>
+									<p>Returns a list of languages supported by Data Dragon. See the official documentation
+									for more information.</p>
 								</div>
 								<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonlanguages.html" class="tsd-signature-type">GetDataDragonLanguages</a></h4>
 							</li>
@@ -271,7 +292,7 @@
 							<li class="tsd-description">
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L473">src/index.ts:473</a></li>
+										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L508">src/index.ts:508</a></li>
 									</ul>
 								</aside>
 								<div class="tsd-comment tsd-typography">
@@ -281,6 +302,9 @@
 											<li>(<strong>GET</strong>) <code>/realms/{region}.json</code></li>
 										</ul>
 									</div>
+									<p>Returns the latest Data Dragon version for a given region (realm). Note that
+										Data Dragon versions are <em>not</em> always equivalent to the League of Legends
+									client version within a given region.</p>
 								</div>
 								<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonregioninfo.html" class="tsd-signature-type">GetDataDragonRegionInfo</a></h4>
 							</li>
@@ -296,7 +320,7 @@
 							<li class="tsd-description">
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L463">src/index.ts:463</a></li>
+										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L489">src/index.ts:489</a></li>
 									</ul>
 								</aside>
 								<div class="tsd-comment tsd-typography">
@@ -306,7 +330,12 @@
 											<li>(<strong>GET</strong>) <code>/cdn/dragontail-{version}.tgz</code></li>
 										</ul>
 									</div>
+									<p>Returns a compressed tarball (.tgz) file containing all Data Dragon assets
+										for a given patch. Note that Data Dragon is updated manually after each patch,
+										so it may not always be updated immediately after a new patch is released to
+									the live servers.</p>
 									<p>Swaps to a <em>.zip</em> file automatically when fetching data for patch 10.10.5.</p>
+									<p>Returns data as a <code>Buffer</code> object.</p>
 								</div>
 								<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragontail.html" class="tsd-signature-type">GetDataDragonTail</a></h4>
 							</li>
@@ -322,7 +351,7 @@
 							<li class="tsd-description">
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L468">src/index.ts:468</a></li>
+										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L499">src/index.ts:499</a></li>
 									</ul>
 								</aside>
 								<div class="tsd-comment tsd-typography">
@@ -332,6 +361,10 @@
 											<li>(<strong>GET</strong>) <code>/api/versions.json</code></li>
 										</ul>
 									</div>
+									<p>Returns a JSON file (an array) containing all valid Data Dragon versions.
+										Most patches will only have one associated build, but occasionally
+										multiple builds are necessary due to errors. As a result, use the latest
+									version for a given patch whenever possible.</p>
 								</div>
 								<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonversions.html" class="tsd-signature-type">GetDataDragonVersions</a></h4>
 							</li>
@@ -343,7 +376,7 @@
 						<div class="tsd-signature tsd-kind-icon">champion<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L482">src/index.ts:482</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L520">src/index.ts:520</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
@@ -356,7 +389,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L492">src/index.ts:492</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L536">src/index.ts:536</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -366,6 +399,8 @@
 												<li>(<strong>GET</strong>) <code>/cdn/{version}/data/{locale}/champion/{champion}.json</code></li>
 											</ul>
 										</div>
+										<p>Returns detailed information and additional data about a single champion.
+										See the official API documentation for more information about interpreting spell text.</p>
 									</div>
 									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonchampionjson.html" class="tsd-signature-type">GetDataDragonChampionJSON</a></h4>
 								</li>
@@ -381,7 +416,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L487">src/index.ts:487</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L528">src/index.ts:528</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -391,6 +426,8 @@
 												<li>(<strong>GET</strong>) <code>/cdn/{version}/data/{locale}/champion.json</code></li>
 											</ul>
 										</div>
+										<p>Returns a list of champions along with a brief summary for each champion.
+										See the official API documentation for more information about interpreting spell text.</p>
 									</div>
 									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonchampionlist.html" class="tsd-signature-type">GetDataDragonChampionList</a></h4>
 								</li>
@@ -402,7 +439,7 @@
 							<div class="tsd-signature tsd-kind-icon">art<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L493">src/index.ts:493</a></li>
+									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L537">src/index.ts:537</a></li>
 								</ul>
 							</aside>
 							<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
@@ -415,7 +452,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L508">src/index.ts:508</a></li>
+												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L568">src/index.ts:568</a></li>
 											</ul>
 										</aside>
 										<div class="tsd-comment tsd-typography">
@@ -425,6 +462,8 @@
 													<li>(<strong>GET</strong>) <code>/cdn/{version}/img/champion/{champion}.png</code></li>
 												</ul>
 											</div>
+											<p>Returns the icon (square) art asset for a given champion.</p>
+											<p>Returns data as a <code>Buffer</code> object containing PNG data.</p>
 										</div>
 										<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonchampionsquareart.html" class="tsd-signature-type">GetDataDragonChampionSquareArt</a></h4>
 									</li>
@@ -440,7 +479,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L503">src/index.ts:503</a></li>
+												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L559">src/index.ts:559</a></li>
 											</ul>
 										</aside>
 										<div class="tsd-comment tsd-typography">
@@ -450,6 +489,10 @@
 													<li>(<strong>GET</strong>) <code>/cdn/img/champion/loading/{champion}_{skin}.jpg</code></li>
 												</ul>
 											</div>
+											<p>Returns the loading art image for a given champion and skin. The number corresponding
+												to each skin can be found under the <code>num</code> field in the skins section of each champion&#39;s
+											detailed Data Dragon file. <code>0</code> is always the default splash art.</p>
+											<p>Returns data as a <code>Buffer</code> object containing JPG data.</p>
 										</div>
 										<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonloadingart.html" class="tsd-signature-type">GetDataDragonLoadingArt</a></h4>
 									</li>
@@ -465,7 +508,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L513">src/index.ts:513</a></li>
+												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L578">src/index.ts:578</a></li>
 											</ul>
 										</aside>
 										<div class="tsd-comment tsd-typography">
@@ -475,6 +518,9 @@
 													<li>(<strong>GET</strong>) <code>/cdn/{version}/img/passive/{spell}.png</code></li>
 												</ul>
 											</div>
+											<p>Returns the icon art asset for a passive ability. The filename for each champion&#39;s passive can be
+											found in the <code>passive</code> field&#39;s <code>image</code> data (as the <code>full</code> field) within an individual champion&#39;s Data Dragon file.</p>
+											<p>Returns data as a <code>Buffer</code> object containing PNG data.</p>
 										</div>
 										<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonchampionpassiveart.html" class="tsd-signature-type">GetDataDragonChampionPassiveArt</a></h4>
 									</li>
@@ -490,7 +536,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L498">src/index.ts:498</a></li>
+												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L548">src/index.ts:548</a></li>
 											</ul>
 										</aside>
 										<div class="tsd-comment tsd-typography">
@@ -500,6 +546,10 @@
 													<li>(<strong>GET</strong>) <code>/cdn/img/champion/splash/{champion}_{skin}.jpg</code></li>
 												</ul>
 											</div>
+											<p>Returns the splash art assets for a given champion and skin. The number corresponding
+												to each skin can be found under the <code>num</code> field in the skins section of each champion&#39;s
+											detailed Data Dragon file. <code>0</code> is always the default splash art.</p>
+											<p>Returns data as a <code>Buffer</code> object containing JPG data.</p>
 										</div>
 										<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonsplashart.html" class="tsd-signature-type">GetDataDragonSplashArt</a></h4>
 									</li>
@@ -513,7 +563,7 @@
 						<div class="tsd-signature tsd-kind-icon">item<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L523">src/index.ts:523</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L593">src/index.ts:593</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
@@ -526,7 +576,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L533">src/index.ts:533</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L611">src/index.ts:611</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -536,6 +586,8 @@
 												<li>(<strong>GET</strong>) <code>/cdn/{version}/img/item/{assetId}.png</code></li>
 											</ul>
 										</div>
+										<p>Returns the art asset for an item by item ID. A list of item IDs can be found in the item data file.</p>
+										<p>Returns data as a <code>Buffer</code> object containing PNG data.</p>
 									</div>
 									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonitemart.html" class="tsd-signature-type">GetDataDragonItemArt</a></h4>
 								</li>
@@ -551,7 +603,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L528">src/index.ts:528</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L602">src/index.ts:602</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -561,6 +613,8 @@
 												<li>(<strong>GET</strong>) <code>/cdn/{version}/data/{locale}/item.json</code></li>
 											</ul>
 										</div>
+										<p>Returns detailed information about all items in League of Legends, including purchase value, sell value,
+										build path, stats, and descriptions. See the official Data Dragon API documentation for more information.</p>
 									</div>
 									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonitemlist.html" class="tsd-signature-type">GetDataDragonItemList</a></h4>
 								</li>
@@ -573,7 +627,7 @@
 						<div class="tsd-signature tsd-kind-icon">minimap<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L554">src/index.ts:554</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L641">src/index.ts:641</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
@@ -586,7 +640,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L559">src/index.ts:559</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L651">src/index.ts:651</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -596,6 +650,9 @@
 												<li>(<strong>GET</strong>) <code>/cdn/{version}/img/map/map{assetId}.png</code></li>
 											</ul>
 										</div>
+										<p>Returns the art asset for the minimap corresponding to a given map ID. Map IDs can be found
+										under <em>Game Constants &gt; Map Names</em> in the official Riot API documentation.</p>
+										<p>Returns data as a <code>Buffer</code> object containing PNG data.</p>
 									</div>
 									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonminimapart.html" class="tsd-signature-type">GetDataDragonMinimapArt</a></h4>
 								</li>
@@ -608,7 +665,7 @@
 						<div class="tsd-signature tsd-kind-icon">profile<wbr>Icon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L542">src/index.ts:542</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L623">src/index.ts:623</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
@@ -621,7 +678,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L552">src/index.ts:552</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L639">src/index.ts:639</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -631,6 +688,8 @@
 												<li>(<strong>GET</strong>) <code>/cdn/{version}/img/profileicon/{assetId}.png</code></li>
 											</ul>
 										</div>
+										<p>Returns the art asset for a profile icon by ID.</p>
+										<p>Returns data as a <code>Buffer</code> object containing PNG data.</p>
 									</div>
 									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonprofileiconart.html" class="tsd-signature-type">GetDataDragonProfileIconArt</a></h4>
 								</li>
@@ -646,7 +705,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L547">src/index.ts:547</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L630">src/index.ts:630</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -656,6 +715,7 @@
 												<li>(<strong>GET</strong>) <code>/cdn/{version}/data/{locale}/profileicon.json</code></li>
 											</ul>
 										</div>
+										<p>Returns a list of summoner icons/profile icons.</p>
 									</div>
 									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonprofileiconlist.html" class="tsd-signature-type">GetDataDragonProfileIconList</a></h4>
 								</li>
@@ -668,18 +728,28 @@
 						<div class="tsd-signature tsd-kind-icon">scoreboard<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L568">src/index.ts:568</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L667">src/index.ts:667</a></li>
 							</ul>
 						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Object containing actions that retrieve legacy scoreboard art (from patch <strong>5.5.1</strong> and earlier).</p>
+							</div>
+						</div>
 						<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-object-literal">
 							<a name="ddragon.scoreboard.art-4" class="tsd-anchor"></a>
 							<h3>art</h3>
 							<div class="tsd-signature tsd-kind-icon">art<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L569">src/index.ts:569</a></li>
+									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L671">src/index.ts:671</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Object containing actions that retrieve legacy scoreboard art (from patch <strong>5.5.1</strong> and earlier).</p>
+								</div>
+							</div>
 							<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
 								<a name="ddragon.scoreboard.art-4.champion-1" class="tsd-anchor"></a>
 								<h3>champion</h3>
@@ -690,7 +760,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L574">src/index.ts:574</a></li>
+												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L678">src/index.ts:678</a></li>
 											</ul>
 										</aside>
 										<div class="tsd-comment tsd-typography">
@@ -700,6 +770,7 @@
 													<li>(<strong>GET</strong>) <code>/cdn/5.5.1/img/ui/champion.png</code></li>
 												</ul>
 											</div>
+											<p>Returns data as a <code>Buffer</code> object.</p>
 										</div>
 										<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonscoreboardart.html" class="tsd-signature-type">GetDataDragonScoreboardArt</a></h4>
 									</li>
@@ -715,7 +786,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L579">src/index.ts:579</a></li>
+												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L685">src/index.ts:685</a></li>
 											</ul>
 										</aside>
 										<div class="tsd-comment tsd-typography">
@@ -725,6 +796,7 @@
 													<li>(<strong>GET</strong>) <code>/cdn/5.5.1/img/ui/items.png</code></li>
 												</ul>
 											</div>
+											<p>Returns data as a <code>Buffer</code> object.</p>
 										</div>
 										<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonscoreboardart.html" class="tsd-signature-type">GetDataDragonScoreboardArt</a></h4>
 									</li>
@@ -740,7 +812,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L584">src/index.ts:584</a></li>
+												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L692">src/index.ts:692</a></li>
 											</ul>
 										</aside>
 										<div class="tsd-comment tsd-typography">
@@ -750,6 +822,7 @@
 													<li>(<strong>GET</strong>) <code>/cdn/5.5.1/img/ui/minion.png</code></li>
 												</ul>
 											</div>
+											<p>Returns data as a <code>Buffer</code> object.</p>
 										</div>
 										<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonscoreboardart.html" class="tsd-signature-type">GetDataDragonScoreboardArt</a></h4>
 									</li>
@@ -765,7 +838,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L589">src/index.ts:589</a></li>
+												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L699">src/index.ts:699</a></li>
 											</ul>
 										</aside>
 										<div class="tsd-comment tsd-typography">
@@ -775,6 +848,7 @@
 													<li>(<strong>GET</strong>) <code>/cdn/5.5.1/img/ui/score.png</code></li>
 												</ul>
 											</div>
+											<p>Returns data as a <code>Buffer</code> object.</p>
 										</div>
 										<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonscoreboardart.html" class="tsd-signature-type">GetDataDragonScoreboardArt</a></h4>
 									</li>
@@ -790,7 +864,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L594">src/index.ts:594</a></li>
+												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L706">src/index.ts:706</a></li>
 											</ul>
 										</aside>
 										<div class="tsd-comment tsd-typography">
@@ -800,6 +874,7 @@
 													<li>(<strong>GET</strong>) <code>/cdn/5.5.1/img/ui/spells.png</code></li>
 												</ul>
 											</div>
+											<p>Returns data as a <code>Buffer</code> object.</p>
 										</div>
 										<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonscoreboardart.html" class="tsd-signature-type">GetDataDragonScoreboardArt</a></h4>
 									</li>
@@ -813,7 +888,7 @@
 						<div class="tsd-signature tsd-kind-icon">spell<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L516">src/index.ts:516</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L581">src/index.ts:581</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
@@ -826,7 +901,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L521">src/index.ts:521</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L591">src/index.ts:591</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -836,6 +911,9 @@
 												<li>(<strong>GET</strong>) <code>/cdn/{version}/img/spell/{spell}.png</code></li>
 											</ul>
 										</div>
+										<p>Returns the art asset for a non-passive ability. The filename corresponding to a given ability can be
+										found in the <code>full</code> entry of the image data within the <code>spells</code> field of an individual champion&#39;s Data Dragon file.</p>
+										<p>Returns data as a <code>Buffer</code> object containing PNG data.</p>
 									</div>
 									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonspellart.html" class="tsd-signature-type">GetDataDragonSpellArt</a></h4>
 								</li>
@@ -848,7 +926,7 @@
 						<div class="tsd-signature tsd-kind-icon">sprite<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L561">src/index.ts:561</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L653">src/index.ts:653</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
@@ -861,7 +939,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L566">src/index.ts:566</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L662">src/index.ts:662</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -871,6 +949,8 @@
 												<li>(<strong>GET</strong>) <code>/cdn/{version}/img/sprite/spell{assetId}.png</code></li>
 											</ul>
 										</div>
+										<p>Returns the sprite art assets for a given asset ID.</p>
+										<p>Returns data as a <code>Buffer</code> object containing PNG data.</p>
 									</div>
 									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonspriteart.html" class="tsd-signature-type">GetDataDragonSpriteArt</a></h4>
 								</li>
@@ -883,7 +963,7 @@
 						<div class="tsd-signature tsd-kind-icon">summoner<wbr>Spell<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L535">src/index.ts:535</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L613">src/index.ts:613</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
@@ -896,7 +976,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L540">src/index.ts:540</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L621">src/index.ts:621</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -906,8 +986,445 @@
 												<li>(<strong>GET</strong>) <code>/cdn/{version}/data/{locale}/summoner.json</code></li>
 											</ul>
 										</div>
+										<p>Returns a list of summoner spells. Art assets for each summoner spell can be retrieved using the
+										<code>galeforce.ddragon.spell.art</code> method.</p>
 									</div>
 									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getdatadragonsummonerspelllist.html" class="tsd-signature-type">GetDataDragonSummonerSpellList</a></h4>
+								</li>
+							</ul>
+						</section>
+					</section>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-class">
+					<a name="gc" class="tsd-anchor"></a>
+					<h3>gc</h3>
+					<div class="tsd-signature tsd-kind-icon">gc<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L719">src/index.ts:719</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Object containing actions corresponding to the Game Client API specifications.
+								This includes the Live Client Data and Replay endpoints, which are hosted
+							locally during a League of Legends match at <a href="https://127.0.0.1:2999">https://127.0.0.1:2999</a>.</p>
+						</div>
+						<p>The Live Client Data API server is only active when playing a League of Legends match
+						or watching a replay.</p>
+					</div>
+					<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
+						<a name="gc.openapi" class="tsd-anchor"></a>
+						<h3>openAPI</h3>
+						<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
+							<li class="tsd-signature tsd-kind-icon">openAPI<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getgameclientopenapi.html" class="tsd-signature-type">GetGameClientOpenAPI</a></li>
+						</ul>
+						<ul class="tsd-descriptions">
+							<li class="tsd-description">
+								<aside class="tsd-sources">
+									<ul>
+										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L733">src/index.ts:733</a></li>
+									</ul>
+								</aside>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>Action constructor corresponding to the following Live Client Data endpoints:</p>
+										<ul>
+											<li>(<strong>GET</strong>) <code>/swagger/v3/openapi.json</code></li>
+										</ul>
+									</div>
+									<p>Requests the <em>OpenAPI v3</em> specs for the Game Client API.</p>
+								</div>
+								<h4 class="tsd-returns-title">Returns <a href="internal_actions.getgameclientopenapi.html" class="tsd-signature-type">GetGameClientOpenAPI</a></h4>
+							</li>
+						</ul>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
+						<a name="gc.swagger" class="tsd-anchor"></a>
+						<h3>swagger</h3>
+						<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
+							<li class="tsd-signature tsd-kind-icon">swagger<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getgameclientswagger.html" class="tsd-signature-type">GetGameClientSwagger</a></li>
+						</ul>
+						<ul class="tsd-descriptions">
+							<li class="tsd-description">
+								<aside class="tsd-sources">
+									<ul>
+										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L726">src/index.ts:726</a></li>
+									</ul>
+								</aside>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>Action constructor corresponding to the following Live Client Data endpoints:</p>
+										<ul>
+											<li>(<strong>GET</strong>) <code>/swagger/v2/swagger.json</code></li>
+										</ul>
+									</div>
+									<p>Requests the <em>Swagger v2</em> specs for the Game Client API.</p>
+								</div>
+								<h4 class="tsd-returns-title">Returns <a href="internal_actions.getgameclientswagger.html" class="tsd-signature-type">GetGameClientSwagger</a></h4>
+							</li>
+						</ul>
+					</section>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-class">
+					<a name="lcd" class="tsd-anchor"></a>
+					<h3>lcd</h3>
+					<div class="tsd-signature tsd-kind-icon">lcd<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L745">src/index.ts:745</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Object containing actions corresponding to the Live Client Data endpoints.
+								The Live Client Data API is hosted locally during a League of Legends match
+								at <a href="https://127.0.0.1:2999">https://127.0.0.1:2999</a>. (All endpoints can be found under the <em>/liveclientdata</em>
+							path.)</p>
+						</div>
+						<p>The Live Client Data API server is only active when playing a League of Legends match
+						or watching a replay.</p>
+					</div>
+					<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
+						<a name="lcd.all" class="tsd-anchor"></a>
+						<h3>all</h3>
+						<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
+							<li class="tsd-signature tsd-kind-icon">all<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getliveclientallgamedata.html" class="tsd-signature-type">GetLiveClientAllGameData</a></li>
+						</ul>
+						<ul class="tsd-descriptions">
+							<li class="tsd-description">
+								<aside class="tsd-sources">
+									<ul>
+										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L753">src/index.ts:753</a></li>
+									</ul>
+								</aside>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>Action constructor corresponding to the following Live Client Data endpoints:</p>
+										<ul>
+											<li>(<strong>GET</strong>) <code>/liveclientdata/allgamedata</code></li>
+										</ul>
+									</div>
+									<p>Get all available data. You can find a sample response
+									<a href="https://static.developer.riotgames.com/docs/lol/liveclientdata_sample.json">here</a>.</p>
+								</div>
+								<h4 class="tsd-returns-title">Returns <a href="internal_actions.getliveclientallgamedata.html" class="tsd-signature-type">GetLiveClientAllGameData</a></h4>
+							</li>
+						</ul>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
+						<a name="lcd.events" class="tsd-anchor"></a>
+						<h3>events</h3>
+						<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
+							<li class="tsd-signature tsd-kind-icon">events<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getliveclientevents.html" class="tsd-signature-type">GetLiveClientEvents</a></li>
+						</ul>
+						<ul class="tsd-descriptions">
+							<li class="tsd-description">
+								<aside class="tsd-sources">
+									<ul>
+										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L834">src/index.ts:834</a></li>
+									</ul>
+								</aside>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>Action constructor corresponding to the following Live Client Data endpoints:</p>
+										<ul>
+											<li>(<strong>GET</strong>) <code>/liveclientdata/eventdata</code></li>
+										</ul>
+									</div>
+									<p>Get a list of events that have occurred in the game. You can find a list of sample events
+									<a href="https://static.developer.riotgames.com/docs/lol/liveclientdata_events.json">here</a>.</p>
+								</div>
+								<h4 class="tsd-returns-title">Returns <a href="internal_actions.getliveclientevents.html" class="tsd-signature-type">GetLiveClientEvents</a></h4>
+							</li>
+						</ul>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
+						<a name="lcd.stats" class="tsd-anchor"></a>
+						<h3>stats</h3>
+						<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
+							<li class="tsd-signature tsd-kind-icon">stats<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getliveclientgamestats.html" class="tsd-signature-type">GetLiveClientGameStats</a></li>
+						</ul>
+						<ul class="tsd-descriptions">
+							<li class="tsd-description">
+								<aside class="tsd-sources">
+									<ul>
+										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L841">src/index.ts:841</a></li>
+									</ul>
+								</aside>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>Action constructor corresponding to the following Live Client Data endpoints:</p>
+										<ul>
+											<li>(<strong>GET</strong>) <code>/liveclientdata/gamestats</code></li>
+										</ul>
+									</div>
+									<p>Fetch basic data about the game.</p>
+								</div>
+								<h4 class="tsd-returns-title">Returns <a href="internal_actions.getliveclientgamestats.html" class="tsd-signature-type">GetLiveClientGameStats</a></h4>
+							</li>
+						</ul>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-object-literal">
+						<a name="lcd.active" class="tsd-anchor"></a>
+						<h3>active</h3>
+						<div class="tsd-signature tsd-kind-icon">active<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L757">src/index.ts:757</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Contains a list of endpoints that retrieve information about the active player.</p>
+							</div>
+						</div>
+						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
+							<a name="lcd.active.abilities" class="tsd-anchor"></a>
+							<h3>abilities</h3>
+							<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
+								<li class="tsd-signature tsd-kind-icon">abilities<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getliveclientactiveplayerabilities.html" class="tsd-signature-type">GetLiveClientActivePlayerAbilities</a></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<aside class="tsd-sources">
+										<ul>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L778">src/index.ts:778</a></li>
+										</ul>
+									</aside>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Action constructor corresponding to the following Live Client Data endpoints:</p>
+											<ul>
+												<li>(<strong>GET</strong>) <code>/liveclientdata/activeplayerabilities</code></li>
+											</ul>
+										</div>
+										<p>Get the abilities for the active player.</p>
+									</div>
+									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getliveclientactiveplayerabilities.html" class="tsd-signature-type">GetLiveClientActivePlayerAbilities</a></h4>
+								</li>
+							</ul>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
+							<a name="lcd.active.name" class="tsd-anchor"></a>
+							<h3>name</h3>
+							<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
+								<li class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getliveclientactiveplayername.html" class="tsd-signature-type">GetLiveClientActivePlayerName</a></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<aside class="tsd-sources">
+										<ul>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L771">src/index.ts:771</a></li>
+										</ul>
+									</aside>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Action constructor corresponding to the following Live Client Data endpoints:</p>
+											<ul>
+												<li>(<strong>GET</strong>) <code>/liveclientdata/activeplayername</code></li>
+											</ul>
+										</div>
+										<p>Returns the player name.</p>
+									</div>
+									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getliveclientactiveplayername.html" class="tsd-signature-type">GetLiveClientActivePlayerName</a></h4>
+								</li>
+							</ul>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
+							<a name="lcd.active.player" class="tsd-anchor"></a>
+							<h3>player</h3>
+							<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
+								<li class="tsd-signature tsd-kind-icon">player<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getliveclientactiveplayer.html" class="tsd-signature-type">GetLiveClientActivePlayer</a></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<aside class="tsd-sources">
+										<ul>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L764">src/index.ts:764</a></li>
+										</ul>
+									</aside>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Action constructor corresponding to the following Live Client Data endpoints:</p>
+											<ul>
+												<li>(<strong>GET</strong>) <code>/liveclientdata/activeplayer</code></li>
+											</ul>
+										</div>
+										<p>Get all data about the active player.</p>
+									</div>
+									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getliveclientactiveplayer.html" class="tsd-signature-type">GetLiveClientActivePlayer</a></h4>
+								</li>
+							</ul>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
+							<a name="lcd.active.runes" class="tsd-anchor"></a>
+							<h3>runes</h3>
+							<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
+								<li class="tsd-signature tsd-kind-icon">runes<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getliveclientactiveplayerrunes.html" class="tsd-signature-type">GetLiveClientActivePlayerRunes</a></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<aside class="tsd-sources">
+										<ul>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L785">src/index.ts:785</a></li>
+										</ul>
+									</aside>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Action constructor corresponding to the following Live Client Data endpoints:</p>
+											<ul>
+												<li>(<strong>GET</strong>) <code>/liveclientdata/activeplayerrunes</code></li>
+											</ul>
+										</div>
+										<p>Retrieve the full list of runes for the active player.</p>
+									</div>
+									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getliveclientactiveplayerrunes.html" class="tsd-signature-type">GetLiveClientActivePlayerRunes</a></h4>
+								</li>
+							</ul>
+						</section>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-object-literal">
+						<a name="lcd.player-1" class="tsd-anchor"></a>
+						<h3>player</h3>
+						<div class="tsd-signature tsd-kind-icon">player<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L790">src/index.ts:790</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Contains a list of endpoints that retrieve information about any player in the game.</p>
+							</div>
+						</div>
+						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
+							<a name="lcd.player-1.items-1" class="tsd-anchor"></a>
+							<h3>items</h3>
+							<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
+								<li class="tsd-signature tsd-kind-icon">items<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getliveclientplayeritems.html" class="tsd-signature-type">GetLiveClientPlayerItems</a></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<aside class="tsd-sources">
+										<ul>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L825">src/index.ts:825</a></li>
+										</ul>
+									</aside>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Action constructor corresponding to the following Live Client Data endpoints:</p>
+											<ul>
+												<li>(<strong>GET</strong>) <code>/liveclientdata/playeritems</code></li>
+											</ul>
+										</div>
+										<p>Retrieve the list of items for the player.</p>
+									</div>
+									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getliveclientplayeritems.html" class="tsd-signature-type">GetLiveClientPlayerItems</a></h4>
+								</li>
+							</ul>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
+							<a name="lcd.player-1.list-4" class="tsd-anchor"></a>
+							<h3>list</h3>
+							<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
+								<li class="tsd-signature tsd-kind-icon">list<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getliveclientplayerlist.html" class="tsd-signature-type">GetLiveClientPlayerList</a></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<aside class="tsd-sources">
+										<ul>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L797">src/index.ts:797</a></li>
+										</ul>
+									</aside>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Action constructor corresponding to the following Live Client Data endpoints:</p>
+											<ul>
+												<li>(<strong>GET</strong>) <code>/liveclientdata/playerlist</code></li>
+											</ul>
+										</div>
+										<p>Retrieve the list of players in the game and their stats.</p>
+									</div>
+									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getliveclientplayerlist.html" class="tsd-signature-type">GetLiveClientPlayerList</a></h4>
+								</li>
+							</ul>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
+							<a name="lcd.player-1.runes-1" class="tsd-anchor"></a>
+							<h3>runes</h3>
+							<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
+								<li class="tsd-signature tsd-kind-icon">runes<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getliveclientplayerrunes.html" class="tsd-signature-type">GetLiveClientPlayerRunes</a></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<aside class="tsd-sources">
+										<ul>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L818">src/index.ts:818</a></li>
+										</ul>
+									</aside>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Action constructor corresponding to the following Live Client Data endpoints:</p>
+											<ul>
+												<li>(<strong>GET</strong>) <code>/liveclientdata/playermainrunes</code></li>
+											</ul>
+										</div>
+										<p>Retrieve the basic runes of any player.</p>
+									</div>
+									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getliveclientplayerrunes.html" class="tsd-signature-type">GetLiveClientPlayerRunes</a></h4>
+								</li>
+							</ul>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
+							<a name="lcd.player-1.scores" class="tsd-anchor"></a>
+							<h3>scores</h3>
+							<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
+								<li class="tsd-signature tsd-kind-icon">scores<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getliveclientplayerscores.html" class="tsd-signature-type">GetLiveClientPlayerScores</a></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<aside class="tsd-sources">
+										<ul>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L804">src/index.ts:804</a></li>
+										</ul>
+									</aside>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Action constructor corresponding to the following Live Client Data endpoints:</p>
+											<ul>
+												<li>(<strong>GET</strong>) <code>/liveclientdata/playerscores</code></li>
+											</ul>
+										</div>
+										<p>Retrieve the list of the current scores for the player.</p>
+									</div>
+									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getliveclientplayerscores.html" class="tsd-signature-type">GetLiveClientPlayerScores</a></h4>
+								</li>
+							</ul>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
+							<a name="lcd.player-1.summonerspells" class="tsd-anchor"></a>
+							<h3>summoner<wbr>Spells</h3>
+							<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
+								<li class="tsd-signature tsd-kind-icon">summoner<wbr>Spells<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getliveclientplayersummonerspells.html" class="tsd-signature-type">GetLiveClientPlayerSummonerSpells</a></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<aside class="tsd-sources">
+										<ul>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L811">src/index.ts:811</a></li>
+										</ul>
+									</aside>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Action constructor corresponding to the following Live Client Data endpoints:</p>
+											<ul>
+												<li>(<strong>GET</strong>) <code>/liveclientdata/playersummonerspells</code></li>
+											</ul>
+										</div>
+										<p>Retrieve the list of the summoner spells for the player.</p>
+									</div>
+									<h4 class="tsd-returns-title">Returns <a href="internal_actions.getliveclientplayersummonerspells.html" class="tsd-signature-type">GetLiveClientPlayerSummonerSpells</a></h4>
 								</li>
 							</ul>
 						</section>
@@ -919,7 +1436,7 @@
 					<div class="tsd-signature tsd-kind-icon">lol<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L125">src/index.ts:125</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L143">src/index.ts:143</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -937,7 +1454,7 @@
 							<li class="tsd-description">
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L219">src/index.ts:219</a></li>
+										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L237">src/index.ts:237</a></li>
 									</ul>
 								</aside>
 								<div class="tsd-comment tsd-typography">
@@ -962,7 +1479,7 @@
 							<li class="tsd-description">
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L133">src/index.ts:133</a></li>
+										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L151">src/index.ts:151</a></li>
 									</ul>
 								</aside>
 								<div class="tsd-comment tsd-typography">
@@ -986,7 +1503,7 @@
 						<div class="tsd-signature tsd-kind-icon">clash<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L223">src/index.ts:223</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L241">src/index.ts:241</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1004,7 +1521,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L228">src/index.ts:228</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L246">src/index.ts:246</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1029,7 +1546,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L233">src/index.ts:233</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L251">src/index.ts:251</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1054,7 +1571,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L239">src/index.ts:239</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L257">src/index.ts:257</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1080,7 +1597,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L244">src/index.ts:244</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L262">src/index.ts:262</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1102,7 +1619,7 @@
 						<div class="tsd-signature tsd-kind-icon">league<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L157">src/index.ts:157</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L175">src/index.ts:175</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1120,7 +1637,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L163">src/index.ts:163</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L181">src/index.ts:181</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1146,7 +1663,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L171">src/index.ts:171</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L189">src/index.ts:189</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1171,7 +1688,7 @@
 						<div class="tsd-signature tsd-kind-icon">mastery<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L137">src/index.ts:137</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L155">src/index.ts:155</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1189,7 +1706,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L147">src/index.ts:147</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L165">src/index.ts:165</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1205,7 +1722,7 @@
 							</ul>
 						</section>
 						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
-							<a name="lol.mastery.list-4" class="tsd-anchor"></a>
+							<a name="lol.mastery.list-5" class="tsd-anchor"></a>
 							<h3>list</h3>
 							<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
 								<li class="tsd-signature tsd-kind-icon">list<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getmasterylist.html" class="tsd-signature-type">GetMasteryList</a></li>
@@ -1214,7 +1731,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L142">src/index.ts:142</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L160">src/index.ts:160</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1239,7 +1756,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L152">src/index.ts:152</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L170">src/index.ts:170</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1261,7 +1778,7 @@
 						<div class="tsd-signature tsd-kind-icon">match<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L176">src/index.ts:176</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L194">src/index.ts:194</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1270,7 +1787,7 @@
 							</div>
 						</div>
 						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
-							<a name="lol.match.list-5" class="tsd-anchor"></a>
+							<a name="lol.match.list-6" class="tsd-anchor"></a>
 							<h3>list</h3>
 							<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
 								<li class="tsd-signature tsd-kind-icon">list<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getmatchlist.html" class="tsd-signature-type">GetMatchlist</a></li>
@@ -1279,7 +1796,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L192">src/index.ts:192</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L210">src/index.ts:210</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1304,7 +1821,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L182">src/index.ts:182</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L200">src/index.ts:200</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1330,7 +1847,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L187">src/index.ts:187</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L205">src/index.ts:205</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1355,7 +1872,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L197">src/index.ts:197</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L215">src/index.ts:215</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1377,7 +1894,7 @@
 						<div class="tsd-signature tsd-kind-icon">platform<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L203">src/index.ts:203</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L221">src/index.ts:221</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1396,7 +1913,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L213">src/index.ts:213</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L231">src/index.ts:231</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1421,7 +1938,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L208">src/index.ts:208</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L226">src/index.ts:226</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1443,7 +1960,7 @@
 						<div class="tsd-signature tsd-kind-icon">spectator<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L249">src/index.ts:249</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L267">src/index.ts:267</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1452,7 +1969,7 @@
 							</div>
 						</div>
 						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
-							<a name="lol.spectator.active" class="tsd-anchor"></a>
+							<a name="lol.spectator.active-1" class="tsd-anchor"></a>
 							<h3>active</h3>
 							<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
 								<li class="tsd-signature tsd-kind-icon">active<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getcurrentgameinfo.html" class="tsd-signature-type">GetCurrentGameInfo</a></li>
@@ -1461,7 +1978,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L254">src/index.ts:254</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L272">src/index.ts:272</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1486,7 +2003,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L259">src/index.ts:259</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L277">src/index.ts:277</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1508,7 +2025,7 @@
 						<div class="tsd-signature tsd-kind-icon">tournament<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L266">src/index.ts:266</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L284">src/index.ts:284</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1528,7 +2045,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L291">src/index.ts:291</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L309">src/index.ts:309</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1553,7 +2070,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L296">src/index.ts:296</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L314">src/index.ts:314</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1578,7 +2095,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L301">src/index.ts:301</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L319">src/index.ts:319</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1599,7 +2116,7 @@
 							<div class="tsd-signature tsd-kind-icon">code<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L270">src/index.ts:270</a></li>
+									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L288">src/index.ts:288</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1617,7 +2134,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L275">src/index.ts:275</a></li>
+												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L293">src/index.ts:293</a></li>
 											</ul>
 										</aside>
 										<div class="tsd-comment tsd-typography">
@@ -1642,7 +2159,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L280">src/index.ts:280</a></li>
+												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L298">src/index.ts:298</a></li>
 											</ul>
 										</aside>
 										<div class="tsd-comment tsd-typography">
@@ -1667,7 +2184,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L285">src/index.ts:285</a></li>
+												<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L303">src/index.ts:303</a></li>
 											</ul>
 										</aside>
 										<div class="tsd-comment tsd-typography">
@@ -1691,7 +2208,7 @@
 					<div class="tsd-signature tsd-kind-icon">lor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L330">src/index.ts:330</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L348">src/index.ts:348</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1709,7 +2226,7 @@
 							<li class="tsd-description">
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L357">src/index.ts:357</a></li>
+										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L375">src/index.ts:375</a></li>
 									</ul>
 								</aside>
 								<div class="tsd-comment tsd-typography">
@@ -1730,7 +2247,7 @@
 						<div class="tsd-signature tsd-kind-icon">match<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L334">src/index.ts:334</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L352">src/index.ts:352</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1739,7 +2256,7 @@
 							</div>
 						</div>
 						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
-							<a name="lor.match-2.list-6" class="tsd-anchor"></a>
+							<a name="lor.match-2.list-7" class="tsd-anchor"></a>
 							<h3>list</h3>
 							<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
 								<li class="tsd-signature tsd-kind-icon">list<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getlormatchlist.html" class="tsd-signature-type">GetLorMatchlist</a></li>
@@ -1748,7 +2265,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L344">src/index.ts:344</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L362">src/index.ts:362</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1773,7 +2290,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L339">src/index.ts:339</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L357">src/index.ts:357</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1795,7 +2312,7 @@
 						<div class="tsd-signature tsd-kind-icon">ranked<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L346">src/index.ts:346</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L364">src/index.ts:364</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
@@ -1808,7 +2325,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L351">src/index.ts:351</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L369">src/index.ts:369</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1831,7 +2348,7 @@
 					<div class="tsd-signature tsd-kind-icon">queues<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L612">src/index.ts:612</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L857">src/index.ts:857</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1842,20 +2359,20 @@
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="queues.lol-1" class="tsd-anchor"></a>
 						<h3>lol</h3>
-						<div class="tsd-signature tsd-kind-icon">lol<span class="tsd-signature-symbol">:</span> <a href="../enums/internals_riot_api.leaguequeue.html" class="tsd-signature-type">LeagueQueue</a><span class="tsd-signature-symbol"> = LeagueQueue</span></div>
+						<div class="tsd-signature tsd-kind-icon">lol<span class="tsd-signature-symbol">:</span> <a href="../enums/internal_riot_api.leaguequeue.html" class="tsd-signature-type">LeagueQueue</a><span class="tsd-signature-symbol"> = LeagueQueue</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L613">src/index.ts:613</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L858">src/index.ts:858</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="queues.val" class="tsd-anchor"></a>
 						<h3>val</h3>
-						<div class="tsd-signature tsd-kind-icon">val<span class="tsd-signature-symbol">:</span> <a href="../enums/internals_riot_api.valorantqueue.html" class="tsd-signature-type">ValorantQueue</a><span class="tsd-signature-symbol"> = ValorantQueue</span></div>
+						<div class="tsd-signature tsd-kind-icon">val<span class="tsd-signature-symbol">:</span> <a href="../enums/internal_riot_api.valorantqueue.html" class="tsd-signature-type">ValorantQueue</a><span class="tsd-signature-symbol"> = ValorantQueue</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L614">src/index.ts:614</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L859">src/index.ts:859</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1866,7 +2383,7 @@
 					<div class="tsd-signature tsd-kind-icon">regions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L602">src/index.ts:602</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L847">src/index.ts:847</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1877,40 +2394,40 @@
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="regions.ddragon-1" class="tsd-anchor"></a>
 						<h3>ddragon</h3>
-						<div class="tsd-signature tsd-kind-icon">ddragon<span class="tsd-signature-symbol">:</span> <a href="../enums/internals_riot_api.datadragonregion.html" class="tsd-signature-type">DataDragonRegion</a><span class="tsd-signature-symbol"> = DataDragonRegion</span></div>
+						<div class="tsd-signature tsd-kind-icon">ddragon<span class="tsd-signature-symbol">:</span> <a href="../enums/internal_riot_api.datadragonregion.html" class="tsd-signature-type">DataDragonRegion</a><span class="tsd-signature-symbol"> = DataDragonRegion</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L606">src/index.ts:606</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L851">src/index.ts:851</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="regions.lol-2" class="tsd-anchor"></a>
 						<h3>lol</h3>
-						<div class="tsd-signature tsd-kind-icon">lol<span class="tsd-signature-symbol">:</span> <a href="../enums/internals_riot_api.leagueregion.html" class="tsd-signature-type">LeagueRegion</a><span class="tsd-signature-symbol"> = LeagueRegion</span></div>
+						<div class="tsd-signature tsd-kind-icon">lol<span class="tsd-signature-symbol">:</span> <a href="../enums/internal_riot_api.leagueregion.html" class="tsd-signature-type">LeagueRegion</a><span class="tsd-signature-symbol"> = LeagueRegion</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L603">src/index.ts:603</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L848">src/index.ts:848</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="regions.riot" class="tsd-anchor"></a>
 						<h3>riot</h3>
-						<div class="tsd-signature tsd-kind-icon">riot<span class="tsd-signature-symbol">:</span> <a href="../enums/internals_riot_api.riotregion.html" class="tsd-signature-type">RiotRegion</a><span class="tsd-signature-symbol"> = RiotRegion</span></div>
+						<div class="tsd-signature tsd-kind-icon">riot<span class="tsd-signature-symbol">:</span> <a href="../enums/internal_riot_api.riotregion.html" class="tsd-signature-type">RiotRegion</a><span class="tsd-signature-symbol"> = RiotRegion</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L605">src/index.ts:605</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L850">src/index.ts:850</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="regions.val-1" class="tsd-anchor"></a>
 						<h3>val</h3>
-						<div class="tsd-signature tsd-kind-icon">val<span class="tsd-signature-symbol">:</span> <a href="../enums/internals_riot_api.valorantregion.html" class="tsd-signature-type">ValorantRegion</a><span class="tsd-signature-symbol"> = ValorantRegion</span></div>
+						<div class="tsd-signature tsd-kind-icon">val<span class="tsd-signature-symbol">:</span> <a href="../enums/internal_riot_api.valorantregion.html" class="tsd-signature-type">ValorantRegion</a><span class="tsd-signature-symbol"> = ValorantRegion</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L604">src/index.ts:604</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L849">src/index.ts:849</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1921,7 +2438,7 @@
 					<div class="tsd-signature tsd-kind-icon">riot<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L308">src/index.ts:308</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L326">src/index.ts:326</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1935,7 +2452,7 @@
 						<div class="tsd-signature tsd-kind-icon">account<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L312">src/index.ts:312</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L330">src/index.ts:330</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1953,7 +2470,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L318">src/index.ts:318</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L336">src/index.ts:336</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -1979,7 +2496,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L323">src/index.ts:323</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L341">src/index.ts:341</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -2002,7 +2519,7 @@
 					<div class="tsd-signature tsd-kind-icon">tft<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L363">src/index.ts:363</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L381">src/index.ts:381</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -2020,7 +2537,7 @@
 							<li class="tsd-description">
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L402">src/index.ts:402</a></li>
+										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L420">src/index.ts:420</a></li>
 									</ul>
 								</aside>
 								<div class="tsd-comment tsd-typography">
@@ -2041,7 +2558,7 @@
 						<div class="tsd-signature tsd-kind-icon">league<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L367">src/index.ts:367</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L385">src/index.ts:385</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2059,7 +2576,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L373">src/index.ts:373</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L391">src/index.ts:391</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -2085,7 +2602,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L381">src/index.ts:381</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L399">src/index.ts:399</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -2110,7 +2627,7 @@
 						<div class="tsd-signature tsd-kind-icon">match<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L386">src/index.ts:386</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L404">src/index.ts:404</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2119,7 +2636,7 @@
 							</div>
 						</div>
 						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
-							<a name="tft.match-4.list-7" class="tsd-anchor"></a>
+							<a name="tft.match-4.list-8" class="tsd-anchor"></a>
 							<h3>list</h3>
 							<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
 								<li class="tsd-signature tsd-kind-icon">list<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.gettftmatchlist.html" class="tsd-signature-type">GetTFTMatchlist</a></li>
@@ -2128,7 +2645,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L396">src/index.ts:396</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L414">src/index.ts:414</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -2153,7 +2670,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L391">src/index.ts:391</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L409">src/index.ts:409</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -2176,7 +2693,7 @@
 					<div class="tsd-signature tsd-kind-icon">val<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L408">src/index.ts:408</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L426">src/index.ts:426</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -2194,7 +2711,7 @@
 							<li class="tsd-description">
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L413">src/index.ts:413</a></li>
+										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L431">src/index.ts:431</a></li>
 									</ul>
 								</aside>
 								<div class="tsd-comment tsd-typography">
@@ -2219,7 +2736,7 @@
 							<li class="tsd-description">
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L450">src/index.ts:450</a></li>
+										<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L468">src/index.ts:468</a></li>
 									</ul>
 								</aside>
 								<div class="tsd-comment tsd-typography">
@@ -2240,7 +2757,7 @@
 						<div class="tsd-signature tsd-kind-icon">match<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L419">src/index.ts:419</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L437">src/index.ts:437</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2251,7 +2768,7 @@
 							</div>
 						</div>
 						<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
-							<a name="val-2.match-6.list-8" class="tsd-anchor"></a>
+							<a name="val-2.match-6.list-9" class="tsd-anchor"></a>
 							<h3>list</h3>
 							<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
 								<li class="tsd-signature tsd-kind-icon">list<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="internal_actions.getvalorantmatchlist.html" class="tsd-signature-type">GetValorantMatchlist</a></li>
@@ -2260,7 +2777,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L429">src/index.ts:429</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L447">src/index.ts:447</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -2285,7 +2802,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L424">src/index.ts:424</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L442">src/index.ts:442</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -2310,7 +2827,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L434">src/index.ts:434</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L452">src/index.ts:452</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -2332,7 +2849,7 @@
 						<div class="tsd-signature tsd-kind-icon">ranked<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L439">src/index.ts:439</a></li>
+								<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L457">src/index.ts:457</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2350,7 +2867,7 @@
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/index.ts#L444">src/index.ts:444</a></li>
+											<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/index.ts#L462">src/index.ts:462</a></li>
 										</ul>
 									</aside>
 									<div class="tsd-comment tsd-typography">
@@ -2391,7 +2908,7 @@
 						<a href="../modules/internal_interfaces.html">internal/interfaces</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="../modules/internals_riot_api.html">internals/riot-<wbr>api</a>
+						<a href="../modules/internal_riot_api.html">internal/riot-<wbr>api</a>
 					</li>
 				</ul>
 			</nav>
@@ -2417,8 +2934,17 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="galeforce.galeforce-1.html#tiers" class="tsd-kind-icon">tiers</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="galeforce.galeforce-1.html#dto" class="tsd-kind-icon">dto</a>
+							</li>
 							<li class=" tsd-kind-object-literal tsd-parent-kind-class">
 								<a href="galeforce.galeforce-1.html#ddragon" class="tsd-kind-icon">ddragon</a>
+							</li>
+							<li class=" tsd-kind-object-literal tsd-parent-kind-class">
+								<a href="galeforce.galeforce-1.html#gc" class="tsd-kind-icon">gc</a>
+							</li>
+							<li class=" tsd-kind-object-literal tsd-parent-kind-class">
+								<a href="galeforce.galeforce-1.html#lcd" class="tsd-kind-icon">lcd</a>
 							</li>
 							<li class=" tsd-kind-object-literal tsd-parent-kind-class">
 								<a href="galeforce.galeforce-1.html#lol" class="tsd-kind-icon">lol</a>
@@ -2473,6 +2999,9 @@
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
 			</ul>
 		</div>
 	</div>

@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>internal/configs | galeforce - v0.2.0</title>
-	<meta name="description" content="Documentation for galeforce - v0.2.0">
+	<title>internal/configs | galeforce - v0.3.0</title>
+	<meta name="description" content="Documentation for galeforce - v0.3.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">galeforce - v0.2.0</a>
+					<a href="../index.html" class="title">galeforce - v0.3.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -76,6 +76,7 @@
 								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="internal_configs.html#configschema" class="tsd-kind-icon">Config<wbr>Schema</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="internal_configs.html#ajv" class="tsd-kind-icon">ajv</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="internal_configs.html#configinterfacepath" class="tsd-kind-icon">config<wbr>Interface<wbr>Path</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="internal_configs.html#initdebug" class="tsd-kind-icon">init<wbr>Debug</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="internal_configs.html#program" class="tsd-kind-icon">program</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="internal_configs.html#validate" class="tsd-kind-icon">validate</a></li>
 							</ul>
@@ -84,7 +85,6 @@
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="internal_configs.html#getconfig" class="tsd-kind-icon">get<wbr>Config</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="internal_configs.html#recursivelysubstitute" class="tsd-kind-icon">recursively<wbr>Substitute</a></li>
 							</ul>
 						</section>
 					</div>
@@ -98,7 +98,7 @@
 					<div class="tsd-signature tsd-kind-icon">Config<wbr>Schema<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">JSONSchemaType</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/internal_interfaces.configinterface.html" class="tsd-signature-type">ConfigInterface</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = TJS.generateSchema(program, &#x27;ConfigInterface&#x27;, { required: true }) as JSONSchemaType&lt;ConfigInterface&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/galeforce/configs/default.ts#L11">src/galeforce/configs/default.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/galeforce/configs/default.ts#L17">src/galeforce/configs/default.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -108,17 +108,27 @@
 					<div class="tsd-signature tsd-kind-icon">ajv<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Ajv</span><span class="tsd-signature-symbol"> = new Ajv()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/galeforce/configs/default.ts#L13">src/galeforce/configs/default.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/galeforce/configs/default.ts#L19">src/galeforce/configs/default.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
 					<a name="configinterfacepath" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> config<wbr>Interface<wbr>Path</h3>
-					<div class="tsd-signature tsd-kind-icon">config<wbr>Interface<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = resolve(&#x60;${__dirname}/../interfaces/config.d.ts&#x60;)</span></div>
+					<div class="tsd-signature tsd-kind-icon">config<wbr>Interface<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = path.join(__dirname, &#x27;..&#x27;, &#x27;interfaces&#x27;, &#x27;config.d.ts&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/galeforce/configs/default.ts#L9">src/galeforce/configs/default.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/galeforce/configs/default.ts#L15">src/galeforce/configs/default.ts:15</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+					<a name="initdebug" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> init<wbr>Debug</h3>
+					<div class="tsd-signature tsd-kind-icon">init<wbr>Debug<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> = debug(&#x27;galeforce:init&#x27;)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/galeforce/configs/default.ts#L12">src/galeforce/configs/default.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -128,7 +138,7 @@
 					<div class="tsd-signature tsd-kind-icon">program<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TJS.Program</span><span class="tsd-signature-symbol"> = TJS.getProgramFromFiles([configInterfacePath])</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/galeforce/configs/default.ts#L10">src/galeforce/configs/default.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/galeforce/configs/default.ts#L16">src/galeforce/configs/default.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -138,7 +148,7 @@
 					<div class="tsd-signature tsd-kind-icon">validate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ValidateFunction</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/internal_interfaces.configinterface.html" class="tsd-signature-type">ConfigInterface</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ajv.compile(ConfigSchema)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/galeforce/configs/default.ts#L14">src/galeforce/configs/default.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/galeforce/configs/default.ts#L20">src/galeforce/configs/default.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -155,7 +165,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/galeforce/configs/default.ts#L60">src/galeforce/configs/default.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/45a4e98/src/galeforce/configs/default.ts#L28">src/galeforce/configs/default.ts:28</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -171,35 +181,6 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/internal_interfaces.configinterface.html" class="tsd-signature-type">ConfigInterface</a></h4>
 							<p>The corresponding config object.</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-					<a name="recursivelysubstitute" class="tsd-anchor"></a>
-					<h3>recursively<wbr>Substitute</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">recursively<wbr>Substitute<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/f6502f0/src/galeforce/configs/default.ts#L38">src/galeforce/configs/default.ts:38</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>obj: <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>An object to substitute values from process.env for</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>Substituted version of template with process.env replaced values</p>
 						</li>
 					</ul>
 				</section>
@@ -227,7 +208,7 @@
 						<a href="internal_interfaces.html">internal/interfaces</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="internals_riot_api.html">internals/riot-<wbr>api</a>
+						<a href="internal_riot_api.html">internal/riot-<wbr>api</a>
 					</li>
 				</ul>
 			</nav>
@@ -243,6 +224,9 @@
 						<a href="internal_configs.html#configinterfacepath" class="tsd-kind-icon">config<wbr>Interface<wbr>Path</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+						<a href="internal_configs.html#initdebug" class="tsd-kind-icon">init<wbr>Debug</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
 						<a href="internal_configs.html#program" class="tsd-kind-icon">program</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-module">
@@ -250,9 +234,6 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="internal_configs.html#getconfig" class="tsd-kind-icon">get<wbr>Config</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<a href="internal_configs.html#recursivelysubstitute" class="tsd-kind-icon">recursively<wbr>Substitute</a>
 					</li>
 				</ul>
 			</nav>
