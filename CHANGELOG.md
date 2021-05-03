@@ -35,6 +35,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   > const summonerData: dto.SummonerDTO = ...
   > // get summoner data
   > ```
+- Direct access to action URLs using the **`.URL()`** method
+  >
+  > ```typescript
+  > const summonerURL = galeforce.lol.summoner().region(galeforce.regions.lol.NORTH_AMERICA).name('name').URL();
+  > // https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/name
+  > ```
 
 #### Changed
 

@@ -24,7 +24,7 @@ A customizable, promise-based, and command-oriented TypeScript library and fluen
 - **Fluent interface** for seamless method chaining
 - **Built-in, customizable debugging** using `debug`
 
-**Documentation** available [here](https://bcho04.github.io/galeforce/) and in the section [below](#guide).
+Automatically-generated **documentation** is available [here](https://bcho04.github.io/galeforce/), and code **examples** can be found the section [below](#guide).
 
 ## Table of Contents
 
@@ -140,6 +140,26 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 > ```
 >
 </details>
+
+<details>
+<summary><code>.URL()</code></summary>
+
+> Returns the endpoint URL associated with the `Action` and its previously-set parameters.
+>
+> **Example**
+>
+> ```javascript
+> /* Gets the Data Dragon URL associated with the Galeforce icon. */
+> const galeforceURL = galeforce.ddragon.item.art() // Fetch item icon art from Data Dragon
+>   .version('11.9.1') // See the .<property>() section for documentation. Sets the version to retrieve data from.
+>   .assetId('6671') // See below for documentation. Get the icon for the Galeforce item.
+>   .URL(); // Get the encoded URL corresponding with the selected endpoint as a string.
+> 
+> console.log(galeforceURL); // 'https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/6671.png'
+> ```
+>
+</details>
+
 <details>
 <summary><code>.<em>&lt;property&gt;</em>()</code></summary>
 
@@ -152,12 +172,10 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 > const currentGameInfo = await galeforce.lol.spectator.active() // Target the /lol/spectator/v4/active-games/by-summoner/{summonerId} endpoint
 >   .region(galeforce.regions.lol.NORTH_AMERICA) // Sets the request region to 'na1' (i.e., target the NA server)
 >   .summonerId('summonerId') // Sets the request summonerId to 'summonerId'
->   .exec() // See .exec() above.
+>   .exec(); // See .exec() above.
 > ```
 >
 > `.<property>()` methods may only be called once and are removed from the Action after being used.
->
-> **Example**
 >
 > ```javascript
 > /* Gets current game info for a specific summonerId. */
@@ -188,26 +206,28 @@ Galeforce includes DTOs for all Riot API responses as TypeScript interfaces. Alt
 
 ### Config structure
 
-When initializing Galeforce, a config object (JSON) or a path to a YAML file must be passed to the `GaleforceModule()` constructor as an argument:
+When initializing Galeforce, a config object (JSON) or a path to a YAML file may *optionally* be passed to the `GaleforceModule()` constructor as an argument:
 
 ```javascript
 const galeforce = new GaleforceModule(/* config file path or object */);
 ```
 
-Template string-like values (such as `${RIOT_KEY}`) will be evaluated using environment variables in `process.env`. The configuration file must have the following structure:
+Omitting the config will prevent Galeforce from being able to interface with the [Riot Games API](https://developer.riotgames.com/) (as no API key will be specified), although Data Dragon and the Live Client Data API will still be available.
+
+Template string-like values (such as `${RIOT_KEY}`) will be evaluated using environment variables in `process.env`. The configuration file must have the following structure (all top-level fields are optional):
 
 ```yaml
-riot-api: # REQUIRED
+riot-api:
   key: ${RIOT_KEY} # (string) Your Riot API key from https://developer.riotgames.com
-cache: # OPTIONAL
+cache:
   type: ${CACHE_TYPE} # (string) What kind of cache to use ('redis', 'javascript', 'null')
   uri: ${CACHE_URI} # (string) The cache URI to connect to (required for 'redis' cache)
-rate-limit: # OPTIONAL, Requires a cache to be configured.
+rate-limit: # Requires a cache to be configured.
   prefix: riotapi-ratelimit- # The prefix for the Riot API rate limit keys in the cache.
   intervals: # key <secs>: value <number of requests>. 
     120: 100
     1: 20
-debug: [] # OPTIONAL, A list containing any of 'action', 'payload', 'rate-limit', 'riot-api', '*' (all).
+debug: [] # A list containing any of 'action', 'payload', 'rate-limit', 'riot-api', '*' (all).
 ```
 
 ### Documentation

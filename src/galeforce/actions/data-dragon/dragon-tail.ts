@@ -12,12 +12,11 @@ export default class GetDataDragonTail extends BaseAction<Buffer> {
         this.payload.method = 'GET';
     }
 
-    public async exec(): Promise<Buffer> {
+    protected inferEndpoint(): void {
         if (this.payload.version === '10.10.5') {
             this.payload.endpoint = ENDPOINTS.DATA_DRAGON.DRAGON_TAIL_ZIP;
         } else {
             this.payload.endpoint = ENDPOINTS.DATA_DRAGON.DRAGON_TAIL;
         }
-        return super.exec();
     }
 }

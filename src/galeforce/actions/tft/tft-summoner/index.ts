@@ -24,7 +24,7 @@ export default class GetTFTSummoner extends BaseAction<SummonerDTO> {
         this.payload.method = 'GET';
     }
 
-    public async exec(): Promise<SummonerDTO> {
+    protected inferEndpoint(): void {
         if (this.payload.summonerName) {
             this.payload.endpoint = ENDPOINTS.TFT_SUMMONER.SUMMONER_NAME;
         } else if (this.payload.summonerId) {
@@ -36,7 +36,5 @@ export default class GetTFTSummoner extends BaseAction<SummonerDTO> {
         } else {
             throw new Error('[galeforce]: Not enough parameters provided to select API endpoint.');
         }
-
-        return super.exec();
     }
 }

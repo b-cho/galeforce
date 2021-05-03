@@ -34,7 +34,13 @@ export default class Request {
      */
     protected static generateTemplateString(template: string, match: Record<string, unknown>): string {
         try {
-            return _.template(template)(match);
+            return _.template(template)(_.mapValues(match, (v) => { // Encode the components of the target URL (using values from the payload)
+                if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') {
+                    return encodeURIComponent(v);
+                } else {
+                    return v;
+                }
+            }));
         } catch (e) {
             throw new Error(`[galeforce]: Action payload ${e.message.split(' ')[0]} is required but undefined.`);
         }
@@ -50,7 +56,7 @@ export default class Request {
      */
     public async get(): Promise<object> {
         requestDebug(`${chalk.italic(this.targetURL)} | ${chalk.bold.green.inverse('GET')} \u00AB ${chalk.bold('query')} %O`, this.axiosOptions.params);
-        return axios.get(encodeURI(this.targetURL), this.axiosOptions);
+        return axios.get(this.targetURL, this.axiosOptions);
     }
 
     /**
@@ -63,7 +69,7 @@ export default class Request {
      */
     public async post(): Promise<object> {
         requestDebug(`${chalk.italic(this.targetURL)} | ${chalk.bold.green.inverse('POST')} \u00AB ${chalk.bold('query')} %O ${chalk.bold('body')} %O`, this.axiosOptions.params, this.body);
-        return axios.post(encodeURI(this.targetURL), this.body, this.axiosOptions);
+        return axios.post(this.targetURL, this.body, this.axiosOptions);
     }
 
     /**
@@ -76,6 +82,6 @@ export default class Request {
      */
     public async put(): Promise<object> {
         requestDebug(`${chalk.italic(this.targetURL)} | ${chalk.bold.green.inverse('PUT')} \u00AB ${chalk.bold('query')} %O ${chalk.bold('body')} %O`, this.axiosOptions.params, this.body);
-        return axios.put(encodeURI(this.targetURL), this.body, this.axiosOptions);
+        return axios.put(this.targetURL, this.body, this.axiosOptions);
     }
 }

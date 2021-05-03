@@ -49,6 +49,8 @@ export default class Action<TResult> {
      * fails with an error.
      */
     public async exec(): Promise<TResult> {
+        this.inferEndpoint();
+
         actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('execute')} \u00AB %O`, this.payload);
         try {
             if (typeof this.payload.endpoint === 'undefined') {
@@ -133,6 +135,32 @@ export default class Action<TResult> {
             actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('return')} \u00AB ${chalk.bold.red('error')}`);
             throw e;
         }
+    }
+
+    protected inferEndpoint(): void { /* Empty because this may be implemented by classes that inherit from Action */ }
+
+    /**
+     * Returns the **encoded** target URL for the action without executing an HTTP request.
+     * Useful if the URL string is needed for custom actions outside the scope of the library.
+     * @throws Will throw an error if a required payload value (*region*,
+     * *body* on POST or PUT requests, etc.) is missing or the HTTP request
+     * fails with an error.
+     */
+    public URL(): string {
+        this.inferEndpoint();
+
+        if (typeof this.payload.endpoint === 'undefined') {
+            throw new Error('[galeforce]: Action endpoint is required but undefined.');
+        }
+
+        const request = this.submodules.RiotAPI.request(
+            this.payload.endpoint,
+            this.payload,
+            this.payload.query,
+            this.payload.body,
+        );
+
+        return request.targetURL;
     }
 
     private async getQueries(key: string, region: Region): Promise<number> {

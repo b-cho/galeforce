@@ -30,7 +30,7 @@ export default class GetLeagueEntries extends BaseAction<LeagueEntryDTO[]> {
         this.payload.method = 'GET';
     }
 
-    public async exec(): Promise<LeagueEntryDTO[]> {
+    protected inferEndpoint(): void {
         if (this.payload.summonerId) {
             this.payload.endpoint = ENDPOINTS.LEAGUE.SUMMONER_ID;
         } else if (this.payload.queue || this.payload.tier || this.payload.division) {
@@ -43,7 +43,5 @@ export default class GetLeagueEntries extends BaseAction<LeagueEntryDTO[]> {
         } else {
             throw new Error('[galeforce]: Not enough parameters provided to select API endpoint.');
         }
-
-        return super.exec();
     }
 }

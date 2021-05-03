@@ -29,7 +29,7 @@ export default class GetTFTLeagueEntries extends BaseAction<LeagueEntryDTO[]> {
         this.payload.method = 'GET';
     }
 
-    public async exec(): Promise<LeagueEntryDTO[]> {
+    protected inferEndpoint(): void {
         if (this.payload.summonerId) {
             this.payload.endpoint = ENDPOINTS.TFT_LEAGUE.SUMMONER_ID;
         } else if (this.payload.division || this.payload.tier) {
@@ -40,7 +40,5 @@ export default class GetTFTLeagueEntries extends BaseAction<LeagueEntryDTO[]> {
         } else {
             throw new Error('[galeforce]: Not enough parameters provided to select API endpoint.');
         }
-
-        return super.exec();
     }
 }

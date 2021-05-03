@@ -19,7 +19,7 @@ export default class GetAccount extends BaseAction<AccountDTO> {
         this.payload.method = 'GET';
     }
 
-    public async exec(): Promise<AccountDTO> {
+    protected inferEndpoint(): void {
         if (this.payload.puuid) {
             this.payload.endpoint = ENDPOINTS.ACCOUNT.PUUID;
         } else if (this.payload.gameName || this.payload.tagLine) {
@@ -27,7 +27,5 @@ export default class GetAccount extends BaseAction<AccountDTO> {
         } else {
             throw new Error('[galeforce]: Not enough parameters provided to select API endpoint.');
         }
-
-        return super.exec();
     }
 }

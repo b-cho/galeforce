@@ -23,7 +23,7 @@ export default class GetLeagueList extends BaseAction<LeagueListDTO> {
         this.payload.method = 'GET';
     }
 
-    public async exec(): Promise<LeagueListDTO> {
+    protected inferEndpoint(): void {
         if (this.payload.leagueId) {
             this.payload.endpoint = ENDPOINTS.LEAGUE.LEAGUE_ID;
         } else if (this.payload.tier) {
@@ -43,7 +43,5 @@ export default class GetLeagueList extends BaseAction<LeagueListDTO> {
         } else {
             throw new Error('[galeforce]: Not enough parameters provided to select API endpoint.');
         }
-
-        return super.exec();
     }
 }

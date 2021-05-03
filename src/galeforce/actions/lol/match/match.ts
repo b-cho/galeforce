@@ -18,13 +18,11 @@ export default class GetMatch extends BaseAction<MatchDTO> {
         this.payload.method = 'GET';
     }
 
-    public async exec(): Promise<MatchDTO> {
+    protected inferEndpoint(): void {
         if (this.payload.tournamentCode) {
             this.payload.endpoint = ENDPOINTS.MATCH.MATCH_ID_TOURNAMENT;
         } else {
             this.payload.endpoint = ENDPOINTS.MATCH.MATCH_ID;
         }
-
-        return super.exec();
     }
 }
