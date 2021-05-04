@@ -41,7 +41,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - Previous versions returned corrupted versions of the files which were unusable.
 - Riot API keys are no longer required in the `GaleforceModule()` constructor, and the `options` parameter is now optional.
 
-> ```typescript
+  > ```typescript
   > import GaleforceModule from 'galeforce';
   > 
   > const galeforce = new GaleforceModule(); // now OK, but requests requiring an API key will return a 401 Unauthorized error.
