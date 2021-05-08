@@ -14,23 +14,18 @@ rewiremock.enable();
 const GaleforceModule = require('../dist');
 
 const Galeforce = new GaleforceModule({
-    'riot-api': {
-        key: 'RIOT-API-KEY',
-    },
-    cache: {
-        type: 'redis',
-        uri: 'redis://127.0.0.1:6379',
-    },
     'rate-limit': {
-        prefix: 'riotapi-ratelimit-',
-        intervals: {
-            1: 2000,
-        },
+        type: 'bottleneck',
     },
-    // debug: ['*'],
 });
 
-rewiremock.disable();
+const GaleforceNull = new GaleforceModule({
+    'rate-limit': {
+        type: 'null',
+    },
+});
+
+// rewiremock.disable();
 
 // Set up nock
 const replyValues = {
@@ -406,14 +401,14 @@ describe('/galeforce/actions', () => {
                     it('should timeout when rate limit exceeded', () => new Promise((resolve, reject) => {
                         const GaleforceRL = new GaleforceModule('./test/test-configs/1.yaml');
                         const autoTimeout = setTimeout(resolve, 500);
-                        GaleforceRL.submodules.cache.set('riotapi-ratelimit-120na1', '4000', 120).then(() => {
-                            GaleforceRL.lol.summoner().region(GaleforceRL.regions.lol.NORTH_AMERICA).name('SSG Xayah').exec()
-                                .then(() => {
-                                    clearTimeout(autoTimeout);
-                                    reject(new Error('Rate limiting failed!'));
-                                });
-                        });
+                        GaleforceRL.lol.summoner().region(GaleforceRL.regions.lol.NORTH_AMERICA).name('SSG Xayah').exec()
+                            .then(() => {
+                                clearTimeout(autoTimeout);
+                                reject(new Error('Rate limiting failed!'));
+                            });
                     }));
+                    it('should work with the null rate limiter', () => expect(GaleforceNull.lol.summoner().region(GaleforceNull.regions.lol.NORTH_AMERICA).name('SSG Xayah').exec())
+                        .to.eventually.deep.equal(replyValues.v4.summoner));
                     it('should return correct the correct URL for the /lol/summoner/v4/summoners/by-name Riot API endpoint with the .URL() method', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('SSG Xayah').URL())
                         .to.equal('https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/SSG%20Xayah'));
                 });

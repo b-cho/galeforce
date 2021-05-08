@@ -6,14 +6,14 @@
 
 import debug from 'debug';
 import chalk from 'chalk';
-import async from 'async';
 import { v4 as uuidv4 } from 'uuid';
-import { Region } from '../../riot-api';
 import { Payload, CreatePayloadProxy } from './payload';
 import SubmoduleMap from '../interfaces/submodule-map';
+import GameClientRequest from '../../riot-api/requests/game-client-request';
+import BufferRequest from '../../riot-api/requests/buffer-request';
+import RiotAPIRequest from '../../riot-api/requests/riot-api-request';
 
 const actionDebug = debug('galeforce:action');
-const rateLimitDebug = debug('galeforce:rate-limit');
 
 /**
  * @template TResult The return type of the Action.
@@ -68,15 +68,12 @@ export default class Action<TResult> {
 
             // Increment rate limit for non-Data Dragon requests.
             if (this.payload.type && ['lol', 'val', 'riot'].includes(this.payload.type)) {
-                if (typeof this.payload.region !== 'undefined') {
-                    await this.waitForRateLimit(this.payload.region);
-                    await this.incrementRateLimit(this.payload.region);
-                } else {
+                if (typeof this.payload.region === 'undefined') {
                     throw new Error('[galeforce]: Action payload region is required but undefined.');
                 }
             }
 
-            let request;
+            let request: GameClientRequest | BufferRequest | RiotAPIRequest;
             if (this.payload.type === 'gc') {
                 request = this.submodules.RiotAPI.gcRequest(
                     this.payload.endpoint,
@@ -103,17 +100,17 @@ export default class Action<TResult> {
             let response: TResult;
 
             if (this.payload.method === 'GET') {
-                response = (await request.get() as { data: TResult }).data;
+                response = (await this.submodules.RateLimiter.schedule(() => request.get(), this.payload.region) as { data: TResult }).data;
             } else if (this.payload.method === 'POST') {
                 if (typeof this.payload.body === 'undefined') {
                     throw new Error('[galeforce]: Action payload body is required but undefined.');
                 }
-                response = (await request.post() as { data: TResult }).data;
+                response = (await this.submodules.RateLimiter.schedule(() => request.post(), this.payload.region) as { data: TResult }).data;
             } else if (this.payload.method === 'PUT') {
                 if (typeof this.payload.body === 'undefined') {
                     throw new Error('[galeforce]: Action payload body is required but undefined.');
                 }
-                response = (await request.put() as { data: TResult }).data;
+                response = (await this.submodules.RateLimiter.schedule(() => request.put(), this.payload.region) as { data: TResult }).data;
             } else {
                 throw new Error('[galeforce]: Invalid action method provided.');
             }
@@ -161,47 +158,5 @@ export default class Action<TResult> {
         );
 
         return request.targetURL;
-    }
-
-    private async getQueries(key: string, region: Region): Promise<number> {
-        const { prefix } = this.submodules.cache.RLConfig;
-        const value: string | null = await this.submodules.cache.get(prefix + key + region);
-        const queries: number = parseInt(value || '0', 10);
-        return queries;
-    }
-
-    protected async checkRateLimit(region: Region): Promise<boolean> {
-        return (await Promise.all(Object.entries(this.submodules.cache.RLConfig.intervals)
-            .map(async ([key, limit]: [string, number]): Promise<boolean> => (await this.getQueries(key, region)) < limit))).every(Boolean);
-    }
-
-    protected async waitForRateLimit(region: Region): Promise<void> {
-        rateLimitDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.red('wait')} ${region}`);
-        return new Promise((resolve) => {
-            const WRLLoop = (): void => {
-                this.checkRateLimit(region).then((ready: boolean) => {
-                    if (ready) {
-                        rateLimitDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.red('OK')} ${region}`);
-                        resolve();
-                    } else setTimeout(WRLLoop, 0);
-                });
-            };
-            WRLLoop();
-        });
-    }
-
-    protected async incrementRateLimit(region: Region): Promise<void> {
-        rateLimitDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.red('increment')} ${region}`);
-        const { intervals, prefix } = this.submodules.cache.RLConfig;
-        async.each(Object.keys(intervals), async (key: string, callback: (err?: object) => void) => {
-            const queries: number = await this.getQueries(key, region);
-            if (Number.isNaN(queries) || queries === 0) {
-                await this.submodules.cache.set(prefix + key + region, '1', parseInt(key, 10));
-            } else {
-                await this.submodules.cache.incr(prefix + key + region);
-            }
-
-            callback();
-        });
     }
 }

@@ -4,12 +4,8 @@ import {
     ValorantRegion, LeagueRegion, RiotRegion,
     LeagueQueue, ValorantQueue, DataDragonRegion,
 } from './riot-api';
-import { getConfig, validate } from './galeforce/configs/default';
+import { getConfig, validate, mergeWithDefaultConfig } from './galeforce/configs';
 import { ConfigInterface } from './galeforce/interfaces/config';
-import { Cache } from './galeforce/caches/cache';
-import RedisCache from './galeforce/caches/redis';
-import NullCache from './galeforce/caches/null';
-import JavascriptCache from './galeforce/caches/javascript';
 import SubmoduleMap from './galeforce/interfaces/submodule-map';
 import GetMatch from './galeforce/actions/lol/match/match';
 import GetSummoner from './galeforce/actions/lol/summoner';
@@ -87,6 +83,9 @@ import GetLiveClientPlayerItems from './galeforce/actions/game-client/live-clien
 import GetLiveClientEvents from './galeforce/actions/game-client/live-client-data/events';
 import GetLiveClientGameStats from './galeforce/actions/game-client/live-client-data/game-stats';
 import * as DTO from './galeforce/interfaces/dto';
+import RateLimiter from './galeforce/rate-limiters/rate-limiter';
+import BottleneckRateLimiter from './galeforce/rate-limiters/bottleneck';
+import NullRateLimiter from './galeforce/rate-limiters/null';
 
 class Galeforce {
     /**
@@ -104,8 +103,8 @@ class Galeforce {
      * @param options A JSON configuration object or a path to a valid YAML file.
      * @throws Will throw an Error if provided an invalid configuration file or object.
      */
-    constructor(options: ConfigInterface | string = {}) {
-        this.config = typeof options === 'string' ? getConfig(options) : options;
+    constructor(options: object | string = {}) {
+        this.config = mergeWithDefaultConfig(typeof options === 'string' ? getConfig(options) : options);
 
         if (this.config.debug) {
             this.config.debug.forEach((module) => {
@@ -114,27 +113,21 @@ class Galeforce {
             });
         }
 
-        if (!validate(this.config)) throw new Error('Invalid config provided (config failed JSON schema validation).');
-
-        let cache: Cache;
+        if (!validate(this.config)) throw new Error('[galeforce]: Invalid config provided (config failed JSON schema validation).');
 
         const RiotAPI: RiotAPIModule = new RiotAPIModule(this.config['riot-api']?.key || '');
 
-        if (this.config.cache) {
-            if (this.config.cache.type === 'redis' && typeof this.config.cache.uri !== 'undefined') {
-                cache = new RedisCache(this.config.cache.uri, this.config['rate-limit']);
-            } else if (this.config.cache.type === 'javascript') {
-                cache = new JavascriptCache(this.config['rate-limit']);
-            } else if (this.config.cache.type === 'null') {
-                cache = new NullCache();
-            } else {
-                throw new Error('Invalid cache type specified in config or cache URI missing.');
-            }
-        } else {
-            cache = new NullCache();
-        }
+        let rateLimiter: RateLimiter;
 
-        this.submodules = { RiotAPI, cache };
+        if (this.config['rate-limit'].type === 'null') {
+            rateLimiter = new NullRateLimiter(this.config['rate-limit']);
+        } else if (this.config['rate-limit'].type === 'bottleneck') {
+            rateLimiter = new BottleneckRateLimiter(this.config['rate-limit']);
+        } else {
+            throw new Error('[galeforce]: Invalid rate limiter type provided in config.')
+        }
+        
+        this.submodules = { RiotAPI, RateLimiter: rateLimiter };
     }
 
     /**

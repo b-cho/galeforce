@@ -1,16 +1,21 @@
 export interface ConfigInterface {
-    'riot-api'?: {
+    'riot-api': {
         key: string;
     };
-    cache?: {
-        type: string;
-        uri?: string;
-    };
-    'rate-limit'?: {
-        prefix: string;
-        intervals: {
-            [key: number]: number;
+    'rate-limit': {
+        type: 'bottleneck' | 'null';
+        cache: {
+            type: 'redis' | 'internal';
+            uri?: string;
+            'key-id': string;
+        };
+        options: {
+            intervals: {
+                [key: number]: number;
+            };
+            'max-concurrent'?: number;
+            'min-time'?: number;
         };
     };
-    debug?: string[];
+    debug: string[];
 }
