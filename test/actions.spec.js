@@ -14,23 +14,18 @@ rewiremock.enable();
 const GaleforceModule = require('../dist');
 
 const Galeforce = new GaleforceModule({
-    'riot-api': {
-        key: 'RIOT-API-KEY',
-    },
-    cache: {
-        type: 'redis',
-        uri: 'redis://127.0.0.1:6379',
-    },
     'rate-limit': {
-        prefix: 'riotapi-ratelimit-',
-        intervals: {
-            1: 2000,
-        },
+        type: 'bottleneck',
     },
-    // debug: ['*'],
 });
 
-rewiremock.disable();
+const GaleforceNull = new GaleforceModule({
+    'rate-limit': {
+        type: 'null',
+    },
+});
+
+// rewiremock.disable();
 
 // Set up nock
 const replyValues = {
@@ -145,6 +140,8 @@ const na1API = nock('https://na1.api.riotgames.com')
     .persist()
     .get('/lol/summoner/v4/summoners/by-name/SSG%20Xayah')
     .reply(200, replyValues.v4.summoner)
+    .get('/lol/summoner/v4/summoners/by-name/429')
+    .reply(429, {}, { 'retry-after': 5 })
     .get('/lol/summoner/v4/summoners/by-name/404')
     .reply(404)
     .get('/lol/summoner/v4/summoners/by-name/403')
@@ -399,21 +396,29 @@ describe('/galeforce/actions', () => {
                         .to.eventually.be.rejectedWith('[galeforce]: Action payload region is required but undefined.'));
                     it('should reject with correct error message when receiving a 404 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('404').exec())
                         .to.eventually.be.rejectedWith('[galeforce]: Data fetch failed with status code 404'));
+                    it('should retry on timer and not throw when response rate limit exceeded', () => new Promise((resolve, reject) => {
+                        const autoTimeout = setTimeout(resolve, 500);
+                        Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('429').exec()
+                            .then(() => {
+                                clearTimeout(autoTimeout);
+                                reject(new Error('Rate limiting failed!'));
+                            });
+                    }));
                     it('should reject with correct error message when receiving a 403 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('403').exec())
                         .to.eventually.be.rejectedWith('[galeforce]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (403 Forbidden)'));
                     it('should reject with correct error message when receiving a 403 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('401').exec())
                         .to.eventually.be.rejectedWith('[galeforce]: No Riot API key was provided. Please ensure that your key is present in your configuration file or object. (401 Unauthorized)'));
-                    it('should timeout when rate limit exceeded', () => new Promise((resolve, reject) => {
+                    it('should timeout when interval rate limit exceeded', () => new Promise((resolve, reject) => {
                         const GaleforceRL = new GaleforceModule('./test/test-configs/1.yaml');
                         const autoTimeout = setTimeout(resolve, 500);
-                        GaleforceRL.submodules.cache.set('riotapi-ratelimit-120na1', '4000', 120).then(() => {
-                            GaleforceRL.lol.summoner().region(GaleforceRL.regions.lol.NORTH_AMERICA).name('SSG Xayah').exec()
-                                .then(() => {
-                                    clearTimeout(autoTimeout);
-                                    reject(new Error('Rate limiting failed!'));
-                                });
-                        });
+                        GaleforceRL.lol.summoner().region(GaleforceRL.regions.lol.NORTH_AMERICA).name('SSG Xayah').exec()
+                            .then(() => {
+                                clearTimeout(autoTimeout);
+                                reject(new Error('Rate limiting failed!'));
+                            });
                     }));
+                    it('should work with the null rate limiter', () => expect(GaleforceNull.lol.summoner().region(GaleforceNull.regions.lol.NORTH_AMERICA).name('SSG Xayah').exec())
+                        .to.eventually.deep.equal(replyValues.v4.summoner));
                     it('should return correct the correct URL for the /lol/summoner/v4/summoners/by-name Riot API endpoint with the .URL() method', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('SSG Xayah').URL())
                         .to.equal('https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/SSG%20Xayah'));
                 });
