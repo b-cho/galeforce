@@ -27,6 +27,7 @@ describe('/galeforce/configs', () => {
                     },
                     'max-concurrent': 5000,
                     'min-time': 0,
+                    'retry-after-429': true,
                 },
                 cache: {
                     type: 'redis',
@@ -49,6 +50,7 @@ describe('/galeforce/configs', () => {
                         120: 100,
                         1: 20,
                     },
+                    'retry-after-429': true,
                 },
                 cache: {
                     type: 'internal',

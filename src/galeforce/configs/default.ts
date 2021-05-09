@@ -12,6 +12,7 @@ export const defaultConfig: ConfigInterface = {
         },
         options: {
             intervals: {},
+            'retry-after-429': true,
         },
     },
     debug: [],

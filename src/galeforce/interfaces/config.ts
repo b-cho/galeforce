@@ -15,6 +15,7 @@ export interface ConfigInterface {
             };
             'max-concurrent'?: number;
             'min-time'?: number;
+            'retry-after-429': boolean;
         };
     };
     debug: string[];

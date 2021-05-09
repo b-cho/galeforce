@@ -52,6 +52,15 @@ export default class BottleneckRateLimiter extends RateLimiter {
                     reservoirRefreshAmount: limit,
                 }));
             });
+
+            limiter.on('failed', async (error, jobInfo) => {
+                ratelimitDebug(`${chalk.bold.red(key)} | ${chalk.bold.redBright('failed')}`);
+                if (error.response.status === 429 && error.response.headers['retry-after'] && config.options['retry-after-429']) {
+                    let waitTime = parseInt(error.response.headers['retry-after'], 10) * 1000;
+                    ratelimitDebug(`${chalk.bold.red(key)} | ${chalk.bold.magenta('retry')} ${waitTime}`);
+                    return waitTime;
+                }
+            });
         })
     }
 

@@ -140,6 +140,8 @@ const na1API = nock('https://na1.api.riotgames.com')
     .persist()
     .get('/lol/summoner/v4/summoners/by-name/SSG%20Xayah')
     .reply(200, replyValues.v4.summoner)
+    .get('/lol/summoner/v4/summoners/by-name/429')
+    .reply(429, {}, { 'retry-after': 5 })
     .get('/lol/summoner/v4/summoners/by-name/404')
     .reply(404)
     .get('/lol/summoner/v4/summoners/by-name/403')
@@ -394,11 +396,19 @@ describe('/galeforce/actions', () => {
                         .to.eventually.be.rejectedWith('[galeforce]: Action payload region is required but undefined.'));
                     it('should reject with correct error message when receiving a 404 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('404').exec())
                         .to.eventually.be.rejectedWith('[galeforce]: Data fetch failed with status code 404'));
+                    it('should retry on timer and not throw when response rate limit exceeded', () => new Promise((resolve, reject) => {
+                            const autoTimeout = setTimeout(resolve, 500);
+                            Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('429').exec()
+                                .then(() => {
+                                    clearTimeout(autoTimeout);
+                                    reject(new Error('Rate limiting failed!'));
+                                });
+                        }));
                     it('should reject with correct error message when receiving a 403 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('403').exec())
                         .to.eventually.be.rejectedWith('[galeforce]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (403 Forbidden)'));
                     it('should reject with correct error message when receiving a 403 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('401').exec())
                         .to.eventually.be.rejectedWith('[galeforce]: No Riot API key was provided. Please ensure that your key is present in your configuration file or object. (401 Unauthorized)'));
-                    it('should timeout when rate limit exceeded', () => new Promise((resolve, reject) => {
+                    it('should timeout when interval rate limit exceeded', () => new Promise((resolve, reject) => {
                         const GaleforceRL = new GaleforceModule('./test/test-configs/1.yaml');
                         const autoTimeout = setTimeout(resolve, 500);
                         GaleforceRL.lol.summoner().region(GaleforceRL.regions.lol.NORTH_AMERICA).name('SSG Xayah').exec()
