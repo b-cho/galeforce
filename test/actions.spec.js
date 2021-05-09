@@ -397,13 +397,13 @@ describe('/galeforce/actions', () => {
                     it('should reject with correct error message when receiving a 404 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('404').exec())
                         .to.eventually.be.rejectedWith('[galeforce]: Data fetch failed with status code 404'));
                     it('should retry on timer and not throw when response rate limit exceeded', () => new Promise((resolve, reject) => {
-                            const autoTimeout = setTimeout(resolve, 500);
-                            Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('429').exec()
-                                .then(() => {
-                                    clearTimeout(autoTimeout);
-                                    reject(new Error('Rate limiting failed!'));
-                                });
-                        }));
+                        const autoTimeout = setTimeout(resolve, 500);
+                        Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('429').exec()
+                            .then(() => {
+                                clearTimeout(autoTimeout);
+                                reject(new Error('Rate limiting failed!'));
+                            });
+                    }));
                     it('should reject with correct error message when receiving a 403 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('403').exec())
                         .to.eventually.be.rejectedWith('[galeforce]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (403 Forbidden)'));
                     it('should reject with correct error message when receiving a 403 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('401').exec())

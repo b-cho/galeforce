@@ -28,7 +28,7 @@ export const validate = ajv.compile(ConfigSchema);
  */
 export function getConfig(filename: string): object {
     const configObject = _.cloneDeepWith(yaml.parse(fs.readFileSync(filename, 'utf8')), (value: any) => {
-        if(typeof value === 'string') {
+        if (typeof value === 'string') {
             try {
                 return _.template(value)(process.env);
             } catch (e) {
@@ -36,7 +36,7 @@ export function getConfig(filename: string): object {
             }
         }
     });
-    
+
     return configObject;
 }
 

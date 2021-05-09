@@ -1,8 +1,8 @@
-import { Region } from "../../riot-api";
-import RateLimiter from "./rate-limiter";
 import debug from 'debug';
 import chalk from 'chalk';
-import { ConfigInterface } from "../interfaces/config";
+import { Region } from '../../riot-api';
+import RateLimiter from './rate-limiter';
+import { ConfigInterface } from '../interfaces/config';
 
 const ratelimitDebug = debug('galeforce:rate-limit');
 

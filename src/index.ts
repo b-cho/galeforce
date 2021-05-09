@@ -124,9 +124,9 @@ class Galeforce {
         } else if (this.config['rate-limit'].type === 'bottleneck') {
             rateLimiter = new BottleneckRateLimiter(this.config['rate-limit']);
         } else {
-            throw new Error('[galeforce]: Invalid rate limiter type provided in config.')
+            throw new Error('[galeforce]: Invalid rate limiter type provided in config.');
         }
-        
+
         this.submodules = { RiotAPI, RateLimiter: rateLimiter };
     }
 

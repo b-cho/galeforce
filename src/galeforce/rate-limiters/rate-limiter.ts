@@ -1,5 +1,5 @@
-import { Region } from "../../riot-api";
-import { ConfigInterface } from "../interfaces/config";
+import { Region } from '../../riot-api';
+import { ConfigInterface } from '../interfaces/config';
 
 export default abstract class RateLimiter {
     public readonly config: ConfigInterface['rate-limit'];

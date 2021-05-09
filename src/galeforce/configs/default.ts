@@ -1,4 +1,4 @@
-import { ConfigInterface } from "../interfaces/config";
+import { ConfigInterface } from '../interfaces/config';
 
 export const defaultConfig: ConfigInterface = {
     'riot-api': {
@@ -16,4 +16,4 @@ export const defaultConfig: ConfigInterface = {
         },
     },
     debug: [],
-}
+};

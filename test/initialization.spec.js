@@ -84,7 +84,7 @@ describe('/galeforce', () => {
                     },
                 },
             },
-            debug: ['*']
+            debug: ['*'],
         })).to.not.throw();
     });
     it('should initialize properly from config file', () => {
@@ -101,7 +101,7 @@ describe('/galeforce', () => {
             'rate-limit': {
                 cache: {
                     type: 'redis',
-                }
+                },
             },
         })).to.throw();
     });
@@ -116,7 +116,7 @@ describe('/galeforce', () => {
                         120: 100,
                         1: 20,
                     },
-                }
+                },
             },
         })).to.have.property('regions');
     });

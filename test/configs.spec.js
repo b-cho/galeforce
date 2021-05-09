@@ -23,7 +23,7 @@ describe('/galeforce/configs', () => {
                 type: 'bottleneck',
                 options: {
                     intervals: {
-                        120: 0
+                        120: 0,
                     },
                     'max-concurrent': 5000,
                     'min-time': 0,
@@ -35,7 +35,7 @@ describe('/galeforce/configs', () => {
                     uri: 'redis://127.0.0.1:6379',
                 },
             },
-            'debug': [],
+            debug: [],
         });
     });
     it('should correctly generate config object from YAML with environment variables', () => {

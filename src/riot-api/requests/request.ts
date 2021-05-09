@@ -37,9 +37,8 @@ export default class Request {
             return _.template(template)(_.mapValues(match, (v) => { // Encode the components of the target URL (using values from the payload)
                 if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') {
                     return encodeURIComponent(v);
-                } else {
-                    return v;
                 }
+                return v;
             }));
         } catch (e) {
             throw new Error(`[galeforce]: Action payload ${e.message.split(' ')[0]} is required but undefined.`);
