@@ -17,32 +17,11 @@ export default class Request {
 
     protected axiosOptions: AxiosRequestConfig;
 
-    constructor(targetURL: string, body: object, axiosOptions?: AxiosRequestConfig) {
+    constructor(targetURL: string, body: object, axiosOptions: AxiosRequestConfig = {}) {
         this.targetURL = targetURL;
         this.body = body;
-        this.axiosOptions = axiosOptions || {};
+        this.axiosOptions = axiosOptions;
         requestDebug(`${chalk.italic(this.targetURL)} | ${chalk.bold.green('initialize')}`);
-    }
-
-    /**
-     * @private
-     *
-     * @param {String} template A list of string templates that are filled in with parameters.
-     * @param {Object} match Parameters to fill in variables for the string templates.
-     *
-     * @return {[String]} Substituted version of template with parameter values from match.
-     */
-    protected static generateTemplateString(template: string, match: Record<string, unknown>): string {
-        try {
-            return _.template(template)(_.mapValues(match, (v) => { // Encode the components of the target URL (using values from the payload)
-                if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') {
-                    return encodeURIComponent(v);
-                }
-                return v;
-            }));
-        } catch (e) {
-            throw new Error(`[galeforce]: Action payload ${e.message.split(' ')[0]} is required but undefined.`);
-        }
     }
 
     /**

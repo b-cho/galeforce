@@ -9,9 +9,7 @@ import chalk from 'chalk';
 import { v4 as uuidv4 } from 'uuid';
 import { Payload, CreatePayloadProxy } from './payload';
 import SubmoduleMap from '../interfaces/submodule-map';
-import GameClientRequest from '../../riot-api/requests/game-client-request';
-import BufferRequest from '../../riot-api/requests/buffer-request';
-import RiotAPIRequest from '../../riot-api/requests/riot-api-request';
+import Request from '../../riot-api/requests';
 
 const actionDebug = debug('galeforce:action');
 
@@ -67,13 +65,11 @@ export default class Action<TResult> {
             }
 
             // Increment rate limit for non-Data Dragon requests.
-            if (this.payload.type && ['lol', 'val', 'riot'].includes(this.payload.type)) {
-                if (typeof this.payload.region === 'undefined') {
-                    throw new Error('[galeforce]: Action payload region is required but undefined.');
-                }
+            if (this.payload.type && ['lol', 'val', 'riot'].includes(this.payload.type) && typeof this.payload.region === 'undefined') {
+                throw new Error('[galeforce]: Action payload region is required but undefined.');
             }
 
-            let request: GameClientRequest | BufferRequest | RiotAPIRequest;
+            let request: Request;
             if (this.payload.type === 'gc') {
                 request = this.submodules.RiotAPI.gcRequest(
                     this.payload.endpoint,
