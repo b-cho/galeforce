@@ -1,16 +1,10 @@
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
-const redisMock = require('redis-mock');
-const rewiremock = require('rewiremock/node');
 const process = require('process');
 
 chai.use(chaiAsPromised);
 const { expect } = chai;
 
-rewiremock('redis').with(redisMock);
-rewiremock(() => require('redis')).with(redisMock);
-
-rewiremock.enable();
 const GaleforceModule = require('../dist');
 
 process.env.RIOT_KEY = 'RIOT-API-KEY-2';
@@ -121,5 +115,3 @@ describe('/galeforce', () => {
         })).to.have.property('regions');
     });
 });
-
-rewiremock.disable();

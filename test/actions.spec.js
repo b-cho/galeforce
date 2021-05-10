@@ -1,15 +1,9 @@
 const chai = require('chai');
-const redisMock = require('redis-mock');
 const nock = require('nock');
-const rewiremock = require('rewiremock/node');
 const chaiAsPromised = require('chai-as-promised');
 
 chai.use(chaiAsPromised);
 const { expect } = chai;
-
-rewiremock('redis').with(redisMock);
-rewiremock(() => require('redis')).with(redisMock);
-rewiremock.enable();
 
 const GaleforceModule = require('../dist');
 

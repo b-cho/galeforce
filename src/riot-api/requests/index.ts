@@ -6,7 +6,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import debug from 'debug';
 import chalk from 'chalk';
-import _ from 'lodash';
 
 const requestDebug = debug('galeforce:riot-api');
 
