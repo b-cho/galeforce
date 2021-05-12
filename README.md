@@ -250,8 +250,8 @@ rate-limit:
       120: 100
       1: 20
     max-concurrent: null # (null or number) The maximum number of concurrent requests allowed. Setting to null allows unlimited concurrent requests.
-    min-time: 0 # (number) The minimum amount of time between consecutive requests.
-    retry-count-after-429: 3 # (number) The number of retry attempts after an HTTP 429 error is received.
+    min-time: 0 # (number) The minimum amount of time between consecutive requests
+    retry-count-after-429: 3 # (number) The number of retry attempts after an HTTP 429 error is received
 debug: [] # A list containing any of 'action', 'payload', 'rate-limit', 'riot-api', '*' (all)
 ```
 
