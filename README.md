@@ -19,10 +19,10 @@ A customizable, promise-based, and command-oriented TypeScript library and fluen
 
 - **Full API support** for all Riot games, Data Dragon, and the Live Client Data API
   - Environment variable config integration for API keys and other values on both the desktop and platforms including Heroku.
-- **Automatic rate limiting** using Redis caches
+- **Customizable rate limiting** with Redis clustering support and automated retries
 - **Fully-typed DTOs and parameters** for *all* endpoints
 - **Fluent interface** for seamless method chaining
-- **Built-in, customizable debugging** using `debug`
+- **Built-in, informative debugging** using `debug`
 
 Automatically-generated **documentation** is available [here](https://bcho04.github.io/galeforce/), and code **examples** can be found the section [below](#guide).
 
@@ -186,6 +186,26 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 >
 </details>
 
+<details>
+<summary><code>.set()</code></summary>
+
+> Sets multiple *properties* (`region`, `summonerId`, `puuid`, etc.) in the Action request payload simultaneously.
+>
+> **Example**
+>
+> ```javascript
+> /* Gets league entries for a given Teamfight Tactics ranked league. */
+> const TFTLeagueInfo = await galeforce.tft.league.entries() // Target the /tft/league/v1/entries/{tier}/{division} endpoint
+>   .set({ // Set multiple Action payload properties simultaneously
+>     region: galeforce.regions.lol.NORTH_AMERICA, // Sets the request region to 'na1' (i.e., target the NA server)
+>     tier: galeforce.tiers.DIAMOND, // Sets the request tier to 'DIAMOND' (i.e., search for players in Diamond)
+>     division: galeforce.divisions.IV, // Sets the request division to 'IV' (i.e., search for players in division IV of their tier)
+>   })
+>   .exec(); // See .exec() above.
+> ```
+>
+</details>
+
 ### Using DTOs
 
 Galeforce includes DTOs for all Riot API responses as TypeScript interfaces. Although all actions already return an object typed with the corresponding DTO, these can be accessed explicitly via **`GaleforceModule.dto`** or as another export:
@@ -214,20 +234,25 @@ const galeforce = new GaleforceModule(/* config file path or object */);
 
 Omitting the config will prevent Galeforce from being able to interface with the [Riot Games API](https://developer.riotgames.com/) (as no API key will be specified), although Data Dragon and the Live Client Data API will still be available.
 
-Template string-like values (such as `${RIOT_KEY}`) will be evaluated using environment variables in `process.env`. The configuration file must have the following structure (all top-level fields are optional):
+Template string-like values (such as `${RIOT_KEY}`) will be evaluated using environment variables in `process.env`. The configuration file may contain any of the following structure (all top-level fields are optional):
 
 ```yaml
 riot-api:
-  key: ${RIOT_KEY} # (string) Your Riot API key from https://developer.riotgames.com
-cache:
-  type: ${CACHE_TYPE} # (string) What kind of cache to use ('redis', 'javascript', 'null')
-  uri: ${CACHE_URI} # (string) The cache URI to connect to (required for 'redis' cache)
-rate-limit: # Requires a cache to be configured.
-  prefix: riotapi-ratelimit- # The prefix for the Riot API rate limit keys in the cache.
-  intervals: # key <secs>: value <number of requests>. 
-    120: 100
-    1: 20
-debug: [] # A list containing any of 'action', 'payload', 'rate-limit', 'riot-api', '*' (all).
+  key: 'RGAPI-????????-????-????-????-????????????' # (string) Your Riot API key from https://developer.riotgames.com
+rate-limit:
+  type: 'bottleneck' # (string) The type of rate limiter Galeforce should use ('bottleneck', 'null')
+  cache:
+    type: ${CACHE_TYPE} # (string) What kind of cache to use ('redis', 'internal')
+    uri: ${CACHE_URI} # (string) The cache URI to connect to (required for 'redis' cache)
+    key-id: 'galeforce' # (string) The prefix to use for rate-limiting keys in the Redis cache
+  options:
+    intervals: # (key <secs>: value <number of requests>) Manually-set local rate limits, applied per region
+      120: 100
+      1: 20
+    max-concurrent: null # (null or number) The maximum number of concurrent requests allowed. Setting to null allows unlimited concurrent requests.
+    min-time: 0 # (number) The minimum amount of time between consecutive requests.
+    retry-count-after-429: 3 # (number) The number of retry attempts after an HTTP 429 error is received.
+debug: [] # A list containing any of 'action', 'payload', 'rate-limit', 'riot-api', '*' (all)
 ```
 
 ### Documentation

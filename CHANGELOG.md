@@ -6,6 +6,52 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+### [0.4.0] (unreleased)
+
+#### Added
+
+- Add significant rate limiting functionality using the **bottleneck** library
+  - Support for a user-specified number of retry attempts after receiving *HTTP 429* errors
+  - Automatic rate limiting with retry timing automatically determined based on response headers
+  - New `max-concurrent` and `min-time` options for Riot API requests
+- Setting multiple Action properties simultaneously from an object using **`.set()`**
+  >
+  > ```typescript
+  > const summonerData = await galeforce.lol.summoner().set({
+  >   region: galeforce.regions.lol.NORTH_AMERICA,
+  >   name: 'name'
+  >}).exec();
+  > ```
+
+#### Changed
+
+- **[breaking]** Update the structure of the config object passed into the `GaleforceModule()` constructor
+  - Now merges the provided configuration object with a default object
+
+    ```javascript
+    {
+      'riot-api': {
+          key: '',
+      },
+      'rate-limit': {
+          type: 'bottleneck',
+          cache: {
+              type: 'internal',
+              'key-id': 'galeforce',
+              uri: undefined,
+          },
+          options: {
+              intervals: {},
+              'max-concurrent': null,
+              'min-time': 0,
+              'retry-count-after-429': 3,
+          },
+      },
+      debug: [],
+    }
+    ```
+- Updated *galeforce:rate-limit* debugging output
+
 ### [0.3.0] (2021-05-03)
 
 #### Added
@@ -41,7 +87,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - Previous versions returned corrupted versions of the files which were unusable.
 - Riot API keys are no longer required in the `GaleforceModule()` constructor, and the `options` parameter is now optional.
 
-> ```typescript
+  > ```typescript
   > import GaleforceModule from 'galeforce';
   > 
   > const galeforce = new GaleforceModule(); // now OK, but requests requiring an API key will return a 401 Unauthorized error.

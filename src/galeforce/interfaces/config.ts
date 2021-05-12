@@ -13,9 +13,9 @@ export interface ConfigInterface {
             intervals: {
                 [key: number]: number;
             };
-            'max-concurrent'?: number;
-            'min-time'?: number;
-            'retry-after-429': boolean;
+            'max-concurrent': number | null;
+            'min-time': number;
+            'retry-count-after-429': number;
         };
     };
     debug: string[];

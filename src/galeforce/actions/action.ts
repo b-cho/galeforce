@@ -7,9 +7,10 @@
 import debug from 'debug';
 import chalk from 'chalk';
 import { v4 as uuidv4 } from 'uuid';
-import { Payload, CreatePayloadProxy } from './payload';
+import { Payload, ModifiablePayload, CreatePayloadProxy } from './payload';
 import SubmoduleMap from '../interfaces/submodule-map';
 import Request from '../../riot-api/requests';
+import _ from 'lodash';
 
 const actionDebug = debug('galeforce:action');
 
@@ -37,6 +38,17 @@ export default class Action<TResult> {
         });
 
         actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('initialize')}`);
+    }
+
+    /**
+     * Sets multiple values in the Action payload simultaneously.
+     * 
+     * @param payload The payload with which the Action's payload is overwritten
+     * @returns The current Action (with the updated payload state).
+     */
+    public set(payload: ModifiablePayload): this {
+        this.payload = Object.assign({}, this.payload, _.pick(payload, Object.getOwnPropertyNames(this.payload)));
+        return this;
     }
 
     /**

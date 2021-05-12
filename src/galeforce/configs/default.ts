@@ -9,10 +9,13 @@ export const defaultConfig: ConfigInterface = {
         cache: {
             type: 'internal',
             'key-id': 'galeforce',
+            uri: undefined,
         },
         options: {
             intervals: {},
-            'retry-after-429': true,
+            'max-concurrent': null,
+            'min-time': 0,
+            'retry-count-after-429': 3,
         },
     },
     debug: [],

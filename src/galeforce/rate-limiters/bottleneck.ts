@@ -14,10 +14,9 @@ export default class BottleneckRateLimiter extends RateLimiter {
     constructor(config: ConfigInterface['rate-limit']) {
         super(config);
 
-        ratelimitDebug(`${chalk.bold.blueBright('create')} \u00AB ${chalk.bold.red('bottleneck')}`);
-
+        let options: object;
         if (config.cache.type === 'redis' && typeof config.cache.uri !== 'undefined') {
-            this.group = new Bottleneck.Group({
+            options = {
                 /* Limiter options */
                 maxConcurrent: config.options['max-concurrent'],
                 minTime: config.options['min-time'],
@@ -29,19 +28,22 @@ export default class BottleneckRateLimiter extends RateLimiter {
                     url: config.cache.uri,
                 },
                 timeout: (_.max(Object.keys(config.options.intervals).map((time) => parseInt(time, 10))) || 300) * 1000, // default 5 minutes
-            });
+            };
         } else if (config.cache.type === 'internal') {
-            this.group = new Bottleneck.Group({
+            options = {
                 /* Limiter options */
                 maxConcurrent: config.options['max-concurrent'],
                 minTime: config.options['min-time'],
 
                 /* Clustering options */
                 timeout: (_.max(Object.keys(config.options.intervals).map((time) => parseInt(time, 10))) || 300) * 1000, // default 5 minutes
-            });
+            };
         } else {
             throw new Error('[galeforce]: Invalid rate limit cache type provided in config.');
         }
+
+        ratelimitDebug(`${chalk.bold.blueBright('create')} ${chalk.bold.red('bottleneck')} \u00AB %O`, options);
+        this.group = new Bottleneck.Group(options);
 
         this.group.on('created', (limiter: Bottleneck, key: string) => {
             ratelimitDebug(`${chalk.bold.red(key)} | ${chalk.bold.blueBright('create')} \u00AB ${chalk.bold.red('limiter')}`);
@@ -55,9 +57,9 @@ export default class BottleneckRateLimiter extends RateLimiter {
 
             limiter.on('failed', async (error, jobInfo) => {
                 ratelimitDebug(`${chalk.bold.red(key)} | ${chalk.bold.redBright('failed')}`);
-                if (error.response.status === 429 && error.response.headers['retry-after'] && config.options['retry-after-429']) {
+                if (error.response.status === 429 && error.response.headers['retry-after'] && jobInfo.retryCount < config.options['retry-count-after-429']) {
                     const waitTime = parseInt(error.response.headers['retry-after'], 10) * 1000;
-                    ratelimitDebug(`${chalk.bold.red(key)} | ${chalk.bold.magenta('retry')} ${waitTime}`);
+                    ratelimitDebug(`${chalk.bold.red(key)} | ${chalk.bold.magenta('retry')} (${chalk.bold.cyan(jobInfo.retryCount + 1)}/${chalk.bold.blue(config.options['retry-count-after-429'])}) in ${chalk.bold.magenta(waitTime)} ms`);
                     return waitTime;
                 }
             });

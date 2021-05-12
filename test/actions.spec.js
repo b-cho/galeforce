@@ -415,6 +415,14 @@ describe('/galeforce/actions', () => {
                         .to.eventually.deep.equal(replyValues.v4.summoner));
                     it('should return correct the correct URL for the /lol/summoner/v4/summoners/by-name Riot API endpoint with the .URL() method', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('SSG Xayah').URL())
                         .to.equal('https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/SSG%20Xayah'));
+                    describe('.set()', () => {
+                        it('should return correct JSON for the /lol/summoner/v4/summoners/by-name Riot API endpoint', () => expect(Galeforce.lol.summoner().set({
+                            summonerName: 'SSG Xayah',
+                            region: Galeforce.regions.lol.NORTH_AMERICA,
+                            fakeProperty: null,
+                        }).exec())
+                        .to.eventually.deep.equal(replyValues.v4.summoner));
+                    });
                 });
                 describe('.accountId', () => {
                     it('should return correct JSON for the /lol/summoner/v4/summoners/by-account Riot API endpoint', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).accountId('xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4').exec())

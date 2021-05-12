@@ -40,6 +40,17 @@ export type Payload = {
     assetId?: string | number;
 }
 
+export type ModifiablePayload = Omit<Payload, '_id' | 'type' | 'method' | 'endpoint'>;
+
+const payloadKeys: (keyof Payload)[] = [
+    '_id', 'type', 'method', 'endpoint', 'query', 'body',
+    'region', 'summonerId', 'accountId', 'puuid', 'summonerName',
+    'matchId', 'teamId', 'tournamentId', 'tournamentCode', 'championId', 
+    'leagueId', 'queue', 'tier', 'division', 'gameName', 'tagLine', 
+    'game', 'actId', 'version', 'locale', 'champion', 'skin', 'spell', 
+    'assetId',
+];
+
 export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(payload, {
     get: <T extends keyof Payload>(target: Payload, name: T): Payload[T] => target[name],
     set: <T extends keyof Payload>(target: Payload, name: T, value: Payload[T]): boolean => {
@@ -108,5 +119,8 @@ export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(paylo
 
         target[name] = value;
         return true;
+    },
+    ownKeys: (target: Payload): ArrayLike<string | symbol> => {
+        return payloadKeys;
     },
 });

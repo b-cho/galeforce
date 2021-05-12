@@ -14,9 +14,10 @@ const initDebug = debug('galeforce:init');
 
 initDebug(`${chalk.bold('reading config interface and converting to JSON schema')}`);
 const configInterfacePath = path.join(__dirname, '..', 'interfaces', 'config.d.ts');
-const program: TJS.Program = TJS.getProgramFromFiles([configInterfacePath]);
+const program: TJS.Program = TJS.getProgramFromFiles([configInterfacePath], {
+    strictNullChecks: true,
+});
 const ConfigSchema = TJS.generateSchema(program, 'ConfigInterface', { required: true }) as JSONSchemaType<ConfigInterface>;
-
 const ajv = new Ajv();
 export const validate = ajv.compile(ConfigSchema);
 
