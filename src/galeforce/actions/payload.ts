@@ -45,9 +45,9 @@ export type ModifiablePayload = Omit<Payload, '_id' | 'type' | 'method' | 'endpo
 const payloadKeys: (keyof Payload)[] = [
     '_id', 'type', 'method', 'endpoint', 'query', 'body',
     'region', 'summonerId', 'accountId', 'puuid', 'summonerName',
-    'matchId', 'teamId', 'tournamentId', 'tournamentCode', 'championId', 
-    'leagueId', 'queue', 'tier', 'division', 'gameName', 'tagLine', 
-    'game', 'actId', 'version', 'locale', 'champion', 'skin', 'spell', 
+    'matchId', 'teamId', 'tournamentId', 'tournamentCode', 'championId',
+    'leagueId', 'queue', 'tier', 'division', 'gameName', 'tagLine',
+    'game', 'actId', 'version', 'locale', 'champion', 'skin', 'spell',
     'assetId',
 ];
 
@@ -56,11 +56,12 @@ export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(paylo
     set: <T extends keyof Payload>(target: Payload, name: T, value: Payload[T]): boolean => {
         payloadDebug(`${chalk.bold.magenta(target._id)} | ${chalk.cyan.bold(name)} ${chalk.dim(target[name])} \u279F %O`, value);
 
-        if (name === 'region') { // Region check in case types are not followed
-            const isLeagueRegion: boolean = (Object as any).values(LeagueRegion).includes(value);
-            const isValorantRegion: boolean = (Object as any).values(ValorantRegion).includes(value);
-            const isRiotRegion: boolean = (Object as any).values(RiotRegion).includes(value);
-            const isDataDragonRegion: boolean = (Object as any).values(DataDragonRegion).includes(value);
+        switch (name) { // Handle special value checks for specific properties
+        case 'region': { // Region check in case types are not followed
+            const isLeagueRegion: boolean = Object.values(LeagueRegion).includes(value as LeagueRegion);
+            const isValorantRegion: boolean = Object.values(ValorantRegion).includes(value as ValorantRegion);
+            const isRiotRegion: boolean = Object.values(RiotRegion).includes(value as RiotRegion);
+            const isDataDragonRegion: boolean = Object.values(DataDragonRegion).includes(value as DataDragonRegion);
             if (target.type === 'lol' && !isLeagueRegion) {
                 throw new Error('[galeforce]: Invalid /lol region provided.');
             } else if (target.type === 'val' && !isValorantRegion) {
@@ -72,25 +73,34 @@ export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(paylo
             } else if (typeof target.type === 'undefined' && !(isLeagueRegion || isValorantRegion || isRiotRegion || isDataDragonRegion)) {
                 throw new Error('[galeforce]: Invalid region provided.');
             }
-        } else if (name === 'queue') { // Queue check in case types are not followed
-            if (target.type === 'lol' && !(Object as any).values(LeagueQueue).includes(value)) {
+            break;
+        }
+
+        case 'queue': // Queue check in case types are not followed
+            if (target.type === 'lol' && !Object.values(LeagueQueue).includes(value as LeagueQueue)) {
                 throw new Error('[galeforce]: Invalid /lol queue type provided.');
-            } else if (target.type === 'val' && !(Object as any).values(ValorantQueue).includes(value)) {
+            } else if (target.type === 'val' && !Object.values(ValorantQueue).includes(value as ValorantQueue)) {
                 throw new Error('[galeforce]: Invalid /val queue type provided.');
             }
-        } else if (name === 'tier') { // Tier check in case types are not followed
-            if (!(Object as any).values(Tier).includes(value)) {
+            break;
+        case 'tier': // Tier check in case types are not followed
+            if (!Object.values(Tier).includes(value as Tier)) {
                 throw new Error('[galeforce]: Invalid ranked tier provided.');
             }
-        } else if (name === 'division') { // Division check in case types are not followed
-            if (!(Object as any).values(Division).includes(value)) {
+            break;
+        case 'division': // Division check in case types are not followed
+            if (!Object.values(Division).includes(value as Division)) {
                 throw new Error('[galeforce]: Invalid ranked division provided.');
             }
-        } else if (name === 'game') { // Game check in case types are not followed
-            if (!(Object as any).values(Game).includes(value)) {
+            break;
+        case 'game': // Game check in case types are not followed
+            if (!Object.values(Game).includes(value as Game)) {
                 throw new Error('[galeforce]: Invalid game provided.');
             }
-        } else if (['summonerId', 'accountId', 'puuid'].includes(name)) {
+            break;
+        case 'summonerId':
+        case 'accountId':
+        case 'puuid':
             if (typeof value !== 'string') {
                 throw new Error(`[galeforce]: ${name} must be a string.`);
             }
@@ -101,26 +111,31 @@ export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(paylo
             } else if (name === 'puuid' && value.length > 78) {
                 throw new Error('[galeforce]: puuid is invalid according to Riot specifications (length > 78).');
             }
-        } else if (name === 'version') {
+            break;
+        case 'version':
             if (typeof value !== 'string') {
                 throw new Error(`[galeforce]: ${name} must be a string.`);
             }
             if (!(/^([0-9]+)\.([0-9]+)\.([0-9]+)$/.test(value)) && !(/^lolpatch_([0-9]+)\.([0-9]+)$/.test(value))) {
                 throw new Error(`[galeforce]: Invalid ${name} provided (failed regex check).`);
             }
-        } else if (name === 'locale') {
+            break;
+        case 'locale':
             if (typeof value !== 'string') {
                 throw new Error(`[galeforce]: ${name} must be a string.`);
             }
             if (!(/^[a-z]{2}_[A-Z]{2}$/.test(value))) {
                 throw new Error(`[galeforce]: Invalid ${name} provided (failed regex check).`);
             }
+            break;
+        default:
+            if (!payloadKeys.includes(name)) {
+                return false;
+            }
         }
 
         target[name] = value;
         return true;
     },
-    ownKeys: (target: Payload): ArrayLike<string | symbol> => {
-        return payloadKeys;
-    },
+    ownKeys: (target: Payload): ArrayLike<string | symbol> => payloadKeys,
 });

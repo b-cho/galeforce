@@ -12,7 +12,7 @@ export interface ChampionIdChainable {
  * @template TBase The type of the object inside. Inferred from the `Base` parameter.
  * @param Base The target class.
  */
-export function TakesChampionId<TBase extends Constructor>(Base: TBase) {
+export function TakesChampionId<TBase extends Constructor>(Base: TBase): TBase & ChampionIdChainable {
     return class extends Base implements ChampionIdChainable {
         /**
          * Modifies the **championId** associated with the Action object it is called from.

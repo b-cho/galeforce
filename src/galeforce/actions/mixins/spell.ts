@@ -12,7 +12,7 @@ export interface SpellChainable {
  * @template TBase The type of the object inside. Inferred from the `Base` parameter.
  * @param Base The target class.
  */
-export function TakesSpell<TBase extends Constructor>(Base: TBase) {
+export function TakesSpell<TBase extends Constructor>(Base: TBase): TBase & SpellChainable {
     return class extends Base implements SpellChainable {
         /**
          * Modifies the **spell** associated with the Action object it is called from.

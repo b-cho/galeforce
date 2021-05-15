@@ -1,4 +1,4 @@
-export enum Tier {
+enum Tier {
     CHALLENGER = 'CHALLENGER',
     GRANDMASTER = 'GRANDMASTER',
     MASTER = 'MASTER',
@@ -9,3 +9,5 @@ export enum Tier {
     BRONZE = 'BRONZE',
     IRON = 'IRON',
 }
+
+export default Tier;

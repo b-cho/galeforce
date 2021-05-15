@@ -17,7 +17,7 @@ export interface QueueChainable<TQueue extends Queue = Queue> {
  * an expression of that form.
  * @param Base The target class.
  */
-export function TakesQueue<TQueue extends Queue, TBase extends Constructor>(type: TQueue, Base: TBase) {
+export function TakesQueue<TQueue extends Queue, TBase extends Constructor>(type: TQueue, Base: TBase): TBase & QueueChainable {
     return class extends Base implements QueueChainable<TQueue> {
         /**
          * Modifies the **queue** associated with the Action object it is called from.

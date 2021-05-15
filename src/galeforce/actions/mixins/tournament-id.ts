@@ -12,7 +12,7 @@ export interface TournamentIdChainable {
  * @template TBase The type of the object inside. Inferred from the `Base` parameter.
  * @param Base The target class.
  */
-export function TakesTournamentId<TBase extends Constructor>(Base: TBase) {
+export function TakesTournamentId<TBase extends Constructor>(Base: TBase): TBase & TournamentIdChainable {
     return class extends Base implements TournamentIdChainable {
         /**
          * Modifies the **tournamentId** associated with the Action object it is called from.

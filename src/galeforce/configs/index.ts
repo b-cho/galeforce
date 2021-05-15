@@ -8,7 +8,7 @@ import chalk from 'chalk';
 import path from 'path';
 import _ from 'lodash';
 import { ConfigInterface } from '../interfaces/config';
-import { defaultConfig } from './default';
+import defaultConfig from './default';
 
 const initDebug = debug('galeforce:init');
 
@@ -28,7 +28,7 @@ export const validate = ajv.compile(ConfigSchema);
  * @return {ConfigInterface} The corresponding config object.
  */
 export function getConfig(filename: string): object {
-    const configObject = _.cloneDeepWith(yaml.parse(fs.readFileSync(filename, 'utf8')), (value: any) => {
+    const configObject = _.cloneDeepWith(yaml.parse(fs.readFileSync(filename, 'utf8')), (value: unknown) => {
         if (typeof value === 'string') {
             try {
                 return _.template(value)(process.env);

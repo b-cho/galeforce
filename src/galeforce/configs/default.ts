@@ -1,6 +1,6 @@
 import { ConfigInterface } from '../interfaces/config';
 
-export const defaultConfig: ConfigInterface = {
+const defaultConfig: ConfigInterface = {
     'riot-api': {
         key: '',
     },
@@ -20,3 +20,5 @@ export const defaultConfig: ConfigInterface = {
     },
     debug: [],
 };
+
+export default defaultConfig;

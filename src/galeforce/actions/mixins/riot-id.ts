@@ -14,7 +14,7 @@ export interface RiotIdChainable {
  * @template TBase The type of the object inside. Defaults to `typeof Action`.
  * @param Base The target class.
  */
-export function TakesRiotId<TBase extends Constructor>(Base: TBase) {
+export function TakesRiotId<TBase extends Constructor>(Base: TBase): TBase & RiotIdChainable {
     return class extends Base implements RiotIdChainable {
         /**
          * Modifies the **gameName** associated with the Action object it is called from.

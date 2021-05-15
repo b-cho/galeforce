@@ -12,4 +12,4 @@ export interface Executable {
 /**
  * The generic mixin constructor type.
  */
-export type Constructor = new (...args: any[]) => {};
+export type Constructor = new (...args: any[]) => Executable;

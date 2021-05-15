@@ -9,9 +9,9 @@ import {
     Region, LeagueRegion, RiotRegion, ValorantRegion, DataDragonRegion,
 } from './enums/regions';
 import { Queue, LeagueQueue, ValorantQueue } from './enums/queues';
-import { Tier } from './enums/tiers';
-import { Division } from './enums/divisions';
-import { Game } from './enums/games';
+import Tier from './enums/tiers';
+import Division from './enums/divisions';
+import Game from './enums/games';
 import Request from './requests';
 
 const initDebug = debug('galeforce:init');
@@ -34,9 +34,10 @@ export class RiotAPIModule {
      *
      * @return {[String]} Substituted version of template with parameter values from match.
      */
-    protected generateTemplateString(template: string, match: Record<string, unknown>): string {
+    private static generateTemplateString(template: string, match: Record<string, unknown>): string {
         try {
-            return _.template(template)(_.mapValues(match, (v) => { // Encode the components of the target URL (using values from the payload)
+            // Encode the components of the target URL (using values from the payload)
+            return _.template(template)(_.mapValues(match, (v) => {
                 if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') {
                     return encodeURIComponent(v);
                 }
@@ -48,21 +49,21 @@ export class RiotAPIModule {
     }
 
     public request(stringTemplate: string, parameters: Record<string, unknown>, query: object = {}, body: object = {}): Request {
-        return new Request(this.generateTemplateString(stringTemplate, parameters), body, {
+        return new Request(RiotAPIModule.generateTemplateString(stringTemplate, parameters), body, {
             params: query,
             headers: { 'X-Riot-Token': this.key },
         });
     }
 
     public gcRequest(stringTemplate: string, parameters: Record<string, unknown>, query: object = {}, body: object = {}): Request {
-        return new Request(this.generateTemplateString(stringTemplate, parameters), body, {
+        return new Request(RiotAPIModule.generateTemplateString(stringTemplate, parameters), body, {
             params: query,
             httpsAgent,
         });
     }
 
     public bufferRequest(stringTemplate: string, parameters: Record<string, unknown>, query: object = {}, body: object = {}): Request {
-        return new Request(this.generateTemplateString(stringTemplate, parameters), body, {
+        return new Request(RiotAPIModule.generateTemplateString(stringTemplate, parameters), body, {
             params: query,
             responseType: 'arraybuffer',
         });

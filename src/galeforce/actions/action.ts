@@ -7,10 +7,10 @@
 import debug from 'debug';
 import chalk from 'chalk';
 import { v4 as uuidv4 } from 'uuid';
+import _ from 'lodash';
 import { Payload, ModifiablePayload, CreatePayloadProxy } from './payload';
 import SubmoduleMap from '../interfaces/submodule-map';
 import Request from '../../riot-api/requests';
-import _ from 'lodash';
 
 const actionDebug = debug('galeforce:action');
 
@@ -42,12 +42,12 @@ export default class Action<TResult> {
 
     /**
      * Sets multiple values in the Action payload simultaneously.
-     * 
+     *
      * @param payload The payload with which the Action's payload is overwritten
      * @returns The current Action (with the updated payload state).
      */
     public set(payload: ModifiablePayload): this {
-        this.payload = Object.assign({}, this.payload, _.pick(payload, Object.getOwnPropertyNames(this.payload)));
+        this.payload = { ...this.payload, ..._.pick(payload, Object.getOwnPropertyNames(this.payload)) };
         return this;
     }
 
@@ -108,17 +108,17 @@ export default class Action<TResult> {
             let response: TResult;
 
             if (this.payload.method === 'GET') {
-                response = (await this.submodules.RateLimiter.schedule(() => request.get(), this.payload.region) as { data: TResult }).data;
+                response = (await this.submodules.RateLimiter.schedule(() => request.get(), this.payload.region)).data as TResult;
             } else if (this.payload.method === 'POST') {
                 if (typeof this.payload.body === 'undefined') {
                     throw new Error('[galeforce]: Action payload body is required but undefined.');
                 }
-                response = (await this.submodules.RateLimiter.schedule(() => request.post(), this.payload.region) as { data: TResult }).data;
+                response = (await this.submodules.RateLimiter.schedule(() => request.post(), this.payload.region)).data as TResult;
             } else if (this.payload.method === 'PUT') {
                 if (typeof this.payload.body === 'undefined') {
                     throw new Error('[galeforce]: Action payload body is required but undefined.');
                 }
-                response = (await this.submodules.RateLimiter.schedule(() => request.put(), this.payload.region) as { data: TResult }).data;
+                response = (await this.submodules.RateLimiter.schedule(() => request.put(), this.payload.region)).data as TResult;
             } else {
                 throw new Error('[galeforce]: Invalid action method provided.');
             }

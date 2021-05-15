@@ -17,7 +17,7 @@ export interface RegionChainable<TRegion extends Region = Region> {
  * an expression of that form.
  * @param Base The target class.
  */
-export function TakesRegion<TRegion extends Region, TBase extends Constructor>(type: TRegion, Base: TBase) {
+export function TakesRegion<TRegion extends Region, TBase extends Constructor>(type: TRegion, Base: TBase): TBase & RegionChainable {
     return class extends Base implements RegionChainable<TRegion> {
         /**
          * Modifies the **region** associated with the Action object it is called from.

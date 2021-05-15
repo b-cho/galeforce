@@ -19,7 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   > ```typescript
   > const summonerData = await galeforce.lol.summoner().set({
   >   region: galeforce.regions.lol.NORTH_AMERICA,
-  >   name: 'name'
+  >   summonerName: 'name'
   >}).exec();
   > ```
 

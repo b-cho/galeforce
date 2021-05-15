@@ -13,7 +13,7 @@ export interface DivisionChainable {
  * @template TBase The type of the object inside. Defaults to `typeof Action`.
  * @param Base The target class.
  */
-export function TakesDivision<TBase extends Constructor>(Base: TBase) {
+export function TakesDivision<TBase extends Constructor>(Base: TBase): TBase & DivisionChainable {
     return class extends Base implements DivisionChainable {
         /**
          * Modifies the **division** associated with the Action object it is called from.

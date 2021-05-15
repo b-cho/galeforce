@@ -16,7 +16,7 @@ export interface BodyChainable<TBody extends object = object> {
  * an expression of that form.
  * @param Base The target class.
  */
-export function TakesBody<TBody extends object, TBase extends Constructor>(type: TBody, Base: TBase) {
+export function TakesBody<TBody extends object, TBase extends Constructor>(type: TBody, Base: TBase): TBase & BodyChainable {
     return class extends Base implements BodyChainable<TBody> {
         /**
          * Modifies the **body** associated with the Action object it is called from.

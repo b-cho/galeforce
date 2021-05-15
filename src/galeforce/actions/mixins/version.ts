@@ -12,7 +12,7 @@ export interface VersionChainable {
  * @template TBase The type of the object inside. Inferred from the `Base` parameter.
  * @param Base The target class.
  */
-export function TakesVersion<TBase extends Constructor>(Base: TBase) {
+export function TakesVersion<TBase extends Constructor>(Base: TBase): TBase & VersionChainable {
     return class extends Base implements VersionChainable {
         /**
          * Modifies the **version** (patch) associated with the Action object it is called from.

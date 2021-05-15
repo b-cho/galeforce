@@ -13,7 +13,7 @@ export interface GameChainable {
  * @template TBase The type of the object inside. Defaults to `typeof Action`.
  * @param Base The target class.
  */
-export function TakesGame<TBase extends Constructor>(Base: TBase) {
+export function TakesGame<TBase extends Constructor>(Base: TBase): TBase & GameChainable {
     return class extends Base implements GameChainable {
         /**
          * Modifies the **game** associated with the Action object it is called from.
