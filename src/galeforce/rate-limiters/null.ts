@@ -13,6 +13,7 @@ export default class NullRateLimiter extends RateLimiter {
         ratelimitDebug(`${chalk.bold.blueBright('create')} \u00AB ${chalk.bold.red('null')}`);
     }
 
+    /* eslint-disable class-methods-use-this */
     public schedule<T>(request: () => Promise<T>, region?: Region): Promise<T> {
         return request();
     }

@@ -115,8 +115,7 @@ class Galeforce {
 
         if (!validate(this.config)) throw new Error('[galeforce]: Invalid config provided (config failed JSON schema validation).');
 
-        const RiotAPI: RiotAPIModule = new RiotAPIModule(this.config['riot-api']?.key || '');
-
+        const RiotAPI: RiotAPIModule = new RiotAPIModule(this.config['riot-api']);
         let rateLimiter: RateLimiter;
 
         if (this.config['rate-limit'].type === 'null') {

@@ -1,8 +1,8 @@
 import { ConfigInterface } from '../interfaces/config';
 
-const defaultConfig: ConfigInterface = {
+const defaultConfig: ConfigInterface = { // Default configuration object, to be merged with user-provided configuration
     'riot-api': {
-        key: '',
+        key: undefined,
     },
     'rate-limit': {
         type: 'bottleneck',

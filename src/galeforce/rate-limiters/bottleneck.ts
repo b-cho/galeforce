@@ -27,7 +27,8 @@ export default class BottleneckRateLimiter extends RateLimiter {
                 clientOptions: {
                     url: config.cache.uri,
                 },
-                timeout: (_.max(Object.keys(config.options.intervals).map((time) => parseInt(time, 10))) || 300) * 1000, // default 5 minutes
+                // timeout should default to 300 seconds
+                timeout: (_.max(Object.keys(config.options.intervals).map((time) => parseInt(time, 10))) || 300) * 1000,
             };
         } else if (config.cache.type === 'internal') {
             options = {
@@ -36,7 +37,8 @@ export default class BottleneckRateLimiter extends RateLimiter {
                 minTime: config.options['min-time'],
 
                 /* Clustering options */
-                timeout: (_.max(Object.keys(config.options.intervals).map((time) => parseInt(time, 10))) || 300) * 1000, // default 5 minutes
+                // timeout should default to 300 seconds
+                timeout: (_.max(Object.keys(config.options.intervals).map((time) => parseInt(time, 10))) || 300) * 1000,
             };
         } else {
             throw new Error('[galeforce]: Invalid rate limit cache type provided in config.');

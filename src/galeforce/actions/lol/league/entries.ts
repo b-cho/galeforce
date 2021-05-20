@@ -31,10 +31,10 @@ export default class GetLeagueEntries extends BaseAction<LeagueEntryDTO[]> {
     }
 
     protected inferEndpoint(): void {
-        if (this.payload.summonerId) {
+        if (typeof this.payload.summonerId !== 'undefined') {
             this.payload.endpoint = ENDPOINTS.LEAGUE.SUMMONER_ID;
-        } else if (this.payload.queue || this.payload.tier || this.payload.division) {
-            if (this.payload.tier && [Tier.MASTER, Tier.GRANDMASTER, Tier.CHALLENGER].includes(this.payload.tier)) {
+        } else if (typeof this.payload.queue !== 'undefined' || typeof this.payload.tier !== 'undefined' || typeof this.payload.division !== 'undefined') {
+            if (typeof this.payload.tier !== 'undefined' && [Tier.MASTER, Tier.GRANDMASTER, Tier.CHALLENGER].includes(this.payload.tier)) {
                 // set to experimental endpoint for support
                 this.payload.endpoint = ENDPOINTS.LEAGUE.ENTRIES_BY_RANK_EXP;
             } else {

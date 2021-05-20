@@ -7,7 +7,7 @@ import {
 
 const payloadDebug = debug('galeforce:payload');
 
-export type Payload = {
+export type Payload = { // Payload keys and corresponding valid types
     readonly _id: string;
     type?: 'lol' | 'val' | 'riot' | 'ddragon' | 'ddragon-buffer' | 'lcu' | 'gc';
     method?: 'GET' | 'POST' | 'PUT';
@@ -42,7 +42,7 @@ export type Payload = {
 
 export type ModifiablePayload = Omit<Payload, '_id' | 'type' | 'method' | 'endpoint'>;
 
-const payloadKeys: (keyof Payload)[] = [
+const payloadKeys: (keyof Payload)[] = [ // List of all valid keys for the payload
     '_id', 'type', 'method', 'endpoint', 'query', 'body',
     'region', 'summonerId', 'accountId', 'puuid', 'summonerName',
     'matchId', 'teamId', 'tournamentId', 'tournamentCode', 'championId',
@@ -104,6 +104,7 @@ export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(paylo
             if (typeof value !== 'string') {
                 throw new Error(`[galeforce]: ${name} must be a string.`);
             }
+            // Enforce length requirements for summonerId, accountId, puuid as dictated by Riot specifications
             if (name === 'summonerId' && value.length > 63) {
                 throw new Error('[galeforce]: summonerId is invalid according to Riot specifications (length > 63).');
             } else if (name === 'accountId' && value.length > 56) {
@@ -116,6 +117,7 @@ export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(paylo
             if (typeof value !== 'string') {
                 throw new Error(`[galeforce]: ${name} must be a string.`);
             }
+            // Regex check of valid League of Legends versions
             if (!(/^([0-9]+)\.([0-9]+)\.([0-9]+)$/.test(value)) && !(/^lolpatch_([0-9]+)\.([0-9]+)$/.test(value))) {
                 throw new Error(`[galeforce]: Invalid ${name} provided (failed regex check).`);
             }
@@ -124,11 +126,13 @@ export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(paylo
             if (typeof value !== 'string') {
                 throw new Error(`[galeforce]: ${name} must be a string.`);
             }
+            // Regex check of valid locale formats
             if (!(/^[a-z]{2}_[A-Z]{2}$/.test(value))) {
                 throw new Error(`[galeforce]: Invalid ${name} provided (failed regex check).`);
             }
             break;
         default:
+            // Throw an error if the key does not exist on the payload interface
             if (!payloadKeys.includes(name)) {
                 return false;
             }

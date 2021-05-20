@@ -1,6 +1,6 @@
 export interface ConfigInterface {
     'riot-api': {
-        key: string;
+        key?: string;
     };
     'rate-limit': {
         type: 'bottleneck' | 'null';

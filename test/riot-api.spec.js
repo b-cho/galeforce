@@ -42,7 +42,7 @@ const na1API = nock('https://na1.api.riotgames.com')
 //     .get('/docs/lol/gameTypes.json')
 //     .reply(200, dataDragonGameTypesReply);
 
-const RiotAPI = new RiotAPIModule('RIOT-API-KEY');
+const RiotAPI = new RiotAPIModule({ key: 'RIOT-API-KEY' });
 
 describe('/riot-api', () => {
     it('should initialize correctly', () => {

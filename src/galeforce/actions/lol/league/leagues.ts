@@ -24,9 +24,9 @@ export default class GetLeagueList extends BaseAction<LeagueListDTO> {
     }
 
     protected inferEndpoint(): void {
-        if (this.payload.leagueId) {
+        if (typeof this.payload.leagueId !== 'undefined') {
             this.payload.endpoint = ENDPOINTS.LEAGUE.LEAGUE_ID;
-        } else if (this.payload.tier) {
+        } else if (typeof this.payload.tier !== 'undefined') {
             switch (this.payload.tier) {
             case Tier.CHALLENGER:
                 this.payload.endpoint = ENDPOINTS.LEAGUE.CHALLENGER_LEAGUE;

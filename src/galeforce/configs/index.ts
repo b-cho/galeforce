@@ -14,12 +14,14 @@ const initDebug = debug('galeforce:init');
 
 initDebug(`${chalk.bold('reading config interface and converting to JSON schema')}`);
 const configInterfacePath = path.join(__dirname, '..', 'interfaces', 'config.d.ts');
-const program: TJS.Program = TJS.getProgramFromFiles([configInterfacePath], {
+const program: TJS.Program = TJS.getProgramFromFiles([configInterfacePath], { // extract a TJS.Program from the configuration type definition
     strictNullChecks: true,
 });
+
+// Generate JSON schema from the ConfigInterface interface
 const ConfigSchema = TJS.generateSchema(program, 'ConfigInterface', { required: true }) as JSONSchemaType<ConfigInterface>;
 const ajv = new Ajv();
-export const validate = ajv.compile(ConfigSchema);
+export const validate = ajv.compile(ConfigSchema); // Function validating a provided configuration object against valid field types
 
 /**
  *
@@ -31,8 +33,9 @@ export function getConfig(filename: string): object {
     const configObject = _.cloneDeepWith(yaml.parse(fs.readFileSync(filename, 'utf8')), (value: unknown) => {
         if (typeof value === 'string') {
             try {
-                return _.template(value)(process.env);
+                return _.template(value)(process.env); // Substitute template string-like values with values in process.env
             } catch (e) {
+                // Throw if a required template string value is not present.
                 throw new Error(`[galeforce]: process.env.${e.message.split(' ')[0]} is required in config file but is undefined.`);
             }
         }
@@ -42,5 +45,5 @@ export function getConfig(filename: string): object {
 }
 
 export function mergeWithDefaultConfig(config: object): ConfigInterface {
-    return _.merge({}, defaultConfig, config);
+    return _.merge({}, defaultConfig, config); // Merge the provided config object with the default object.
 }
