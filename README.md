@@ -229,7 +229,7 @@ Galeforce includes DTOs for all Riot API responses as TypeScript interfaces. Alt
 When initializing Galeforce, a config object (JSON) or a path to a YAML file may *optionally* be passed to the `GaleforceModule()` constructor as an argument:
 
 ```javascript
-const galeforce = new GaleforceModule(/* config file path or object */);
+const galeforce = new GaleforceModule(/* optional config file path or object */);
 ```
 
 Omitting the config will prevent Galeforce from being able to interface with the [Riot Games API](https://developer.riotgames.com/) (as no API key will be specified), although Data Dragon and the Live Client Data API will still be available.
@@ -238,20 +238,20 @@ Template string-like values (such as `${RIOT_KEY}`) will be evaluated using envi
 
 ```yaml
 riot-api:
-  key: 'RGAPI-????????-????-????-????-????????????' # (string) Your Riot API key from https://developer.riotgames.com
+  key: 'RGAPI-???' # (string) Your Riot API key from https://developer.riotgames.com
 rate-limit:
   type: 'bottleneck' # (string) The type of rate limiter Galeforce should use ('bottleneck', 'null')
   cache:
     type: ${CACHE_TYPE} # (string) What kind of cache to use ('redis', 'internal')
     uri: ${CACHE_URI} # (string) The cache URI to connect to (required for 'redis' cache)
-    key-id: 'galeforce' # (string) The prefix to use for rate-limiting keys in the Redis cache
+    key-id: 'galeforce' # (string) The key ID to use for rate-limiting keys in the Redis cache
   options:
-    intervals: # (key <secs>: value <number of requests>) Manually-set local rate limits, applied per region
+    intervals: # (key <seconds>: value <number of requests>) Manually-set local rate limits, applied per region
       120: 100
       1: 20
-    max-concurrent: null # (null or number) The maximum number of concurrent requests allowed. Setting to null allows unlimited concurrent requests.
+    max-concurrent: null # (null | number) The maximum number of concurrent requests allowed. Setting to null allows unlimited concurrent requests.
     min-time: 0 # (number) The minimum amount of time between consecutive requests
-    retry-count-after-429: 3 # (number) The number of retry attempts after an HTTP 429 error is received
+    retry-count-after-429: 3 # (number) The number of retry attempts after an HTTP 429 error is received, delayed by response header
 debug: [] # A list containing any of 'action', 'payload', 'rate-limit', 'riot-api', '*' (all)
 ```
 

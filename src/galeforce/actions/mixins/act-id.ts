@@ -12,7 +12,7 @@ export interface ActIdChainable {
  * @template TBase The type of the object inside. Inferred from the `Base` parameter.
  * @param Base The target class.
  */
-export function TakesActId<TBase extends Constructor>(Base: TBase): TBase & ActIdChainable {
+export function TakesActId<TBase extends Constructor>(Base: TBase) {
     return class extends Base implements ActIdChainable {
         /**
          * Modifies the **actId** associated with the Action object it is called from.

@@ -12,7 +12,7 @@ export interface LeagueIdChainable {
  * @template TBase The type of the object inside. Inferred from the `Base` parameter.
  * @param Base The target class.
  */
-export function TakesLeagueId<TBase extends Constructor>(Base: TBase): TBase & LeagueIdChainable {
+export function TakesLeagueId<TBase extends Constructor>(Base: TBase) {
     return class extends Base implements LeagueIdChainable {
         /**
          * Modifies the **leagueId** associated with the Action object it is called from.

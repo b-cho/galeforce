@@ -16,7 +16,7 @@ export interface QueryChainable<TQuery extends object = object> {
  * an expression of that form.
  * @param Base The target class.
  */
-export function TakesQuery<TQuery extends object, TBase extends Constructor>(type: TQuery, Base: TBase): TBase & QueryChainable {
+export function TakesQuery<TQuery extends object, TBase extends Constructor>(type: TQuery, Base: TBase) {
     return class extends Base implements QueryChainable<TQuery> {
         /**
          * Modifies the **query** associated with the Action object it is called from.

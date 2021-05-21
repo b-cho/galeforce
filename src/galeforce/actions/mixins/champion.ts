@@ -12,7 +12,7 @@ export interface ChampionChainable {
  * @template TBase The type of the object inside. Inferred from the `Base` parameter.
  * @param Base The target class.
  */
-export function TakesChampion<TBase extends Constructor>(Base: TBase): TBase & ChampionChainable {
+export function TakesChampion<TBase extends Constructor>(Base: TBase) {
     return class extends Base implements ChampionChainable {
         /**
          * Modifies the **champion** associated with the Action object it is called from.

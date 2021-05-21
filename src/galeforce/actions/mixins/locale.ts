@@ -12,7 +12,7 @@ export interface LocaleChainable {
  * @template TBase The type of the object inside. Inferred from the `Base` parameter.
  * @param Base The target class.
  */
-export function TakesLocale<TBase extends Constructor>(Base: TBase): TBase & LocaleChainable {
+export function TakesLocale<TBase extends Constructor>(Base: TBase) {
     return class extends Base implements LocaleChainable {
         /**
          * Modifies the **locale** (language) associated with the Action object it is called from.

@@ -13,7 +13,7 @@ export interface TierChainable {
  * @template TBase The type of the object inside. Defaults to `typeof Action`.
  * @param Base The target class.
  */
-export function TakesTier<TBase extends Constructor>(Base: TBase): TBase & TierChainable {
+export function TakesTier<TBase extends Constructor>(Base: TBase) {
     return class extends Base implements TierChainable {
         /**
          * Modifies the **tier** associated with the Action object it is called from.

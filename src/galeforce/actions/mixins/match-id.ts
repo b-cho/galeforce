@@ -12,7 +12,7 @@ export interface MatchIdChainable {
  * @template TBase The type of the object inside. Inferred from the `Base` parameter.
  * @param Base The target class.
  */
-export function TakesMatchId<TBase extends Constructor>(Base: TBase): TBase & MatchIdChainable {
+export function TakesMatchId<TBase extends Constructor>(Base: TBase) {
     return class extends Base implements MatchIdChainable {
         /**
          * Modifies the **matchId** associated with the Action object it is called from.

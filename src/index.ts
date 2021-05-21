@@ -104,25 +104,32 @@ class Galeforce {
      * @throws Will throw an Error if provided an invalid configuration file or object.
      */
     constructor(options: object | string = {}) {
+        // Merge provided config object with default options
         this.config = mergeWithDefaultConfig(typeof options === 'string' ? getConfig(options) : options);
 
-        if (this.config.debug) {
-            this.config.debug.forEach((module) => {
-                const previouslyEnabled = debug.disable();
-                debug.enable(`${previouslyEnabled},galeforce:${module}`);
-            });
+        // Validate configuration object to ensure conformity to preset config interface
+        if (!validate(this.config)) {
+            throw new Error('[galeforce]: Invalid config provided (config failed JSON schema validation).');
         }
 
-        if (!validate(this.config)) throw new Error('[galeforce]: Invalid config provided (config failed JSON schema validation).');
+        // Set debug output types
+        this.config.debug.forEach((module) => {
+            const previouslyEnabled = debug.disable();
+            debug.enable(`${previouslyEnabled},galeforce:${module}`);
+        });
 
+        // Assign submodules and create Riot API module and rate limiter objects
         const RiotAPI: RiotAPIModule = new RiotAPIModule(this.config['riot-api']);
         let rateLimiter: RateLimiter;
 
-        if (this.config['rate-limit'].type === 'null') {
+        switch (this.config['rate-limit'].type) {
+        case 'null':
             rateLimiter = new NullRateLimiter(this.config['rate-limit']);
-        } else if (this.config['rate-limit'].type === 'bottleneck') {
+            break;
+        case 'bottleneck':
             rateLimiter = new BottleneckRateLimiter(this.config['rate-limit']);
-        } else {
+            break;
+        default:
             throw new Error('[galeforce]: Invalid rate limiter type provided in config.');
         }
 

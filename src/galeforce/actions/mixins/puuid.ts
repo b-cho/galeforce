@@ -12,7 +12,7 @@ export interface PUUIDChainable {
  * @template TBase The type of the object inside. Inferred from the `Base` parameter.
  * @param Base The target class.
  */
-export function TakesPUUID<TBase extends Constructor>(Base: TBase): TBase & PUUIDChainable {
+export function TakesPUUID<TBase extends Constructor>(Base: TBase) {
     return class extends Base implements PUUIDChainable {
         /**
          * Modifies the **puuid** associated with the Action object it is called from.

@@ -12,7 +12,7 @@ export interface SummonerIdChainable {
  * @template TBase The type of the object inside. Inferred from the `Base` parameter.
  * @param Base The target class.
  */
-export function TakesSummonerId<TBase extends Constructor>(Base: TBase): TBase & SummonerIdChainable {
+export function TakesSummonerId<TBase extends Constructor>(Base: TBase) {
     return class extends Base implements SummonerIdChainable {
         /**
          * Modifies the **summonerId** associated with the Action object it is called from.

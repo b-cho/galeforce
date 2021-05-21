@@ -12,7 +12,7 @@ export interface SkinChainable {
  * @template TBase The type of the object inside. Inferred from the `Base` parameter.
  * @param Base The target class.
  */
-export function TakesSkin<TBase extends Constructor>(Base: TBase): TBase & SkinChainable {
+export function TakesSkin<TBase extends Constructor>(Base: TBase) {
     return class extends Base implements SkinChainable {
         /**
          * Modifies the **skin** associated with the Action object it is called from.

@@ -19,8 +19,6 @@ const GaleforceNull = new GaleforceModule({
     },
 });
 
-// rewiremock.disable();
-
 // Set up nock
 const replyValues = {
     v4: {

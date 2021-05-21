@@ -27,7 +27,7 @@ export default class Request {
      * @public
      * @async
      *
-     * @return {Promise} Return JSON data as a promise (due to delayed request completion).
+     * @return Return JSON data as a promise (due to delayed request completion).
      */
     public async get(): Promise<AxiosResponse<unknown>> {
         requestDebug(`${chalk.italic(this.targetURL)} | ${chalk.bold.green.inverse('GET')} \u00AB ${chalk.bold('query')} %O`, this.axiosOptions.params);
@@ -38,7 +38,7 @@ export default class Request {
      * @public
      * @async
      *
-     * @return {Promise} Return JSON data as a promise (due to delayed request completion).
+     * @return Return JSON data as a promise (due to delayed request completion).
      */
     public async post(): Promise<AxiosResponse<unknown>> {
         requestDebug(`${chalk.italic(this.targetURL)} | ${chalk.bold.green.inverse('POST')} \u00AB ${chalk.bold('query')} %O ${chalk.bold('body')} %O`, this.axiosOptions.params, this.body);
@@ -49,7 +49,7 @@ export default class Request {
      * @public
      * @async
      *
-     * @return {Promise} Return JSON data as a promise (due to delayed request completion).
+     * @return Return JSON data as a promise (due to delayed request completion).
      */
     public async put(): Promise<AxiosResponse<unknown>> {
         requestDebug(`${chalk.italic(this.targetURL)} | ${chalk.bold.green.inverse('PUT')} \u00AB ${chalk.bold('query')} %O ${chalk.bold('body')} %O`, this.axiosOptions.params, this.body);
