@@ -6,7 +6,7 @@ import debug from 'debug';
 import chalk from 'chalk';
 import * as ENDPOINTS from './enums/endpoints';
 import {
-    Region, LeagueRegion, RiotRegion, ValorantRegion, DataDragonRegion,
+    Region, LeagueRegion, RiotRegion, ValorantRegion, DataDragonRegion, LorRegion,
 } from './enums/regions';
 import { Queue, LeagueQueue, ValorantQueue } from './enums/queues';
 import Tier from './enums/tiers';
@@ -98,6 +98,6 @@ export class RiotAPIModule {
 }
 
 export {
-    ENDPOINTS, Region, LeagueRegion, RiotRegion, ValorantRegion, DataDragonRegion,
+    ENDPOINTS, Region, LeagueRegion, RiotRegion, ValorantRegion, DataDragonRegion, LorRegion,
     Queue, LeagueQueue, ValorantQueue, Tier, Division, Game,
 };

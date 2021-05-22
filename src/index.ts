@@ -2,7 +2,7 @@ import debug from 'debug';
 import {
     RiotAPIModule, Tier, Division, Game,
     ValorantRegion, LeagueRegion, RiotRegion,
-    LeagueQueue, ValorantQueue, DataDragonRegion,
+    LeagueQueue, ValorantQueue, DataDragonRegion, LorRegion,
 } from './riot-api';
 import { getConfig, validate, mergeWithDefaultConfig } from './galeforce/configs';
 import { ConfigInterface } from './galeforce/interfaces/config';
@@ -86,6 +86,19 @@ import * as DTO from './galeforce/interfaces/dto';
 import RateLimiter from './galeforce/rate-limiters/rate-limiter';
 import BottleneckRateLimiter from './galeforce/rate-limiters/bottleneck';
 import NullRateLimiter from './galeforce/rate-limiters/null';
+
+const Region = {
+    lol: LeagueRegion,
+    val: ValorantRegion,
+    riot: RiotRegion,
+    ddragon: DataDragonRegion,
+    lor: LorRegion,
+};
+
+const Queue = {
+    lol: LeagueQueue,
+    val: ValorantQueue,
+};
 
 class Galeforce {
     /**
@@ -843,36 +856,28 @@ class Galeforce {
     /**
      * Object containing enums corresponding to different API regions.
      */
-    public regions = {
-        lol: LeagueRegion,
-        val: ValorantRegion,
-        riot: RiotRegion,
-        ddragon: DataDragonRegion,
-    };
+    public region = Region;
 
     /**
      * Object containing enums corresponding to different game queue types.
      */
-    public queues = {
-        lol: LeagueQueue,
-        val: ValorantQueue,
-    };
+    public queue = Queue;
 
     /**
      * Enum corresponding to ranked tiers in TFT and League of Legends.
      */
-    public tiers: typeof Tier = Tier;
+    public tier: typeof Tier = Tier;
 
     /**
      * Enum corresponding to ranked divisions in TFT and League of Legends.
      */
-    public divisions: typeof Division = Division;
+    public division: typeof Division = Division;
 
     /**
      * Enum corresponding to games for the
      * `/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}` endpoint.
      */
-    public games: typeof Game = Game;
+    public game: typeof Game = Game;
 }
 
 declare namespace Galeforce {
@@ -880,6 +885,9 @@ declare namespace Galeforce {
      * An object containing all of the DTO interfaces associated with API responses for all endpoints.
      */
     export import dto = DTO;
+    export {
+        Division, Tier, Game, Region, Queue,
+    };
 }
 
 export = Galeforce;

@@ -2,14 +2,14 @@ import debug from 'debug';
 import chalk from 'chalk';
 import {
     Region, Queue, Tier, Division, Game, DataDragonRegion,
-    LeagueRegion, ValorantRegion, RiotRegion, LeagueQueue, ValorantQueue,
+    LeagueRegion, ValorantRegion, RiotRegion, LeagueQueue, ValorantQueue, LorRegion,
 } from '../../riot-api';
 
 const payloadDebug = debug('galeforce:payload');
 
 export type Payload = { // Payload keys and corresponding valid types
     readonly _id: string;
-    type?: 'lol' | 'val' | 'riot' | 'ddragon' | 'ddragon-buffer' | 'lcu' | 'gc';
+    type?: 'lol' | 'val' | 'riot' | 'ddragon' | 'ddragon-buffer' | 'lcu' | 'gc' | 'lor';
     method?: 'GET' | 'POST' | 'PUT';
     endpoint?: string;
     query?: object;
@@ -61,17 +61,30 @@ export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(paylo
             const isLeagueRegion: boolean = Object.values(LeagueRegion).includes(value as LeagueRegion);
             const isValorantRegion: boolean = Object.values(ValorantRegion).includes(value as ValorantRegion);
             const isRiotRegion: boolean = Object.values(RiotRegion).includes(value as RiotRegion);
+            const isLorRegion: boolean = Object.values(LorRegion).includes(value as LorRegion);
             const isDataDragonRegion: boolean = Object.values(DataDragonRegion).includes(value as DataDragonRegion);
-            if (target.type === 'lol' && !isLeagueRegion) {
-                throw new Error('[galeforce]: Invalid /lol region provided.');
-            } else if (target.type === 'val' && !isValorantRegion) {
-                throw new Error('[galeforce]: Invalid /val region provided.');
-            } else if (target.type === 'riot' && !isRiotRegion) {
-                throw new Error('[galeforce]: Invalid /riot region provided.');
-            } else if (target.type === 'ddragon' && !isDataDragonRegion) {
-                throw new Error('[galeforce]: Invalid Data Dragon region provided.');
-            } else if (typeof target.type === 'undefined' && !(isLeagueRegion || isValorantRegion || isRiotRegion || isDataDragonRegion)) {
-                throw new Error('[galeforce]: Invalid region provided.');
+            switch (target.type) {
+            case 'lol':
+                if (!isLeagueRegion) throw new Error('[galeforce]: Invalid /lol region provided.');
+                break;
+            case 'val':
+                if (!isValorantRegion) throw new Error('[galeforce]: Invalid /val region provided.');
+                break;
+            case 'riot':
+                if (!isRiotRegion) throw new Error('[galeforce]: Invalid /riot region provided.');
+                break;
+            case 'lor':
+                if (!isLorRegion) throw new Error('[galeforce]: Invalid /lor region provided.');
+                break;
+            case 'ddragon':
+            case 'ddragon-buffer':
+                if (!isDataDragonRegion) throw new Error('[galeforce]: Invalid Data Dragon region provided.');
+                break;
+            case 'lcu':
+            case 'gc':
+                break; // No region checks are required.
+            default: // No region check if an invalid type is present in the object
+                break;
             }
             break;
         }

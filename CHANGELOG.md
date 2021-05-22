@@ -18,9 +18,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   >
   > ```typescript
   > const summonerData = await galeforce.lol.summoner().set({
-  >   region: galeforce.regions.lol.NORTH_AMERICA,
+  >   region: galeforce.region.lol.NORTH_AMERICA,
   >   summonerName: 'name'
   >}).exec();
+  > ```
+- Expose the `Division`, `Tier`, `Game`, `Queue`, and `Region` enums directly via **`GaleforceModule.*`**
+  > ```typescript
+  > import GaleforceModule, { Region } from 'galeforce';
+  > 
+  > console.log(Region.lol.NORTH_AMERICA) // na1
   > ```
 
 #### Changed
@@ -50,6 +56,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
       debug: [],
     }
     ```
+- **[breaking]** Rename enums to have singular names
+  - ~~`galeforce.regions`~~ &#8594; **`galeforce.region`**
+  - ~~`galeforce.queues`~~ &#8594; **`galeforce.queue`**
+  - ~~`galeforce.tiers`~~ &#8594; **`galeforce.tier`**
+  - ~~`galeforce.divisions`~~ &#8594; **`galeforce.division`**
+  - ~~`galeforce.games`~~ &#8594; **`galeforce.game`**
+- Update the **`galeforce.region`** object to better represent available API regions
+  - Add an `esports` routing value to associated Riot and Valorant region objects (check Riot documentation for endpoints where this is valid)
+  - **[breaking]** Split off Legends of Runeterra request regions into their own **`galeforce.region.lor`** enum, which is now used in all `galeforce.lor.*` endpoints
 - Updated `galeforce:rate-limit` debugging output
 
 ### [0.3.0] (2021-05-03)

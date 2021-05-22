@@ -90,6 +90,13 @@ describe('/galeforce', () => {
     it('should initialize properly without being passed a config', () => {
         expect(() => new GaleforceModule()).to.not.throw();
     });
+    it('should throw when the provided config fails JSON schema validation', () => {
+        expect(() => new GaleforceModule({
+            'rate-limit': {
+                type: 'invalid',
+            },
+        })).to.throw('[galeforce]: Invalid config provided (config failed JSON schema validation).');
+    });
     it('should throw when cache URI is required but not provided', () => {
         expect(() => new GaleforceModule({
             'rate-limit': {
@@ -99,19 +106,7 @@ describe('/galeforce', () => {
             },
         })).to.throw();
     });
-    it('should have property regions', () => {
-        expect(new GaleforceModule({
-            'riot-api': {
-                key: 'RIOT-API-KEY',
-            },
-            'rate-limit': {
-                options: {
-                    intervals: {
-                        120: 100,
-                        1: 20,
-                    },
-                },
-            },
-        })).to.have.property('regions');
+    it('should have property region', () => {
+        expect(new GaleforceModule()).to.have.property('region');
     });
 });

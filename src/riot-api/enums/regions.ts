@@ -16,6 +16,14 @@ enum RiotRegion {
     AMERICAS = 'americas',
     ASIA = 'asia',
     EUROPE = 'europe',
+    ESPORTS = 'esports',
+}
+
+enum LorRegion {
+    AMERICAS = 'americas',
+    ASIA = 'asia',
+    EUROPE = 'europe',
+    SOUTHEAST_ASIA = 'sea',
 }
 
 enum ValorantRegion {
@@ -26,6 +34,7 @@ enum ValorantRegion {
     LATIN_AMERICA = 'latam',
     NORTH_AMERICA = 'na',
     PBE = 'pbe1',
+    ESPORTS = 'esports',
 }
 
 enum DataDragonRegion {
@@ -42,8 +51,8 @@ enum DataDragonRegion {
     JAPAN = 'jp',
 }
 
-type Region = LeagueRegion | RiotRegion | ValorantRegion | DataDragonRegion;
+type Region = LeagueRegion | RiotRegion | ValorantRegion | DataDragonRegion | LorRegion;
 
 export {
-    LeagueRegion, RiotRegion, ValorantRegion, Region, DataDragonRegion,
+    LeagueRegion, RiotRegion, ValorantRegion, Region, DataDragonRegion, LorRegion,
 };
