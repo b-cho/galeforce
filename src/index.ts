@@ -49,25 +49,25 @@ import GetValorantRecentMatches from './galeforce/actions/valorant/val-match/rec
 import GetValorantRankedLeaderboard from './galeforce/actions/valorant/val-ranked/leaderboard';
 import GetValorantPlatformData from './galeforce/actions/valorant/val-status';
 import GetMasteryByChampion from './galeforce/actions/lol/champion-mastery/by-champion';
-import GetDataDragonVersions from './galeforce/actions/data-dragon/versions';
-import GetDataDragonRegionInfo from './galeforce/actions/data-dragon/regions';
-import GetDataDragonLanguages from './galeforce/actions/data-dragon/languages';
-import GetDataDragonChampionList from './galeforce/actions/data-dragon/champion-list';
-import GetDataDragonChampionJSON from './galeforce/actions/data-dragon/champion';
-import GetDataDragonSplashArt from './galeforce/actions/data-dragon/splash-art';
-import GetDataDragonLoadingArt from './galeforce/actions/data-dragon/loading-art';
-import GetDataDragonChampionSquareArt from './galeforce/actions/data-dragon/champion-square-art';
-import GetDataDragonSpellArt from './galeforce/actions/data-dragon/spell-art';
-import GetDataDragonItemList from './galeforce/actions/data-dragon/item-list';
-import GetDataDragonItemArt from './galeforce/actions/data-dragon/item-art';
-import GetDataDragonSummonerSpellList from './galeforce/actions/data-dragon/summoner-spell-list';
-import GetDataDragonProfileIconArt from './galeforce/actions/data-dragon/profile-icon-art';
-import GetDataDragonProfileIconList from './galeforce/actions/data-dragon/profile-icon-list';
-import GetDataDragonMinimapArt from './galeforce/actions/data-dragon/minimap-art';
-import GetDataDragonSpriteArt from './galeforce/actions/data-dragon/sprite-art';
-import GetDataDragonScoreboardArt from './galeforce/actions/data-dragon/scoreboard-icon-art';
-import GetDataDragonChampionPassiveArt from './galeforce/actions/data-dragon/champion-passive-art';
-import GetDataDragonTail from './galeforce/actions/data-dragon/dragon-tail';
+import GetDataDragonVersions from './galeforce/actions/lol/data-dragon/versions';
+import GetDataDragonRegionInfo from './galeforce/actions/lol/data-dragon/regions';
+import GetDataDragonLanguages from './galeforce/actions/lol/data-dragon/languages';
+import GetDataDragonChampionList from './galeforce/actions/lol/data-dragon/champion-list';
+import GetDataDragonChampionJSON from './galeforce/actions/lol/data-dragon/champion';
+import GetDataDragonSplashArt from './galeforce/actions/lol/data-dragon/splash-art';
+import GetDataDragonLoadingArt from './galeforce/actions/lol/data-dragon/loading-art';
+import GetDataDragonChampionSquareArt from './galeforce/actions/lol/data-dragon/champion-square-art';
+import GetDataDragonSpellArt from './galeforce/actions/lol/data-dragon/spell-art';
+import GetDataDragonItemList from './galeforce/actions/lol/data-dragon/item-list';
+import GetDataDragonItemArt from './galeforce/actions/lol/data-dragon/item-art';
+import GetDataDragonSummonerSpellList from './galeforce/actions/lol/data-dragon/summoner-spell-list';
+import GetDataDragonProfileIconArt from './galeforce/actions/lol/data-dragon/profile-icon-art';
+import GetDataDragonProfileIconList from './galeforce/actions/lol/data-dragon/profile-icon-list';
+import GetDataDragonMinimapArt from './galeforce/actions/lol/data-dragon/minimap-art';
+import GetDataDragonSpriteArt from './galeforce/actions/lol/data-dragon/sprite-art';
+import GetDataDragonScoreboardArt from './galeforce/actions/lol/data-dragon/scoreboard-icon-art';
+import GetDataDragonChampionPassiveArt from './galeforce/actions/lol/data-dragon/champion-passive-art';
+import GetDataDragonTail from './galeforce/actions/lol/data-dragon/dragon-tail';
 import GetGameClientSwagger from './galeforce/actions/game-client/swagger';
 import GetGameClientOpenAPI from './galeforce/actions/game-client/open-api';
 import GetLiveClientAllGameData from './galeforce/actions/game-client/live-client-data/all-game-data';
@@ -330,6 +330,245 @@ class Galeforce {
              */
             tournament: (): PostTournaments => new PostTournaments(this.submodules),
         },
+        /**
+         * Object containing actions corresponding to League of Legends Data Dragon endpoints. See the official Data
+         * Dragon documentation [here](https://developer.riotgames.com/docs/lol#data-dragon).
+         */
+        ddragon: {
+            /**
+             * Action constructor corresponding to the following Data Dragon files:
+             * - (**GET**) `/cdn/dragontail-{version}.tgz`
+             *
+             * Returns a compressed tarball (.tgz) file containing all Data Dragon assets
+             * for a given patch. Note that Data Dragon is updated manually after each patch,
+             * so it may not always be updated immediately after a new patch is released to
+             * the live servers.
+             *
+             * Swaps to a *.zip* file automatically when fetching data for patch 10.10.5.
+             *
+             * Returns data as a `Buffer` object.
+             */
+            tail: (): GetDataDragonTail => new GetDataDragonTail(this.submodules),
+            /**
+             * Action constructor corresponding to the following Data Dragon files:
+             * - (**GET**) `/api/versions.json`
+             *
+             * Returns a JSON file (an array) containing all valid Data Dragon versions.
+             * Most patches will only have one associated build, but occasionally
+             * multiple builds are necessary due to errors. As a result, use the latest
+             * version for a given patch whenever possible.
+             */
+            versions: (): GetDataDragonVersions => new GetDataDragonVersions(this.submodules),
+            /**
+             * Action constructor corresponding to the following Data Dragon files:
+             * - (**GET**) `/realms/{region}.json`
+             *
+             * Returns the latest Data Dragon version for a given region (realm). Note that
+             * Data Dragon versions are *not* always equivalent to the League of Legends
+             * client version within a given region.
+             */
+            realm: (): GetDataDragonRegionInfo => new GetDataDragonRegionInfo(this.submodules),
+            /**
+             * Action constructor corresponding to the following Data Dragon files:
+             * - (**GET**) `/cdn/languages.json`
+             *
+             * Returns a list of languages supported by Data Dragon. See the official documentation
+             * for more information.
+             */
+            languages: (): GetDataDragonLanguages => new GetDataDragonLanguages(this.submodules),
+            /**
+             *
+             */
+            champion: {
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/{version}/data/{locale}/champion.json`
+                 *
+                 * Returns a list of champions along with a brief summary for each champion.
+                 * See the official API documentation for more information about interpreting spell text.
+                 */
+                list: (): GetDataDragonChampionList => new GetDataDragonChampionList(this.submodules),
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/{version}/data/{locale}/champion/{champion}.json`
+                 *
+                 * Returns detailed information and additional data about a single champion.
+                 * See the official API documentation for more information about interpreting spell text.
+                 */
+                details: (): GetDataDragonChampionJSON => new GetDataDragonChampionJSON(this.submodules),
+                art: {
+                    /**
+                     * Action constructor corresponding to the following Data Dragon files:
+                     * - (**GET**) `/cdn/img/champion/splash/{champion}_{skin}.jpg`
+                     *
+                     * Returns the splash art assets for a given champion and skin. The number corresponding
+                     * to each skin can be found under the `num` field in the skins section of each champion's
+                     * detailed Data Dragon file. `0` is always the default splash art.
+                     *
+                     * Returns data as a `Buffer` object containing JPG data.
+                     */
+                    splash: (): GetDataDragonSplashArt => new GetDataDragonSplashArt(this.submodules),
+                    /**
+                     * Action constructor corresponding to the following Data Dragon files:
+                     * - (**GET**) `/cdn/img/champion/loading/{champion}_{skin}.jpg`
+                     *
+                     * Returns the loading art image for a given champion and skin. The number corresponding
+                     * to each skin can be found under the `num` field in the skins section of each champion's
+                     * detailed Data Dragon file. `0` is always the default splash art.
+                     *
+                     * Returns data as a `Buffer` object containing JPG data.
+                     */
+                    loading: (): GetDataDragonLoadingArt => new GetDataDragonLoadingArt(this.submodules),
+                    /**
+                     * Action constructor corresponding to the following Data Dragon files:
+                     * - (**GET**) `/cdn/{version}/img/champion/{champion}.png`
+                     *
+                     * Returns the icon (square) art asset for a given champion.
+                     *
+                     * Returns data as a `Buffer` object containing PNG data.
+                     */
+                    icon: (): GetDataDragonChampionSquareArt => new GetDataDragonChampionSquareArt(this.submodules),
+                    /**
+                     * Action constructor corresponding to the following Data Dragon files:
+                     * - (**GET**) `/cdn/{version}/img/passive/{spell}.png`
+                     *
+                     * Returns the icon art asset for a passive ability. The filename for each champion's passive can be
+                     * found in the `passive` field's `image` data (as the `full` field) within an individual champion's Data Dragon file.
+                     *
+                     * Returns data as a `Buffer` object containing PNG data.
+                     */
+                    passive: (): GetDataDragonChampionPassiveArt => new GetDataDragonChampionPassiveArt(this.submodules),
+                },
+            },
+            spell: {
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/{version}/img/spell/{spell}.png`
+                 *
+                 * Returns the art asset for a non-passive ability. The filename corresponding to a given ability can be
+                 * found in the `full` entry of the image data within the `spells` field of an individual champion's Data Dragon file.
+                 *
+                 * Returns data as a `Buffer` object containing PNG data.
+                 */
+                art: (): GetDataDragonSpellArt => new GetDataDragonSpellArt(this.submodules),
+            },
+            item: {
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/{version}/data/{locale}/item.json`
+                 *
+                 * Returns detailed information about all items in League of Legends, including purchase value, sell value,
+                 * build path, stats, and descriptions. See the official Data Dragon API documentation for more information.
+                 *
+                 */
+                list: (): GetDataDragonItemList => new GetDataDragonItemList(this.submodules),
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/{version}/img/item/{assetId}.png`
+                 *
+                 * Returns the art asset for an item by item ID. A list of item IDs can be found in the item data file.
+                 *
+                 * Returns data as a `Buffer` object containing PNG data.
+                 */
+                art: (): GetDataDragonItemArt => new GetDataDragonItemArt(this.submodules),
+            },
+            summonerSpell: {
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/{version}/data/{locale}/summoner.json`
+                 *
+                 * Returns a list of summoner spells. Art assets for each summoner spell can be retrieved using the
+                 * `galeforce.ddragon.spell.art` method.
+                 */
+                list: (): GetDataDragonSummonerSpellList => new GetDataDragonSummonerSpellList(this.submodules),
+            },
+            profileIcon: {
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/{version}/data/{locale}/profileicon.json`
+                 *
+                 * Returns a list of summoner icons/profile icons.
+                 */
+                list: (): GetDataDragonProfileIconList => new GetDataDragonProfileIconList(this.submodules),
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/{version}/img/profileicon/{assetId}.png`
+                 *
+                 * Returns the art asset for a profile icon by ID.
+                 *
+                 * Returns data as a `Buffer` object containing PNG data.
+                 */
+                art: (): GetDataDragonProfileIconArt => new GetDataDragonProfileIconArt(this.submodules),
+            },
+            minimap: {
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/{version}/img/map/map{assetId}.png`
+                 *
+                 * Returns the art asset for the minimap corresponding to a given map ID. Map IDs can be found
+                 * under *Game Constants > Map Names* in the official Riot API documentation.
+                 *
+                 * Returns data as a `Buffer` object containing PNG data.
+                 */
+                art: (): GetDataDragonMinimapArt => new GetDataDragonMinimapArt(this.submodules),
+            },
+            sprite: {
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/{version}/img/sprite/spell{assetId}.png`
+                 *
+                 * Returns the sprite art assets for a given asset ID.
+                 *
+                 * Returns data as a `Buffer` object containing PNG data.
+                 */
+                art: (): GetDataDragonSpriteArt => new GetDataDragonSpriteArt(this.submodules),
+            },
+            /**
+             * Object containing actions that retrieve legacy scoreboard art (from patch **5.5.1** and earlier).
+             */
+            scoreboard: {
+                /**
+                 * Object containing actions that retrieve legacy scoreboard art (from patch **5.5.1** and earlier).
+                 */
+                art: {
+                    /**
+                     * Action constructor corresponding to the following Data Dragon files:
+                     * - (**GET**) `/cdn/5.5.1/img/ui/champion.png`
+                     *
+                     * Returns data as a `Buffer` object.
+                     */
+                    champion: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'champion'),
+                    /**
+                     * Action constructor corresponding to the following Data Dragon files:
+                     * - (**GET**) `/cdn/5.5.1/img/ui/items.png`
+                     *
+                     * Returns data as a `Buffer` object.
+                     */
+                    items: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'items'),
+                    /**
+                     * Action constructor corresponding to the following Data Dragon files:
+                     * - (**GET**) `/cdn/5.5.1/img/ui/minion.png`
+                     *
+                     * Returns data as a `Buffer` object.
+                     */
+                    minion: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'minion'),
+                    /**
+                     * Action constructor corresponding to the following Data Dragon files:
+                     * - (**GET**) `/cdn/5.5.1/img/ui/score.png`
+                     *
+                     * Returns data as a `Buffer` object.
+                     */
+                    score: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'score'),
+                    /**
+                     * Action constructor corresponding to the following Data Dragon files:
+                     * - (**GET**) `/cdn/5.5.1/img/ui/spells.png`
+                     *
+                     * Returns data as a `Buffer` object.
+                     */
+                    spells: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'spells'),
+                },
+            },
+        },
     }
 
     /**
@@ -478,246 +717,6 @@ class Galeforce {
          * - (**GET**) `/val/status/v1/platform-data`
          */
         status: (): GetValorantPlatformData => new GetValorantPlatformData(this.submodules),
-    }
-
-    /**
-     * Object containing actions corresponding to Data Dragon endpoints. See the official Data
-     * Dragon documentation [here](https://developer.riotgames.com/docs/lol#data-dragon).
-     */
-    public ddragon = {
-        /**
-         * Action constructor corresponding to the following Data Dragon files:
-         * - (**GET**) `/cdn/dragontail-{version}.tgz`
-         *
-         * Returns a compressed tarball (.tgz) file containing all Data Dragon assets
-         * for a given patch. Note that Data Dragon is updated manually after each patch,
-         * so it may not always be updated immediately after a new patch is released to
-         * the live servers.
-         *
-         * Swaps to a *.zip* file automatically when fetching data for patch 10.10.5.
-         *
-         * Returns data as a `Buffer` object.
-         */
-        tail: (): GetDataDragonTail => new GetDataDragonTail(this.submodules),
-        /**
-         * Action constructor corresponding to the following Data Dragon files:
-         * - (**GET**) `/api/versions.json`
-         *
-         * Returns a JSON file (an array) containing all valid Data Dragon versions.
-         * Most patches will only have one associated build, but occasionally
-         * multiple builds are necessary due to errors. As a result, use the latest
-         * version for a given patch whenever possible.
-         */
-        versions: (): GetDataDragonVersions => new GetDataDragonVersions(this.submodules),
-        /**
-         * Action constructor corresponding to the following Data Dragon files:
-         * - (**GET**) `/realms/{region}.json`
-         *
-         * Returns the latest Data Dragon version for a given region (realm). Note that
-         * Data Dragon versions are *not* always equivalent to the League of Legends
-         * client version within a given region.
-         */
-        realm: (): GetDataDragonRegionInfo => new GetDataDragonRegionInfo(this.submodules),
-        /**
-         * Action constructor corresponding to the following Data Dragon files:
-         * - (**GET**) `/cdn/languages.json`
-         *
-         * Returns a list of languages supported by Data Dragon. See the official documentation
-         * for more information.
-         */
-        languages: (): GetDataDragonLanguages => new GetDataDragonLanguages(this.submodules),
-        /**
-         *
-         */
-        champion: {
-            /**
-             * Action constructor corresponding to the following Data Dragon files:
-             * - (**GET**) `/cdn/{version}/data/{locale}/champion.json`
-             *
-             * Returns a list of champions along with a brief summary for each champion.
-             * See the official API documentation for more information about interpreting spell text.
-             */
-            list: (): GetDataDragonChampionList => new GetDataDragonChampionList(this.submodules),
-            /**
-             * Action constructor corresponding to the following Data Dragon files:
-             * - (**GET**) `/cdn/{version}/data/{locale}/champion/{champion}.json`
-             *
-             * Returns detailed information and additional data about a single champion.
-             * See the official API documentation for more information about interpreting spell text.
-             */
-            details: (): GetDataDragonChampionJSON => new GetDataDragonChampionJSON(this.submodules),
-            art: {
-                /**
-                 * Action constructor corresponding to the following Data Dragon files:
-                 * - (**GET**) `/cdn/img/champion/splash/{champion}_{skin}.jpg`
-                 *
-                 * Returns the splash art assets for a given champion and skin. The number corresponding
-                 * to each skin can be found under the `num` field in the skins section of each champion's
-                 * detailed Data Dragon file. `0` is always the default splash art.
-                 *
-                 * Returns data as a `Buffer` object containing JPG data.
-                 */
-                splash: (): GetDataDragonSplashArt => new GetDataDragonSplashArt(this.submodules),
-                /**
-                 * Action constructor corresponding to the following Data Dragon files:
-                 * - (**GET**) `/cdn/img/champion/loading/{champion}_{skin}.jpg`
-                 *
-                 * Returns the loading art image for a given champion and skin. The number corresponding
-                 * to each skin can be found under the `num` field in the skins section of each champion's
-                 * detailed Data Dragon file. `0` is always the default splash art.
-                 *
-                 * Returns data as a `Buffer` object containing JPG data.
-                 */
-                loading: (): GetDataDragonLoadingArt => new GetDataDragonLoadingArt(this.submodules),
-                /**
-                 * Action constructor corresponding to the following Data Dragon files:
-                 * - (**GET**) `/cdn/{version}/img/champion/{champion}.png`
-                 *
-                 * Returns the icon (square) art asset for a given champion.
-                 *
-                 * Returns data as a `Buffer` object containing PNG data.
-                 */
-                icon: (): GetDataDragonChampionSquareArt => new GetDataDragonChampionSquareArt(this.submodules),
-                /**
-                 * Action constructor corresponding to the following Data Dragon files:
-                 * - (**GET**) `/cdn/{version}/img/passive/{spell}.png`
-                 *
-                 * Returns the icon art asset for a passive ability. The filename for each champion's passive can be
-                 * found in the `passive` field's `image` data (as the `full` field) within an individual champion's Data Dragon file.
-                 *
-                 * Returns data as a `Buffer` object containing PNG data.
-                 */
-                passive: (): GetDataDragonChampionPassiveArt => new GetDataDragonChampionPassiveArt(this.submodules),
-            },
-        },
-        spell: {
-            /**
-             * Action constructor corresponding to the following Data Dragon files:
-             * - (**GET**) `/cdn/{version}/img/spell/{spell}.png`
-             *
-             * Returns the art asset for a non-passive ability. The filename corresponding to a given ability can be
-             * found in the `full` entry of the image data within the `spells` field of an individual champion's Data Dragon file.
-             *
-             * Returns data as a `Buffer` object containing PNG data.
-             */
-            art: (): GetDataDragonSpellArt => new GetDataDragonSpellArt(this.submodules),
-        },
-        item: {
-            /**
-             * Action constructor corresponding to the following Data Dragon files:
-             * - (**GET**) `/cdn/{version}/data/{locale}/item.json`
-             *
-             * Returns detailed information about all items in League of Legends, including purchase value, sell value,
-             * build path, stats, and descriptions. See the official Data Dragon API documentation for more information.
-             *
-             */
-            list: (): GetDataDragonItemList => new GetDataDragonItemList(this.submodules),
-            /**
-             * Action constructor corresponding to the following Data Dragon files:
-             * - (**GET**) `/cdn/{version}/img/item/{assetId}.png`
-             *
-             * Returns the art asset for an item by item ID. A list of item IDs can be found in the item data file.
-             *
-             * Returns data as a `Buffer` object containing PNG data.
-             */
-            art: (): GetDataDragonItemArt => new GetDataDragonItemArt(this.submodules),
-        },
-        summonerSpell: {
-            /**
-             * Action constructor corresponding to the following Data Dragon files:
-             * - (**GET**) `/cdn/{version}/data/{locale}/summoner.json`
-             *
-             * Returns a list of summoner spells. Art assets for each summoner spell can be retrieved using the
-             * `galeforce.ddragon.spell.art` method.
-             */
-            list: (): GetDataDragonSummonerSpellList => new GetDataDragonSummonerSpellList(this.submodules),
-        },
-        profileIcon: {
-            /**
-             * Action constructor corresponding to the following Data Dragon files:
-             * - (**GET**) `/cdn/{version}/data/{locale}/profileicon.json`
-             *
-             * Returns a list of summoner icons/profile icons.
-             */
-            list: (): GetDataDragonProfileIconList => new GetDataDragonProfileIconList(this.submodules),
-            /**
-             * Action constructor corresponding to the following Data Dragon files:
-             * - (**GET**) `/cdn/{version}/img/profileicon/{assetId}.png`
-             *
-             * Returns the art asset for a profile icon by ID.
-             *
-             * Returns data as a `Buffer` object containing PNG data.
-             */
-            art: (): GetDataDragonProfileIconArt => new GetDataDragonProfileIconArt(this.submodules),
-        },
-        minimap: {
-            /**
-             * Action constructor corresponding to the following Data Dragon files:
-             * - (**GET**) `/cdn/{version}/img/map/map{assetId}.png`
-             *
-             * Returns the art asset for the minimap corresponding to a given map ID. Map IDs can be found
-             * under *Game Constants > Map Names* in the official Riot API documentation.
-             *
-             * Returns data as a `Buffer` object containing PNG data.
-             */
-            art: (): GetDataDragonMinimapArt => new GetDataDragonMinimapArt(this.submodules),
-        },
-        sprite: {
-            /**
-             * Action constructor corresponding to the following Data Dragon files:
-             * - (**GET**) `/cdn/{version}/img/sprite/spell{assetId}.png`
-             *
-             * Returns the sprite art assets for a given asset ID.
-             *
-             * Returns data as a `Buffer` object containing PNG data.
-             */
-            art: (): GetDataDragonSpriteArt => new GetDataDragonSpriteArt(this.submodules),
-        },
-        /**
-         * Object containing actions that retrieve legacy scoreboard art (from patch **5.5.1** and earlier).
-         */
-        scoreboard: {
-            /**
-             * Object containing actions that retrieve legacy scoreboard art (from patch **5.5.1** and earlier).
-             */
-            art: {
-                /**
-                 * Action constructor corresponding to the following Data Dragon files:
-                 * - (**GET**) `/cdn/5.5.1/img/ui/champion.png`
-                 *
-                 * Returns data as a `Buffer` object.
-                 */
-                champion: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'champion'),
-                /**
-                 * Action constructor corresponding to the following Data Dragon files:
-                 * - (**GET**) `/cdn/5.5.1/img/ui/items.png`
-                 *
-                 * Returns data as a `Buffer` object.
-                 */
-                items: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'items'),
-                /**
-                 * Action constructor corresponding to the following Data Dragon files:
-                 * - (**GET**) `/cdn/5.5.1/img/ui/minion.png`
-                 *
-                 * Returns data as a `Buffer` object.
-                 */
-                minion: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'minion'),
-                /**
-                 * Action constructor corresponding to the following Data Dragon files:
-                 * - (**GET**) `/cdn/5.5.1/img/ui/score.png`
-                 *
-                 * Returns data as a `Buffer` object.
-                 */
-                score: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'score'),
-                /**
-                 * Action constructor corresponding to the following Data Dragon files:
-                 * - (**GET**) `/cdn/5.5.1/img/ui/spells.png`
-                 *
-                 * Returns data as a `Buffer` object.
-                 */
-                spells: (): GetDataDragonScoreboardArt => new GetDataDragonScoreboardArt(this.submodules, 'spells'),
-            },
-        },
     }
 
     /**

@@ -122,7 +122,7 @@ export const VAL_STATUS = {
     PLATFORM_DATA: 'https://${region}.api.riotgames.com/val/status/v1/platform-data',
 };
 
-export const DATA_DRAGON = {
+export const LOL_DATA_DRAGON = {
     DRAGON_TAIL: 'https://ddragon.leagueoflegends.com/cdn/dragontail-${version}.tgz',
     DRAGON_TAIL_ZIP: 'https://ddragon.leagueoflegends.com/cdn/dragontail-${version}.zip',
     VERSIONS: 'https://ddragon.leagueoflegends.com/api/versions.json',
@@ -172,4 +172,15 @@ export const GAME_CLIENT = {
     PLAYER_ITEMS: 'https://127.0.0.1:2999/liveclientdata/playeritems?summonerName=${summonerName}',
     EVENTS: 'https://127.0.0.1:2999/liveclientdata/eventdata',
     GAME_STATS: 'https://127.0.0.1:2999/liveclientdata/gamestats',
+};
+
+export const LOR_DATA_DRAGON = {
+    LATEST_CORE_BUNDLE: 'https://dd.b.pvp.net/latest/core-en_us.zip',
+    VERSIONED_CORE_BUNDLE: 'https://dd.b.pvp.net/${version}/core-en_us.zip',
+    LATEST_SET_BUNDLE_FULL: 'https://dd.b.pvp.net/latest/set${set}-en_us.zip',
+    LATEST_SET_BUNDLE_LITE: 'https://dd.b.pvp.net/latest/set${set}-lite-en_us.zip',
+    VERSIONED_SET_BUNDLE_FULL: 'https://dd.b.pvp.net/${version}/set${set}-en_us.zip',
+    VERSIONED_SET_BUNDLE_LITE: 'https://dd.b.pvp.net/${version}/set${set}-lite-en_us.zip',
+
+    
 };

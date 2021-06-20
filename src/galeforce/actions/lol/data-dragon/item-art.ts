@@ -1,7 +1,7 @@
-import Action from '../action';
-import { ENDPOINTS } from '../../../riot-api';
-import SubmoduleMap from '../../interfaces/submodule-map';
-import { TakesVersion, TakesDataDragonId } from '../mixins';
+import Action from '../../action';
+import { ENDPOINTS } from '../../../../riot-api';
+import SubmoduleMap from '../../../interfaces/submodule-map';
+import { TakesVersion, TakesDataDragonId } from '../../mixins';
 
 const BaseAction = TakesVersion(
     TakesDataDragonId(
@@ -12,7 +12,7 @@ const BaseAction = TakesVersion(
 export default class GetDataDragonItemArt extends BaseAction<Buffer> {
     constructor(submodules: SubmoduleMap) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.DATA_DRAGON.ITEM_ART;
+        this.payload.endpoint = ENDPOINTS.LOL_DATA_DRAGON.ITEM_ART;
         this.payload.type = 'ddragon-buffer';
         this.payload.method = 'GET';
     }
