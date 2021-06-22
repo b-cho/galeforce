@@ -17,7 +17,7 @@ A customizable, promise-based, and command-oriented TypeScript library and fluen
 
 ## Features
 
-- **Full API support** for all Riot games, Data Dragon, and the Live Client Data API
+- **Full API support** for all Riot games, Data Dragon (LoL and LoR), and the Live Client Data API
   - Environment variable config integration for API keys and other values on both the desktop and platforms including Heroku.
 - **Customizable rate limiting** with Redis clustering support and automated retries
 - **Fully-typed DTOs and parameters** for *all* endpoints

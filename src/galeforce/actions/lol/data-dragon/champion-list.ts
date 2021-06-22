@@ -14,7 +14,7 @@ export default class GetDataDragonChampionList extends BaseAction<DataDragonCham
     constructor(submodules: SubmoduleMap) {
         super(submodules);
         this.payload.endpoint = ENDPOINTS.LOL_DATA_DRAGON.CHAMPION_LIST;
-        this.payload.type = 'ddragon';
+        this.payload.type = 'lol-ddragon';
         this.payload.method = 'GET';
     }
 }

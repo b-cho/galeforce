@@ -16,7 +16,7 @@ export default class GetDataDragonChampionJSON extends BaseAction<DataDragonRegi
     constructor(submodules: SubmoduleMap) {
         super(submodules);
         this.payload.endpoint = ENDPOINTS.LOL_DATA_DRAGON.CHAMPION;
-        this.payload.type = 'ddragon';
+        this.payload.type = 'lol-ddragon';
         this.payload.method = 'GET';
     }
 }

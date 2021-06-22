@@ -14,7 +14,7 @@ export default class GetDataDragonSummonerSpellList extends BaseAction<DataDrago
     constructor(submodules: SubmoduleMap) {
         super(submodules);
         this.payload.endpoint = ENDPOINTS.LOL_DATA_DRAGON.SUMMONER_SPELL_LIST;
-        this.payload.type = 'ddragon';
+        this.payload.type = 'lol-ddragon';
         this.payload.method = 'GET';
     }
 }

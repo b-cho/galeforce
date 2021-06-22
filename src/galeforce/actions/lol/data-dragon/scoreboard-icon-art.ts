@@ -26,7 +26,7 @@ export default class GetDataDragonScoreboardArt extends Action<Buffer> {
             throw new Error('[galeforce]: Invalid constructor parameter provided.');
         }
 
-        this.payload.type = 'ddragon-buffer';
+        this.payload.type = 'lol-ddragon-buffer';
         this.payload.method = 'GET';
     }
 }

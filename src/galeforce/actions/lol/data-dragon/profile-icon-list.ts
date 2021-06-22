@@ -14,7 +14,7 @@ export default class GetDataDragonProfileIconList extends BaseAction<DataDragonP
     constructor(submodules: SubmoduleMap) {
         super(submodules);
         this.payload.endpoint = ENDPOINTS.LOL_DATA_DRAGON.PROFILE_ICON_LIST;
-        this.payload.type = 'ddragon';
+        this.payload.type = 'lol-ddragon';
         this.payload.method = 'GET';
     }
 }

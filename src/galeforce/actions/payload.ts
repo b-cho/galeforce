@@ -9,7 +9,7 @@ const payloadDebug = debug('galeforce:payload');
 
 export type Payload = { // Payload keys and corresponding valid types
     readonly _id: string;
-    type?: 'lol' | 'val' | 'riot' | 'ddragon' | 'ddragon-buffer' | 'lcu' | 'gc' | 'lor';
+    type?: 'lol' | 'val' | 'riot' | 'lol-ddragon' | 'lol-ddragon-buffer' | 'lcu' | 'gc' | 'lor' | 'lor-ddragon' | 'lor-ddragon-buffer';
     method?: 'GET' | 'POST' | 'PUT';
     endpoint?: string;
     query?: object;
@@ -38,6 +38,9 @@ export type Payload = { // Payload keys and corresponding valid types
     skin?: number;
     spell?: string;
     assetId?: string | number;
+    lorSet?: number;
+    lorRegion?: string;
+    card?: string;
 }
 
 export type ModifiablePayload = Omit<Payload, '_id' | 'type' | 'method' | 'endpoint'>;
@@ -48,7 +51,7 @@ const payloadKeys: (keyof Payload)[] = [ // List of all valid keys for the paylo
     'matchId', 'teamId', 'tournamentId', 'tournamentCode', 'championId',
     'leagueId', 'queue', 'tier', 'division', 'gameName', 'tagLine',
     'game', 'actId', 'version', 'locale', 'champion', 'skin', 'spell',
-    'assetId',
+    'assetId', 'lorSet', 'lorRegion', 'card',
 ];
 
 export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(payload, {
@@ -76,12 +79,14 @@ export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(paylo
             case 'lor':
                 if (!isLorRegion) throw new Error('[galeforce]: Invalid /lor region provided.');
                 break;
-            case 'ddragon':
-            case 'ddragon-buffer':
+            case 'lol-ddragon':
+            case 'lol-ddragon-buffer':
                 if (!isDataDragonRegion) throw new Error('[galeforce]: Invalid Data Dragon region provided.');
                 break;
             case 'lcu':
             case 'gc':
+            case 'lor-ddragon':
+            case 'lor-ddragon-buffer':
                 break; // No region checks are required.
             default: // No region check if an invalid type is present in the object
                 break;
@@ -131,7 +136,9 @@ export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(paylo
                 throw new Error(`[galeforce]: ${name} must be a string.`);
             }
             // Regex check of valid League of Legends versions
-            if (!(/^([0-9]+)\.([0-9]+)\.([0-9]+)$/.test(value)) && !(/^lolpatch_([0-9]+)\.([0-9]+)$/.test(value))) {
+            if ((target.type === 'lol-ddragon' || target.type === 'lol-ddragon-buffer') && !(/^([0-9]+)\.([0-9]+)\.([0-9]+)$/.test(value)) && !(/^lolpatch_([0-9]+)\.([0-9]+)$/.test(value))) {
+                throw new Error(`[galeforce]: Invalid ${name} provided (failed regex check).`);
+            } else if ((target.type === 'lor-ddragon' || target.type === 'lor-ddragon-buffer') && !(/^([0-9]+)_([0-9]+)_([0-9]+)$/.test(value)) && value !== 'latest') { // Regex check valid Legends of Runeterra versions
                 throw new Error(`[galeforce]: Invalid ${name} provided (failed regex check).`);
             }
             break;
@@ -139,8 +146,10 @@ export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(paylo
             if (typeof value !== 'string') {
                 throw new Error(`[galeforce]: ${name} must be a string.`);
             }
-            // Regex check of valid locale formats
-            if (!(/^[a-z]{2}_[A-Z]{2}$/.test(value))) {
+            // Regex check of valid locale formats for League of Legends and Legends of Runeterra
+            if ((target.type === 'lol-ddragon' || target.type === 'lol-ddragon-buffer') && !(/^[a-z]{2}_[A-Z]{2}$/.test(value))) {
+                throw new Error(`[galeforce]: Invalid ${name} provided (failed regex check).`);
+            } else if ((target.type === 'lor-ddragon' || target.type === 'lor-ddragon-buffer') && !(/^[a-z]{2}_[a-z]{2}$/.test(value))) {
                 throw new Error(`[galeforce]: Invalid ${name} provided (failed regex check).`);
             }
             break;

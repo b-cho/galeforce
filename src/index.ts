@@ -86,6 +86,13 @@ import * as DTO from './galeforce/interfaces/dto';
 import RateLimiter from './galeforce/rate-limiters/rate-limiter';
 import BottleneckRateLimiter from './galeforce/rate-limiters/bottleneck';
 import NullRateLimiter from './galeforce/rate-limiters/null';
+import GetLorDataDragonCoreBundle from './galeforce/actions/lor/data-dragon/core-bundle';
+import GetLorDataDragonFullSetBundle from './galeforce/actions/lor/data-dragon/set-bundle-full';
+import GetLorDataDragonLiteSetBundle from './galeforce/actions/lor/data-dragon/set-bundle-lite';
+import GetLorDataDragonCoreGlobals from './galeforce/actions/lor/data-dragon/core-globals';
+import GetLorDataDragonSetData from './galeforce/actions/lor/data-dragon/set-data';
+import GetLorDataDragonCoreRegionIcons from './galeforce/actions/lor/data-dragon/core-region-icons';
+import GetLorDataDragonSetCardArt from './galeforce/actions/lor/data-dragon/set-card-art';
 
 const Region = {
     lol: LeagueRegion,
@@ -624,6 +631,129 @@ class Galeforce {
          * - (**GET**) `/lor/status/v1/platform-data`
          */
         status: (): GetLorPlatformData => new GetLorPlatformData(this.submodules),
+        /**
+         * Object containing actions corresponding to Legends of Runeterra Data Dragon endpoints. See the official Data
+         * Dragon documentation [here](https://developer.riotgames.com/docs/lor#data-dragon).
+         */
+        ddragon: {
+            /**
+             * Object containing actions corresponding to the "core bundles," which contain data shared across all sets.
+             */
+            core: {
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/{version}/core-{locale}.zip`
+                 *
+                 * Returns a .zip file containing all Data Dragon core assets for a given version.
+                 *
+                 * Returns data as a `Buffer` object.
+                 */
+                bundle: (): GetLorDataDragonCoreBundle => new GetLorDataDragonCoreBundle(this.submodules),
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/${version}/core/${locale}/data/globals-${locale}.json`
+                 *
+                 * Returns the set of values shared across cards of all sets, including keywords, rarities,
+                 * regions/factions, spell speeds, and card types.
+                 */
+                globals: (): GetLorDataDragonCoreGlobals => new GetLorDataDragonCoreGlobals(this.submodules),
+                art: {
+                    /**
+                     * Action constructor corresponding to the following Data Dragon files:
+                     * - (**GET**) `/${version}/core/${locale}/img/region/icon-${lorRegion}.png`
+                     *
+                     * Returns the art asset for a region's icon in Legends of Runeterra.
+                     *
+                     * Returns data as a `Buffer` object containing PNG data.
+                     */
+                    regionIcon: (): GetLorDataDragonCoreRegionIcons => new GetLorDataDragonCoreRegionIcons(this.submodules),
+                },
+            },
+            /**
+             * Object containing actions that retrieve data corresponding to individual released sets.
+             */
+            set: {
+                /**
+                 * Object containing actions that return Data Dragon assets for a given set as a Buffer containing `.zip` data.
+                 */
+                bundle: {
+                    /**
+                     * Action constructor corresponding to the following Data Dragon files:
+                     * - (**GET**) `/${version}/set${lorSet}-${locale}.zip`
+                     *
+                     * Returns a .zip file containing the *full* Data Dragon assets for a given set, including all
+                     * card art, alternative art, and full-size illustrations for each card.
+                     *
+                     * Returns data as a `Buffer` object.
+                     */
+                    full: (): GetLorDataDragonFullSetBundle => new GetLorDataDragonFullSetBundle(this.submodules),
+                    /**
+                     * Action constructor corresponding to the following Data Dragon files:
+                     * - (**GET**) `/${version}/set${lorSet}-${locale}.zip`
+                     *
+                     * Returns a .zip file containing the *lite* Data Dragon assets for a given set, which includes
+                     * only the card art and alternative art (without the full-size illustrations).
+                     *
+                     * Returns data as a `Buffer` object.
+                     */
+                    lite: (): GetLorDataDragonLiteSetBundle => new GetLorDataDragonLiteSetBundle(this.submodules),
+                },
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/${version}/set${lorSet}/${locale}/data/set${lorSet}-${locale}.json`
+                 *
+                 * Returns data related to cards in the provided set, including assets, associated cards, in-game properties
+                 * (attack, health, cost, etc.), description, flavor text, name, code, keywords, rarity, type, and subtype.
+                 */
+                data: (): GetLorDataDragonSetData => new GetLorDataDragonSetData(this.submodules),
+                /**
+                 * Object containing actions that return Data Dragon assets for a given Legends of Runeterra card, on a set-by-set basis.
+                 */
+                card: {
+                    /**
+                     * Object containing actions that return Data Dragon *art* assets for a given Legends of Runeterra card.
+                     */
+                    art: {
+                        /**
+                         * Action constructor corresponding to the following Data Dragon files:
+                         * - (**GET**) `/${version}/set${lorSet}/${locale}/img/cards/${card}.png`
+                         *
+                         * Returns the in-game art asset for a card in Legends of Runeterra.
+                         *
+                         * Returns data as a `Buffer` object containing PNG data.
+                         */
+                        game: (): GetLorDataDragonSetCardArt => new GetLorDataDragonSetCardArt(this.submodules, 'card'),
+                        /**
+                         * Action constructor corresponding to the following Data Dragon files:
+                         * - (**GET**) `/${version}/set${lorSet}/${locale}/img/cards/${card}-full.png`
+                         *
+                         * Returns the in-game *full* art asset for a card in Legends of Runeterra.
+                         *
+                         * Returns data as a `Buffer` object containing PNG data.
+                         */
+                        full: (): GetLorDataDragonSetCardArt => new GetLorDataDragonSetCardArt(this.submodules, 'full'),
+                        /**
+                         * Action constructor corresponding to the following Data Dragon files:
+                         * - (**GET**) `/${version}/set${lorSet}/${locale}/img/cards/${card}-alt.png`
+                         *
+                         * Returns the in-game *alternative* art asset for a card in Legends of Runeterra.
+                         *
+                         * Returns data as a `Buffer` object containing PNG data.
+                         */
+                        alt: (): GetLorDataDragonSetCardArt => new GetLorDataDragonSetCardArt(this.submodules, 'alt'),
+                        /**
+                         * Action constructor corresponding to the following Data Dragon files:
+                         * - (**GET**) `/${version}/set${lorSet}/${locale}/img/cards/${card}-alt-full.png`
+                         *
+                         * Returns the in-game *alternative full* art asset for a card in Legends of Runeterra.
+                         *
+                         * Returns data as a `Buffer` object containing PNG data.
+                         */
+                        altFull: (): GetLorDataDragonSetCardArt => new GetLorDataDragonSetCardArt(this.submodules, 'alt-full'),
+                    },
+                },
+            },
+        },
     }
 
     /**

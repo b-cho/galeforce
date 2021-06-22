@@ -456,5 +456,25 @@ describe('/galeforce/interfaces', () => {
                 expect(valid).to.be.true;
             });
         });
+        describe('LorDataDragonGlobalsDTO', () => {
+            it('should match with Live Client JSON data', () => {
+                const schema = generator.getSchemaForSymbol('LorDataDragonGlobalsDTO');
+
+                const validate = ajv.compile(schema);
+                const valid = validate(require(`${__dirname}/test-data/lor.ddragon.globals.json`));
+                if (!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('LorDataDragonSetDataDTO', () => {
+            it('should match with Live Client JSON data', () => {
+                const schema = generator.getSchemaForSymbol('LorDataDragonSetDataDTO');
+
+                const validate = ajv.compile(schema);
+                const valid = validate(require(`${__dirname}/test-data/lor.ddragon.set-data.json`)[0]);
+                if (!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
     });
 });

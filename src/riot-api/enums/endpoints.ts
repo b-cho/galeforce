@@ -175,12 +175,14 @@ export const GAME_CLIENT = {
 };
 
 export const LOR_DATA_DRAGON = {
-    LATEST_CORE_BUNDLE: 'https://dd.b.pvp.net/latest/core-en_us.zip',
-    VERSIONED_CORE_BUNDLE: 'https://dd.b.pvp.net/${version}/core-en_us.zip',
-    LATEST_SET_BUNDLE_FULL: 'https://dd.b.pvp.net/latest/set${set}-en_us.zip',
-    LATEST_SET_BUNDLE_LITE: 'https://dd.b.pvp.net/latest/set${set}-lite-en_us.zip',
-    VERSIONED_SET_BUNDLE_FULL: 'https://dd.b.pvp.net/${version}/set${set}-en_us.zip',
-    VERSIONED_SET_BUNDLE_LITE: 'https://dd.b.pvp.net/${version}/set${set}-lite-en_us.zip',
-
-    
+    CORE_BUNDLE: 'https://dd.b.pvp.net/${version}/core-${locale}.zip',
+    SET_BUNDLE_FULL: 'https://dd.b.pvp.net/${version}/set${lorSet}-${locale}.zip',
+    SET_BUNDLE_LITE: 'https://dd.b.pvp.net/${version}/set${lorSet}-lite-${locale}.zip',
+    CORE_GLOBALS: 'https://dd.b.pvp.net/${version}/core/${locale}/data/globals-${locale}.json',
+    CORE_REGION_ICONS: 'https://dd.b.pvp.net/${version}/core/${locale}/img/regions/icon-${lorRegion}.png',
+    SET_DATA: 'https://dd.b.pvp.net/${version}/set${lorSet}/${locale}/data/set${lorSet}-${locale}.json',
+    SET_CARD_ART: 'https://dd.b.pvp.net/${version}/set${lorSet}/${locale}/img/cards/${card}.png',
+    SET_CARD_ART_FULL: 'https://dd.b.pvp.net/${version}/set${lorSet}/${locale}/img/cards/${card}-full.png',
+    SET_CARD_ART_ALT: 'https://dd.b.pvp.net/${version}/set${lorSet}/${locale}/img/cards/${card}-alt.png',
+    SET_CARD_ART_ALT_FULL: 'https://dd.b.pvp.net/${version}/set${lorSet}/${locale}/img/cards/${card}-alt-full.png',
 };

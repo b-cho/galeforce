@@ -8,7 +8,7 @@ const BaseAction = TakesVersion(Action);
 export default class GetDataDragonTail extends BaseAction<Buffer> {
     constructor(submodules: SubmoduleMap) {
         super(submodules);
-        this.payload.type = 'ddragon-buffer';
+        this.payload.type = 'lol-ddragon-buffer';
         this.payload.method = 'GET';
     }
 

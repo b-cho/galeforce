@@ -13,7 +13,7 @@ export default class GetDataDragonProfileIconArt extends BaseAction<Buffer> {
     constructor(submodules: SubmoduleMap) {
         super(submodules);
         this.payload.endpoint = ENDPOINTS.LOL_DATA_DRAGON.PROFILE_ICON_ART;
-        this.payload.type = 'ddragon-buffer';
+        this.payload.type = 'lol-ddragon-buffer';
         this.payload.method = 'GET';
     }
 }

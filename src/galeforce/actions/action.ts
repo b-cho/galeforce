@@ -90,7 +90,8 @@ export default class Action<TResult> {
                     this.payload.body,
                 );
                 break;
-            case 'ddragon-buffer': // Data Dragon images
+            case 'lol-ddragon-buffer': // Data Dragon non-JSON files
+            case 'lor-ddragon-buffer':
                 request = this.submodules.RiotAPI.bufferRequest(
                     this.payload.endpoint,
                     this.payload,
