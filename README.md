@@ -65,7 +65,7 @@ const galeforce = new GaleforceModule(/* config */);
 ```javascript
 const summoners = ['a', 'b', 'c'];
 const promises = summoners.map(summoner => galeforce.lol.summoner()
-  .region(galeforce.regions.lol.NORTH_AMERICA)
+  .region(galeforce.region.lol.NORTH_AMERICA)
   .name(summoner)
   .exec()
 ); // list of request promises
@@ -81,7 +81,7 @@ Promise.all(promises).then((result) => {
 
 ```javascript
 const matchIds = (await galeforce.lol.match.list()
-  .region(galeforce.regions.lol.NORTH_AMERICA)
+  .region(galeforce.region.lol.NORTH_AMERICA)
   .accountId(accountId)
   .exec())
   .matches.map(matchInfo => matchInfo.gameId);
@@ -94,7 +94,7 @@ const matchIds = (await galeforce.lol.match.list()
 
 ```javascript
 const matchData = await galeforce.lol.match.match()
-  .region(galeforce.regions.lol.NORTH_AMERICA)
+  .region(galeforce.region.lol.NORTH_AMERICA)
   .matchId(matchId)
   .exec();
 ```
@@ -106,7 +106,7 @@ const matchData = await galeforce.lol.match.match()
 
 ```javascript
 const totalMasteryPoints = (await galeforce.lol.mastery.list()
-  .region(galeforce.regions.lol.NORTH_AMERICA)
+  .region(galeforce.region.lol.NORTH_AMERICA)
   .summonerId(summonerId)
   .exec())
   .reduce((previous, current) => previous + current.championPoints, 0);
@@ -132,7 +132,7 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 > ```javascript
 > /* Gets Valorant platform and status data. */
 > galeforce.val.status() // Target the /val/status/v1/platform-data endpoint
->   .region(galeforce.regions.val.NORTH_AMERICA) // See below for documentation.
+>   .region(galeforce.region.val.NORTH_AMERICA) // See below for documentation.
 >   .exec() // Sends a Valorant server status request to the val-status-v1 endpoint
 >   .then((data) => { // Use the returned data
 >     /* manipulate status data */
@@ -150,9 +150,9 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 >
 > ```javascript
 > /* Gets the Data Dragon URL associated with the Galeforce icon. */
-> const galeforceURL = galeforce.ddragon.item.art() // Fetch item icon art from Data Dragon
+> const galeforceURL = galeforce.lol.ddragon.item.art() // Fetch item icon art from Data Dragon
 >   .version('11.9.1') // See the .<property>() section for documentation. Sets the version to retrieve data from.
->   .assetId('6671') // See below for documentation. Get the icon for the Galeforce item.
+>   .assetId(6671) // See below for documentation. Get the icon for the Galeforce item.
 >   .URL(); // Get the encoded URL corresponding with the selected endpoint as a string.
 > 
 > console.log(galeforceURL); // 'https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/6671.png'
@@ -170,7 +170,7 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 > ```javascript
 > /* Gets current game info for a specific summonerId. */
 > const currentGameInfo = await galeforce.lol.spectator.active() // Target the /lol/spectator/v4/active-games/by-summoner/{summonerId} endpoint
->   .region(galeforce.regions.lol.NORTH_AMERICA) // Sets the request region to 'na1' (i.e., target the NA server)
+>   .region(galeforce.region.lol.NORTH_AMERICA) // Sets the request region to 'na1' (i.e., target the NA server)
 >   .summonerId('summonerId') // Sets the request summonerId to 'summonerId'
 >   .exec(); // See .exec() above.
 > ```
@@ -180,8 +180,8 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 > ```javascript
 > /* Gets current game info for a specific summonerId. */
 > const currentGameInfo = await galeforce.lol.spectator.active() // Target the /lol/spectator/v4/active-games/by-summoner/{summonerId} endpoint
->   .region(galeforce.regions.lol.NORTH_AMERICA) // Sets the request region to 'na1' (i.e., target the NA server)
->   .region(galeforce.regions.lol.KOREA) // galeforce.lol.spectator.active(...).region(...).region is not a function
+>   .region(galeforce.region.lol.NORTH_AMERICA) // Sets the request region to 'na1' (i.e., target the NA server)
+>   .region(galeforce.region.lol.KOREA) // galeforce.lol.spectator.active(...).region(...).region is not a function
 > ```
 >
 </details>
@@ -197,9 +197,9 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 > /* Gets league entries for a given Teamfight Tactics ranked league. */
 > const TFTLeagueInfo = await galeforce.tft.league.entries() // Target the /tft/league/v1/entries/{tier}/{division} endpoint
 >   .set({ // Set multiple Action payload properties simultaneously
->     region: galeforce.regions.lol.NORTH_AMERICA, // Sets the request region to 'na1' (i.e., target the NA server)
->     tier: galeforce.tiers.DIAMOND, // Sets the request tier to 'DIAMOND' (i.e., search for players in Diamond)
->     division: galeforce.divisions.IV, // Sets the request division to 'IV' (i.e., search for players in division IV of their tier)
+>     region: galeforce.region.lol.NORTH_AMERICA, // Sets the request region to 'na1' (i.e., target the NA server)
+>     tier: galeforce.tier.DIAMOND, // Sets the request tier to 'DIAMOND' (i.e., search for players in Diamond)
+>     division: galeforce.division.IV, // Sets the request division to 'IV' (i.e., search for players in division IV of their tier)
 >   })
 >   .exec(); // See .exec() above.
 > ```
