@@ -2,7 +2,6 @@ import { Constructor, Executable } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.name()` method.
- * @template R The return type of the `.exec()` Promise.
  */
 export interface SummonerNameChainable {
     name?: <K extends SummonerNameChainable & Executable>(this: K, summonerName: string) => Omit<K, 'name'>;

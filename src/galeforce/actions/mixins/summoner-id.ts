@@ -17,7 +17,7 @@ export function TakesSummonerId<TBase extends Constructor>(Base: TBase) {
         /**
          * Modifies the **summonerId** associated with the Action object it is called from.
          * Note that associated runtime type checks are performed to ensure that
-         * the summoner ID conforms to Riot specifications
+         * the summoner ID conforms to Riot specifications.
          * @param summonerId The summoner ID to update the calling Action object with.
          * @throws Will throw an error if an invalid `summonerId` is provided.
          */

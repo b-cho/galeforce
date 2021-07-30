@@ -20,9 +20,9 @@ export default class GetAccount extends BaseAction<AccountDTO> {
     }
 
     protected inferEndpoint(): void {
-        if (this.payload.puuid) {
+        if (typeof this.payload.puuid !== 'undefined') {
             this.payload.endpoint = ENDPOINTS.ACCOUNT.PUUID;
-        } else if (this.payload.gameName || this.payload.tagLine) {
+        } else if (typeof this.payload.gameName !== 'undefined' || typeof this.payload.tagLine !== 'undefined') {
             this.payload.endpoint = ENDPOINTS.ACCOUNT.RIOT_ID;
         } else {
             throw new Error('[galeforce]: Not enough parameters provided to select API endpoint.');

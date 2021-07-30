@@ -30,9 +30,9 @@ export default class GetTFTLeagueEntries extends BaseAction<LeagueEntryDTO[]> {
     }
 
     protected inferEndpoint(): void {
-        if (this.payload.summonerId) {
+        if (typeof this.payload.summonerId !== 'undefined') {
             this.payload.endpoint = ENDPOINTS.TFT_LEAGUE.SUMMONER_ID;
-        } else if (this.payload.division || this.payload.tier) {
+        } else if (typeof this.payload.division !== 'undefined' || typeof this.payload.tier !== 'undefined') {
             if (this.payload.tier && [Tier.MASTER, Tier.GRANDMASTER, Tier.CHALLENGER].includes(this.payload.tier)) {
                 throw new Error('[galeforce]: /tft/league/v1/entries does not currently support the apex tiers.');
             }

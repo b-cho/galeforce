@@ -25,13 +25,13 @@ export default class GetSummoner extends BaseAction<SummonerDTO> {
     }
 
     protected inferEndpoint(): void {
-        if (this.payload.summonerName) {
+        if (typeof this.payload.summonerName !== 'undefined') {
             this.payload.endpoint = ENDPOINTS.SUMMONER.SUMMONER_NAME;
-        } else if (this.payload.summonerId) {
+        } else if (typeof this.payload.summonerId !== 'undefined') {
             this.payload.endpoint = ENDPOINTS.SUMMONER.SUMMONER_ID;
-        } else if (this.payload.accountId) {
+        } else if (typeof this.payload.accountId !== 'undefined') {
             this.payload.endpoint = ENDPOINTS.SUMMONER.ACCOUNT_ID;
-        } else if (this.payload.puuid) {
+        } else if (typeof this.payload.puuid !== 'undefined') {
             this.payload.endpoint = ENDPOINTS.SUMMONER.PUUID;
         } else {
             throw new Error('[galeforce]: Not enough parameters provided to select API endpoint.');

@@ -17,12 +17,12 @@ A customizable, promise-based, and command-oriented TypeScript library and fluen
 
 ## Features
 
-- **Full API support** for all Riot games, Data Dragon, and the Live Client Data API
+- **Full API support** for all Riot games, Data Dragon (LoL and LoR), and the Live Client Data API
   - Environment variable config integration for API keys and other values on both the desktop and platforms including Heroku.
-- **Automatic rate limiting** using Redis caches
+- **Customizable rate limiting** with Redis clustering support and automated retries
 - **Fully-typed DTOs and parameters** for *all* endpoints
 - **Fluent interface** for seamless method chaining
-- **Built-in, customizable debugging** using `debug`
+- **Built-in, informative debugging** using `debug`
 
 Automatically-generated **documentation** is available [here](https://bcho04.github.io/galeforce/), and code **examples** can be found the section [below](#guide).
 
@@ -65,7 +65,7 @@ const galeforce = new GaleforceModule(/* config */);
 ```javascript
 const summoners = ['a', 'b', 'c'];
 const promises = summoners.map(summoner => galeforce.lol.summoner()
-  .region(galeforce.regions.lol.NORTH_AMERICA)
+  .region(galeforce.region.lol.NORTH_AMERICA)
   .name(summoner)
   .exec()
 ); // list of request promises
@@ -81,7 +81,7 @@ Promise.all(promises).then((result) => {
 
 ```javascript
 const matchIds = (await galeforce.lol.match.list()
-  .region(galeforce.regions.lol.NORTH_AMERICA)
+  .region(galeforce.region.lol.NORTH_AMERICA)
   .accountId(accountId)
   .exec())
   .matches.map(matchInfo => matchInfo.gameId);
@@ -94,7 +94,7 @@ const matchIds = (await galeforce.lol.match.list()
 
 ```javascript
 const matchData = await galeforce.lol.match.match()
-  .region(galeforce.regions.lol.NORTH_AMERICA)
+  .region(galeforce.region.lol.NORTH_AMERICA)
   .matchId(matchId)
   .exec();
 ```
@@ -106,7 +106,7 @@ const matchData = await galeforce.lol.match.match()
 
 ```javascript
 const totalMasteryPoints = (await galeforce.lol.mastery.list()
-  .region(galeforce.regions.lol.NORTH_AMERICA)
+  .region(galeforce.region.lol.NORTH_AMERICA)
   .summonerId(summonerId)
   .exec())
   .reduce((previous, current) => previous + current.championPoints, 0);
@@ -132,7 +132,7 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 > ```javascript
 > /* Gets Valorant platform and status data. */
 > galeforce.val.status() // Target the /val/status/v1/platform-data endpoint
->   .region(galeforce.regions.val.NORTH_AMERICA) // See below for documentation.
+>   .region(galeforce.region.val.NORTH_AMERICA) // See below for documentation.
 >   .exec() // Sends a Valorant server status request to the val-status-v1 endpoint
 >   .then((data) => { // Use the returned data
 >     /* manipulate status data */
@@ -150,9 +150,9 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 >
 > ```javascript
 > /* Gets the Data Dragon URL associated with the Galeforce icon. */
-> const galeforceURL = galeforce.ddragon.item.art() // Fetch item icon art from Data Dragon
+> const galeforceURL = galeforce.lol.ddragon.item.art() // Fetch item icon art from Data Dragon
 >   .version('11.9.1') // See the .<property>() section for documentation. Sets the version to retrieve data from.
->   .assetId('6671') // See below for documentation. Get the icon for the Galeforce item.
+>   .assetId(6671) // See below for documentation. Get the icon for the Galeforce item.
 >   .URL(); // Get the encoded URL corresponding with the selected endpoint as a string.
 > 
 > console.log(galeforceURL); // 'https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/6671.png'
@@ -170,7 +170,7 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 > ```javascript
 > /* Gets current game info for a specific summonerId. */
 > const currentGameInfo = await galeforce.lol.spectator.active() // Target the /lol/spectator/v4/active-games/by-summoner/{summonerId} endpoint
->   .region(galeforce.regions.lol.NORTH_AMERICA) // Sets the request region to 'na1' (i.e., target the NA server)
+>   .region(galeforce.region.lol.NORTH_AMERICA) // Sets the request region to 'na1' (i.e., target the NA server)
 >   .summonerId('summonerId') // Sets the request summonerId to 'summonerId'
 >   .exec(); // See .exec() above.
 > ```
@@ -180,8 +180,28 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 > ```javascript
 > /* Gets current game info for a specific summonerId. */
 > const currentGameInfo = await galeforce.lol.spectator.active() // Target the /lol/spectator/v4/active-games/by-summoner/{summonerId} endpoint
->   .region(galeforce.regions.lol.NORTH_AMERICA) // Sets the request region to 'na1' (i.e., target the NA server)
->   .region(galeforce.regions.lol.KOREA) // galeforce.lol.spectator.active(...).region(...).region is not a function
+>   .region(galeforce.region.lol.NORTH_AMERICA) // Sets the request region to 'na1' (i.e., target the NA server)
+>   .region(galeforce.region.lol.KOREA) // galeforce.lol.spectator.active(...).region(...).region is not a function
+> ```
+>
+</details>
+
+<details>
+<summary><code>.set()</code></summary>
+
+> Sets multiple *properties* (`region`, `summonerId`, `puuid`, etc.) in the Action request payload simultaneously.
+>
+> **Example**
+>
+> ```javascript
+> /* Gets league entries for a given Teamfight Tactics ranked league. */
+> const TFTLeagueInfo = await galeforce.tft.league.entries() // Target the /tft/league/v1/entries/{tier}/{division} endpoint
+>   .set({ // Set multiple Action payload properties simultaneously
+>     region: galeforce.region.lol.NORTH_AMERICA, // Sets the request region to 'na1' (i.e., target the NA server)
+>     tier: galeforce.tier.DIAMOND, // Sets the request tier to 'DIAMOND' (i.e., search for players in Diamond)
+>     division: galeforce.division.IV, // Sets the request division to 'IV' (i.e., search for players in division IV of their tier)
+>   })
+>   .exec(); // See .exec() above.
 > ```
 >
 </details>
@@ -209,25 +229,30 @@ Galeforce includes DTOs for all Riot API responses as TypeScript interfaces. Alt
 When initializing Galeforce, a config object (JSON) or a path to a YAML file may *optionally* be passed to the `GaleforceModule()` constructor as an argument:
 
 ```javascript
-const galeforce = new GaleforceModule(/* config file path or object */);
+const galeforce = new GaleforceModule(/* optional config file path or object */);
 ```
 
 Omitting the config will prevent Galeforce from being able to interface with the [Riot Games API](https://developer.riotgames.com/) (as no API key will be specified), although Data Dragon and the Live Client Data API will still be available.
 
-Template string-like values (such as `${RIOT_KEY}`) will be evaluated using environment variables in `process.env`. The configuration file must have the following structure (all top-level fields are optional):
+Template string-like values (such as `${RIOT_KEY}`) will be evaluated using environment variables in `process.env`. The configuration file may contain any of the following structure (all top-level fields are optional):
 
 ```yaml
 riot-api:
-  key: ${RIOT_KEY} # (string) Your Riot API key from https://developer.riotgames.com
-cache:
-  type: ${CACHE_TYPE} # (string) What kind of cache to use ('redis', 'javascript', 'null')
-  uri: ${CACHE_URI} # (string) The cache URI to connect to (required for 'redis' cache)
-rate-limit: # Requires a cache to be configured.
-  prefix: riotapi-ratelimit- # The prefix for the Riot API rate limit keys in the cache.
-  intervals: # key <secs>: value <number of requests>. 
-    120: 100
-    1: 20
-debug: [] # A list containing any of 'action', 'payload', 'rate-limit', 'riot-api', '*' (all).
+  key: 'RGAPI-???' # (string) Your Riot API key from https://developer.riotgames.com
+rate-limit:
+  type: 'bottleneck' # (string) The type of rate limiter Galeforce should use ('bottleneck', 'null')
+  cache:
+    type: ${CACHE_TYPE} # (string) What kind of cache to use ('redis', 'internal')
+    uri: ${CACHE_URI} # (string) The cache URI to connect to (required for 'redis' cache)
+    key-id: 'galeforce' # (string) The key ID to use for rate-limiting keys in the Redis cache
+  options:
+    intervals: # (key <seconds>: value <number of requests>) Manually-set local rate limits, applied per region
+      120: 100
+      1: 20
+    max-concurrent: null # (null | number) The maximum number of concurrent requests allowed. Setting to null allows unlimited concurrent requests.
+    min-time: 0 # (number) The minimum amount of time between consecutive requests
+    retry-count-after-429: 3 # (number) The number of retry attempts after an HTTP 429 error is received, delayed by response header
+debug: [] # A list containing any of 'action', 'payload', 'rate-limit', 'riot-api', '*' (all)
 ```
 
 ### Documentation

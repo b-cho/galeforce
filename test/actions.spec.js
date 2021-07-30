@@ -1,36 +1,24 @@
 const chai = require('chai');
-const redisMock = require('redis-mock');
 const nock = require('nock');
-const rewiremock = require('rewiremock/node');
 const chaiAsPromised = require('chai-as-promised');
 
 chai.use(chaiAsPromised);
 const { expect } = chai;
 
-rewiremock('redis').with(redisMock);
-rewiremock(() => require('redis')).with(redisMock);
-rewiremock.enable();
-
 const GaleforceModule = require('../dist');
+const { default: Action } = require('../dist/galeforce/actions/action');
 
 const Galeforce = new GaleforceModule({
-    'riot-api': {
-        key: 'RIOT-API-KEY',
-    },
-    cache: {
-        type: 'redis',
-        uri: 'redis://127.0.0.1:6379',
-    },
     'rate-limit': {
-        prefix: 'riotapi-ratelimit-',
-        intervals: {
-            1: 2000,
-        },
+        type: 'bottleneck',
     },
-    // debug: ['*'],
 });
 
-rewiremock.disable();
+const GaleforceNull = new GaleforceModule({
+    'rate-limit': {
+        type: 'null',
+    },
+});
 
 // Set up nock
 const replyValues = {
@@ -146,6 +134,8 @@ const na1API = nock('https://na1.api.riotgames.com')
     .persist()
     .get('/lol/summoner/v4/summoners/by-name/SSG%20Xayah')
     .reply(200, replyValues.v4.summoner)
+    .get('/lol/summoner/v4/summoners/by-name/429')
+    .reply(429, {}, { 'retry-after': 5 })
     .get('/lol/summoner/v4/summoners/by-name/404')
     .reply(404)
     .get('/lol/summoner/v4/summoners/by-name/403')
@@ -381,41 +371,109 @@ const gameClientAPI = nock('https://127.0.0.1:2999')
     .get('/swagger/v3/openapi.json')
     .reply(200, 'openapi');
 
+const lorDataDragonAPI = nock('https://dd.b.pvp.net')
+    .get('/latest/core-en_us.zip')
+    .replyWithFile(200, `${__dirname}/test-data/example-image.png`)
+    .get('/latest/set1-en_us.zip')
+    .replyWithFile(200, `${__dirname}/test-data/example-image.png`)
+    .get('/latest/set1-lite-en_us.zip')
+    .replyWithFile(200, `${__dirname}/test-data/example-image.png`)
+    .get('/latest/core/en_us/data/globals-en_us.json')
+    .replyWithFile(200, `${__dirname}/test-data/lor.ddragon.globals.json`)
+    .get('/latest/core/en_us/img/regions/icon-demacia.png')
+    .replyWithFile(200, `${__dirname}/test-data/example-image.png`)
+    .get('/latest/set1/en_us/data/set1-en_us.json')
+    .replyWithFile(200, `${__dirname}/test-data/lor.ddragon.set-data.json`)
+    .get('/latest/set1/en_us/img/cards/01DE001.png')
+    .replyWithFile(200, `${__dirname}/test-data/example-image.png`)
+    .get('/latest/set1/en_us/img/cards/01DE001-full.png')
+    .replyWithFile(200, `${__dirname}/test-data/example-image.png`)
+    .get('/latest/set1/en_us/img/cards/01DE001-alt.png') // This doesn't actually exist but will be used for the sake of testing.
+    .replyWithFile(200, `${__dirname}/test-data/example-image.png`)
+    .get('/latest/set1/en_us/img/cards/01DE001-alt-full.png') // This doesn't actually exist but will be used for the sake of testing.
+    .replyWithFile(200, `${__dirname}/test-data/example-image.png`)
+
 describe('/galeforce/actions', () => {
+    describe('action checks', () => {
+        it('should throw if the payload endpoint is undefined when executed', () => {
+            let action = new Action();
+            expect(action.exec()).to.eventually.be.rejectedWith('[galeforce]: Action endpoint is required but undefined.');
+        });
+        it('should throw if the payload endpoint is undefined when the request URL is fetched', () => {
+            let action = new Action();
+            expect(() => action.URL()).to.throw('[galeforce]: Action endpoint is required but undefined.');
+        });
+        it('should throw if the payload method is undefined when executed', () => {
+            let action = new Action();
+            action.payload.endpoint = 'defined';
+            expect(action.exec()).to.eventually.be.rejectedWith('[galeforce]: Action method is required but undefined.');
+        });
+        it('should throw if the payload method is defined but invalid when executed', () => {
+            let action = new Action();
+            action.payload.endpoint = 'defined';
+            action.payload.method = 'invalid';
+            expect(action.exec()).to.eventually.be.rejectedWith('[galeforce]: Invalid action method provided.');
+        });
+    });
+    describe('payload checks', () => {
+        it('should not set a non-existent field', () => {
+            expect(() => {
+                let action = new Action();
+                action.payload['invalid'] = true;
+                if (typeof action.payload.invalid !== 'undefined') throw new Error('invalid field present!');
+            }).to.not.throw();
+        });
+    });
     describe('galeforce', () => {
         describe('.lol', () => {
             describe('.summoner()', () => {
                 describe('.name()', () => {
-                    it('should return correct JSON for the /lol/summoner/v4/summoners/by-name Riot API endpoint', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('SSG Xayah').exec())
+                    it('should return correct JSON for the /lol/summoner/v4/summoners/by-name Riot API endpoint', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).name('SSG Xayah').exec())
                         .to.eventually.deep.equal(replyValues.v4.summoner));
-                    it('should throw when provided an invalid region', () => expect(() => Galeforce.lol.summoner().region(Galeforce.regions.riot.AMERICAS))
+                    it('should throw when provided an invalid region', () => expect(() => Galeforce.lol.summoner().region(Galeforce.region.riot.AMERICAS))
                         .to.throw('[galeforce]: Invalid /lol region provided.'));
-                    it('should throw when .region() is called twice', () => expect(() => Galeforce.lol.summoner().region(Galeforce.regions.riot.AMERICAS).region(Galeforce.regions.riot.ASIA))
+                    it('should throw when .region() is called twice', () => expect(() => Galeforce.lol.summoner().region(Galeforce.region.riot.AMERICAS).region(Galeforce.region.riot.ASIA))
                         .to.throw());
                     it('should throw when not provided a region', () => expect(Galeforce.lol.summoner().name('SSG Xayah').exec())
                         .to.eventually.be.rejectedWith('[galeforce]: Action payload region is required but undefined.'));
-                    it('should reject with correct error message when receiving a 404 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('404').exec())
+                    it('should reject with correct error message when receiving a 404 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).name('404').exec())
                         .to.eventually.be.rejectedWith('[galeforce]: Data fetch failed with status code 404'));
-                    it('should reject with correct error message when receiving a 403 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('403').exec())
+                    it('should retry on timer and not throw when response rate limit exceeded', () => new Promise((resolve, reject) => {
+                        const autoTimeout = setTimeout(resolve, 500);
+                        Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).name('429').exec()
+                            .then(() => {
+                                clearTimeout(autoTimeout);
+                                reject(new Error('Rate limiting failed!'));
+                            });
+                    }));
+                    it('should reject with correct error message when receiving a 403 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).name('403').exec())
                         .to.eventually.be.rejectedWith('[galeforce]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (403 Forbidden)'));
-                    it('should reject with correct error message when receiving a 403 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('401').exec())
+                    it('should reject with correct error message when receiving a 403 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).name('401').exec())
                         .to.eventually.be.rejectedWith('[galeforce]: No Riot API key was provided. Please ensure that your key is present in your configuration file or object. (401 Unauthorized)'));
-                    it('should timeout when rate limit exceeded', () => new Promise((resolve, reject) => {
+                    it('should timeout when interval rate limit exceeded', () => new Promise((resolve, reject) => {
                         const GaleforceRL = new GaleforceModule('./test/test-configs/1.yaml');
                         const autoTimeout = setTimeout(resolve, 500);
-                        GaleforceRL.submodules.cache.set('riotapi-ratelimit-120na1', '4000', 120).then(() => {
-                            GaleforceRL.lol.summoner().region(GaleforceRL.regions.lol.NORTH_AMERICA).name('SSG Xayah').exec()
-                                .then(() => {
-                                    clearTimeout(autoTimeout);
-                                    reject(new Error('Rate limiting failed!'));
-                                });
-                        });
+                        GaleforceRL.lol.summoner().region(GaleforceRL.region.lol.NORTH_AMERICA).name('SSG Xayah').exec()
+                            .then(() => {
+                                clearTimeout(autoTimeout);
+                                reject(new Error('Rate limiting failed!'));
+                            });
                     }));
-                    it('should return correct the correct URL for the /lol/summoner/v4/summoners/by-name Riot API endpoint with the .URL() method', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('SSG Xayah').URL())
+                    it('should work with the null rate limiter', () => expect(GaleforceNull.lol.summoner().region(GaleforceNull.region.lol.NORTH_AMERICA).name('SSG Xayah').exec())
+                        .to.eventually.deep.equal(replyValues.v4.summoner));
+                    it('should return correct the correct URL for the /lol/summoner/v4/summoners/by-name Riot API endpoint with the .URL() method', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).name('SSG Xayah').URL())
                         .to.equal('https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/SSG%20Xayah'));
+                    describe('.set()', () => {
+                        it('should return correct JSON for the /lol/summoner/v4/summoners/by-name Riot API endpoint', () => expect(Galeforce.lol.summoner().set({
+                            summonerName: 'SSG Xayah',
+                            region: Galeforce.region.lol.NORTH_AMERICA,
+                            fakeProperty: null,
+                        }).exec())
+                        .to.eventually.deep.equal(replyValues.v4.summoner));
+                    });
                 });
-                describe('.accountId', () => {
-                    it('should return correct JSON for the /lol/summoner/v4/summoners/by-account Riot API endpoint', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).accountId('xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4').exec())
+                describe('.accountId()', () => {
+                    it('should return correct JSON for the /lol/summoner/v4/summoners/by-account Riot API endpoint', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).accountId('xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4').exec())
                         .to.eventually.deep.equal(replyValues.v4.summoner));
                     it('should throw when provided an invalid accountId (length check)', () => expect(() => Galeforce.lol.summoner().accountId('X'.repeat(100)))
                         .to.throw('[galeforce]: accountId is invalid according to Riot specifications (length > 56).'));
@@ -423,13 +481,13 @@ describe('/galeforce/actions', () => {
                         .to.throw('[galeforce]: accountId must be a string.'));
                 });
                 describe('.summonerId()', () => {
-                    it('should return correct JSON for the /lol/summoner/v4/summoners Riot API endpoint', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                    it('should return correct JSON for the /lol/summoner/v4/summoners Riot API endpoint', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
                         .to.eventually.deep.equal(replyValues.v4.summoner));
                     it('should throw when provided an invalid summonerId (length check)', () => expect(() => Galeforce.lol.summoner().summonerId('X'.repeat(100)))
                         .to.throw('[galeforce]: summonerId is invalid according to Riot specifications (length > 63).'));
                 });
                 describe('.puuid()', () => {
-                    it('should return correct JSON for the /lol/summoner/v4/summoners/by-puuid Riot API endpoint', () => expect(Galeforce.lol.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
+                    it('should return correct JSON for the /lol/summoner/v4/summoners/by-puuid Riot API endpoint', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
                         .to.eventually.deep.equal(replyValues.v4.summoner));
                     it('should throw when provided an invalid puuid (length check)', () => expect(() => Galeforce.lol.summoner().puuid('X'.repeat(100)))
                         .to.throw('[galeforce]: puuid is invalid according to Riot specifications (length > 78).'));
@@ -440,20 +498,20 @@ describe('/galeforce/actions', () => {
             describe('.league', () => {
                 describe('.entries()', () => {
                     describe('.summonerId()', () => {
-                        it('should return correct JSON for the /lol/league/v4/entries/by-summoner Riot API endpoint', () => expect(Galeforce.lol.league.entries().region(Galeforce.regions.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                        it('should return correct JSON for the /lol/league/v4/entries/by-summoner Riot API endpoint', () => expect(Galeforce.lol.league.entries().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
                             .to.eventually.deep.equal(replyValues.v4.league.entriesBySummonerId));
                     });
                     describe('.queue().tier().division()', () => {
-                        it('should return correct JSON for the /lol/league/v4/entries Riot API endpoint', () => expect(Galeforce.lol.league.entries().region(Galeforce.regions.lol.NORTH_AMERICA).queue(Galeforce.queues.lol.RANKED_SOLO).tier(Galeforce.tiers.DIAMOND)
-                            .division(Galeforce.divisions.IV)
+                        it('should return correct JSON for the /lol/league/v4/entries Riot API endpoint', () => expect(Galeforce.lol.league.entries().region(Galeforce.region.lol.NORTH_AMERICA).queue(Galeforce.queue.lol.RANKED_SOLO).tier(Galeforce.tier.DIAMOND)
+                            .division(Galeforce.division.IV)
                             .exec())
                             .to.eventually.deep.equal(replyValues.v4.league.diamondIV));
-                        it('should return correct JSON for the /lol/league-exp/v4/entries Riot API endpoint', () => expect(Galeforce.lol.league.entries().region(Galeforce.regions.lol.NORTH_AMERICA).division(Galeforce.divisions.I).queue(Galeforce.queues.lol.RANKED_SOLO)
-                            .tier(Galeforce.tiers.MASTER)
+                        it('should return correct JSON for the /lol/league-exp/v4/entries Riot API endpoint', () => expect(Galeforce.lol.league.entries().region(Galeforce.region.lol.NORTH_AMERICA).division(Galeforce.division.I).queue(Galeforce.queue.lol.RANKED_SOLO)
+                            .tier(Galeforce.tier.MASTER)
                             .exec())
                             .to.eventually.deep.equal(replyValues.v4.league.masterExp));
-                        it('should return correct JSON for the /lol/league/v4/entries Riot API endpoint with query', () => expect(Galeforce.lol.league.entries().region(Galeforce.regions.lol.NORTH_AMERICA).queue(Galeforce.queues.lol.RANKED_SOLO).tier(Galeforce.tiers.GOLD)
-                            .division(Galeforce.divisions.IV)
+                        it('should return correct JSON for the /lol/league/v4/entries Riot API endpoint with query', () => expect(Galeforce.lol.league.entries().region(Galeforce.region.lol.NORTH_AMERICA).queue(Galeforce.queue.lol.RANKED_SOLO).tier(Galeforce.tier.GOLD)
+                            .division(Galeforce.division.IV)
                             .query({ page: 2 })
                             .exec())
                             .to.eventually.deep.equal(replyValues.v4.league.diamondIV));
@@ -469,22 +527,22 @@ describe('/galeforce/actions', () => {
                 });
                 describe('.league()', () => {
                     describe('.leagueId()', () => {
-                        it('should return correct JSON for the /lol/league/v4/leagues/ Riot API endpoint', () => expect(Galeforce.lol.league.league().region(Galeforce.regions.lol.NORTH_AMERICA).leagueId('df776d6f-4101-4817-a36d-689a4be85887').exec())
+                        it('should return correct JSON for the /lol/league/v4/leagues/ Riot API endpoint', () => expect(Galeforce.lol.league.league().region(Galeforce.region.lol.NORTH_AMERICA).leagueId('df776d6f-4101-4817-a36d-689a4be85887').exec())
                             .to.eventually.deep.equal(replyValues.v4.league.league));
                     });
                     describe('.queue().tier()', () => {
-                        it('should return correct JSON for the /lol/league/v4/challengerleagues/by-queue/ Riot API endpoint', () => expect(Galeforce.lol.league.league().region(Galeforce.regions.lol.NORTH_AMERICA).queue(Galeforce.queues.lol.RANKED_SOLO).tier(Galeforce.tiers.CHALLENGER)
+                        it('should return correct JSON for the /lol/league/v4/challengerleagues/by-queue/ Riot API endpoint', () => expect(Galeforce.lol.league.league().region(Galeforce.region.lol.NORTH_AMERICA).queue(Galeforce.queue.lol.RANKED_SOLO).tier(Galeforce.tier.CHALLENGER)
                             .exec())
                             .to.eventually.deep.equal(replyValues.v4.league.challenger));
-                        it('should return correct JSON for the /lol/league/v4/grandmasterleagues/by-queue/ Riot API endpoint', () => expect(Galeforce.lol.league.league().region(Galeforce.regions.lol.NORTH_AMERICA).tier(Galeforce.tiers.GRANDMASTER).queue(Galeforce.queues.lol.RANKED_SOLO)
+                        it('should return correct JSON for the /lol/league/v4/grandmasterleagues/by-queue/ Riot API endpoint', () => expect(Galeforce.lol.league.league().region(Galeforce.region.lol.NORTH_AMERICA).tier(Galeforce.tier.GRANDMASTER).queue(Galeforce.queue.lol.RANKED_SOLO)
                             .exec())
                             .to.eventually.deep.equal(replyValues.v4.league.grandmaster));
-                        it('should return correct JSON for the /lol/league/v4/masterleagues/by-queue/ Riot API endpoint', () => expect(Galeforce.lol.league.league().queue(Galeforce.queues.lol.RANKED_SOLO).tier(Galeforce.tiers.MASTER).region(Galeforce.regions.lol.NORTH_AMERICA)
+                        it('should return correct JSON for the /lol/league/v4/masterleagues/by-queue/ Riot API endpoint', () => expect(Galeforce.lol.league.league().queue(Galeforce.queue.lol.RANKED_SOLO).tier(Galeforce.tier.MASTER).region(Galeforce.region.lol.NORTH_AMERICA)
                             .exec())
                             .to.eventually.deep.equal(replyValues.v4.league.master));
-                        it('should throw when provided an invalid tier', () => expect(Galeforce.lol.league.league().tier(Galeforce.tiers.DIAMOND).exec())
+                        it('should throw when provided an invalid tier', () => expect(Galeforce.lol.league.league().tier(Galeforce.tier.DIAMOND).exec())
                             .to.eventually.be.rejectedWith('[galeforce]: .tier() must be CHALLENGER, GRANDMASTER, or MASTER.'));
-                        it('should reject when .tier() is not chained with .queue()', () => expect(Galeforce.lol.league.league().region(Galeforce.regions.lol.NORTH_AMERICA).queue(Galeforce.queues.lol.RANKED_SOLO).exec())
+                        it('should reject when .tier() is not chained with .queue()', () => expect(Galeforce.lol.league.league().region(Galeforce.region.lol.NORTH_AMERICA).queue(Galeforce.queue.lol.RANKED_SOLO).exec())
                             .to.eventually.be.rejectedWith('[galeforce]: Not enough parameters provided to select API endpoint.'));
                     });
                     it('should throw when not provided enough parameters to specify endpoint', () => expect(Galeforce.lol.league.league().exec())
@@ -494,10 +552,10 @@ describe('/galeforce/actions', () => {
             describe('.mastery', () => {
                 describe('.summoner()', () => {
                     describe('.summonerId()', () => {
-                        it('should return correct JSON for the /lol/champion-mastery/v4/champion-masteries/by-summoner Riot API endpoint', () => expect(Galeforce.lol.mastery.list().region(Galeforce.regions.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                        it('should return correct JSON for the /lol/champion-mastery/v4/champion-masteries/by-summoner Riot API endpoint', () => expect(Galeforce.lol.mastery.list().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
                             .to.eventually.deep.equal(replyValues.v4.championMastery.bySummonerId));
                         describe('.championId()', () => {
-                            it('should return correct JSON for the /lol/champion-mastery/v4/champion-masteries/by-summoner/{}/by-champion Riot API endpoint', () => expect(Galeforce.lol.mastery.champion().region(Galeforce.regions.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').championId(498)
+                            it('should return correct JSON for the /lol/champion-mastery/v4/champion-masteries/by-summoner/{}/by-champion Riot API endpoint', () => expect(Galeforce.lol.mastery.champion().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').championId(498)
                                 .exec())
                                 .to.eventually.deep.equal(replyValues.v4.championMastery.byChampionId));
                         });
@@ -505,7 +563,7 @@ describe('/galeforce/actions', () => {
                 });
                 describe('.score()', () => {
                     describe('.summonerId()', () => {
-                        it('should return correct JSON for the /lol/champion-mastery/v4/scores/by-summoner/ Riot API endpoint', () => expect(Galeforce.lol.mastery.score().region(Galeforce.regions.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                        it('should return correct JSON for the /lol/champion-mastery/v4/scores/by-summoner/ Riot API endpoint', () => expect(Galeforce.lol.mastery.score().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
                             .to.eventually.deep.equal(replyValues.v4.championMastery.score));
                     });
                 });
@@ -538,37 +596,37 @@ describe('/galeforce/actions', () => {
             describe('.platform', () => {
                 describe('.thirdPartyCode()', () => {
                     describe('.summonerId()', () => {
-                        it('should return correct JSON for the /lol/platform/v4/third-party-code/by-summoner/ Riot API endpoint', () => expect(Galeforce.lol.platform.thirdPartyCode().region(Galeforce.regions.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                        it('should return correct JSON for the /lol/platform/v4/third-party-code/by-summoner/ Riot API endpoint', () => expect(Galeforce.lol.platform.thirdPartyCode().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
                             .to.eventually.deep.equal(replyValues.v4.thirdPartyCode.bySummonerId));
                     });
                 });
             });
             describe('.status', () => {
                 describe('.platformData()', () => {
-                    it('should return correct JSON for the /lol/status/v4/platform-data Riot API endpoint', () => expect(Galeforce.lol.status().region(Galeforce.regions.lol.NORTH_AMERICA).exec())
+                    it('should return correct JSON for the /lol/status/v4/platform-data Riot API endpoint', () => expect(Galeforce.lol.status().region(Galeforce.region.lol.NORTH_AMERICA).exec())
                         .to.eventually.deep.equal(replyValues.v4.status));
                 });
             });
             describe('.champion', () => {
                 describe('.championRotations()', () => {
-                    it('should return correct JSON for the /lol/platform/v3/champion-rotations Riot API endpoint', () => expect(Galeforce.lol.platform.championRotations().region(Galeforce.regions.lol.NORTH_AMERICA).exec())
+                    it('should return correct JSON for the /lol/platform/v3/champion-rotations Riot API endpoint', () => expect(Galeforce.lol.platform.championRotations().region(Galeforce.region.lol.NORTH_AMERICA).exec())
                         .to.eventually.deep.equal(replyValues.v3.champion));
                 });
             });
             describe('.clash', () => {
                 describe('.upcoming()', () => {
-                    it('should return correct JSON for the /lol/clash/v1/tournaments Riot API endpoint', () => expect(Galeforce.lol.clash.upcoming().region(Galeforce.regions.lol.NORTH_AMERICA).exec())
+                    it('should return correct JSON for the /lol/clash/v1/tournaments Riot API endpoint', () => expect(Galeforce.lol.clash.upcoming().region(Galeforce.region.lol.NORTH_AMERICA).exec())
                         .to.eventually.deep.equal(replyValues.v1.clash.tournaments.all));
-                    it('should return correct JSON for the /lol/clash/v1/tournaments Riot API endpoint (reversed)', () => expect(Galeforce.lol.clash.upcoming().region(Galeforce.regions.lol.NORTH_AMERICA).exec())
+                    it('should return correct JSON for the /lol/clash/v1/tournaments Riot API endpoint (reversed)', () => expect(Galeforce.lol.clash.upcoming().region(Galeforce.region.lol.NORTH_AMERICA).exec())
                         .to.eventually.deep.equal(replyValues.v1.clash.tournaments.all));
                 });
                 describe('.tournaments()', () => {
                     describe('.tournamentId()', () => {
-                        it('should return correct JSON for the /lol/clash/v1/tournaments/{} Riot API endpoint', () => expect(Galeforce.lol.clash.tournament().tournamentId(2001).region(Galeforce.regions.lol.NORTH_AMERICA).exec())
+                        it('should return correct JSON for the /lol/clash/v1/tournaments/{} Riot API endpoint', () => expect(Galeforce.lol.clash.tournament().tournamentId(2001).region(Galeforce.region.lol.NORTH_AMERICA).exec())
                             .to.eventually.deep.equal(replyValues.v1.clash.tournaments.byTournament));
                     });
                     describe('.teamId()', () => {
-                        it('should return correct JSON for the /lol/clash/v1/tournaments/by-team Riot API endpoint', () => expect(Galeforce.lol.clash.tournament().teamId('971374dd-d9bd-4ff9-a06d-b21044ba0c92').region(Galeforce.regions.lol.NORTH_AMERICA).exec())
+                        it('should return correct JSON for the /lol/clash/v1/tournaments/by-team Riot API endpoint', () => expect(Galeforce.lol.clash.tournament().teamId('971374dd-d9bd-4ff9-a06d-b21044ba0c92').region(Galeforce.region.lol.NORTH_AMERICA).exec())
                             .to.eventually.deep.equal(replyValues.v1.clash.tournaments.byTeam));
                     });
                     it('should throw when not provided enough parameters to specify endpoint', () => expect(Galeforce.lol.clash.tournament().exec())
@@ -576,13 +634,13 @@ describe('/galeforce/actions', () => {
                 });
                 describe('.players()', () => {
                     describe('.summonerId()', () => {
-                        it('should return correct JSON for the /lol/clash/v1/players/by-summoner Riot API endpoint', () => expect(Galeforce.lol.clash.players().region(Galeforce.regions.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                        it('should return correct JSON for the /lol/clash/v1/players/by-summoner Riot API endpoint', () => expect(Galeforce.lol.clash.players().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
                             .to.eventually.deep.equal(replyValues.v1.clash.players));
                     });
                 });
                 describe('.team()', () => {
                     describe('.teamId()', () => {
-                        it('should return correct JSON for the /lol/clash/v1/teams Riot API endpoint', () => expect(Galeforce.lol.clash.team().region(Galeforce.regions.lol.NORTH_AMERICA).teamId('971374dd-d9bd-4ff9-a06d-b21044ba0c92').exec())
+                        it('should return correct JSON for the /lol/clash/v1/teams Riot API endpoint', () => expect(Galeforce.lol.clash.team().region(Galeforce.region.lol.NORTH_AMERICA).teamId('971374dd-d9bd-4ff9-a06d-b21044ba0c92').exec())
                             .to.eventually.deep.equal(replyValues.v1.clash.team));
                     });
                 });
@@ -590,19 +648,19 @@ describe('/galeforce/actions', () => {
             describe('.spectator', () => {
                 describe('.active()', () => {
                     describe('.summonerId()', () => {
-                        it('should return correct JSON for the /lol/spectator/v4/active-games/by-summoner Riot API endpoint', () => expect(Galeforce.lol.spectator.active().region(Galeforce.regions.lol.NORTH_AMERICA).summonerId('W0UKG702c2bD7rwhOqZAn-pQ0ggk27_M0WMEVkPDodr-I-g').exec())
+                        it('should return correct JSON for the /lol/spectator/v4/active-games/by-summoner Riot API endpoint', () => expect(Galeforce.lol.spectator.active().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('W0UKG702c2bD7rwhOqZAn-pQ0ggk27_M0WMEVkPDodr-I-g').exec())
                             .to.eventually.deep.equal(replyValues.v4.spectator.active));
                     });
                 });
                 describe('.featured()', () => {
-                    it('should return correct JSON for the /lol/spectator/v4/featured-games Riot API endpoint', () => expect(Galeforce.lol.spectator.featured().region(Galeforce.regions.lol.NORTH_AMERICA).exec())
+                    it('should return correct JSON for the /lol/spectator/v4/featured-games Riot API endpoint', () => expect(Galeforce.lol.spectator.featured().region(Galeforce.region.lol.NORTH_AMERICA).exec())
                         .to.eventually.deep.equal(replyValues.v4.spectator.featured));
                 });
             });
             describe('.tournament', () => {
                 describe('.code()', () => {
                     describe('.create()', () => {
-                        it('should return correct JSON for the /lol/tournament/v4/codes Riot API endpoint', () => expect(Galeforce.lol.tournament.code.create().region(Galeforce.regions.lol.NORTH_AMERICA).body({
+                        it('should return correct JSON for the /lol/tournament/v4/codes Riot API endpoint', () => expect(Galeforce.lol.tournament.code.create().region(Galeforce.region.lol.NORTH_AMERICA).body({
                             allowedSummonerIds: ['a', 'b', 'c'],
                             metadata: '',
                             teamSize: 5,
@@ -612,7 +670,7 @@ describe('/galeforce/actions', () => {
                         }).query({ tournamentId: 1234 })
                             .exec())
                             .to.eventually.deep.equal(['a', 'b']));
-                        it('should reject when not provided a query with a tournamentId parameter', () => expect(Galeforce.lol.tournament.code.create().region(Galeforce.regions.lol.NORTH_AMERICA).body({
+                        it('should reject when not provided a query with a tournamentId parameter', () => expect(Galeforce.lol.tournament.code.create().region(Galeforce.region.lol.NORTH_AMERICA).body({
                             allowedSummonerIds: ['a', 'b', 'c'],
                             metadata: '',
                             teamSize: 5,
@@ -621,11 +679,11 @@ describe('/galeforce/actions', () => {
                             spectatorType: 'NONE',
                         }).exec())
                             .to.eventually.be.rejectedWith('[galeforce]: POST to /lol/tournament/v4/codes requires a query with a tournamentId parameter.'));
-                        it('should reject when not provided a request body', () => expect(Galeforce.lol.tournament.code.create().region(Galeforce.regions.lol.NORTH_AMERICA).query({ tournamentId: 1234 }).exec())
+                        it('should reject when not provided a request body', () => expect(Galeforce.lol.tournament.code.create().region(Galeforce.region.lol.NORTH_AMERICA).query({ tournamentId: 1234 }).exec())
                             .to.eventually.be.rejectedWith('[galeforce]: Action payload body is required but undefined.'));
                     });
                     describe('.update()', () => {
-                        it('should return correct JSON for the /lol/tournament/v4/codes/{tournamentCode} Riot API endpoint', () => expect(Galeforce.lol.tournament.code.update().region(Galeforce.regions.lol.NORTH_AMERICA).tournamentCode('1234').body({
+                        it('should return correct JSON for the /lol/tournament/v4/codes/{tournamentCode} Riot API endpoint', () => expect(Galeforce.lol.tournament.code.update().region(Galeforce.region.lol.NORTH_AMERICA).tournamentCode('1234').body({
                             allowedSummonerIds: ['a', 'b', 'c'],
                             pickType: 'TOURNAMENT_DRAFT',
                             mapType: 'SUMMONERS_RIFT',
@@ -633,33 +691,190 @@ describe('/galeforce/actions', () => {
                         })
                             .exec())
                             .to.eventually.deep.equal(''));
-                        it('should reject when not provided a request body', () => expect(Galeforce.lol.tournament.code.update().region(Galeforce.regions.lol.NORTH_AMERICA).tournamentCode('1234').exec())
+                        it('should reject when not provided a request body', () => expect(Galeforce.lol.tournament.code.update().region(Galeforce.region.lol.NORTH_AMERICA).tournamentCode('1234').exec())
                             .to.eventually.be.rejectedWith('[galeforce]: Action payload body is required but undefined.'));
                     });
                     describe('.get()', () => {
-                        it('should return correct JSON for the /lol/tournament/v4/codes/{tournamentCode} Riot API endpoint', () => expect(Galeforce.lol.tournament.code.get().region(Galeforce.regions.lol.NORTH_AMERICA).tournamentCode('1234').exec())
+                        it('should return correct JSON for the /lol/tournament/v4/codes/{tournamentCode} Riot API endpoint', () => expect(Galeforce.lol.tournament.code.get().region(Galeforce.region.lol.NORTH_AMERICA).tournamentCode('1234').exec())
                             .to.eventually.deep.equal(replyValues.v4.tournament.codes));
                     });
                 });
                 describe('.event()', () => {
                     describe('.tournamentCode()', () => {
-                        it('should return correct JSON for the /lol/tournament/v4/lobby-events/by-code Riot API endpoint', () => expect(Galeforce.lol.tournament.event().region(Galeforce.regions.lol.NORTH_AMERICA).tournamentCode('1234').exec())
+                        it('should return correct JSON for the /lol/tournament/v4/lobby-events/by-code Riot API endpoint', () => expect(Galeforce.lol.tournament.event().region(Galeforce.region.lol.NORTH_AMERICA).tournamentCode('1234').exec())
                             .to.eventually.deep.equal(replyValues.v4.tournament.events));
                     });
                 });
                 describe('.provider()', () => {
-                    it('should return correct JSON for the /lol/tournament/v4/providers Riot API endpoint', () => expect(Galeforce.lol.tournament.provider().region(Galeforce.regions.lol.NORTH_AMERICA).body({
+                    it('should return correct JSON for the /lol/tournament/v4/providers Riot API endpoint', () => expect(Galeforce.lol.tournament.provider().region(Galeforce.region.lol.NORTH_AMERICA).body({
                         region: 'NA',
                         url: 'https://example.com',
                     }).exec())
                         .to.eventually.deep.equal(1));
                 });
                 describe('.tournament()', () => {
-                    it('should return correct JSON for the /lol/tournament/v4/tournaments Riot API endpoint', () => expect(Galeforce.lol.tournament.tournament().region(Galeforce.regions.lol.NORTH_AMERICA).body({
+                    it('should return correct JSON for the /lol/tournament/v4/tournaments Riot API endpoint', () => expect(Galeforce.lol.tournament.tournament().region(Galeforce.region.lol.NORTH_AMERICA).body({
                         providerId: 10,
                         name: 'name',
                     }).exec())
                         .to.eventually.deep.equal(2));
+                });
+            });
+            describe('.ddragon', () => {
+                describe('.tail()', () => {
+                    it('should pull tarfile from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.tail().version('11.2.1').exec())
+                        .to.eventually.be.instanceof(Buffer));
+                    it('should pull tarfile from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.tail().version('10.10.5').exec())
+                        .to.eventually.be.instanceof(Buffer));
+                });
+                describe('.versions()', () => {
+                    it('should pull JSON from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.versions().exec())
+                        .to.eventually.be.a('Array'));
+                });
+                describe('.realm()', () => {
+                    describe('.region()', () => {
+                        it('should pull JSON from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.realm().region(Galeforce.region.ddragon.NORTH_AMERICA).exec())
+                            .to.eventually.have.property('n'));
+                        it('should throw when provided an invalid region', () => expect(() => Galeforce.lol.ddragon.realm().region(Galeforce.region.lol.NORTH_AMERICA))
+                            .to.throw('[galeforce]: Invalid Data Dragon region provided.'));
+                    });
+                });
+                describe('.languages()', () => {
+                    it('should pull JSON from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.languages().exec())
+                        .to.eventually.be.a('Array'));
+                });
+                describe('.champion', () => {
+                    describe('.list()', () => {
+                        describe('.version().locale()', () => {
+                            it('should pull JSON from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.champion.list().version('11.2.1').locale('en_US').exec())
+                                .to.eventually.have.property('data'));
+                            it('should throw when provided an invalid version (not string)', () => expect(() => Galeforce.lol.ddragon.champion.list().version(100))
+                                .to.throw('[galeforce]: version must be a string.'));
+                            it('should throw when provided an invalid version (fails regex check)', () => expect(() => Galeforce.lol.ddragon.champion.list().version('1.4.5.a'))
+                                .to.throw('[galeforce]: Invalid version provided (failed regex check).'));
+                            it('should throw when provided an invalid locale (not string)', () => expect(() => Galeforce.lol.ddragon.champion.list().locale(100))
+                                .to.throw('[galeforce]: locale must be a string.'));
+                            it('should throw when provided an invalid locale (fails regex check)', () => expect(() => Galeforce.lol.ddragon.champion.list().locale('abc_US'))
+                                .to.throw('[galeforce]: Invalid locale provided (failed regex check).'));
+                        });
+                    });
+                    describe('.details()', () => {
+                        describe('.version().locale().champion()', () => {
+                            it('should pull JSON from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.champion.details().version('11.2.1').locale('en_US').champion('Xayah')
+                                .exec())
+                                .to.eventually.have.property('data'));
+                        });
+                    });
+                    describe('.art', () => {
+                        describe('.splash()', () => {
+                            describe('.champion().skin()', () => {
+                                it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.champion.art.splash().champion('Xayah').skin(0).exec())
+                                    .to.eventually.be.instanceof(Buffer));
+                            });
+                        });
+                        describe('.loading()', () => {
+                            describe('.champion().skin()', () => {
+                                it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.champion.art.loading().champion('Xayah').skin(0).exec())
+                                    .to.eventually.be.instanceof(Buffer));
+                            });
+                        });
+                        describe('.icon()', () => {
+                            describe('.version().champion()', () => {
+                                it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.champion.art.icon().version('11.2.1').champion('Xayah').exec())
+                                    .to.eventually.be.instanceof(Buffer));
+                            });
+                        });
+                        describe('.passive()', () => {
+                            describe('.version().spell()', () => {
+                                it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.champion.art.passive().version('11.2.1').spell('XayahPassive').exec())
+                                    .to.eventually.be.instanceof(Buffer));
+                            });
+                        });
+                    });
+                });
+                describe('.spell', () => {
+                    describe('.art()', () => {
+                        describe('.version().spell()', () => {
+                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.spell.art().version('11.2.1').spell('XayahR').exec())
+                                .to.eventually.be.instanceof(Buffer));
+                        });
+                    });
+                });
+                describe('.item', () => {
+                    describe('.list()', () => {
+                        describe('.version().locale()', () => {
+                            it('should pull JSON from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.item.list().version('11.2.1').locale('en_US').exec())
+                                .to.eventually.have.property('data'));
+                        });
+                    });
+                    describe('.art()', () => {
+                        describe('.version().assetId()', () => {
+                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.item.art().version('11.2.1').assetId(6671).exec())
+                                .to.eventually.be.instanceof(Buffer));
+                        });
+                    });
+                });
+                describe('.summonerSpell', () => {
+                    describe('.list()', () => {
+                        describe('.version().locale()', () => {
+                            it('should pull JSON from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.summonerSpell.list().version('11.2.1').locale('en_US').exec())
+                                .to.eventually.have.property('data'));
+                        });
+                    });
+                });
+                describe('.item', () => {
+                    describe('.list()', () => {
+                        describe('.version().locale()', () => {
+                            it('should pull JSON from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.profileIcon.list().version('11.2.1').locale('en_US').exec())
+                                .to.eventually.have.property('data'));
+                        });
+                    });
+                    describe('.art()', () => {
+                        describe('.version().assetId()', () => {
+                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.profileIcon.art().version('11.2.1').assetId(3560).exec())
+                                .to.eventually.be.instanceof(Buffer));
+                        });
+                    });
+                });
+                describe('.minimap', () => {
+                    describe('.art()', () => {
+                        describe('.version().assetId()', () => {
+                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.minimap.art().version('11.2.1').assetId(11).exec())
+                                .to.eventually.be.instanceof(Buffer));
+                        });
+                    });
+                });
+                describe('.sprite', () => {
+                    describe('.art()', () => {
+                        describe('.version().assetId()', () => {
+                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.sprite.art().version('11.2.1').assetId(0).exec())
+                                .to.eventually.be.instanceof(Buffer));
+                        });
+                    });
+                });
+                describe('.scoreboard', () => {
+                    describe('.art', () => {
+                        describe('.champion()', () => {
+                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.scoreboard.art.champion().exec())
+                                .to.eventually.be.instanceof(Buffer));
+                        });
+                        describe('.items()', () => {
+                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.scoreboard.art.items().exec())
+                                .to.eventually.be.instanceof(Buffer));
+                        });
+                        describe('.minion()', () => {
+                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.scoreboard.art.minion().exec())
+                                .to.eventually.be.instanceof(Buffer));
+                        });
+                        describe('.score()', () => {
+                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.scoreboard.art.score().exec())
+                                .to.eventually.be.instanceof(Buffer));
+                        });
+                        describe('.spells()', () => {
+                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.scoreboard.art.spells().exec())
+                                .to.eventually.be.instanceof(Buffer));
+                        });
+                    });
                 });
             });
         });
@@ -667,23 +882,23 @@ describe('/galeforce/actions', () => {
             describe('.account', () => {
                 describe('.account()', () => {
                     describe('.puuid()', () => {
-                        it('should return correct JSON for the /riot/account/v1/accounts/by-puuid/ Riot API endpoint', () => expect(Galeforce.riot.account.account().region(Galeforce.regions.riot.AMERICAS).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
+                        it('should return correct JSON for the /riot/account/v1/accounts/by-puuid/ Riot API endpoint', () => expect(Galeforce.riot.account.account().region(Galeforce.region.riot.AMERICAS).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
                             .to.eventually.deep.equal(replyValues.v1.account.account));
-                        it('should throw when provided an invalid region', () => expect(() => Galeforce.riot.account.account().region(Galeforce.regions.lol.NORTH_AMERICA))
+                        it('should throw when provided an invalid region', () => expect(() => Galeforce.riot.account.account().region(Galeforce.region.lol.NORTH_AMERICA))
                             .to.throw('[galeforce]: Invalid /riot region provided.'));
                     });
                     describe('.gameName().tagLine()', () => {
-                        it('should return correct JSON for the /riot/account/v1/accounts/by-riot-id/ Riot API endpoint', () => expect(Galeforce.riot.account.account().region(Galeforce.regions.riot.AMERICAS).gameName('SSG Xayah').tagLine('NA1')
+                        it('should return correct JSON for the /riot/account/v1/accounts/by-riot-id/ Riot API endpoint', () => expect(Galeforce.riot.account.account().region(Galeforce.region.riot.AMERICAS).gameName('SSG Xayah').tagLine('NA1')
                             .exec())
                             .to.eventually.deep.equal(replyValues.v1.account.account));
-                        it('should reject when .gameName() is not chained with .tagLine()', () => expect(Galeforce.riot.account.account().region(Galeforce.regions.riot.AMERICAS).gameName(Galeforce.games.VALORANT).exec())
+                        it('should reject when .gameName() is not chained with .tagLine()', () => expect(Galeforce.riot.account.account().region(Galeforce.region.riot.AMERICAS).gameName(Galeforce.game.VALORANT).exec())
                             .to.eventually.be.rejectedWith('[galeforce]: .gameName() must be chained with .tagLine().'));
                     });
                     it('should throw when not provided enough parameters to specify endpoint', () => expect(Galeforce.riot.account.account().exec())
                         .to.eventually.be.rejectedWith('[galeforce]: Not enough parameters provided to select API endpoint.'));
                 });
                 describe('.activeShard()', () => {
-                    it('should return correct JSON for the /riot/account/v1/active-shards Riot API endpoint', () => expect(Galeforce.riot.account.activeShard().region(Galeforce.regions.riot.AMERICAS).game(Galeforce.games.VALORANT).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g')
+                    it('should return correct JSON for the /riot/account/v1/active-shards Riot API endpoint', () => expect(Galeforce.riot.account.activeShard().region(Galeforce.region.riot.AMERICAS).game(Galeforce.game.VALORANT).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g')
                         .exec())
                         .to.eventually.deep.equal(replyValues.v1.account.activeShard));
                     it('should throw when provided an invalid game', () => expect(() => Galeforce.riot.account.activeShard().game('invalid game'))
@@ -695,27 +910,107 @@ describe('/galeforce/actions', () => {
             describe('.match', () => {
                 describe('.match()', () => {
                     describe('.matchId()', () => {
-                        it('should return correct JSON for the /lor/match/v1/matches endpoint', () => expect(Galeforce.lor.match.match().region(Galeforce.regions.riot.AMERICAS).matchId('99e64d40-b729-419a-843f-14f750675d13').exec())
+                        it('should return correct JSON for the /lor/match/v1/matches endpoint', () => expect(Galeforce.lor.match.match().region(Galeforce.region.lor.AMERICAS).matchId('99e64d40-b729-419a-843f-14f750675d13').exec())
                             .to.eventually.deep.equal(replyValues.v1.lorMatch.match));
+                        it('should throw when provided an invalid region', () => expect(() => Galeforce.lor.match.match().region(Galeforce.region.lol.NORTH_AMERICA))
+                            .to.throw('[galeforce]: Invalid /lor region provided.'));
                     });
                 });
                 describe('.list()', () => {
                     describe('.puuid()', () => {
-                        it('should return correct JSON for the /lor/match/v1/matches/by-puuid/{puuid}/ids endpoint', () => expect(Galeforce.lor.match.list().region(Galeforce.regions.riot.AMERICAS).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
+                        it('should return correct JSON for the /lor/match/v1/matches/by-puuid/{puuid}/ids endpoint', () => expect(Galeforce.lor.match.list().region(Galeforce.region.lor.AMERICAS).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
                             .to.eventually.deep.equal(replyValues.v1.lorMatch.matchlist));
                     });
                 });
             });
             describe('.ranked', () => {
                 describe('.leaderboard()', () => {
-                    it('should return correct JSON for the /lor/ranked/v1/leaderboards endpoint', () => expect(Galeforce.lor.ranked.leaderboard().region(Galeforce.regions.riot.AMERICAS).exec())
+                    it('should return correct JSON for the /lor/ranked/v1/leaderboards endpoint', () => expect(Galeforce.lor.ranked.leaderboard().region(Galeforce.region.lor.AMERICAS).exec())
                         .to.eventually.deep.equal(replyValues.v1.lorRanked.leaderboards));
                 });
             });
             describe('.status', () => {
                 describe('.platformData()', () => {
-                    it('should return correct JSON for the /lor/status/v1/platform-data endpoint', () => expect(Galeforce.lor.status().region(Galeforce.regions.riot.AMERICAS).exec())
+                    it('should return correct JSON for the /lor/status/v1/platform-data endpoint', () => expect(Galeforce.lor.status().region(Galeforce.region.lor.AMERICAS).exec())
                         .to.eventually.deep.equal(replyValues.v1.lorStatus.platformData));
+                });
+            });
+            describe('.ddragon', () => {
+                describe('.core', () => {
+                    describe('.bundle()', () => {
+                        describe('.version().locale()', () => {
+                            it('should pull zip file from the appropriate Data Dragon URL', () => expect(Galeforce.lor.ddragon.core.bundle().version('latest').locale('en_us').exec())
+                                .to.eventually.be.instanceof(Buffer));
+                        });
+                    });
+                    describe('.globals()', () => {
+                        describe('.version().locale()', () => {
+                            it('should return correct JSON from the appropriate Data Dragon URL', () => expect(Galeforce.lor.ddragon.core.globals().version('latest').locale('en_us').exec())
+                                .to.eventually.deep.equal(require(`${__dirname}/test-data/lor.ddragon.globals.json`)));
+                        });
+                    });
+                    describe('.art', () => {
+                        describe('.regionIcon()', () => {
+                            describe('.version().locale().lorRegion()', () => {
+                                it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lor.ddragon.core.art.regionIcon().version('latest').locale('en_us').lorRegion('demacia').exec())
+                                    .to.eventually.be.instanceof(Buffer));
+                            });
+                        });
+                    });
+                });
+                describe('.core', () => {
+                    describe('.bundle', () => {
+                        describe('.full()', () => {
+                            describe('.version().locale().lorSet()', () => {
+                                it('should pull zip file from the appropriate Data Dragon URL', () => expect(Galeforce.lor.ddragon.set.bundle.full().version('latest').locale('en_us').lorSet(1).exec())
+                                    .to.eventually.be.instanceof(Buffer));
+                            });
+                            it('should throw when provided an invalid version', () => expect(() => Galeforce.lor.ddragon.set.bundle.full().version('invalid'))
+                                .to.throw('[galeforce]: Invalid version provided (failed regex check).'));
+                            it('should throw when provided an invalid locale', () => expect(() => Galeforce.lor.ddragon.set.bundle.full().locale('invalid'))
+                                .to.throw('[galeforce]: Invalid locale provided (failed regex check).'));
+                        });
+                        describe('.lite()', () => {
+                            describe('.version().locale().lorSet()', () => {
+                                it('should pull zip file from the appropriate Data Dragon URL', () => expect(Galeforce.lor.ddragon.set.bundle.lite().version('latest').locale('en_us').lorSet(1).exec())
+                                    .to.eventually.be.instanceof(Buffer));
+                            });
+                        });
+                    });
+                    describe('.data()', () => {
+                        describe('.version().locale().lorSet()', () => {
+                            it('should return correct JSON from the appropriate Data Dragon URL', () => expect(Galeforce.lor.ddragon.set.data().version('latest').locale('en_us').lorSet(1).exec())
+                                .to.eventually.deep.equal(require(`${__dirname}/test-data/lor.ddragon.set-data.json`)));
+                        });
+                    });
+                    describe('.card', () => {
+                        describe('.art', () => {
+                            describe('.game()', () => {
+                                describe('.version().locale().lorSet().card()', () => {
+                                    it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lor.ddragon.set.card.art.game().version('latest').locale('en_us').lorSet(1).card('01DE001').exec())
+                                        .to.eventually.be.instanceof(Buffer));
+                                });
+                            });
+                            describe('.full()', () => {
+                                describe('.version().locale().lorSet().card()', () => {
+                                    it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lor.ddragon.set.card.art.full().version('latest').locale('en_us').lorSet(1).card('01DE001').exec())
+                                        .to.eventually.be.instanceof(Buffer));
+                                });
+                            });
+                            describe('.alt()', () => {
+                                describe('.version().locale().lorSet().card()', () => {
+                                    it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lor.ddragon.set.card.art.alt().version('latest').locale('en_us').lorSet(1).card('01DE001').exec())
+                                        .to.eventually.be.instanceof(Buffer));
+                                });
+                            });
+                            describe('.altFull()', () => {
+                                describe('.version().locale().lorSet().card()', () => {
+                                    it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lor.ddragon.set.card.art.altFull().version('latest').locale('en_us').lorSet(1).card('01DE001').exec())
+                                        .to.eventually.be.instanceof(Buffer));
+                                });
+                            });
+                        });
+                    });
                 });
             });
         });
@@ -723,22 +1018,22 @@ describe('/galeforce/actions', () => {
             describe('.league', () => {
                 describe('.entries()', () => {
                     describe('.summonerId()', () => {
-                        it('should return correct JSON for the /lol/league/v4/entries/by-summoner Riot API endpoint', () => expect(Galeforce.tft.league.entries().region(Galeforce.regions.lol.NORTH_AMERICA).summonerId('fOD4gGvxJG-_Bfcj7tqmHxYKAmbtOqoZrMz-Dk0ayGXulb7x').exec())
+                        it('should return correct JSON for the /lol/league/v4/entries/by-summoner Riot API endpoint', () => expect(Galeforce.tft.league.entries().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('fOD4gGvxJG-_Bfcj7tqmHxYKAmbtOqoZrMz-Dk0ayGXulb7x').exec())
                             .to.eventually.deep.equal(replyValues.v1.tftLeague.entriesBySummonerId));
                     });
                     describe('.tier().division()', () => {
-                        it('should return correct JSON for the /lol/league/v4/entries Riot API endpoint', () => expect(Galeforce.tft.league.entries().region(Galeforce.regions.lol.NORTH_AMERICA).tier(Galeforce.tiers.DIAMOND).division(Galeforce.divisions.IV)
+                        it('should return correct JSON for the /lol/league/v4/entries Riot API endpoint', () => expect(Galeforce.tft.league.entries().region(Galeforce.region.lol.NORTH_AMERICA).tier(Galeforce.tier.DIAMOND).division(Galeforce.division.IV)
                             .exec())
                             .to.eventually.deep.equal(replyValues.v1.tftLeague.diamondIV));
-                        it('should return correct JSON for the /lol/league/v4/entries Riot API endpoint with query', () => expect(Galeforce.tft.league.entries().region(Galeforce.regions.lol.NORTH_AMERICA).tier(Galeforce.tiers.GOLD).division(Galeforce.divisions.IV)
+                        it('should return correct JSON for the /lol/league/v4/entries Riot API endpoint with query', () => expect(Galeforce.tft.league.entries().region(Galeforce.region.lol.NORTH_AMERICA).tier(Galeforce.tier.GOLD).division(Galeforce.division.IV)
                             .query({ page: 3 })
                             .exec())
                             .to.eventually.deep.equal(replyValues.v1.tftLeague.diamondIV));
                         it('should throw when provided an invalid tier', () => expect(() => Galeforce.tft.league.entries().tier('invalid tier'))
                             .to.throw('[galeforce]: Invalid ranked tier provided.'));
-                        it('should throw when provided an apex tier', () => expect(Galeforce.tft.league.entries().region(Galeforce.regions.lol.NORTH_AMERICA).tier(Galeforce.tiers.MASTER).exec())
+                        it('should throw when provided an apex tier', () => expect(Galeforce.tft.league.entries().region(Galeforce.region.lol.NORTH_AMERICA).tier(Galeforce.tier.MASTER).exec())
                             .to.eventually.be.rejectedWith('[galeforce]: /tft/league/v1/entries does not currently support the apex tiers.'));
-                        it('should throw when provided an invalid division', () => expect(() => Galeforce.tft.league.entries().region(Galeforce.regions.lol.NORTH_AMERICA).division('invalid division'))
+                        it('should throw when provided an invalid division', () => expect(() => Galeforce.tft.league.entries().region(Galeforce.region.lol.NORTH_AMERICA).division('invalid division'))
                             .to.throw('[galeforce]: Invalid ranked division provided.'));
                     });
                     it('should throw when not provided enough parameters to specify endpoint', () => expect(Galeforce.tft.league.entries().exec())
@@ -746,17 +1041,17 @@ describe('/galeforce/actions', () => {
                 });
                 describe('.league()', () => {
                     describe('.leagueId()', () => {
-                        it('should return correct JSON for the /tft/league/v1/leagues Riot API endpoint', () => expect(Galeforce.tft.league.league().region(Galeforce.regions.lol.NORTH_AMERICA).leagueId('560312d9-a701-411c-b63c-474fdf46ea52').exec())
+                        it('should return correct JSON for the /tft/league/v1/leagues Riot API endpoint', () => expect(Galeforce.tft.league.league().region(Galeforce.region.lol.NORTH_AMERICA).leagueId('560312d9-a701-411c-b63c-474fdf46ea52').exec())
                             .to.eventually.deep.equal(replyValues.v1.tftLeague.league));
                     });
                     describe('.queue().tier()', () => {
-                        it('should return correct JSON for the /tft/league/v1/challenger Riot API endpoint', () => expect(Galeforce.tft.league.league().region(Galeforce.regions.lol.NORTH_AMERICA).tier(Galeforce.tiers.CHALLENGER).exec())
+                        it('should return correct JSON for the /tft/league/v1/challenger Riot API endpoint', () => expect(Galeforce.tft.league.league().region(Galeforce.region.lol.NORTH_AMERICA).tier(Galeforce.tier.CHALLENGER).exec())
                             .to.eventually.deep.equal(replyValues.v1.tftLeague.challenger));
-                        it('should return correct JSON for the /tft/league/v1/grandmaster Riot API endpoint', () => expect(Galeforce.tft.league.league().region(Galeforce.regions.lol.NORTH_AMERICA).tier(Galeforce.tiers.GRANDMASTER).exec())
+                        it('should return correct JSON for the /tft/league/v1/grandmaster Riot API endpoint', () => expect(Galeforce.tft.league.league().region(Galeforce.region.lol.NORTH_AMERICA).tier(Galeforce.tier.GRANDMASTER).exec())
                             .to.eventually.deep.equal(replyValues.v1.tftLeague.grandmaster));
-                        it('should return correct JSON for the /tft/league/v1/master Riot API endpoint', () => expect(Galeforce.tft.league.league().tier(Galeforce.tiers.MASTER).region(Galeforce.regions.lol.NORTH_AMERICA).exec())
+                        it('should return correct JSON for the /tft/league/v1/master Riot API endpoint', () => expect(Galeforce.tft.league.league().tier(Galeforce.tier.MASTER).region(Galeforce.region.lol.NORTH_AMERICA).exec())
                             .to.eventually.deep.equal(replyValues.v1.tftLeague.master));
-                        it('should throw when provided an invalid tier', () => expect(Galeforce.tft.league.league().region(Galeforce.regions.lol.NORTH_AMERICA).tier(Galeforce.tiers.DIAMOND).exec())
+                        it('should throw when provided an invalid tier', () => expect(Galeforce.tft.league.league().region(Galeforce.region.lol.NORTH_AMERICA).tier(Galeforce.tier.DIAMOND).exec())
                             .to.eventually.be.rejectedWith('[galeforce]: .tier() must be CHALLENGER, GRANDMASTER, or MASTER.'));
                     });
                     it('should throw when not provided enough parameters to specify endpoint', () => expect(Galeforce.tft.league.league().exec())
@@ -766,15 +1061,15 @@ describe('/galeforce/actions', () => {
             describe('.match', () => {
                 describe('.match()', () => {
                     describe('.matchId()', () => {
-                        it('should return correct JSON for the /tft/match/v1/matches endpoint', () => expect(Galeforce.tft.match.match().region(Galeforce.regions.riot.AMERICAS).matchId('NA1_3701236130').exec())
+                        it('should return correct JSON for the /tft/match/v1/matches endpoint', () => expect(Galeforce.tft.match.match().region(Galeforce.region.riot.AMERICAS).matchId('NA1_3701236130').exec())
                             .to.eventually.deep.equal(replyValues.v1.tftMatch.match));
                     });
                 });
                 describe('.list()', () => {
                     describe('.puuid()', () => {
-                        it('should return correct JSON for the /tft/match/v1/matches/by-puuid/{puuid}/ids endpoint', () => expect(Galeforce.tft.match.list().region(Galeforce.regions.riot.AMERICAS).puuid('E5oZTZY5yXPsNAAz-tI2G5ImSD19NLnmw7ApUGxGArns2L2XZmjptRpAWR5PfFiNHp4cv4__Oljing').exec())
+                        it('should return correct JSON for the /tft/match/v1/matches/by-puuid/{puuid}/ids endpoint', () => expect(Galeforce.tft.match.list().region(Galeforce.region.riot.AMERICAS).puuid('E5oZTZY5yXPsNAAz-tI2G5ImSD19NLnmw7ApUGxGArns2L2XZmjptRpAWR5PfFiNHp4cv4__Oljing').exec())
                             .to.eventually.deep.equal(replyValues.v1.tftMatch.matchlist));
-                        it('should return correct JSON for the /tft/match/v1/matches/by-puuid/{puuid}/ids endpoint with query', () => expect(Galeforce.tft.match.list().region(Galeforce.regions.riot.AMERICAS).puuid('puuid').query({ count: 5 })
+                        it('should return correct JSON for the /tft/match/v1/matches/by-puuid/{puuid}/ids endpoint with query', () => expect(Galeforce.tft.match.list().region(Galeforce.region.riot.AMERICAS).puuid('puuid').query({ count: 5 })
                             .exec())
                             .to.eventually.deep.equal(replyValues.v1.tftMatch.matchlist));
                     });
@@ -782,19 +1077,19 @@ describe('/galeforce/actions', () => {
             });
             describe('.summoner()', () => {
                 describe('.name()', () => {
-                    it('should return correct JSON for the /tft/summoner/v1/summoners/by-name Riot API endpoint', () => expect(Galeforce.tft.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).name('SSG Xayah').exec())
+                    it('should return correct JSON for the /tft/summoner/v1/summoners/by-name Riot API endpoint', () => expect(Galeforce.tft.summoner().region(Galeforce.region.lol.NORTH_AMERICA).name('SSG Xayah').exec())
                         .to.eventually.deep.equal(replyValues.v1.tftSummoner));
                 });
-                describe('.accountId', () => {
-                    it('should return correct JSON for the /tft/summoner/v1/summoners/by-account Riot API endpoint', () => expect(Galeforce.tft.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).accountId('xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4').exec())
+                describe('.accountId()', () => {
+                    it('should return correct JSON for the /tft/summoner/v1/summoners/by-account Riot API endpoint', () => expect(Galeforce.tft.summoner().region(Galeforce.region.lol.NORTH_AMERICA).accountId('xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4').exec())
                         .to.eventually.deep.equal(replyValues.v1.tftSummoner));
                 });
                 describe('.summonerId()', () => {
-                    it('should return correct JSON for the /tft/summoner/v1/summoners Riot API endpoint', () => expect(Galeforce.tft.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                    it('should return correct JSON for the /tft/summoner/v1/summoners Riot API endpoint', () => expect(Galeforce.tft.summoner().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
                         .to.eventually.deep.equal(replyValues.v1.tftSummoner));
                 });
                 describe('.puuid()', () => {
-                    it('should return correct JSON for the /tft/summoner/v1/summoners/by-puuid Riot API endpoint', () => expect(Galeforce.tft.summoner().region(Galeforce.regions.lol.NORTH_AMERICA).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
+                    it('should return correct JSON for the /tft/summoner/v1/summoners/by-puuid Riot API endpoint', () => expect(Galeforce.tft.summoner().region(Galeforce.region.lol.NORTH_AMERICA).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
                         .to.eventually.deep.equal(replyValues.v1.tftSummoner));
                 });
                 it('should throw when not provided enough parameters to specify endpoint', () => expect(Galeforce.tft.summoner().exec())
@@ -803,202 +1098,45 @@ describe('/galeforce/actions', () => {
         });
         describe('.val', () => {
             describe('.content()', () => {
-                it('should return correct JSON for the /val/content/v1/contents Riot API endpoint', () => expect(Galeforce.val.content().region(Galeforce.regions.val.NORTH_AMERICA).exec())
+                it('should return correct JSON for the /val/content/v1/contents Riot API endpoint', () => expect(Galeforce.val.content().region(Galeforce.region.val.NORTH_AMERICA).exec())
                     .to.eventually.deep.equal(replyValues.v1.valContent.all));
                 describe('.query()', () => {
-                    it('should return correct JSON for the /val/content/v1/contents?locale Riot API endpoint', () => expect(Galeforce.val.content().region(Galeforce.regions.val.NORTH_AMERICA).query({ locale: 'ja-JP' }).exec())
+                    it('should return correct JSON for the /val/content/v1/contents?locale Riot API endpoint', () => expect(Galeforce.val.content().region(Galeforce.region.val.NORTH_AMERICA).query({ locale: 'ja-JP' }).exec())
                         .to.eventually.deep.equal(replyValues.v1.valContent.locale));
                 });
             });
             describe('.match', () => {
                 describe('.match()', () => {
-                    it('should return correct JSON for the /val/match/v1/matches Riot API endpoint', () => expect(Galeforce.val.match.match().region(Galeforce.regions.val.NORTH_AMERICA).matchId('1234').exec())
+                    it('should return correct JSON for the /val/match/v1/matches Riot API endpoint', () => expect(Galeforce.val.match.match().region(Galeforce.region.val.NORTH_AMERICA).matchId('1234').exec())
                         .to.eventually.deep.equal(replyValues.v1.valMatch.match));
                 });
                 describe('.list()', () => {
-                    it('should return correct JSON for the /val/match/v1/matches Riot API endpoint', () => expect(Galeforce.val.match.list().region(Galeforce.regions.val.NORTH_AMERICA).puuid('puuid').exec())
+                    it('should return correct JSON for the /val/match/v1/matches Riot API endpoint', () => expect(Galeforce.val.match.list().region(Galeforce.region.val.NORTH_AMERICA).puuid('puuid').exec())
                         .to.eventually.deep.equal(replyValues.v1.valMatch.matchlist));
                 });
                 describe('.recent()', () => {
-                    it('should return correct JSON for the /val/match/v1/matches Riot API endpoint', () => expect(Galeforce.val.match.recent().region(Galeforce.regions.val.NORTH_AMERICA).queue(Galeforce.queues.val.COMPETITIVE).exec())
+                    it('should return correct JSON for the /val/match/v1/matches Riot API endpoint', () => expect(Galeforce.val.match.recent().region(Galeforce.region.val.NORTH_AMERICA).queue(Galeforce.queue.val.COMPETITIVE).exec())
                         .to.eventually.deep.equal(replyValues.v1.valMatch.recent));
-                    it('should throw when provided an invalid queue type', () => expect(() => Galeforce.val.match.recent().region(Galeforce.regions.val.NORTH_AMERICA).queue(Galeforce.queues.lol.RANKED_SOLO))
+                    it('should throw when provided an invalid queue type', () => expect(() => Galeforce.val.match.recent().region(Galeforce.region.val.NORTH_AMERICA).queue(Galeforce.queue.lol.RANKED_SOLO))
                         .to.throw('[galeforce]: Invalid /val queue type provided.'));
                 });
             });
             describe('.ranked', () => {
                 describe('.leaderboard()', () => {
-                    it('should return correct JSON for the /val/ranked/v1/leaderboards/by-act Riot API endpoint', () => expect(Galeforce.val.ranked.leaderboard().region(Galeforce.regions.val.NORTH_AMERICA).actId('97b6e739-44cc-ffa7-49ad-398ba502ceb0').exec())
+                    it('should return correct JSON for the /val/ranked/v1/leaderboards/by-act Riot API endpoint', () => expect(Galeforce.val.ranked.leaderboard().region(Galeforce.region.val.NORTH_AMERICA).actId('97b6e739-44cc-ffa7-49ad-398ba502ceb0').exec())
                         .to.eventually.deep.equal(replyValues.v1.valRanked.leaderboard));
                     describe('.query()', () => {
-                        it('should return correct JSON for the /val/ranked/v1/leaderboards/by-act Riot API endpoint with query', () => expect(Galeforce.val.ranked.leaderboard().region(Galeforce.regions.val.NORTH_AMERICA).actId('actId').query({ size: 10, startIndex: 5 })
+                        it('should return correct JSON for the /val/ranked/v1/leaderboards/by-act Riot API endpoint with query', () => expect(Galeforce.val.ranked.leaderboard().region(Galeforce.region.val.NORTH_AMERICA).actId('actId').query({ size: 10, startIndex: 5 })
                             .exec())
                             .to.eventually.deep.equal(replyValues.v1.valRanked.leaderboard));
                     });
                 });
             });
             describe('.status()', () => {
-                it('should return correct JSON for the /val/status/v1/platform-data Riot API endpoint', () => expect(Galeforce.val.status().region(Galeforce.regions.val.NORTH_AMERICA).exec())
+                it('should return correct JSON for the /val/status/v1/platform-data Riot API endpoint', () => expect(Galeforce.val.status().region(Galeforce.region.val.NORTH_AMERICA).exec())
                     .to.eventually.deep.equal(replyValues.v1.valStatus.platformData));
-                it('should throw when provided an invalid region', () => expect(() => Galeforce.val.status().region(Galeforce.regions.lol.NORTH_AMERICA))
+                it('should throw when provided an invalid region', () => expect(() => Galeforce.val.status().region(Galeforce.region.lol.NORTH_AMERICA))
                     .to.throw('[galeforce]: Invalid /val region provided.'));
-            });
-        });
-        describe('.ddragon', () => {
-            describe('.tail()', () => {
-                it('should pull tarfile from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.tail().version('11.2.1').exec())
-                    .to.eventually.be.instanceof(Buffer));
-                it('should pull tarfile from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.tail().version('10.10.5').exec())
-                    .to.eventually.be.instanceof(Buffer));
-            });
-            describe('.versions()', () => {
-                it('should pull JSON from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.versions().exec())
-                    .to.eventually.be.a('Array'));
-            });
-            describe('.realm()', () => {
-                describe('.region()', () => {
-                    it('should pull JSON from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.realm().region(Galeforce.regions.ddragon.NORTH_AMERICA).exec())
-                        .to.eventually.have.property('n'));
-                    it('should throw when provided an invalid region', () => expect(() => Galeforce.ddragon.realm().region(Galeforce.regions.lol.NORTH_AMERICA))
-                        .to.throw('[galeforce]: Invalid Data Dragon region provided.'));
-                });
-            });
-            describe('.languages()', () => {
-                it('should pull JSON from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.languages().exec())
-                    .to.eventually.be.a('Array'));
-            });
-            describe('.champion', () => {
-                describe('.list()', () => {
-                    describe('.version().locale()', () => {
-                        it('should pull JSON from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.champion.list().version('11.2.1').locale('en_US').exec())
-                            .to.eventually.have.property('data'));
-                        it('should throw when provided an invalid version (not string)', () => expect(() => Galeforce.ddragon.champion.list().version(100))
-                            .to.throw('[galeforce]: version must be a string.'));
-                        it('should throw when provided an invalid version (fails regex check)', () => expect(() => Galeforce.ddragon.champion.list().version('1.4.5.a'))
-                            .to.throw('[galeforce]: Invalid version provided (failed regex check).'));
-                        it('should throw when provided an invalid locale (not string)', () => expect(() => Galeforce.ddragon.champion.list().locale(100))
-                            .to.throw('[galeforce]: locale must be a string.'));
-                        it('should throw when provided an invalid locale (fails regex check)', () => expect(() => Galeforce.ddragon.champion.list().locale('abc_US'))
-                            .to.throw('[galeforce]: Invalid locale provided (failed regex check).'));
-                    });
-                });
-                describe('.details()', () => {
-                    describe('.version().locale().champion()', () => {
-                        it('should pull JSON from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.champion.details().version('11.2.1').locale('en_US').champion('Xayah')
-                            .exec())
-                            .to.eventually.have.property('data'));
-                    });
-                });
-                describe('.art', () => {
-                    describe('.splash()', () => {
-                        describe('.champion().skin()', () => {
-                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.champion.art.splash().champion('Xayah').skin(0).exec())
-                                .to.eventually.be.instanceof(Buffer));
-                        });
-                    });
-                    describe('.loading()', () => {
-                        describe('.champion().skin()', () => {
-                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.champion.art.loading().champion('Xayah').skin(0).exec())
-                                .to.eventually.be.instanceof(Buffer));
-                        });
-                    });
-                    describe('.icon()', () => {
-                        describe('.version().champion()', () => {
-                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.champion.art.icon().version('11.2.1').champion('Xayah').exec())
-                                .to.eventually.be.instanceof(Buffer));
-                        });
-                    });
-                    describe('.passive()', () => {
-                        describe('.version().spell()', () => {
-                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.champion.art.passive().version('11.2.1').spell('XayahPassive').exec())
-                                .to.eventually.be.instanceof(Buffer));
-                        });
-                    });
-                });
-            });
-            describe('.spell', () => {
-                describe('.art()', () => {
-                    describe('.version().spell()', () => {
-                        it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.spell.art().version('11.2.1').spell('XayahR').exec())
-                            .to.eventually.be.instanceof(Buffer));
-                    });
-                });
-            });
-            describe('.item', () => {
-                describe('.list()', () => {
-                    describe('.version().locale()', () => {
-                        it('should pull JSON from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.item.list().version('11.2.1').locale('en_US').exec())
-                            .to.eventually.have.property('data'));
-                    });
-                });
-                describe('.art()', () => {
-                    describe('.version().assetId()', () => {
-                        it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.item.art().version('11.2.1').assetId(6671).exec())
-                            .to.eventually.be.instanceof(Buffer));
-                    });
-                });
-            });
-            describe('.summonerSpell', () => {
-                describe('.list()', () => {
-                    describe('.version().locale()', () => {
-                        it('should pull JSON from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.summonerSpell.list().version('11.2.1').locale('en_US').exec())
-                            .to.eventually.have.property('data'));
-                    });
-                });
-            });
-            describe('.item', () => {
-                describe('.list()', () => {
-                    describe('.version().locale()', () => {
-                        it('should pull JSON from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.profileIcon.list().version('11.2.1').locale('en_US').exec())
-                            .to.eventually.have.property('data'));
-                    });
-                });
-                describe('.art()', () => {
-                    describe('.version().assetId()', () => {
-                        it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.profileIcon.art().version('11.2.1').assetId(3560).exec())
-                            .to.eventually.be.instanceof(Buffer));
-                    });
-                });
-            });
-            describe('.minimap', () => {
-                describe('.art()', () => {
-                    describe('.version().assetId()', () => {
-                        it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.minimap.art().version('11.2.1').assetId(11).exec())
-                            .to.eventually.be.instanceof(Buffer));
-                    });
-                });
-            });
-            describe('.sprite', () => {
-                describe('.art()', () => {
-                    describe('.version().assetId()', () => {
-                        it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.sprite.art().version('11.2.1').assetId(0).exec())
-                            .to.eventually.be.instanceof(Buffer));
-                    });
-                });
-            });
-            describe('.scoreboard', () => {
-                describe('.art', () => {
-                    describe('.champion()', () => {
-                        it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.scoreboard.art.champion().exec())
-                            .to.eventually.be.instanceof(Buffer));
-                    });
-                    describe('.items()', () => {
-                        it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.scoreboard.art.items().exec())
-                            .to.eventually.be.instanceof(Buffer));
-                    });
-                    describe('.minion()', () => {
-                        it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.scoreboard.art.minion().exec())
-                            .to.eventually.be.instanceof(Buffer));
-                    });
-                    describe('.score()', () => {
-                        it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.scoreboard.art.score().exec())
-                            .to.eventually.be.instanceof(Buffer));
-                    });
-                    describe('.spells()', () => {
-                        it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.ddragon.scoreboard.art.spells().exec())
-                            .to.eventually.be.instanceof(Buffer));
-                    });
-                });
             });
         });
         describe('.gc', () => {

@@ -69,7 +69,7 @@ module.exports = {
         "no-undef": "off",
         "class-methods-use-this": "error",
         "no-underscore-dangle": "off",
-        "max-len": ["warn", {"code": 120, "ignoreStrings": true}],
+        "max-len": ["warn", {"code": 140, "ignoreStrings": true, "ignoreTemplateLiterals": true, "ignoreUrls": true}],
     },
     "settings": {
         "import/extensions": [".js", ".jsx", ".ts", ".tsx"],

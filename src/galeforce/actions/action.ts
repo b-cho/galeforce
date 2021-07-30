@@ -6,14 +6,13 @@
 
 import debug from 'debug';
 import chalk from 'chalk';
-import async from 'async';
 import { v4 as uuidv4 } from 'uuid';
-import { Region } from '../../riot-api';
-import { Payload, CreatePayloadProxy } from './payload';
+import _ from 'lodash';
+import { Payload, ModifiablePayload, CreatePayloadProxy } from './payload';
 import SubmoduleMap from '../interfaces/submodule-map';
+import Request from '../../riot-api/requests';
 
 const actionDebug = debug('galeforce:action');
-const rateLimitDebug = debug('galeforce:rate-limit');
 
 /**
  * @template TResult The return type of the Action.
@@ -42,6 +41,17 @@ export default class Action<TResult> {
     }
 
     /**
+     * Sets multiple values in the Action payload simultaneously.
+     *
+     * @param payload The payload with which the Action's payload is overwritten
+     * @returns The current Action (with the updated payload state).
+     */
+    public set(payload: ModifiablePayload): this {
+        this.payload = { ...this.payload, ..._.pick(payload, Object.getOwnPropertyNames(this.payload)) };
+        return this;
+    }
+
+    /**
      * Executes the action, sending an HTTP request to the Riot API servers
      * and retrieving the associated data from the appropriate endpoint.
      * @throws Will throw an error if a required payload value (*region*,
@@ -53,90 +63,100 @@ export default class Action<TResult> {
 
         actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('execute')} \u00AB %O`, this.payload);
         try {
+            // Ensure required payload properties exist
             if (typeof this.payload.endpoint === 'undefined') {
                 throw new Error('[galeforce]: Action endpoint is required but undefined.');
             }
             if (typeof this.payload.method === 'undefined') {
                 throw new Error('[galeforce]: Action method is required but undefined.');
             }
+            if (this.payload.type && ['lol', 'val', 'riot'].includes(this.payload.type) && typeof this.payload.region === 'undefined') {
+                throw new Error('[galeforce]: Action payload region is required but undefined.');
+            }
 
-            // Execute-time property checks
-
+            // Runtime property checks to ensure the Action payload is properly formed
             if (this.payload.gameName && !this.payload.tagLine) {
                 throw new Error('[galeforce]: .gameName() must be chained with .tagLine().');
             }
 
-            // Increment rate limit for non-Data Dragon requests.
-            if (this.payload.type && ['lol', 'val', 'riot'].includes(this.payload.type)) {
-                if (typeof this.payload.region !== 'undefined') {
-                    await this.waitForRateLimit(this.payload.region);
-                    await this.incrementRateLimit(this.payload.region);
-                } else {
-                    throw new Error('[galeforce]: Action payload region is required but undefined.');
-                }
-            }
-
-            let request;
-            if (this.payload.type === 'gc') {
+            // Set request depending on type
+            let request: Request;
+            switch (this.payload.type) {
+            case 'gc': // Game Client requests (requiring an SSL certificate)
                 request = this.submodules.RiotAPI.gcRequest(
                     this.payload.endpoint,
                     this.payload,
                     this.payload.query,
                     this.payload.body,
                 );
-            } else if (this.payload.type === 'ddragon-buffer') {
+                break;
+            case 'lol-ddragon-buffer': // Data Dragon non-JSON files
+            case 'lor-ddragon-buffer':
                 request = this.submodules.RiotAPI.bufferRequest(
                     this.payload.endpoint,
                     this.payload,
                     this.payload.query,
                     this.payload.body,
                 );
-            } else {
+                break;
+            default: // All other request types
                 request = this.submodules.RiotAPI.request(
                     this.payload.endpoint,
                     this.payload,
                     this.payload.query,
                     this.payload.body,
                 );
+                break;
             }
 
+            // Schedule request depending on HTTP method
             let response: TResult;
-
-            if (this.payload.method === 'GET') {
-                response = (await request.get() as { data: TResult }).data;
-            } else if (this.payload.method === 'POST') {
+            switch (this.payload.method) {
+            case 'GET':
+                // Schedule a GET request using the selected rate limiter
+                response = (await this.submodules.RateLimiter.schedule(() => request.get(), this.payload.region)).data as TResult;
+                break;
+            case 'POST':
+                // Ensure that the POST request has a defined body
                 if (typeof this.payload.body === 'undefined') {
                     throw new Error('[galeforce]: Action payload body is required but undefined.');
                 }
-                response = (await request.post() as { data: TResult }).data;
-            } else if (this.payload.method === 'PUT') {
+                // Schedule a POST request using the selected rate limiter
+                response = (await this.submodules.RateLimiter.schedule(() => request.post(), this.payload.region)).data as TResult;
+                break;
+            case 'PUT':
+                // Ensure that the PUT request has a defined body
                 if (typeof this.payload.body === 'undefined') {
                     throw new Error('[galeforce]: Action payload body is required but undefined.');
                 }
-                response = (await request.put() as { data: TResult }).data;
-            } else {
+                // Schedule a PUT request using the selected rate limiter
+                response = (await this.submodules.RateLimiter.schedule(() => request.put(), this.payload.region)).data as TResult;
+                break;
+            default: // Should never occur, but throw an error if reached
                 throw new Error('[galeforce]: Invalid action method provided.');
             }
 
             actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('return')} \u00AB ${chalk.bold.green(200)}`);
             return response;
         } catch (e) {
-            if (e.response?.status) {
-                actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('return')} \u00AB ${chalk.bold.red(e.response.status)}`);
-                if (e.response.status === 401) {
-                    throw new Error('[galeforce]: No Riot API key was provided. Please ensure that your key is present in your configuration file or object. (401 Unauthorized)');
-                } else if (e.response.status === 403) {
-                    throw new Error('[galeforce]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (403 Forbidden)');
-                } else {
-                    throw new Error(`[galeforce]: Data fetch failed with status code ${e.response.status}`);
-                }
+            actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('return')} \u00AB ${chalk.bold.red(e.response?.status || 'error')}`);
+            switch (e.response?.status) {
+            case 401:
+                // Handle HTTP 401 Unauthorized errors, returned when no API key is used when requesting data.
+                throw new Error('[galeforce]: No Riot API key was provided. Please ensure that your key is present in your configuration file or object. (401 Unauthorized)');
+            case 403:
+                // Handle HTTP 403 Forbidden errors, caused by the use of invalid or expired API keys.
+                throw new Error('[galeforce]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (403 Forbidden)');
+            case undefined:
+                throw e;
+            default:
+                // Generic HTTP error handling.
+                throw new Error(`[galeforce]: Data fetch failed with status code ${e.response.status}`);
             }
-
-            actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('return')} \u00AB ${chalk.bold.red('error')}`);
-            throw e;
         }
     }
 
+    /* eslint-disable class-methods-use-this */
     protected inferEndpoint(): void { /* Empty because this may be implemented by classes that inherit from Action */ }
 
     /**
@@ -148,6 +168,7 @@ export default class Action<TResult> {
     public URL(): string {
         this.inferEndpoint();
 
+        // Ensure required payload properties exist
         if (typeof this.payload.endpoint === 'undefined') {
             throw new Error('[galeforce]: Action endpoint is required but undefined.');
         }
@@ -159,48 +180,6 @@ export default class Action<TResult> {
             this.payload.body,
         );
 
-        return request.targetURL;
-    }
-
-    private async getQueries(key: string, region: Region): Promise<number> {
-        const { prefix } = this.submodules.cache.RLConfig;
-        const value: string | null = await this.submodules.cache.get(prefix + key + region);
-        const queries: number = parseInt(value || '0', 10);
-        return queries;
-    }
-
-    protected async checkRateLimit(region: Region): Promise<boolean> {
-        return (await Promise.all(Object.entries(this.submodules.cache.RLConfig.intervals)
-            .map(async ([key, limit]: [string, number]): Promise<boolean> => (await this.getQueries(key, region)) < limit))).every(Boolean);
-    }
-
-    protected async waitForRateLimit(region: Region): Promise<void> {
-        rateLimitDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.red('wait')} ${region}`);
-        return new Promise((resolve) => {
-            const WRLLoop = (): void => {
-                this.checkRateLimit(region).then((ready: boolean) => {
-                    if (ready) {
-                        rateLimitDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.red('OK')} ${region}`);
-                        resolve();
-                    } else setTimeout(WRLLoop, 0);
-                });
-            };
-            WRLLoop();
-        });
-    }
-
-    protected async incrementRateLimit(region: Region): Promise<void> {
-        rateLimitDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.red('increment')} ${region}`);
-        const { intervals, prefix } = this.submodules.cache.RLConfig;
-        async.each(Object.keys(intervals), async (key: string, callback: (err?: object) => void) => {
-            const queries: number = await this.getQueries(key, region);
-            if (Number.isNaN(queries) || queries === 0) {
-                await this.submodules.cache.set(prefix + key + region, '1', parseInt(key, 10));
-            } else {
-                await this.submodules.cache.incr(prefix + key + region);
-            }
-
-            callback();
-        });
+        return request.targetURL; // Return only the target URL of the associated request
     }
 }

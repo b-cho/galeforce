@@ -1,9 +1,9 @@
 import { RiotAPIModule } from '../../riot-api';
-import { Cache } from '../caches/cache';
+import RateLimiter from '../rate-limiters/rate-limiter';
 
 interface SubmoduleMap {
     RiotAPI: RiotAPIModule;
-    cache: Cache;
+    RateLimiter: RateLimiter;
 }
 
 export default SubmoduleMap;

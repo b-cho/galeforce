@@ -1,20 +1,14 @@
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
-const redisMock = require('redis-mock');
-const rewiremock = require('rewiremock/node');
 const process = require('process');
 
 chai.use(chaiAsPromised);
 const { expect } = chai;
 
-rewiremock('redis').with(redisMock);
-rewiremock(() => require('redis')).with(redisMock);
-
-rewiremock.enable();
 const GaleforceModule = require('../dist');
 
 process.env.RIOT_KEY = 'RIOT-API-KEY-2';
-process.env.CACHE_TYPE = 'null';
+process.env.CACHE_TYPE = 'internal';
 process.env.REDIS_URL = '';
 
 describe('/galeforce', () => {
@@ -24,10 +18,13 @@ describe('/galeforce', () => {
                 key: 'RIOT-API-KEY',
             },
             'rate-limit': {
-                prefix: 'riotapi-ratelimit-',
-                intervals: {
-                    120: 100,
-                    1: 20,
+                type: 'bottleneck',
+                options: {
+                    intervals: {
+                        120: 100,
+                        1: 20,
+                    },
+                    'min-time': 50,
                 },
             },
         })).to.not.throw();
@@ -37,14 +34,11 @@ describe('/galeforce', () => {
             'riot-api': {
                 key: 'RIOT-API-KEY',
             },
-            cache: {
-                type: 'null',
-            },
             'rate-limit': {
-                prefix: 'riotapi-ratelimit-',
-                intervals: {
-                    120: 100,
-                    1: 20,
+                cache: {
+                    type: 'redis',
+                    'key-id': 'riotapi-ratelimit',
+                    uri: '',
                 },
             },
         })).to.not.throw();
@@ -54,15 +48,18 @@ describe('/galeforce', () => {
             'riot-api': {
                 key: 'RIOT-API-KEY',
             },
-            cache: {
-                type: 'redis',
-                uri: 'redis://127.0.0.1:6379',
-            },
             'rate-limit': {
-                prefix: 'riotapi-ratelimit-',
-                intervals: {
-                    120: 100,
-                    1: 20,
+                type: 'bottleneck',
+                options: {
+                    intervals: {
+                        120: 100,
+                        1: 20,
+                    },
+                },
+                cache: {
+                    type: 'redis',
+                    'key-id': 'riotapi-ratelimit',
+                    uri: 'redis://127.0.0.1:6379',
                 },
             },
         })).to.not.throw();
@@ -72,16 +69,16 @@ describe('/galeforce', () => {
             'riot-api': {
                 key: 'RIOT-API-KEY',
             },
-            cache: {
-                type: 'javascript',
-            },
             'rate-limit': {
-                prefix: 'riotapi-ratelimit-',
-                intervals: {
-                    120: 100,
-                    1: 20,
+                type: 'bottleneck',
+                options: {
+                    intervals: {
+                        120: 100,
+                        1: 20,
+                    },
                 },
             },
+            debug: ['*'],
         })).to.not.throw();
     });
     it('should initialize properly from config file', () => {
@@ -93,51 +90,23 @@ describe('/galeforce', () => {
     it('should initialize properly without being passed a config', () => {
         expect(() => new GaleforceModule()).to.not.throw();
     });
-    it('should error when passed an invalid config (2)', () => {
+    it('should throw when the provided config fails JSON schema validation', () => {
         expect(() => new GaleforceModule({
-            'riot-api': {
-                key: 'RIOT-API-KEY',
-            },
-            cache: {
-                type: 'redis',
-                uri: 'redis://127.0.0.1:6379',
-            },
             'rate-limit': {
-                prefix: 'riotapi-ratelimit-',
+                type: 'invalid',
             },
-        })).to.throw();
+        })).to.throw('[galeforce]: Invalid config provided (config failed JSON schema validation).');
     });
-    it('should error when passed an invalid config (3)', () => {
+    it('should throw when cache URI is required but not provided', () => {
         expect(() => new GaleforceModule({
-            'riot-api': {
-                key: 'RIOT-API-KEY',
-            },
-            cache: {
-                type: 'redis',
-            },
             'rate-limit': {
-                prefix: 'riotapi-ratelimit-',
-                intervals: {
-                    120: 100,
-                    1: 20,
+                cache: {
+                    type: 'redis',
                 },
             },
         })).to.throw();
     });
     it('should have property region', () => {
-        expect(new GaleforceModule({
-            'riot-api': {
-                key: 'RIOT-API-KEY',
-            },
-            'rate-limit': {
-                prefix: 'riotapi-ratelimit-',
-                intervals: {
-                    120: 100,
-                    1: 20,
-                },
-            },
-        })).to.have.property('regions');
+        expect(new GaleforceModule()).to.have.property('region');
     });
 });
-
-rewiremock.disable();
