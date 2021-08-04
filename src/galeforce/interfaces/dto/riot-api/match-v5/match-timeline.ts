@@ -128,8 +128,8 @@ interface ParticipantFrame {
 
 interface Frame {
     events: Event[];
-    participantFrames: { 
-        [key: string]: ParticipantFrame 
+    participantFrames: {
+        [key: string]: ParticipantFrame;
     };
     timestamp: number;
 }
