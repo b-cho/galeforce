@@ -571,22 +571,22 @@ describe('/galeforce/actions', () => {
             describe('.match', () => {
                 describe('.match()', () => {
                     describe('.matchId()', () => {
-                        it('should return correct JSON for the /lol/match/v5/matches/{matchId} Riot API endpoint', () => expect(Galeforce.lol.match.match().region(Galeforce.regions.riot.AMERICAS).matchId('NA1_3891319810').exec())
+                        it('should return correct JSON for the /lol/match/v5/matches/{matchId} Riot API endpoint', () => expect(Galeforce.lol.match.match().region(Galeforce.region.riot.AMERICAS).matchId('NA1_3891319810').exec())
                             .to.eventually.deep.equal(replyValues.v5.match.match));
                     });
                 });
                 describe('.timeline()', () => {
                     describe('.matchId()', () => {
-                        it('should return correct JSON for the /lol/match/v5/matches/{matchId}/timeline Riot API endpoint', () => expect(Galeforce.lol.match.timeline().region(Galeforce.regions.riot.AMERICAS).matchId('NA1_3891319810').exec())
+                        it('should return correct JSON for the /lol/match/v5/matches/{matchId}/timeline Riot API endpoint', () => expect(Galeforce.lol.match.timeline().region(Galeforce.region.riot.AMERICAS).matchId('NA1_3891319810').exec())
                             .to.eventually.deep.equal(replyValues.v5.match.timeline));
                     });
                 });
                 describe('.list()', () => {
                     describe('.puuid()', () => {
-                        it('should return correct JSON for the /lol/match/v5/matches/by-puuid/{puuid}/ids Riot API endpoint', () => expect(Galeforce.lol.match.list().region(Galeforce.regions.riot.AMERICAS).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
+                        it('should return correct JSON for the /lol/match/v5/matches/by-puuid/{puuid}/ids Riot API endpoint', () => expect(Galeforce.lol.match.list().region(Galeforce.region.riot.AMERICAS).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
                             .to.eventually.deep.equal(replyValues.v5.match.matchlist));
                         describe('.query()', () => {
-                            it('should return correct JSON for the /lol/match/v5/matches/by-puuid/{puuid}/ids Riot API endpoint with query', () => expect(Galeforce.lol.match.list().region(Galeforce.regions.riot.AMERICAS).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').query({ start: 0, count: 1 })
+                            it('should return correct JSON for the /lol/match/v5/matches/by-puuid/{puuid}/ids Riot API endpoint with query', () => expect(Galeforce.lol.match.list().region(Galeforce.region.riot.AMERICAS).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').query({ start: 0, count: 1 })
                                 .exec())
                                 .to.eventually.deep.equal(replyValues.v5.match.matchlistFiltered));
                         });
