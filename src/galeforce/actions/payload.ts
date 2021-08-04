@@ -19,7 +19,7 @@ export type Payload = { // Payload keys and corresponding valid types
     accountId?: string;
     puuid?: string;
     summonerName?: string;
-    matchId?: number | string;
+    matchId?: string;
     teamId?: string;
     tournamentId?: number;
     tournamentCode?: string;
