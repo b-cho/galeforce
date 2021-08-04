@@ -4,7 +4,7 @@ import { Constructor, Executable } from './executable';
  * An interface containing method type signatures for any Action containing a `.matchId()` method.
  */
 export interface MatchIdChainable {
-    matchId?: <K extends MatchIdChainable & Executable>(this: K, matchId: number | string) => Omit<K, 'matchId'>;
+    matchId?: <K extends MatchIdChainable & Executable>(this: K, matchId: string) => Omit<K, 'matchId'>;
 }
 
 /**
@@ -18,7 +18,7 @@ export function TakesMatchId<TBase extends Constructor>(Base: TBase) {
          * Modifies the **matchId** associated with the Action object it is called from.
          * @param matchId The match ID to update the calling Action object with.
          */
-        public matchId<K extends MatchIdChainable & Executable>(this: K, matchId: number | string): Omit<K, 'matchId'> {
+        public matchId<K extends MatchIdChainable & Executable>(this: K, matchId: string): Omit<K, 'matchId'> {
             this.payload.matchId = matchId;
             this.matchId = undefined;
             return this;
