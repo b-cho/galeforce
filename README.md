@@ -51,7 +51,7 @@ import GaleforceModule from 'galeforce';
 const galeforce = new GaleforceModule(/* config */);
 ```
 
-to use the project. Or, if you're using **CommonJS** and `require()`, add Galeforce to your project like this:
+to use the library. Or, if you're using **CommonJS** and `require()`, add Galeforce to your project like this:
 
 ```javascript
 const GaleforceModule = require('galeforce');
@@ -77,14 +77,13 @@ Promise.all(promises).then((result) => {
 </details>
 
 <details>
-<summary>Get list of recent matchId values for a given accountId</summary>
+<summary>Get list of recent matchId values for a given puuid</summary>
 
 ```javascript
-const matchIds = (await galeforce.lol.match.list()
-  .region(galeforce.region.lol.NORTH_AMERICA)
-  .accountId(accountId)
-  .exec())
-  .matches.map(matchInfo => matchInfo.gameId);
+const matchIds = await galeforce.lol.match.list()
+  .region(galeforce.region.riot.AMERICAS)
+  .puuid(puuid)
+  .exec();
 ```
 
 </details>
@@ -94,7 +93,7 @@ const matchIds = (await galeforce.lol.match.list()
 
 ```javascript
 const matchData = await galeforce.lol.match.match()
-  .region(galeforce.region.lol.NORTH_AMERICA)
+  .region(galeforce.region.riot.AMERICAS)
   .matchId(matchId)
   .exec();
 ```

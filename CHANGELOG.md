@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+### [0.5.0] (unreleased)
+
+#### Changed
+
+- **[breaking]** Update the **`galeforce.lol.match`** from ~~`match-v4`~~ to **`match-v5`**
+  - Remove ~~`galeforce.lol.match.tournament`~~
+  - Update required parameters for `galeforce.lol.match.match`, `galeforce.lol.match.list`, `galeforce.lol.match.timeline` to conform to Riot `match-v5` specifications
+  - Rewrite DTOs for match and timeline JSON responses
+
 ### [0.4.0] (2021-06-22)
 
 #### Added
