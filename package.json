@@ -52,7 +52,7 @@
     "@types/debug": "^4.1.7",
     "@types/lodash": "^4.14.172",
     "@types/mocha": "^9.0.0",
-    "@types/node": "^16.4.10",
+    "@types/node": "^16.4.13",
     "@types/redis": "^2.8.31",
     "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
