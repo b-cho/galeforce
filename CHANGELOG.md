@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - Remove ~~`galeforce.lol.match.tournament`~~
   - Update required parameters for `galeforce.lol.match.match`, `galeforce.lol.match.list`, `galeforce.lol.match.timeline` to conform to Riot `match-v5` specifications
   - Rewrite DTOs for match and timeline JSON responses
+- **[breaking]** Dropped support for Node versions *<12.0*
 
 ### [0.4.0] (2021-06-22)
 
