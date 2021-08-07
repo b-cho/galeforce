@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>MatchPlayerDTO | galeforce - v0.4.0</title>
-	<meta name="description" content="Documentation for galeforce - v0.4.0">
+	<title>VictimDamageDealt | galeforce - v0.5.0</title>
+	<meta name="description" content="Documentation for galeforce - v0.5.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">galeforce - v0.4.0</a>
+					<a href="../index.html" class="title">galeforce - v0.5.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -59,10 +59,10 @@
 					<a href="../modules/internal_undefined.html">internal/undefined</a>
 				</li>
 				<li>
-					<a href="internal_undefined.matchplayerdto.html">MatchPlayerDTO</a>
+					<a href="internal_undefined.victimdamagedealt.html">VictimDamageDealt</a>
 				</li>
 			</ul>
-			<h1>Interface MatchPlayerDTO</h1>
+			<h1>Interface VictimDamageDealt</h1>
 		</div>
 	</div>
 </header>
@@ -73,7 +73,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">MatchPlayerDTO</span>
+						<span class="target">VictimDamageDealt</span>
 					</li>
 				</ul>
 			</section>
@@ -84,14 +84,15 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.matchplayerdto.html#accountid" class="tsd-kind-icon">account<wbr>Id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.matchplayerdto.html#currentaccountid" class="tsd-kind-icon">current<wbr>Account<wbr>Id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.matchplayerdto.html#currentplatformid" class="tsd-kind-icon">current<wbr>Platform<wbr>Id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.matchplayerdto.html#matchhistoryuri" class="tsd-kind-icon">match<wbr>History<wbr>Uri</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.matchplayerdto.html#platformid" class="tsd-kind-icon">platform<wbr>Id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.matchplayerdto.html#profileicon" class="tsd-kind-icon">profile<wbr>Icon</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.matchplayerdto.html#summonerid" class="tsd-kind-icon">summoner<wbr>Id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.matchplayerdto.html#summonername" class="tsd-kind-icon">summoner<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.victimdamagedealt.html#basic" class="tsd-kind-icon">basic</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.victimdamagedealt.html#magicdamage" class="tsd-kind-icon">magic<wbr>Damage</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.victimdamagedealt.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.victimdamagedealt.html#participantid" class="tsd-kind-icon">participant<wbr>Id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.victimdamagedealt.html#physicaldamage" class="tsd-kind-icon">physical<wbr>Damage</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.victimdamagedealt.html#spellname" class="tsd-kind-icon">spell<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.victimdamagedealt.html#spellslot" class="tsd-kind-icon">spell<wbr>Slot</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.victimdamagedealt.html#truedamage" class="tsd-kind-icon">true<wbr>Damage</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.victimdamagedealt.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
 					</div>
@@ -100,82 +101,92 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="accountid" class="tsd-anchor"></a>
-					<h3>account<wbr>Id</h3>
-					<div class="tsd-signature tsd-kind-icon">account<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="basic" class="tsd-anchor"></a>
+					<h3>basic</h3>
+					<div class="tsd-signature tsd-kind-icon">basic<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/a4aa144/src/galeforce/interfaces/dto/riot-api/match-v4/match.ts#L45">galeforce/interfaces/dto/riot-api/match-v4/match.ts:45</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/7ea40ab/src/galeforce/interfaces/dto/riot-api/match-v5/match-timeline.ts#L13">galeforce/interfaces/dto/riot-api/match-v5/match-timeline.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="currentaccountid" class="tsd-anchor"></a>
-					<h3>current<wbr>Account<wbr>Id</h3>
-					<div class="tsd-signature tsd-kind-icon">current<wbr>Account<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="magicdamage" class="tsd-anchor"></a>
+					<h3>magic<wbr>Damage</h3>
+					<div class="tsd-signature tsd-kind-icon">magic<wbr>Damage<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/a4aa144/src/galeforce/interfaces/dto/riot-api/match-v4/match.ts#L47">galeforce/interfaces/dto/riot-api/match-v4/match.ts:47</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/7ea40ab/src/galeforce/interfaces/dto/riot-api/match-v5/match-timeline.ts#L14">galeforce/interfaces/dto/riot-api/match-v5/match-timeline.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="currentplatformid" class="tsd-anchor"></a>
-					<h3>current<wbr>Platform<wbr>Id</h3>
-					<div class="tsd-signature tsd-kind-icon">current<wbr>Platform<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/a4aa144/src/galeforce/interfaces/dto/riot-api/match-v4/match.ts#L48">galeforce/interfaces/dto/riot-api/match-v4/match.ts:48</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/7ea40ab/src/galeforce/interfaces/dto/riot-api/match-v5/match-timeline.ts#L15">galeforce/interfaces/dto/riot-api/match-v5/match-timeline.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="matchhistoryuri" class="tsd-anchor"></a>
-					<h3>match<wbr>History<wbr>Uri</h3>
-					<div class="tsd-signature tsd-kind-icon">match<wbr>History<wbr>Uri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="participantid" class="tsd-anchor"></a>
+					<h3>participant<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">participant<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/a4aa144/src/galeforce/interfaces/dto/riot-api/match-v4/match.ts#L46">galeforce/interfaces/dto/riot-api/match-v4/match.ts:46</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/7ea40ab/src/galeforce/interfaces/dto/riot-api/match-v5/match-timeline.ts#L16">galeforce/interfaces/dto/riot-api/match-v5/match-timeline.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="platformid" class="tsd-anchor"></a>
-					<h3>platform<wbr>Id</h3>
-					<div class="tsd-signature tsd-kind-icon">platform<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="physicaldamage" class="tsd-anchor"></a>
+					<h3>physical<wbr>Damage</h3>
+					<div class="tsd-signature tsd-kind-icon">physical<wbr>Damage<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/a4aa144/src/galeforce/interfaces/dto/riot-api/match-v4/match.ts#L51">galeforce/interfaces/dto/riot-api/match-v4/match.ts:51</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/7ea40ab/src/galeforce/interfaces/dto/riot-api/match-v5/match-timeline.ts#L17">galeforce/interfaces/dto/riot-api/match-v5/match-timeline.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="profileicon" class="tsd-anchor"></a>
-					<h3>profile<wbr>Icon</h3>
-					<div class="tsd-signature tsd-kind-icon">profile<wbr>Icon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="spellname" class="tsd-anchor"></a>
+					<h3>spell<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">spell<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/a4aa144/src/galeforce/interfaces/dto/riot-api/match-v4/match.ts#L44">galeforce/interfaces/dto/riot-api/match-v4/match.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/7ea40ab/src/galeforce/interfaces/dto/riot-api/match-v5/match-timeline.ts#L18">galeforce/interfaces/dto/riot-api/match-v5/match-timeline.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="summonerid" class="tsd-anchor"></a>
-					<h3>summoner<wbr>Id</h3>
-					<div class="tsd-signature tsd-kind-icon">summoner<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="spellslot" class="tsd-anchor"></a>
+					<h3>spell<wbr>Slot</h3>
+					<div class="tsd-signature tsd-kind-icon">spell<wbr>Slot<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/a4aa144/src/galeforce/interfaces/dto/riot-api/match-v4/match.ts#L50">galeforce/interfaces/dto/riot-api/match-v4/match.ts:50</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/7ea40ab/src/galeforce/interfaces/dto/riot-api/match-v5/match-timeline.ts#L19">galeforce/interfaces/dto/riot-api/match-v5/match-timeline.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="summonername" class="tsd-anchor"></a>
-					<h3>summoner<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">summoner<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="truedamage" class="tsd-anchor"></a>
+					<h3>true<wbr>Damage</h3>
+					<div class="tsd-signature tsd-kind-icon">true<wbr>Damage<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/a4aa144/src/galeforce/interfaces/dto/riot-api/match-v4/match.ts#L49">galeforce/interfaces/dto/riot-api/match-v4/match.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/7ea40ab/src/galeforce/interfaces/dto/riot-api/match-v5/match-timeline.ts#L20">galeforce/interfaces/dto/riot-api/match-v5/match-timeline.ts:20</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="type" class="tsd-anchor"></a>
+					<h3>type</h3>
+					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/7ea40ab/src/galeforce/interfaces/dto/riot-api/match-v5/match-timeline.ts#L21">galeforce/interfaces/dto/riot-api/match-v5/match-timeline.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -203,31 +214,34 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
-						<a href="internal_undefined.matchplayerdto.html" class="tsd-kind-icon">Match<wbr>PlayerDTO</a>
+						<a href="internal_undefined.victimdamagedealt.html" class="tsd-kind-icon">Victim<wbr>Damage<wbr>Dealt</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="internal_undefined.matchplayerdto.html#accountid" class="tsd-kind-icon">account<wbr>Id</a>
+								<a href="internal_undefined.victimdamagedealt.html#basic" class="tsd-kind-icon">basic</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="internal_undefined.matchplayerdto.html#currentaccountid" class="tsd-kind-icon">current<wbr>Account<wbr>Id</a>
+								<a href="internal_undefined.victimdamagedealt.html#magicdamage" class="tsd-kind-icon">magic<wbr>Damage</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="internal_undefined.matchplayerdto.html#currentplatformid" class="tsd-kind-icon">current<wbr>Platform<wbr>Id</a>
+								<a href="internal_undefined.victimdamagedealt.html#name" class="tsd-kind-icon">name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="internal_undefined.matchplayerdto.html#matchhistoryuri" class="tsd-kind-icon">match<wbr>History<wbr>Uri</a>
+								<a href="internal_undefined.victimdamagedealt.html#participantid" class="tsd-kind-icon">participant<wbr>Id</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="internal_undefined.matchplayerdto.html#platformid" class="tsd-kind-icon">platform<wbr>Id</a>
+								<a href="internal_undefined.victimdamagedealt.html#physicaldamage" class="tsd-kind-icon">physical<wbr>Damage</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="internal_undefined.matchplayerdto.html#profileicon" class="tsd-kind-icon">profile<wbr>Icon</a>
+								<a href="internal_undefined.victimdamagedealt.html#spellname" class="tsd-kind-icon">spell<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="internal_undefined.matchplayerdto.html#summonerid" class="tsd-kind-icon">summoner<wbr>Id</a>
+								<a href="internal_undefined.victimdamagedealt.html#spellslot" class="tsd-kind-icon">spell<wbr>Slot</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="internal_undefined.matchplayerdto.html#summonername" class="tsd-kind-icon">summoner<wbr>Name</a>
+								<a href="internal_undefined.victimdamagedealt.html#truedamage" class="tsd-kind-icon">true<wbr>Damage</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="internal_undefined.victimdamagedealt.html#type" class="tsd-kind-icon">type</a>
 							</li>
 						</ul>
 					</li>

@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>MatchFrameDTO | galeforce - v0.4.0</title>
-	<meta name="description" content="Documentation for galeforce - v0.4.0">
+	<title>StatPerks | galeforce - v0.5.0</title>
+	<meta name="description" content="Documentation for galeforce - v0.5.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">galeforce - v0.4.0</a>
+					<a href="../index.html" class="title">galeforce - v0.5.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -59,10 +59,10 @@
 					<a href="../modules/internal_undefined.html">internal/undefined</a>
 				</li>
 				<li>
-					<a href="internal_undefined.matchframedto.html">MatchFrameDTO</a>
+					<a href="internal_undefined.statperks.html">StatPerks</a>
 				</li>
 			</ul>
-			<h1>Interface MatchFrameDTO</h1>
+			<h1>Interface StatPerks</h1>
 		</div>
 	</div>
 </header>
@@ -73,7 +73,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">MatchFrameDTO</span>
+						<span class="target">StatPerks</span>
 					</li>
 				</ul>
 			</section>
@@ -84,9 +84,9 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.matchframedto.html#events" class="tsd-kind-icon">events</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.matchframedto.html#participantframes" class="tsd-kind-icon">participant<wbr>Frames</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.matchframedto.html#timestamp" class="tsd-kind-icon">timestamp</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.statperks.html#defense" class="tsd-kind-icon">defense</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.statperks.html#flex" class="tsd-kind-icon">flex</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="internal_undefined.statperks.html#offense" class="tsd-kind-icon">offense</a></li>
 							</ul>
 						</section>
 					</div>
@@ -95,32 +95,32 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="events" class="tsd-anchor"></a>
-					<h3>events</h3>
-					<div class="tsd-signature tsd-kind-icon">events<span class="tsd-signature-symbol">:</span> <a href="internal_undefined.matcheventdto.html" class="tsd-signature-type">MatchEventDTO</a><span class="tsd-signature-symbol">[]</span></div>
+					<a name="defense" class="tsd-anchor"></a>
+					<h3>defense</h3>
+					<div class="tsd-signature tsd-kind-icon">defense<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/a4aa144/src/galeforce/interfaces/dto/riot-api/match-v4/match-timeline.ts#L67">galeforce/interfaces/dto/riot-api/match-v4/match-timeline.ts:67</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/7ea40ab/src/galeforce/interfaces/dto/riot-api/match-v5/match.ts#L8">galeforce/interfaces/dto/riot-api/match-v5/match.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="participantframes" class="tsd-anchor"></a>
-					<h3>participant<wbr>Frames</h3>
-					<div class="tsd-signature tsd-kind-icon">participant<wbr>Frames<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="internal_undefined.matchparticipantframedto.html" class="tsd-signature-type">MatchParticipantFrameDTO</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="flex" class="tsd-anchor"></a>
+					<h3>flex</h3>
+					<div class="tsd-signature tsd-kind-icon">flex<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/a4aa144/src/galeforce/interfaces/dto/riot-api/match-v4/match-timeline.ts#L66">galeforce/interfaces/dto/riot-api/match-v4/match-timeline.ts:66</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/7ea40ab/src/galeforce/interfaces/dto/riot-api/match-v5/match.ts#L9">galeforce/interfaces/dto/riot-api/match-v5/match.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="timestamp" class="tsd-anchor"></a>
-					<h3>timestamp</h3>
-					<div class="tsd-signature tsd-kind-icon">timestamp<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="offense" class="tsd-anchor"></a>
+					<h3>offense</h3>
+					<div class="tsd-signature tsd-kind-icon">offense<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/a4aa144/src/galeforce/interfaces/dto/riot-api/match-v4/match-timeline.ts#L68">galeforce/interfaces/dto/riot-api/match-v4/match-timeline.ts:68</a></li>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/7ea40ab/src/galeforce/interfaces/dto/riot-api/match-v5/match.ts#L10">galeforce/interfaces/dto/riot-api/match-v5/match.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -148,16 +148,16 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
-						<a href="internal_undefined.matchframedto.html" class="tsd-kind-icon">Match<wbr>FrameDTO</a>
+						<a href="internal_undefined.statperks.html" class="tsd-kind-icon">Stat<wbr>Perks</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="internal_undefined.matchframedto.html#events" class="tsd-kind-icon">events</a>
+								<a href="internal_undefined.statperks.html#defense" class="tsd-kind-icon">defense</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="internal_undefined.matchframedto.html#participantframes" class="tsd-kind-icon">participant<wbr>Frames</a>
+								<a href="internal_undefined.statperks.html#flex" class="tsd-kind-icon">flex</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="internal_undefined.matchframedto.html#timestamp" class="tsd-kind-icon">timestamp</a>
+								<a href="internal_undefined.statperks.html#offense" class="tsd-kind-icon">offense</a>
 							</li>
 						</ul>
 					</li>
