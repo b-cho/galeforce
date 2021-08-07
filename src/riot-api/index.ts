@@ -17,8 +17,9 @@ import { ConfigInterface } from '../galeforce/interfaces/config';
 
 const initDebug = debug('galeforce:init');
 
-initDebug(`${chalk.bold('loading Game Client certificate chain')}`);
-const httpsAgent = new https.Agent({ ca: fs.readFileSync(path.join(__dirname, '..', '..', 'resource', 'riotgames.pem')) });
+initDebug(`${chalk.bold('attempting to load Game Client certificate chain')}`);
+
+const httpsAgent = (fs?.readFileSync) ? new https.Agent({ ca: fs.readFileSync(path.join(__dirname, '..', '..', 'resource', 'riotgames.pem')) }) : new https.Agent();
 
 export class RiotAPIModule {
     private key?: string;

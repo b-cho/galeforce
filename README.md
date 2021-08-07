@@ -1,6 +1,6 @@
 # Galeforce
 
----
+***
 
 [![NPM](https://nodei.co/npm/galeforce.png?compact=true)](https://www.npmjs.com/package/galeforce)
 
@@ -8,7 +8,7 @@
 ![npm](https://img.shields.io/npm/dt/galeforce)
 [![Node CI](https://github.com/bcho04/galeforce/workflows/Node%20CI/badge.svg)](https://github.com/bcho04/galeforce/workflows/Node%20CI/badge.svg)
 [![CodeQL](https://github.com/bcho04/galeforce/workflows/CodeQL/badge.svg)](https://github.com/bcho04/galeforce/workflows/CodeQL/badge.svg)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/18a92440f7a5457db04632699c3546a6)](https://www.codacy.com/gh/bcho04/galeforce/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bcho04/galeforce&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/18a92440f7a5457db04632699c3546a6)](https://www.codacy.com/gh/bcho04/galeforce/dashboard?utm_source=github.com\&utm_medium=referral\&utm_content=bcho04/galeforce\&utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/bcho04/galeforce/branch/master/graph/badge.svg?token=7BJHF5KVX9)](https://codecov.io/gh/bcho04/galeforce)
 [![David](https://david-dm.org/bcho04/galeforce.svg)](https://david-dm.org/bcho04/galeforce)
 [![GitHub last commit](https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat)](https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat)
@@ -17,12 +17,12 @@ A customizable, promise-based, and command-oriented TypeScript library and fluen
 
 ## Features
 
-- **Full API support** for all Riot games, Data Dragon (LoL and LoR), and the Live Client Data API
-  - Environment variable config integration for API keys and other values on both the desktop and platforms including Heroku.
-- **Customizable rate limiting** with Redis clustering support and automated retries
-- **Fully-typed DTOs and parameters** for *all* endpoints
-- **Fluent interface** for seamless method chaining
-- **Built-in, informative debugging** using `debug`
+*   **Full API support** for all Riot games, Data Dragon (LoL and LoR), and the Live Client Data API
+    *   Environment variable config integration for API keys and other values on both the desktop and platforms including Heroku.
+*   **Customizable rate limiting** with Redis clustering support and automated retries
+*   **Fully-typed DTOs and parameters** for *all* endpoints
+*   **Fluent interface** for seamless method chaining
+*   **Built-in, informative debugging** using `debug`
 
 Automatically-generated **documentation** is available [here](https://bcho04.github.io/galeforce/), and code **examples** can be found the section [below](#guide).
 
@@ -39,7 +39,7 @@ Automatically-generated **documentation** is available [here](https://bcho04.git
     - [Documentation](#documentation)
   - [Disclaimer](#disclaimer)
 
----
+***
 
 ## Examples
 
@@ -113,7 +113,7 @@ const totalMasteryPoints = (await galeforce.lol.mastery.list()
 
 </details>
 
----
+***
 
 ## Guide
 
@@ -137,7 +137,7 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 >     /* manipulate status data */
 >   });
 > ```
->
+
 </details>
 
 <details>
@@ -153,10 +153,10 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 >   .version('11.9.1') // See the .<property>() section for documentation. Sets the version to retrieve data from.
 >   .assetId(6671) // See below for documentation. Get the icon for the Galeforce item.
 >   .URL(); // Get the encoded URL corresponding with the selected endpoint as a string.
-> 
+>
 > console.log(galeforceURL); // 'https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/6671.png'
 > ```
->
+
 </details>
 
 <details>
@@ -182,7 +182,7 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 >   .region(galeforce.region.lol.NORTH_AMERICA) // Sets the request region to 'na1' (i.e., target the NA server)
 >   .region(galeforce.region.lol.KOREA) // galeforce.lol.spectator.active(...).region(...).region is not a function
 > ```
->
+
 </details>
 
 <details>
@@ -202,26 +202,26 @@ Each endpoint in the Galeforce library is an instance of an `Action` containing 
 >   })
 >   .exec(); // See .exec() above.
 > ```
->
+
 </details>
 
 ### Using DTOs
 
 Galeforce includes DTOs for all Riot API responses as TypeScript interfaces. Although all actions already return an object typed with the corresponding DTO, these can be accessed explicitly via **`GaleforceModule.dto`** or as another export:
-  >
-  > ```typescript
-  > import GaleforceModule from 'galeforce';
-  > 
-  > const summonerData: GaleforceModule.dto.SummonerDTO = ... 
-  > // get summoner data
-  > ```
 
-  > ```typescript
-  > import GaleforceModule, { dto } from 'galeforce';
-  > 
-  > const summonerData: dto.SummonerDTO = ...
-  > // get summoner data
-  > ```
+> ```typescript
+> import GaleforceModule from 'galeforce';
+>
+> const summonerData: GaleforceModule.dto.SummonerDTO = ... 
+> // get summoner data
+> ```
+
+> ```typescript
+> import GaleforceModule, { dto } from 'galeforce';
+>
+> const summonerData: dto.SummonerDTO = ...
+> // get summoner data
+> ```
 
 ### Config structure
 
@@ -258,7 +258,7 @@ debug: [] # A list containing any of 'action', 'payload', 'rate-limit', 'riot-ap
 
 See [here](https://bcho04.github.io/galeforce/) for further documentation and a complete list of methods.
 
----
+***
 
 ## Disclaimer
 
