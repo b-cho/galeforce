@@ -156,7 +156,7 @@ export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(paylo
             break;
         case 'assetPath':
             // Regex check for valid assetPaths
-            if (typeof value !== 'string' || !(/^(\/.*)+$/.test(value))) {
+            if (typeof value !== 'string' || !(/^\/.*$/.test(value))) {
                 throw new Error(`[galeforce]: Invalid ${name} provided (failed regex check).`);
             }
         default:
