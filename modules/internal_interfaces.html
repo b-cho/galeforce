@@ -1,0 +1,1399 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>internal/interfaces | galeforce - v0.5.1</title>
+	<meta name="description" content="Documentation for galeforce - v0.5.1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">galeforce - v0.5.1</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="internal_interfaces.html">internal/interfaces</a>
+				</li>
+			</ul>
+			<h1>Module internal/interfaces</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>References</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#accountdto" class="tsd-kind-icon">AccountDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#activesharddto" class="tsd-kind-icon">Active<wbr>ShardDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#championinfodto" class="tsd-kind-icon">Champion<wbr>InfoDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#championmasterydto" class="tsd-kind-icon">Champion<wbr>MasteryDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#currentgameinfodto" class="tsd-kind-icon">Current<wbr>Game<wbr>InfoDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#datadragonchampiondto" class="tsd-kind-icon">Data<wbr>Dragon<wbr>ChampionDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#datadragonchampionlistdto" class="tsd-kind-icon">Data<wbr>Dragon<wbr>Champion<wbr>ListDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#datadragonitemlistdto" class="tsd-kind-icon">Data<wbr>Dragon<wbr>Item<wbr>ListDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#datadragonprofileiconlistdto" class="tsd-kind-icon">Data<wbr>Dragon<wbr>Profile<wbr>Icon<wbr>ListDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#datadragonregiondto" class="tsd-kind-icon">Data<wbr>Dragon<wbr>RegionDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#datadragonrunedto" class="tsd-kind-icon">Data<wbr>Dragon<wbr>RuneDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#datadragonsummonerspelllistdto" class="tsd-kind-icon">Data<wbr>Dragon<wbr>Summoner<wbr>Spell<wbr>ListDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#featuredgamesdto" class="tsd-kind-icon">Featured<wbr>GamesDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#leagueentrydto" class="tsd-kind-icon">League<wbr>EntryDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#leaguelistdto" class="tsd-kind-icon">League<wbr>ListDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#liveclientabilitiesdto" class="tsd-kind-icon">Live<wbr>Client<wbr>AbilitiesDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#liveclientactiveplayerdto" class="tsd-kind-icon">Live<wbr>Client<wbr>Active<wbr>PlayerDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#liveclientallgamedatadto" class="tsd-kind-icon">Live<wbr>Client<wbr>All<wbr>Game<wbr>DataDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#liveclienteventsdto" class="tsd-kind-icon">Live<wbr>Client<wbr>EventsDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#liveclientfullrunesdto" class="tsd-kind-icon">Live<wbr>Client<wbr>Full<wbr>RunesDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#liveclientgamestatsdto" class="tsd-kind-icon">Live<wbr>Client<wbr>Game<wbr>StatsDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#liveclientitemdto" class="tsd-kind-icon">Live<wbr>Client<wbr>ItemDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#liveclientmainrunesdto" class="tsd-kind-icon">Live<wbr>Client<wbr>Main<wbr>RunesDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#liveclientplayerdto" class="tsd-kind-icon">Live<wbr>Client<wbr>PlayerDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#liveclientscoredto" class="tsd-kind-icon">Live<wbr>Client<wbr>ScoreDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#liveclientsummonerspellsdto" class="tsd-kind-icon">Live<wbr>Client<wbr>Summoner<wbr>SpellsDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#lobbyeventdtowrapper" class="tsd-kind-icon">Lobby<wbr>EventDTOWrapper</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#lordatadragonglobalsdto" class="tsd-kind-icon">Lor<wbr>Data<wbr>Dragon<wbr>GlobalsDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#lordatadragonsetdatadto" class="tsd-kind-icon">Lor<wbr>Data<wbr>Dragon<wbr>Set<wbr>DataDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#lorleaderboarddto" class="tsd-kind-icon">Lor<wbr>LeaderboardDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#lormatchdto" class="tsd-kind-icon">Lor<wbr>MatchDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#matchdto" class="tsd-kind-icon">MatchDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#matchtimelinedto" class="tsd-kind-icon">Match<wbr>TimelineDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#platformdatadto" class="tsd-kind-icon">Platform<wbr>DataDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#playerdto" class="tsd-kind-icon">PlayerDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#summonerdto" class="tsd-kind-icon">SummonerDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#tftmatchdto" class="tsd-kind-icon">TFTMatchDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#teamdto" class="tsd-kind-icon">TeamDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#tournamentcodedto" class="tsd-kind-icon">Tournament<wbr>CodeDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#tournamentdto" class="tsd-kind-icon">TournamentDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#valcontentdto" class="tsd-kind-icon">Val<wbr>ContentDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#valleaderboarddto" class="tsd-kind-icon">Val<wbr>LeaderboardDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#valmatchdto" class="tsd-kind-icon">Val<wbr>MatchDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#valmatchlistdto" class="tsd-kind-icon">Val<wbr>MatchlistDTO</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="internal_interfaces.html#valrecentmatchesdto" class="tsd-kind-icon">Val<wbr>Recent<wbr>MatchesDTO</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Enumerations</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported"><a href="../enums/internal_interfaces.gamemode.html" class="tsd-kind-icon">Game<wbr>Mode</a></li>
+								<li class="tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported"><a href="../enums/internal_interfaces.gametype.html" class="tsd-kind-icon">Game<wbr>Type</a></li>
+								<li class="tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported"><a href="../enums/internal_interfaces.incidentseverity.html" class="tsd-kind-icon">Incident<wbr>Severity</a></li>
+								<li class="tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported"><a href="../enums/internal_interfaces.maintenancestatus.html" class="tsd-kind-icon">Maintenance<wbr>Status</a></li>
+								<li class="tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported"><a href="../enums/internal_interfaces.maptype.html" class="tsd-kind-icon">Map<wbr>Type</a></li>
+								<li class="tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported"><a href="../enums/internal_interfaces.picktype.html" class="tsd-kind-icon">Pick<wbr>Type</a></li>
+								<li class="tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported"><a href="../enums/internal_interfaces.platform.html" class="tsd-kind-icon">Platform</a></li>
+								<li class="tsd-kind-enum tsd-parent-kind-module"><a href="../enums/internal_interfaces.position.html" class="tsd-kind-icon">Position</a></li>
+								<li class="tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported"><a href="../enums/internal_interfaces.publishlocations.html" class="tsd-kind-icon">Publish<wbr>Locations</a></li>
+								<li class="tsd-kind-enum tsd-parent-kind-module"><a href="../enums/internal_interfaces.role.html" class="tsd-kind-icon">Role</a></li>
+								<li class="tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported"><a href="../enums/internal_interfaces.spectatortype.html" class="tsd-kind-icon">Spectator<wbr>Type</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Interfaces</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.ability.html" class="tsd-kind-icon">Ability</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.abilitycastsdto.html" class="tsd-kind-icon">Ability<wbr>CastsDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.abilitydto.html" class="tsd-kind-icon">AbilityDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.accountdto-1.html" class="tsd-kind-icon">AccountDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.actdto.html" class="tsd-kind-icon">ActDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.activesharddto-1.html" class="tsd-kind-icon">Active<wbr>ShardDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.asset.html" class="tsd-kind-icon">Asset</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.ban.html" class="tsd-kind-icon">Ban</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.bannedchampiondto.html" class="tsd-kind-icon">Banned<wbr>ChampionDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.baron.html" class="tsd-kind-icon">Baron</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.basic.html" class="tsd-kind-icon">Basic</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.block.html" class="tsd-kind-icon">Block</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.champion.html" class="tsd-kind-icon">Champion</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.champion-1.html" class="tsd-kind-icon">Champion</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.championinfodto-1.html" class="tsd-kind-icon">Champion<wbr>InfoDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.championmasterydto-1.html" class="tsd-kind-icon">Champion<wbr>MasteryDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.championstats.html" class="tsd-kind-icon">Champion<wbr>Stats</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.championstats-1.html" class="tsd-kind-icon">Champion<wbr>Stats</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.companiondto.html" class="tsd-kind-icon">CompanionDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.configinterface.html" class="tsd-kind-icon">Config<wbr>Interface</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.contentdto.html" class="tsd-kind-icon">ContentDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.contentitemdto.html" class="tsd-kind-icon">Content<wbr>ItemDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.currentgameinfodto-1.html" class="tsd-kind-icon">Current<wbr>Game<wbr>InfoDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.currentgameparticipantdto.html" class="tsd-kind-icon">Current<wbr>Game<wbr>ParticipantDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.damagedto.html" class="tsd-kind-icon">DamageDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.damagestats.html" class="tsd-kind-icon">Damage<wbr>Stats</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.data.html" class="tsd-kind-icon">Data</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.data-1.html" class="tsd-kind-icon">Data</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.data-2.html" class="tsd-kind-icon">Data</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.data-3.html" class="tsd-kind-icon">Data</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.datadto.html" class="tsd-kind-icon">DataDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.datadragonchampiondto-1.html" class="tsd-kind-icon">Data<wbr>Dragon<wbr>ChampionDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.datadragonchampionlistdto-1.html" class="tsd-kind-icon">Data<wbr>Dragon<wbr>Champion<wbr>ListDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.datadragonitemlistdto-1.html" class="tsd-kind-icon">Data<wbr>Dragon<wbr>Item<wbr>ListDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.datadragonprofileiconlistdto-1.html" class="tsd-kind-icon">Data<wbr>Dragon<wbr>Profile<wbr>Icon<wbr>ListDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.datadragonregiondto-1.html" class="tsd-kind-icon">Data<wbr>Dragon<wbr>RegionDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.datadragonrunedto-1.html" class="tsd-kind-icon">Data<wbr>Dragon<wbr>RuneDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.datadragonsummonerspelllistdto-1.html" class="tsd-kind-icon">Data<wbr>Dragon<wbr>Summoner<wbr>Spell<wbr>ListDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.datavalues.html" class="tsd-kind-icon">Data<wbr>Values</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.datavalues-1.html" class="tsd-kind-icon">Data<wbr>Values</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.dragon.html" class="tsd-kind-icon">Dragon</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.economydto.html" class="tsd-kind-icon">EconomyDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.event.html" class="tsd-kind-icon">Event</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.event-1.html" class="tsd-kind-icon">Event</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.featuredgameinfodto.html" class="tsd-kind-icon">Featured<wbr>Game<wbr>InfoDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.featuredgamesdto-1.html" class="tsd-kind-icon">Featured<wbr>GamesDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.finishingdamagedto.html" class="tsd-kind-icon">Finishing<wbr>DamageDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.frame.html" class="tsd-kind-icon">Frame</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.gamecustomizationobjectdto.html" class="tsd-kind-icon">Game<wbr>Customization<wbr>ObjectDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.generalrune.html" class="tsd-kind-icon">General<wbr>Rune</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.gold.html" class="tsd-kind-icon">Gold</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.group.html" class="tsd-kind-icon">Group</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.image.html" class="tsd-kind-icon">Image</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.image-1.html" class="tsd-kind-icon">Image</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.image-2.html" class="tsd-kind-icon">Image</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.image-3.html" class="tsd-kind-icon">Image</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.imagedto.html" class="tsd-kind-icon">ImageDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.info.html" class="tsd-kind-icon">Info</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.info-1.html" class="tsd-kind-icon">Info</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.info-2.html" class="tsd-kind-icon">Info</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.infodto.html" class="tsd-kind-icon">InfoDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.infodto-1.html" class="tsd-kind-icon">InfoDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.infodto-2.html" class="tsd-kind-icon">InfoDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.inhibitor.html" class="tsd-kind-icon">Inhibitor</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.item.html" class="tsd-kind-icon">Item</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.keyword.html" class="tsd-kind-icon">Keyword</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.killdto.html" class="tsd-kind-icon">KillDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.leagueentrydto-1.html" class="tsd-kind-icon">League<wbr>EntryDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.leagueitemdto.html" class="tsd-kind-icon">League<wbr>ItemDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.leaguelistdto-1.html" class="tsd-kind-icon">League<wbr>ListDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.leveltip.html" class="tsd-kind-icon">Level<wbr>Tip</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.liveclientabilitiesdto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>AbilitiesDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.liveclientactiveplayerdto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>Active<wbr>PlayerDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.liveclientallgamedatadto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>All<wbr>Game<wbr>DataDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.liveclienteventsdto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>EventsDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.liveclientfullrunesdto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>Full<wbr>RunesDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.liveclientgamestatsdto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>Game<wbr>StatsDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.liveclientitemdto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>ItemDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.liveclientmainrunesdto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>Main<wbr>RunesDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.liveclientplayerdto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>PlayerDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.liveclientscoredto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>ScoreDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.liveclientsummonerspellsdto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>Summoner<wbr>SpellsDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.lobbyeventdto.html" class="tsd-kind-icon">Lobby<wbr>EventDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.lobbyeventdtowrapper-1.html" class="tsd-kind-icon">Lobby<wbr>EventDTOWrapper</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.localizednamesdto.html" class="tsd-kind-icon">Localized<wbr>NamesDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.locationdto.html" class="tsd-kind-icon">LocationDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.lordatadragonglobalsdto-1.html" class="tsd-kind-icon">Lor<wbr>Data<wbr>Dragon<wbr>GlobalsDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.lordatadragonsetdatadto-1.html" class="tsd-kind-icon">Lor<wbr>Data<wbr>Dragon<wbr>Set<wbr>DataDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.lorleaderboarddto-1.html" class="tsd-kind-icon">Lor<wbr>LeaderboardDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.lormatchdto-1.html" class="tsd-kind-icon">Lor<wbr>MatchDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.maps.html" class="tsd-kind-icon">Maps</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.matchdto-1.html" class="tsd-kind-icon">MatchDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.matchinfodto.html" class="tsd-kind-icon">Match<wbr>InfoDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.matchtimelinedto-1.html" class="tsd-kind-icon">Match<wbr>TimelineDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.matchlistentrydto.html" class="tsd-kind-icon">Matchlist<wbr>EntryDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.metadata.html" class="tsd-kind-icon">Metadata</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.metadata-1.html" class="tsd-kind-icon">Metadata</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.metadatadto.html" class="tsd-kind-icon">MetadataDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.metadatadto-1.html" class="tsd-kind-icon">MetadataDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.miniseriesdto.html" class="tsd-kind-icon">Mini<wbr>SeriesDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.n.html" class="tsd-kind-icon">N</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.objectives.html" class="tsd-kind-icon">Objectives</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.observer.html" class="tsd-kind-icon">Observer</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.participant.html" class="tsd-kind-icon">Participant</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.participant-1.html" class="tsd-kind-icon">Participant</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.participantdto.html" class="tsd-kind-icon">ParticipantDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.participantdto-1.html" class="tsd-kind-icon">ParticipantDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.participantframe.html" class="tsd-kind-icon">Participant<wbr>Frame</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.passive.html" class="tsd-kind-icon">Passive</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.passive-1.html" class="tsd-kind-icon">Passive</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.perks.html" class="tsd-kind-icon">Perks</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.perks-1.html" class="tsd-kind-icon">Perks</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.platformdatadto-1.html" class="tsd-kind-icon">Platform<wbr>DataDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.playerdto-1.html" class="tsd-kind-icon">PlayerDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.playerdto-2.html" class="tsd-kind-icon">PlayerDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.playerdto-3.html" class="tsd-kind-icon">PlayerDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.playerdto-4.html" class="tsd-kind-icon">PlayerDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.playerdto-5.html" class="tsd-kind-icon">PlayerDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.playerdto-6.html" class="tsd-kind-icon">PlayerDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.playerlocationsdto.html" class="tsd-kind-icon">Player<wbr>LocationsDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.playerroundstatsdto.html" class="tsd-kind-icon">Player<wbr>Round<wbr>StatsDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.playerstatsdto.html" class="tsd-kind-icon">Player<wbr>StatsDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.position-1.html" class="tsd-kind-icon">Position</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.providerregistrationparameters.html" class="tsd-kind-icon">Provider<wbr>Registration<wbr>Parameters</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.rarity.html" class="tsd-kind-icon">Rarity</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.recommended.html" class="tsd-kind-icon">Recommended</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.region.html" class="tsd-kind-icon">Region</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.riftherald.html" class="tsd-kind-icon">Rift<wbr>Herald</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.roundresultdto.html" class="tsd-kind-icon">Round<wbr>ResultDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.rune.html" class="tsd-kind-icon">Rune</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.rune-1.html" class="tsd-kind-icon">Rune</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.selection.html" class="tsd-kind-icon">Selection</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.set.html" class="tsd-kind-icon">Set</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.skin.html" class="tsd-kind-icon">Skin</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.slot.html" class="tsd-kind-icon">Slot</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.spell.html" class="tsd-kind-icon">Spell</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.spellspeed.html" class="tsd-kind-icon">Spell<wbr>Speed</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.statperks.html" class="tsd-kind-icon">Stat<wbr>Perks</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.statrune.html" class="tsd-kind-icon">Stat<wbr>Rune</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.stats.html" class="tsd-kind-icon">Stats</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.statsbasic.html" class="tsd-kind-icon">Stats<wbr>Basic</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.statsdto.html" class="tsd-kind-icon">StatsDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.statsoptional.html" class="tsd-kind-icon">Stats<wbr>Optional</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.statusdto.html" class="tsd-kind-icon">StatusDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.style.html" class="tsd-kind-icon">Style</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.submodulemap.html" class="tsd-kind-icon">Submodule<wbr>Map</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.summonerdto-1.html" class="tsd-kind-icon">SummonerDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.summonerspell.html" class="tsd-kind-icon">Summoner<wbr>Spell</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.tftmatchdto-1.html" class="tsd-kind-icon">TFTMatchDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.team.html" class="tsd-kind-icon">Team</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.teamdto-1.html" class="tsd-kind-icon">TeamDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.teamdto-2.html" class="tsd-kind-icon">TeamDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.tournamentcodedto-1.html" class="tsd-kind-icon">Tournament<wbr>CodeDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.tournamentcodeparameters.html" class="tsd-kind-icon">Tournament<wbr>Code<wbr>Parameters</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.tournamentcodeupdateparameters.html" class="tsd-kind-icon">Tournament<wbr>Code<wbr>Update<wbr>Parameters</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.tournamentdto-1.html" class="tsd-kind-icon">TournamentDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.tournamentphasedto.html" class="tsd-kind-icon">Tournament<wbr>PhaseDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.tournamentregistrationparameters.html" class="tsd-kind-icon">Tournament<wbr>Registration<wbr>Parameters</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.tower.html" class="tsd-kind-icon">Tower</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.traitdto.html" class="tsd-kind-icon">TraitDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.tree.html" class="tsd-kind-icon">Tree</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.unitdto.html" class="tsd-kind-icon">UnitDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.updatedto.html" class="tsd-kind-icon">UpdateDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.valcontentdto-1.html" class="tsd-kind-icon">Val<wbr>ContentDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.valleaderboarddto-1.html" class="tsd-kind-icon">Val<wbr>LeaderboardDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.valmatchdto-1.html" class="tsd-kind-icon">Val<wbr>MatchDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.valmatchlistdto-1.html" class="tsd-kind-icon">Val<wbr>MatchlistDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/internal_interfaces.valrecentmatchesdto-1.html" class="tsd-kind-icon">Val<wbr>Recent<wbr>MatchesDTO</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.vars.html" class="tsd-kind-icon">Vars</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.victimdamagedealt.html" class="tsd-kind-icon">Victim<wbr>Damage<wbr>Dealt</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.victimdamagereceived.html" class="tsd-kind-icon">Victim<wbr>Damage<wbr>Received</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/internal_interfaces.vocabterm.html" class="tsd-kind-icon">Vocab<wbr>Term</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Type aliases</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported"><a href="internal_interfaces.html#coeff" class="tsd-kind-icon">Coeff</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported"><a href="internal_interfaces.html#effect" class="tsd-kind-icon">Effect</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported"><a href="internal_interfaces.html#effect-1" class="tsd-kind-icon">Effect</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported"><a href="internal_interfaces.html#effectburn" class="tsd-kind-icon">Effect<wbr>Burn</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported"><a href="internal_interfaces.html#effectburn-1" class="tsd-kind-icon">Effect<wbr>Burn</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported"><a href="internal_interfaces.html#styletype" class="tsd-kind-icon">Style<wbr>Type</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported"><a href="internal_interfaces.html#teamsize" class="tsd-kind-icon">Team<wbr>Size</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>References</h2>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="accountdto" class="tsd-anchor"></a>
+					<h3>AccountDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.accountdto-1.html">AccountDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="activesharddto" class="tsd-anchor"></a>
+					<h3>Active<wbr>ShardDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.activesharddto-1.html">ActiveShardDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="championinfodto" class="tsd-anchor"></a>
+					<h3>Champion<wbr>InfoDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.championinfodto-1.html">ChampionInfoDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="championmasterydto" class="tsd-anchor"></a>
+					<h3>Champion<wbr>MasteryDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.championmasterydto-1.html">ChampionMasteryDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="currentgameinfodto" class="tsd-anchor"></a>
+					<h3>Current<wbr>Game<wbr>InfoDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.currentgameinfodto-1.html">CurrentGameInfoDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="datadragonchampiondto" class="tsd-anchor"></a>
+					<h3>Data<wbr>Dragon<wbr>ChampionDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.datadragonchampiondto-1.html">DataDragonChampionDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="datadragonchampionlistdto" class="tsd-anchor"></a>
+					<h3>Data<wbr>Dragon<wbr>Champion<wbr>ListDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.datadragonchampionlistdto-1.html">DataDragonChampionListDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="datadragonitemlistdto" class="tsd-anchor"></a>
+					<h3>Data<wbr>Dragon<wbr>Item<wbr>ListDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.datadragonitemlistdto-1.html">DataDragonItemListDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="datadragonprofileiconlistdto" class="tsd-anchor"></a>
+					<h3>Data<wbr>Dragon<wbr>Profile<wbr>Icon<wbr>ListDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.datadragonprofileiconlistdto-1.html">DataDragonProfileIconListDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="datadragonregiondto" class="tsd-anchor"></a>
+					<h3>Data<wbr>Dragon<wbr>RegionDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.datadragonregiondto-1.html">DataDragonRegionDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="datadragonrunedto" class="tsd-anchor"></a>
+					<h3>Data<wbr>Dragon<wbr>RuneDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.datadragonrunedto-1.html">DataDragonRuneDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="datadragonsummonerspelllistdto" class="tsd-anchor"></a>
+					<h3>Data<wbr>Dragon<wbr>Summoner<wbr>Spell<wbr>ListDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.datadragonsummonerspelllistdto-1.html">DataDragonSummonerSpellListDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="featuredgamesdto" class="tsd-anchor"></a>
+					<h3>Featured<wbr>GamesDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.featuredgamesdto-1.html">FeaturedGamesDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="leagueentrydto" class="tsd-anchor"></a>
+					<h3>League<wbr>EntryDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.leagueentrydto-1.html">LeagueEntryDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="leaguelistdto" class="tsd-anchor"></a>
+					<h3>League<wbr>ListDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.leaguelistdto-1.html">LeagueListDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="liveclientabilitiesdto" class="tsd-anchor"></a>
+					<h3>Live<wbr>Client<wbr>AbilitiesDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.liveclientabilitiesdto-1.html">LiveClientAbilitiesDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="liveclientactiveplayerdto" class="tsd-anchor"></a>
+					<h3>Live<wbr>Client<wbr>Active<wbr>PlayerDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.liveclientactiveplayerdto-1.html">LiveClientActivePlayerDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="liveclientallgamedatadto" class="tsd-anchor"></a>
+					<h3>Live<wbr>Client<wbr>All<wbr>Game<wbr>DataDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.liveclientallgamedatadto-1.html">LiveClientAllGameDataDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="liveclienteventsdto" class="tsd-anchor"></a>
+					<h3>Live<wbr>Client<wbr>EventsDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.liveclienteventsdto-1.html">LiveClientEventsDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="liveclientfullrunesdto" class="tsd-anchor"></a>
+					<h3>Live<wbr>Client<wbr>Full<wbr>RunesDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.liveclientfullrunesdto-1.html">LiveClientFullRunesDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="liveclientgamestatsdto" class="tsd-anchor"></a>
+					<h3>Live<wbr>Client<wbr>Game<wbr>StatsDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.liveclientgamestatsdto-1.html">LiveClientGameStatsDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="liveclientitemdto" class="tsd-anchor"></a>
+					<h3>Live<wbr>Client<wbr>ItemDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.liveclientitemdto-1.html">LiveClientItemDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="liveclientmainrunesdto" class="tsd-anchor"></a>
+					<h3>Live<wbr>Client<wbr>Main<wbr>RunesDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.liveclientmainrunesdto-1.html">LiveClientMainRunesDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="liveclientplayerdto" class="tsd-anchor"></a>
+					<h3>Live<wbr>Client<wbr>PlayerDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.liveclientplayerdto-1.html">LiveClientPlayerDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="liveclientscoredto" class="tsd-anchor"></a>
+					<h3>Live<wbr>Client<wbr>ScoreDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.liveclientscoredto-1.html">LiveClientScoreDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="liveclientsummonerspellsdto" class="tsd-anchor"></a>
+					<h3>Live<wbr>Client<wbr>Summoner<wbr>SpellsDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.liveclientsummonerspellsdto-1.html">LiveClientSummonerSpellsDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="lobbyeventdtowrapper" class="tsd-anchor"></a>
+					<h3>Lobby<wbr>EventDTOWrapper</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.lobbyeventdtowrapper-1.html">LobbyEventDTOWrapper</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="lordatadragonglobalsdto" class="tsd-anchor"></a>
+					<h3>Lor<wbr>Data<wbr>Dragon<wbr>GlobalsDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.lordatadragonglobalsdto-1.html">LorDataDragonGlobalsDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="lordatadragonsetdatadto" class="tsd-anchor"></a>
+					<h3>Lor<wbr>Data<wbr>Dragon<wbr>Set<wbr>DataDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.lordatadragonsetdatadto-1.html">LorDataDragonSetDataDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="lorleaderboarddto" class="tsd-anchor"></a>
+					<h3>Lor<wbr>LeaderboardDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.lorleaderboarddto-1.html">LorLeaderboardDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="lormatchdto" class="tsd-anchor"></a>
+					<h3>Lor<wbr>MatchDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.lormatchdto-1.html">LorMatchDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="matchdto" class="tsd-anchor"></a>
+					<h3>MatchDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.matchdto-1.html">MatchDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="matchtimelinedto" class="tsd-anchor"></a>
+					<h3>Match<wbr>TimelineDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.matchtimelinedto-1.html">MatchTimelineDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="platformdatadto" class="tsd-anchor"></a>
+					<h3>Platform<wbr>DataDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.platformdatadto-1.html">PlatformDataDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="playerdto" class="tsd-anchor"></a>
+					<h3>PlayerDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.playerdto-1.html">PlayerDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="summonerdto" class="tsd-anchor"></a>
+					<h3>SummonerDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.summonerdto-1.html">SummonerDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="tftmatchdto" class="tsd-anchor"></a>
+					<h3>TFTMatchDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.tftmatchdto-1.html">TFTMatchDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="teamdto" class="tsd-anchor"></a>
+					<h3>TeamDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.teamdto-1.html">TeamDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="tournamentcodedto" class="tsd-anchor"></a>
+					<h3>Tournament<wbr>CodeDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.tournamentcodedto-1.html">TournamentCodeDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="tournamentdto" class="tsd-anchor"></a>
+					<h3>TournamentDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.tournamentdto-1.html">TournamentDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="valcontentdto" class="tsd-anchor"></a>
+					<h3>Val<wbr>ContentDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.valcontentdto-1.html">ValContentDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="valleaderboarddto" class="tsd-anchor"></a>
+					<h3>Val<wbr>LeaderboardDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.valleaderboarddto-1.html">ValLeaderboardDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="valmatchdto" class="tsd-anchor"></a>
+					<h3>Val<wbr>MatchDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.valmatchdto-1.html">ValMatchDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="valmatchlistdto" class="tsd-anchor"></a>
+					<h3>Val<wbr>MatchlistDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.valmatchlistdto-1.html">ValMatchlistDTO</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="valrecentmatchesdto" class="tsd-anchor"></a>
+					<h3>Val<wbr>Recent<wbr>MatchesDTO</h3>
+					Re-exports <a href="../interfaces/internal_interfaces.valrecentmatchesdto-1.html">ValRecentMatchesDTO</a>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<a name="coeff" class="tsd-anchor"></a>
+					<h3>Coeff</h3>
+					<div class="tsd-signature tsd-kind-icon">Coeff<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/860af83/src/galeforce/interfaces/dto/lol-data-dragon/summoner-spells.ts#L15">galeforce/interfaces/dto/lol-data-dragon/summoner-spells.ts:15</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<a name="effect" class="tsd-anchor"></a>
+					<h3>Effect</h3>
+					<div class="tsd-signature tsd-kind-icon">Effect<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/860af83/src/galeforce/interfaces/dto/lol-data-dragon/champion.ts#L57">galeforce/interfaces/dto/lol-data-dragon/champion.ts:57</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<a name="effect-1" class="tsd-anchor"></a>
+					<h3>Effect</h3>
+					<div class="tsd-signature tsd-kind-icon">Effect<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/860af83/src/galeforce/interfaces/dto/lol-data-dragon/summoner-spells.ts#L23">galeforce/interfaces/dto/lol-data-dragon/summoner-spells.ts:23</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<a name="effectburn" class="tsd-anchor"></a>
+					<h3>Effect<wbr>Burn</h3>
+					<div class="tsd-signature tsd-kind-icon">Effect<wbr>Burn<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/860af83/src/galeforce/interfaces/dto/lol-data-dragon/champion.ts#L59">galeforce/interfaces/dto/lol-data-dragon/champion.ts:59</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<a name="effectburn-1" class="tsd-anchor"></a>
+					<h3>Effect<wbr>Burn</h3>
+					<div class="tsd-signature tsd-kind-icon">Effect<wbr>Burn<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/860af83/src/galeforce/interfaces/dto/lol-data-dragon/summoner-spells.ts#L25">galeforce/interfaces/dto/lol-data-dragon/summoner-spells.ts:25</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<a name="styletype" class="tsd-anchor"></a>
+					<h3>Style<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">Style<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">1</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">2</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">3</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">4</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/860af83/src/galeforce/interfaces/dto/riot-api/tft-match-v1/match.ts#L13">galeforce/interfaces/dto/riot-api/tft-match-v1/match.ts:13</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<a name="teamsize" class="tsd-anchor"></a>
+					<h3>Team<wbr>Size</h3>
+					<div class="tsd-signature tsd-kind-icon">Team<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">1</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">2</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">3</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">4</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">5</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/bcho04/galeforce/blob/860af83/src/galeforce/interfaces/dto/riot-api/tournament-v4/tournament-code.ts#L1">galeforce/interfaces/dto/riot-api/tournament-v4/tournament-code.ts:1</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="galeforce.html">Galeforce</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="internal_actions.html">internal/actions</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="internal_configs.html">internal/configs</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="internal_interfaces.html">internal/interfaces</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="internal_rate_limiters.html">internal/rate-<wbr>limiters</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="internal_riot_api.html">internal/riot-<wbr>api</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#accountdto" class="tsd-kind-icon">AccountDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#activesharddto" class="tsd-kind-icon">Active<wbr>ShardDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#championinfodto" class="tsd-kind-icon">Champion<wbr>InfoDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#championmasterydto" class="tsd-kind-icon">Champion<wbr>MasteryDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#currentgameinfodto" class="tsd-kind-icon">Current<wbr>Game<wbr>InfoDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#datadragonchampiondto" class="tsd-kind-icon">Data<wbr>Dragon<wbr>ChampionDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#datadragonchampionlistdto" class="tsd-kind-icon">Data<wbr>Dragon<wbr>Champion<wbr>ListDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#datadragonitemlistdto" class="tsd-kind-icon">Data<wbr>Dragon<wbr>Item<wbr>ListDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#datadragonprofileiconlistdto" class="tsd-kind-icon">Data<wbr>Dragon<wbr>Profile<wbr>Icon<wbr>ListDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#datadragonregiondto" class="tsd-kind-icon">Data<wbr>Dragon<wbr>RegionDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#datadragonrunedto" class="tsd-kind-icon">Data<wbr>Dragon<wbr>RuneDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#datadragonsummonerspelllistdto" class="tsd-kind-icon">Data<wbr>Dragon<wbr>Summoner<wbr>Spell<wbr>ListDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#featuredgamesdto" class="tsd-kind-icon">Featured<wbr>GamesDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#leagueentrydto" class="tsd-kind-icon">League<wbr>EntryDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#leaguelistdto" class="tsd-kind-icon">League<wbr>ListDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#liveclientabilitiesdto" class="tsd-kind-icon">Live<wbr>Client<wbr>AbilitiesDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#liveclientactiveplayerdto" class="tsd-kind-icon">Live<wbr>Client<wbr>Active<wbr>PlayerDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#liveclientallgamedatadto" class="tsd-kind-icon">Live<wbr>Client<wbr>All<wbr>Game<wbr>DataDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#liveclienteventsdto" class="tsd-kind-icon">Live<wbr>Client<wbr>EventsDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#liveclientfullrunesdto" class="tsd-kind-icon">Live<wbr>Client<wbr>Full<wbr>RunesDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#liveclientgamestatsdto" class="tsd-kind-icon">Live<wbr>Client<wbr>Game<wbr>StatsDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#liveclientitemdto" class="tsd-kind-icon">Live<wbr>Client<wbr>ItemDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#liveclientmainrunesdto" class="tsd-kind-icon">Live<wbr>Client<wbr>Main<wbr>RunesDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#liveclientplayerdto" class="tsd-kind-icon">Live<wbr>Client<wbr>PlayerDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#liveclientscoredto" class="tsd-kind-icon">Live<wbr>Client<wbr>ScoreDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#liveclientsummonerspellsdto" class="tsd-kind-icon">Live<wbr>Client<wbr>Summoner<wbr>SpellsDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#lobbyeventdtowrapper" class="tsd-kind-icon">Lobby<wbr>EventDTOWrapper</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#lordatadragonglobalsdto" class="tsd-kind-icon">Lor<wbr>Data<wbr>Dragon<wbr>GlobalsDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#lordatadragonsetdatadto" class="tsd-kind-icon">Lor<wbr>Data<wbr>Dragon<wbr>Set<wbr>DataDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#lorleaderboarddto" class="tsd-kind-icon">Lor<wbr>LeaderboardDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#lormatchdto" class="tsd-kind-icon">Lor<wbr>MatchDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#matchdto" class="tsd-kind-icon">MatchDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#matchtimelinedto" class="tsd-kind-icon">Match<wbr>TimelineDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#platformdatadto" class="tsd-kind-icon">Platform<wbr>DataDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#playerdto" class="tsd-kind-icon">PlayerDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#summonerdto" class="tsd-kind-icon">SummonerDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#tftmatchdto" class="tsd-kind-icon">TFTMatchDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#teamdto" class="tsd-kind-icon">TeamDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#tournamentcodedto" class="tsd-kind-icon">Tournament<wbr>CodeDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#tournamentdto" class="tsd-kind-icon">TournamentDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#valcontentdto" class="tsd-kind-icon">Val<wbr>ContentDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#valleaderboarddto" class="tsd-kind-icon">Val<wbr>LeaderboardDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#valmatchdto" class="tsd-kind-icon">Val<wbr>MatchDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#valmatchlistdto" class="tsd-kind-icon">Val<wbr>MatchlistDTO</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="internal_interfaces.html#valrecentmatchesdto" class="tsd-kind-icon">Val<wbr>Recent<wbr>MatchesDTO</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../enums/internal_interfaces.gamemode.html" class="tsd-kind-icon">Game<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../enums/internal_interfaces.gametype.html" class="tsd-kind-icon">Game<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../enums/internal_interfaces.incidentseverity.html" class="tsd-kind-icon">Incident<wbr>Severity</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../enums/internal_interfaces.maintenancestatus.html" class="tsd-kind-icon">Maintenance<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../enums/internal_interfaces.maptype.html" class="tsd-kind-icon">Map<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../enums/internal_interfaces.picktype.html" class="tsd-kind-icon">Pick<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../enums/internal_interfaces.platform.html" class="tsd-kind-icon">Platform</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module">
+						<a href="../enums/internal_interfaces.position.html" class="tsd-kind-icon">Position</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../enums/internal_interfaces.publishlocations.html" class="tsd-kind-icon">Publish<wbr>Locations</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module">
+						<a href="../enums/internal_interfaces.role.html" class="tsd-kind-icon">Role</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../enums/internal_interfaces.spectatortype.html" class="tsd-kind-icon">Spectator<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.ability.html" class="tsd-kind-icon">Ability</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.abilitycastsdto.html" class="tsd-kind-icon">Ability<wbr>CastsDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.abilitydto.html" class="tsd-kind-icon">AbilityDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.accountdto-1.html" class="tsd-kind-icon">AccountDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.actdto.html" class="tsd-kind-icon">ActDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.activesharddto-1.html" class="tsd-kind-icon">Active<wbr>ShardDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.asset.html" class="tsd-kind-icon">Asset</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.ban.html" class="tsd-kind-icon">Ban</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.bannedchampiondto.html" class="tsd-kind-icon">Banned<wbr>ChampionDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.baron.html" class="tsd-kind-icon">Baron</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.basic.html" class="tsd-kind-icon">Basic</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.block.html" class="tsd-kind-icon">Block</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.champion.html" class="tsd-kind-icon">Champion</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.champion-1.html" class="tsd-kind-icon">Champion</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.championinfodto-1.html" class="tsd-kind-icon">Champion<wbr>InfoDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.championmasterydto-1.html" class="tsd-kind-icon">Champion<wbr>MasteryDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.championstats.html" class="tsd-kind-icon">Champion<wbr>Stats</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.championstats-1.html" class="tsd-kind-icon">Champion<wbr>Stats</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.companiondto.html" class="tsd-kind-icon">CompanionDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.configinterface.html" class="tsd-kind-icon">Config<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.contentdto.html" class="tsd-kind-icon">ContentDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.contentitemdto.html" class="tsd-kind-icon">Content<wbr>ItemDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.currentgameinfodto-1.html" class="tsd-kind-icon">Current<wbr>Game<wbr>InfoDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.currentgameparticipantdto.html" class="tsd-kind-icon">Current<wbr>Game<wbr>ParticipantDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.damagedto.html" class="tsd-kind-icon">DamageDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.damagestats.html" class="tsd-kind-icon">Damage<wbr>Stats</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.data.html" class="tsd-kind-icon">Data</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.data-1.html" class="tsd-kind-icon">Data</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.data-2.html" class="tsd-kind-icon">Data</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.data-3.html" class="tsd-kind-icon">Data</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.datadto.html" class="tsd-kind-icon">DataDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.datadragonchampiondto-1.html" class="tsd-kind-icon">Data<wbr>Dragon<wbr>ChampionDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.datadragonchampionlistdto-1.html" class="tsd-kind-icon">Data<wbr>Dragon<wbr>Champion<wbr>ListDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.datadragonitemlistdto-1.html" class="tsd-kind-icon">Data<wbr>Dragon<wbr>Item<wbr>ListDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.datadragonprofileiconlistdto-1.html" class="tsd-kind-icon">Data<wbr>Dragon<wbr>Profile<wbr>Icon<wbr>ListDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.datadragonregiondto-1.html" class="tsd-kind-icon">Data<wbr>Dragon<wbr>RegionDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.datadragonrunedto-1.html" class="tsd-kind-icon">Data<wbr>Dragon<wbr>RuneDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.datadragonsummonerspelllistdto-1.html" class="tsd-kind-icon">Data<wbr>Dragon<wbr>Summoner<wbr>Spell<wbr>ListDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.datavalues.html" class="tsd-kind-icon">Data<wbr>Values</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.datavalues-1.html" class="tsd-kind-icon">Data<wbr>Values</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.dragon.html" class="tsd-kind-icon">Dragon</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.economydto.html" class="tsd-kind-icon">EconomyDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.event.html" class="tsd-kind-icon">Event</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.event-1.html" class="tsd-kind-icon">Event</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.featuredgameinfodto.html" class="tsd-kind-icon">Featured<wbr>Game<wbr>InfoDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.featuredgamesdto-1.html" class="tsd-kind-icon">Featured<wbr>GamesDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.finishingdamagedto.html" class="tsd-kind-icon">Finishing<wbr>DamageDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.frame.html" class="tsd-kind-icon">Frame</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.gamecustomizationobjectdto.html" class="tsd-kind-icon">Game<wbr>Customization<wbr>ObjectDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.generalrune.html" class="tsd-kind-icon">General<wbr>Rune</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.gold.html" class="tsd-kind-icon">Gold</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.group.html" class="tsd-kind-icon">Group</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.image.html" class="tsd-kind-icon">Image</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.image-1.html" class="tsd-kind-icon">Image</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.image-2.html" class="tsd-kind-icon">Image</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.image-3.html" class="tsd-kind-icon">Image</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.imagedto.html" class="tsd-kind-icon">ImageDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.info.html" class="tsd-kind-icon">Info</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.info-1.html" class="tsd-kind-icon">Info</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.info-2.html" class="tsd-kind-icon">Info</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.infodto.html" class="tsd-kind-icon">InfoDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.infodto-1.html" class="tsd-kind-icon">InfoDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.infodto-2.html" class="tsd-kind-icon">InfoDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.inhibitor.html" class="tsd-kind-icon">Inhibitor</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.item.html" class="tsd-kind-icon">Item</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.keyword.html" class="tsd-kind-icon">Keyword</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.killdto.html" class="tsd-kind-icon">KillDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.leagueentrydto-1.html" class="tsd-kind-icon">League<wbr>EntryDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.leagueitemdto.html" class="tsd-kind-icon">League<wbr>ItemDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.leaguelistdto-1.html" class="tsd-kind-icon">League<wbr>ListDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.leveltip.html" class="tsd-kind-icon">Level<wbr>Tip</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.liveclientabilitiesdto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>AbilitiesDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.liveclientactiveplayerdto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>Active<wbr>PlayerDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.liveclientallgamedatadto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>All<wbr>Game<wbr>DataDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.liveclienteventsdto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>EventsDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.liveclientfullrunesdto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>Full<wbr>RunesDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.liveclientgamestatsdto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>Game<wbr>StatsDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.liveclientitemdto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>ItemDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.liveclientmainrunesdto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>Main<wbr>RunesDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.liveclientplayerdto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>PlayerDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.liveclientscoredto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>ScoreDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.liveclientsummonerspellsdto-1.html" class="tsd-kind-icon">Live<wbr>Client<wbr>Summoner<wbr>SpellsDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.lobbyeventdto.html" class="tsd-kind-icon">Lobby<wbr>EventDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.lobbyeventdtowrapper-1.html" class="tsd-kind-icon">Lobby<wbr>EventDTOWrapper</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.localizednamesdto.html" class="tsd-kind-icon">Localized<wbr>NamesDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.locationdto.html" class="tsd-kind-icon">LocationDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.lordatadragonglobalsdto-1.html" class="tsd-kind-icon">Lor<wbr>Data<wbr>Dragon<wbr>GlobalsDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.lordatadragonsetdatadto-1.html" class="tsd-kind-icon">Lor<wbr>Data<wbr>Dragon<wbr>Set<wbr>DataDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.lorleaderboarddto-1.html" class="tsd-kind-icon">Lor<wbr>LeaderboardDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.lormatchdto-1.html" class="tsd-kind-icon">Lor<wbr>MatchDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.maps.html" class="tsd-kind-icon">Maps</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.matchdto-1.html" class="tsd-kind-icon">MatchDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.matchinfodto.html" class="tsd-kind-icon">Match<wbr>InfoDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.matchtimelinedto-1.html" class="tsd-kind-icon">Match<wbr>TimelineDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.matchlistentrydto.html" class="tsd-kind-icon">Matchlist<wbr>EntryDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.metadata.html" class="tsd-kind-icon">Metadata</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.metadata-1.html" class="tsd-kind-icon">Metadata</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.metadatadto.html" class="tsd-kind-icon">MetadataDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.metadatadto-1.html" class="tsd-kind-icon">MetadataDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.miniseriesdto.html" class="tsd-kind-icon">Mini<wbr>SeriesDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.n.html" class="tsd-kind-icon">N</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.objectives.html" class="tsd-kind-icon">Objectives</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.observer.html" class="tsd-kind-icon">Observer</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.participant.html" class="tsd-kind-icon">Participant</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.participant-1.html" class="tsd-kind-icon">Participant</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.participantdto.html" class="tsd-kind-icon">ParticipantDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.participantdto-1.html" class="tsd-kind-icon">ParticipantDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.participantframe.html" class="tsd-kind-icon">Participant<wbr>Frame</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.passive.html" class="tsd-kind-icon">Passive</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.passive-1.html" class="tsd-kind-icon">Passive</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.perks.html" class="tsd-kind-icon">Perks</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.perks-1.html" class="tsd-kind-icon">Perks</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.platformdatadto-1.html" class="tsd-kind-icon">Platform<wbr>DataDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.playerdto-1.html" class="tsd-kind-icon">PlayerDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.playerdto-2.html" class="tsd-kind-icon">PlayerDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.playerdto-3.html" class="tsd-kind-icon">PlayerDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.playerdto-4.html" class="tsd-kind-icon">PlayerDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.playerdto-5.html" class="tsd-kind-icon">PlayerDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.playerdto-6.html" class="tsd-kind-icon">PlayerDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.playerlocationsdto.html" class="tsd-kind-icon">Player<wbr>LocationsDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.playerroundstatsdto.html" class="tsd-kind-icon">Player<wbr>Round<wbr>StatsDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.playerstatsdto.html" class="tsd-kind-icon">Player<wbr>StatsDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.position-1.html" class="tsd-kind-icon">Position</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.providerregistrationparameters.html" class="tsd-kind-icon">Provider<wbr>Registration<wbr>Parameters</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.rarity.html" class="tsd-kind-icon">Rarity</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.recommended.html" class="tsd-kind-icon">Recommended</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.region.html" class="tsd-kind-icon">Region</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.riftherald.html" class="tsd-kind-icon">Rift<wbr>Herald</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.roundresultdto.html" class="tsd-kind-icon">Round<wbr>ResultDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.rune.html" class="tsd-kind-icon">Rune</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.rune-1.html" class="tsd-kind-icon">Rune</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.selection.html" class="tsd-kind-icon">Selection</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.set.html" class="tsd-kind-icon">Set</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.skin.html" class="tsd-kind-icon">Skin</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.slot.html" class="tsd-kind-icon">Slot</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.spell.html" class="tsd-kind-icon">Spell</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.spellspeed.html" class="tsd-kind-icon">Spell<wbr>Speed</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.statperks.html" class="tsd-kind-icon">Stat<wbr>Perks</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.statrune.html" class="tsd-kind-icon">Stat<wbr>Rune</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.stats.html" class="tsd-kind-icon">Stats</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.statsbasic.html" class="tsd-kind-icon">Stats<wbr>Basic</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.statsdto.html" class="tsd-kind-icon">StatsDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.statsoptional.html" class="tsd-kind-icon">Stats<wbr>Optional</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.statusdto.html" class="tsd-kind-icon">StatusDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.style.html" class="tsd-kind-icon">Style</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.submodulemap.html" class="tsd-kind-icon">Submodule<wbr>Map</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.summonerdto-1.html" class="tsd-kind-icon">SummonerDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.summonerspell.html" class="tsd-kind-icon">Summoner<wbr>Spell</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.tftmatchdto-1.html" class="tsd-kind-icon">TFTMatchDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.team.html" class="tsd-kind-icon">Team</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.teamdto-1.html" class="tsd-kind-icon">TeamDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.teamdto-2.html" class="tsd-kind-icon">TeamDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.tournamentcodedto-1.html" class="tsd-kind-icon">Tournament<wbr>CodeDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.tournamentcodeparameters.html" class="tsd-kind-icon">Tournament<wbr>Code<wbr>Parameters</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.tournamentcodeupdateparameters.html" class="tsd-kind-icon">Tournament<wbr>Code<wbr>Update<wbr>Parameters</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.tournamentdto-1.html" class="tsd-kind-icon">TournamentDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.tournamentphasedto.html" class="tsd-kind-icon">Tournament<wbr>PhaseDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.tournamentregistrationparameters.html" class="tsd-kind-icon">Tournament<wbr>Registration<wbr>Parameters</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.tower.html" class="tsd-kind-icon">Tower</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.traitdto.html" class="tsd-kind-icon">TraitDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.tree.html" class="tsd-kind-icon">Tree</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.unitdto.html" class="tsd-kind-icon">UnitDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.updatedto.html" class="tsd-kind-icon">UpdateDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.valcontentdto-1.html" class="tsd-kind-icon">Val<wbr>ContentDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.valleaderboarddto-1.html" class="tsd-kind-icon">Val<wbr>LeaderboardDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.valmatchdto-1.html" class="tsd-kind-icon">Val<wbr>MatchDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.valmatchlistdto-1.html" class="tsd-kind-icon">Val<wbr>MatchlistDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/internal_interfaces.valrecentmatchesdto-1.html" class="tsd-kind-icon">Val<wbr>Recent<wbr>MatchesDTO</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.vars.html" class="tsd-kind-icon">Vars</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.victimdamagedealt.html" class="tsd-kind-icon">Victim<wbr>Damage<wbr>Dealt</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.victimdamagereceived.html" class="tsd-kind-icon">Victim<wbr>Damage<wbr>Received</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/internal_interfaces.vocabterm.html" class="tsd-kind-icon">Vocab<wbr>Term</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+						<a href="internal_interfaces.html#coeff" class="tsd-kind-icon">Coeff</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+						<a href="internal_interfaces.html#effect" class="tsd-kind-icon">Effect</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+						<a href="internal_interfaces.html#effect-1" class="tsd-kind-icon">Effect</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+						<a href="internal_interfaces.html#effectburn" class="tsd-kind-icon">Effect<wbr>Burn</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+						<a href="internal_interfaces.html#effectburn-1" class="tsd-kind-icon">Effect<wbr>Burn</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+						<a href="internal_interfaces.html#styletype" class="tsd-kind-icon">Style<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+						<a href="internal_interfaces.html#teamsize" class="tsd-kind-icon">Team<wbr>Size</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer>
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
