@@ -104,7 +104,7 @@ const replyValues = {
             locale: require('./test-data/v1.val-content.locale.json'),
         },
         valMatch: {
-            match: require('./test-data/v1.val-match.match.json'),
+            match: require('./test-data/v1.val-match.match.1.json'), // pick one match
             matchlist: require('./test-data/v1.val-match.matchlist.json'),
             recent: require('./test-data/v1.val-match.recent-matches.json'),
         },

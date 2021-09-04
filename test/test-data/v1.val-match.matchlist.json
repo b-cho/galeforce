@@ -1,1 +1,335 @@
-{"placeholder": "matchlist"}
+{
+    "puuid": "R2Bpjch_cLYgYNNleAsxq571Z_ZdkI_NHhJNB7lAX01e_0GdqoTOXjZwATEdCqjXWxz5mfONV9lEbw",
+    "history": [
+        {
+            "matchId": "2d461939-62ec-4ae1-af87-041f05bfbd48",
+            "gameStartTimeMillis": 1630210440862,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "ce17b744-980e-476e-b699-6307d3c3054c",
+            "gameStartTimeMillis": 1630207155867,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "abda59d8-9fe1-494c-b38b-618fd75b5c2e",
+            "gameStartTimeMillis": 1630190544598,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "53d823a3-28e8-4c0d-ab0a-a24c32282d4a",
+            "gameStartTimeMillis": 1630123315304,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "ea3b8e00-f2aa-48d2-93b6-11956db5f21a",
+            "gameStartTimeMillis": 1630120846323,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "5baa7873-ec13-479c-844f-af56657d34d7",
+            "gameStartTimeMillis": 1629774496281,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "b6e094d4-1026-44c9-9307-9d8a7a3620a8",
+            "gameStartTimeMillis": 1629691079922,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "a04184cc-c627-4168-8d61-b615901b105c",
+            "gameStartTimeMillis": 1629618796618,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "55c8b21c-204a-4a0a-bbe7-09517db874da",
+            "gameStartTimeMillis": 1629614372367,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "9b9b6f8f-4d7d-4164-9e1a-ea8577e69a8a",
+            "gameStartTimeMillis": 1629512410793,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "228c7ac4-173a-438f-b82b-5ebe5e2ae206",
+            "gameStartTimeMillis": 1629423842140,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "d1d49073-0673-4a9a-a568-2b596ed41dc5",
+            "gameStartTimeMillis": 1629421721419,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "562ef24a-eb56-4332-8775-68ba2679560e",
+            "gameStartTimeMillis": 1629271155387,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "2ad24ccd-547d-4e69-8b24-15ee03206b18",
+            "gameStartTimeMillis": 1629186660360,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "687ba778-281a-411b-9c4c-726513cd9429",
+            "gameStartTimeMillis": 1629184284199,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "01caa9d0-1e84-42fe-aff0-be00557d5bef",
+            "gameStartTimeMillis": 1629088046038,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "de1114ac-4742-43d7-b9c3-04f8d56c7189",
+            "gameStartTimeMillis": 1629007466629,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "a468018e-f3df-4b30-b009-a6031bdef8b5",
+            "gameStartTimeMillis": 1629002321841,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "c7cae2b0-d048-4644-bdca-15a5e8fd4516",
+            "gameStartTimeMillis": 1628999978913,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "2affaba1-93a0-47a7-bd1b-956c2debc5c2",
+            "gameStartTimeMillis": 1628996154984,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "de6821e0-92af-4500-a7d4-ed20b2a91100",
+            "gameStartTimeMillis": 1628987576551,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "4d62e48d-b162-4b52-8f4d-06d58a2797d2",
+            "gameStartTimeMillis": 1628986024579,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "0128310e-ea50-4330-8f3e-3e55587dbdcb",
+            "gameStartTimeMillis": 1628912047591,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "edb273cc-6f63-43c1-bd40-d64e5fbc433f",
+            "gameStartTimeMillis": 1628909777143,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "8b1de4e1-8a5a-4b95-9691-6c13283ce644",
+            "gameStartTimeMillis": 1628743870302,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "36d41ebc-580c-4ee2-bc1c-102978614aeb",
+            "gameStartTimeMillis": 1628741175770,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "d5db1fe3-c780-44c3-833d-062c1d4c96e3",
+            "gameStartTimeMillis": 1628640464375,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "f0e4b85c-f12c-4670-b34d-229c1945ea5d",
+            "gameStartTimeMillis": 1628564871011,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "4b276895-b644-4873-9dca-72150b877043",
+            "gameStartTimeMillis": 1628562857454,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "787fa64c-5019-49b9-a5ad-bf8fde7b0546",
+            "gameStartTimeMillis": 1628492008657,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "ecaf7ce3-882d-4835-a6f1-864ded7e38e0",
+            "gameStartTimeMillis": 1628489238336,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "81c348f5-dc29-40b9-b5fe-170184b01b2b",
+            "gameStartTimeMillis": 1628479152008,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "01983a97-cc86-4e1f-a607-1e9fd3e52623",
+            "gameStartTimeMillis": 1628465400607,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "57e558fc-cb78-4a7e-9ce0-f5804e2ca5f8",
+            "gameStartTimeMillis": 1628462353489,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "f6e27c95-fa71-4eb5-bf67-b89d54c38acd",
+            "gameStartTimeMillis": 1628459298422,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "bcb099aa-b3b7-42db-9560-b4acc62f0c4d",
+            "gameStartTimeMillis": 1628399431375,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "be1b254b-0b07-4239-ad88-a75fee554643",
+            "gameStartTimeMillis": 1627904085506,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "4ac6003e-20a2-4d59-9578-f6f1fdc938e1",
+            "gameStartTimeMillis": 1627902234925,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "e453b8a9-dc5c-4870-a65f-a9f4e71b7be0",
+            "gameStartTimeMillis": 1627898538878,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "caa3c3e5-2f40-46e0-884f-18987a1a9d41",
+            "gameStartTimeMillis": 1627799462147,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "7fd5ac1d-5579-4ebc-aece-575e8b31197c",
+            "gameStartTimeMillis": 1627796845279,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "39e72f2f-477f-439a-8a66-f7091a05b97a",
+            "gameStartTimeMillis": 1626860799841,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "739bd228-13c3-4d86-afb4-1bd1cff5fef7",
+            "gameStartTimeMillis": 1626774129710,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "4d14e097-e91e-497c-a187-0474900a2d2f",
+            "gameStartTimeMillis": 1626771611821,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "88c1f79d-e180-4931-81bb-d660938eea85",
+            "gameStartTimeMillis": 1626768691745,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "dfd7919c-d29e-4f14-8c8b-6add5f73cd00",
+            "gameStartTimeMillis": 1626727692091,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "257b7acc-a4f0-45b9-8958-2cc7e333cba4",
+            "gameStartTimeMillis": 1626725613906,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "e288015d-65f7-41d7-9f6c-1f4996552b77",
+            "gameStartTimeMillis": 1626577266034,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "0e8a2b70-9cb6-4990-a53c-e1601c79b8bd",
+            "gameStartTimeMillis": 1626519053891,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "d4d91f42-158f-43ad-8907-741737dac20a",
+            "gameStartTimeMillis": 1626501881121,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "3982f139-68f8-4263-8453-f366cb182387",
+            "gameStartTimeMillis": 1626428176606,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "704513e4-14c3-4d8f-bab3-9748937738f2",
+            "gameStartTimeMillis": 1626426407410,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "19dd3274-b205-4dab-ab14-0e3dad26d123",
+            "gameStartTimeMillis": 1626423161250,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "c623bef5-8a0e-446f-8c04-81a96e008fb6",
+            "gameStartTimeMillis": 1626076738942,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "07e85561-ab3c-41f5-9e21-1f3ab1c3ce7d",
+            "gameStartTimeMillis": 1626073692148,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "be59197d-33e2-41c1-9f39-0d6398a94767",
+            "gameStartTimeMillis": 1625995286063,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "3fd307cd-70d9-4094-ae00-e25148d33327",
+            "gameStartTimeMillis": 1625651964417,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "139c63f1-d0e5-422a-b837-dc5733bffbcf",
+            "gameStartTimeMillis": 1625648935778,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "b572105d-dc18-40dd-a99d-627e485944a2",
+            "gameStartTimeMillis": 1625645669193,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "35d29e18-b5d7-4b45-9f33-06e136f9955f",
+            "gameStartTimeMillis": 1625643416244,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "066f1fb6-b29d-4762-b078-df79c6cc1fac",
+            "gameStartTimeMillis": 1625640360070,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "b46be884-a7a2-42b0-8d7e-d21cfa99ffd2",
+            "gameStartTimeMillis": 1625447282134,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "cb6ca820-b942-47b9-8c09-e60123c2a2a3",
+            "gameStartTimeMillis": 1625350201414,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "a3bfd783-aa3e-4966-82e3-240d9b75b014",
+            "gameStartTimeMillis": 1625309182206,
+            "teamId": "Blue"
+        },
+        {
+            "matchId": "f6de76e7-299f-4434-9c30-9471700a2c74",
+            "gameStartTimeMillis": 1625305084081,
+            "teamId": "Red"
+        },
+        {
+            "matchId": "6af92c2c-d085-45db-b684-cf02f253cde1",
+            "gameStartTimeMillis": 1625300396938,
+            "teamId": "Blue"
+        }
+    ]
+}

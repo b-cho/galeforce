@@ -6,5 +6,5 @@ interface MatchlistEntryDTO {
 
 export interface ValMatchlistDTO {
     puuid: string;
-    history: MatchlistEntryDTO;
+    history: MatchlistEntryDTO[];
 }

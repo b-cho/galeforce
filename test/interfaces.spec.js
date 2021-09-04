@@ -257,6 +257,47 @@ describe('/galeforce/interfaces', () => {
                 expect(valid).to.be.true;
             });
         });
+        describe('ValMatchDTO', () => {
+            it('should match with /val/match/v1/matches JSON data', () => {
+                const schema = generator.getSchemaForSymbol('ValMatchDTO');
+                // Manually edit schema to match interface
+                schema.definitions.RoundResultDTO.properties.bombPlanter.type = ['string', 'null'];
+                schema.definitions.RoundResultDTO.properties.bombDefuser.type = ['string', 'null'];
+                schema.definitions.RoundResultDTO.properties.plantPlayerLocations.type = ['array', 'null'];
+                schema.definitions.RoundResultDTO.properties.defusePlayerLocations.type = ['array', 'null'];
+                schema.definitions.AbilityDTO.properties.grenadeEffects.type = ['string', 'null'];
+                schema.definitions.AbilityDTO.properties.ability1Effects.type = ['string', 'null'];
+                schema.definitions.AbilityDTO.properties.ability2Effects.type = ['string', 'null'];
+                schema.definitions.AbilityDTO.properties.ultimateEffects.type = ['string', 'null'];
+
+                const validate = ajv.compile(schema);
+                for (let testId = 1; testId <= 5; testId++) {
+                    const valid = validate(require(`./test-data/v1.val-match.match.${testId}.json`));
+                    if (!valid) throw validate.errors;
+                    expect(valid).to.be.true;
+                }
+            });
+        });
+        describe('ValMatchlistDTO', () => {
+            it('should match with /val/match/v1/matchlists/by-puuid JSON data', () => {
+                const schema = generator.getSchemaForSymbol('ValMatchlistDTO');
+
+                const validate = ajv.compile(schema);
+                const valid = validate(require('./test-data/v1.val-match.matchlist.json'));
+                if (!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('ValRecentMatchesDTO', () => {
+            it('should match with /val/match/v1/recent-matches/by-queue JSON data', () => {
+                const schema = generator.getSchemaForSymbol('ValRecentMatchesDTO');
+
+                const validate = ajv.compile(schema);
+                const valid = validate(require('./test-data/v1.val-match.recent-matches.json'));
+                if (!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
         describe('ValLeaderboardDTO', () => {
             it('should match with /val/ranked/v1/leaderboards/by-act JSON data', () => {
                 const schema = generator.getSchemaForSymbol('ValLeaderboardDTO');

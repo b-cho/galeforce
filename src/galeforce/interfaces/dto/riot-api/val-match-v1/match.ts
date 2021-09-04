@@ -95,10 +95,10 @@ interface EconomyDTO {
 }
 
 interface AbilityDTO {
-    grenadeEffects: string;
-    ability1Effects: string;
-    ability2Effects: string;
-    ultimateEffects: string;
+    grenadeEffects: string | null;
+    ability1Effects: string | null;
+    ability2Effects: string | null;
+    ultimateEffects: string | null;
 }
 
 interface PlayerRoundStatsDTO {
@@ -115,16 +115,16 @@ interface RoundResultDTO {
     roundResult: string;
     roundCeremony: string;
     winningTeam: string;
-    bombPlanter: string;
-    bombDefuser: string;
+    bombPlanter: string | null;
+    bombDefuser: string | null;
     plantRoundTime: number;
-    plantPlayerLocations: PlayerLocationsDTO[];
+    plantPlayerLocations: PlayerLocationsDTO[] | null;
     plantLocation: LocationDTO;
     plantSite: string;
     defuseRoundTime: number;
-    defusePlayerLocations: PlayerLocationsDTO[];
+    defusePlayerLocations: PlayerLocationsDTO[] | null;
     defuseLocation: LocationDTO;
-    playerStats: PlayerRoundStatsDTO;
+    playerStats: PlayerRoundStatsDTO[];
     roundResultCode: string;
 }
 
