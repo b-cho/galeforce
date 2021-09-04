@@ -19,6 +19,7 @@ export { TakesTournamentCode } from './tournament-code';
 export { TakesTournamentId } from './tournament-id';
 export { TakesChampion } from './champion';
 export { TakesDataDragonId } from './data-dragon-id';
+export { TakesAssetPath } from './asset-path';
 export { TakesLocale } from './locale';
 export { TakesSkin } from './skin';
 export { TakesSpell } from './spell';

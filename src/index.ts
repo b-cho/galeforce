@@ -48,6 +48,7 @@ import GetValorantRecentMatches from './galeforce/actions/valorant/val-match/rec
 import GetValorantRankedLeaderboard from './galeforce/actions/valorant/val-ranked/leaderboard';
 import GetValorantPlatformData from './galeforce/actions/valorant/val-status';
 import GetMasteryByChampion from './galeforce/actions/lol/champion-mastery/by-champion';
+import GetDataDragonAsset from './galeforce/actions/lol/data-dragon/asset';
 import GetDataDragonVersions from './galeforce/actions/lol/data-dragon/versions';
 import GetDataDragonRegionInfo from './galeforce/actions/lol/data-dragon/regions';
 import GetDataDragonLanguages from './galeforce/actions/lol/data-dragon/languages';
@@ -55,10 +56,13 @@ import GetDataDragonChampionList from './galeforce/actions/lol/data-dragon/champ
 import GetDataDragonChampionJSON from './galeforce/actions/lol/data-dragon/champion';
 import GetDataDragonSplashArt from './galeforce/actions/lol/data-dragon/splash-art';
 import GetDataDragonLoadingArt from './galeforce/actions/lol/data-dragon/loading-art';
+import GetDataDragonTileArt from './galeforce/actions/lol/data-dragon/tile-art';
 import GetDataDragonChampionSquareArt from './galeforce/actions/lol/data-dragon/champion-square-art';
 import GetDataDragonSpellArt from './galeforce/actions/lol/data-dragon/spell-art';
 import GetDataDragonItemList from './galeforce/actions/lol/data-dragon/item-list';
 import GetDataDragonItemArt from './galeforce/actions/lol/data-dragon/item-art';
+import GetDataDragonRuneList from './galeforce/actions/lol/data-dragon/rune-list';
+import GetDataDragonRuneArt from './galeforce/actions/lol/data-dragon/rune-art';
 import GetDataDragonSummonerSpellList from './galeforce/actions/lol/data-dragon/summoner-spell-list';
 import GetDataDragonProfileIconArt from './galeforce/actions/lol/data-dragon/profile-icon-art';
 import GetDataDragonProfileIconList from './galeforce/actions/lol/data-dragon/profile-icon-list';
@@ -377,8 +381,12 @@ class Galeforce {
              */
             languages: (): GetDataDragonLanguages => new GetDataDragonLanguages(this.submodules),
             /**
+             * Action constructor corresponding to a generic Data Dragon asset.
+             * - (**GET**) `/cdn${assetPath}`
              *
+             * Returns the target file as a Buffer object.
              */
+            asset: (): GetDataDragonAsset => new GetDataDragonAsset(this.submodules),
             champion: {
                 /**
                  * Action constructor corresponding to the following Data Dragon files:
@@ -419,6 +427,17 @@ class Galeforce {
                      * Returns data as a `Buffer` object containing JPG data.
                      */
                     loading: (): GetDataDragonLoadingArt => new GetDataDragonLoadingArt(this.submodules),
+                    /**
+                     * Action constructor corresponding to the following Data Dragon files:
+                     * - (**GET**) `/cdn/img/champion/tiles/{champion}_{skin}.jpg`
+                     *
+                     * Returns the tile art image for a given champion and skin. The number corresponding
+                     * to each skin can be found under the `num` field in the skins section of each champion's
+                     * detailed Data Dragon file. `0` is always the default splash art.
+                     *
+                     * Returns data as a `Buffer` object containing JPG data.
+                     */
+                    tile: (): GetDataDragonTileArt => new GetDataDragonTileArt(this.submodules),
                     /**
                      * Action constructor corresponding to the following Data Dragon files:
                      * - (**GET**) `/cdn/{version}/img/champion/{champion}.png`
@@ -472,6 +491,28 @@ class Galeforce {
                  */
                 art: (): GetDataDragonItemArt => new GetDataDragonItemArt(this.submodules),
             },
+            rune: {
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/{version}/data/{locale}/runesReforged.json`
+                 *
+                 * Returns detailed information about all runes in League of Legends, including short and long descriptions
+                 * of each rune. See the official Data Dragon API documentation for more information.
+                 *
+                 */
+                list: (): GetDataDragonRuneList => new GetDataDragonRuneList(this.submodules),
+                /**
+                 * Action constructor corresponding to the following Data Dragon files:
+                 * - (**GET**) `/cdn/img/perk-images${assetPath}`
+                 *
+                 * Returns art for Runes Reforged given a specified asset path.
+                 * 
+                 * Stat runes are found under the `/StatMods` folder, while rune tree icons, rune icons (including keystones),
+                 * and the runes logo are found under the `/Styles` folder.
+                 *
+                 */
+                art: (): GetDataDragonRuneArt => new GetDataDragonRuneArt(this.submodules),
+            },
             summonerSpell: {
                 /**
                  * Action constructor corresponding to the following Data Dragon files:
@@ -503,7 +544,7 @@ class Galeforce {
             minimap: {
                 /**
                  * Action constructor corresponding to the following Data Dragon files:
-                 * - (**GET**) `/cdn/{version}/img/map/map{assetId}.png`
+                 * - (**GET**) `/cdn/{version}/img/map/{assetId}.png`
                  *
                  * Returns the art asset for the minimap corresponding to a given map ID. Map IDs can be found
                  * under *Game Constants > Map Names* in the official Riot API documentation.
@@ -515,7 +556,7 @@ class Galeforce {
             sprite: {
                 /**
                  * Action constructor corresponding to the following Data Dragon files:
-                 * - (**GET**) `/cdn/{version}/img/sprite/spell{assetId}.png`
+                 * - (**GET**) `/cdn/{version}/img/sprite/{assetId}.png`
                  *
                  * Returns the sprite art assets for a given asset ID.
                  *

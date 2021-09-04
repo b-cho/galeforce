@@ -38,6 +38,7 @@ export type Payload = { // Payload keys and corresponding valid types
     skin?: number;
     spell?: string;
     assetId?: string | number;
+    assetPath?: string;
     lorSet?: number;
     lorRegion?: string;
     card?: string;
@@ -51,7 +52,7 @@ const payloadKeys: (keyof Payload)[] = [ // List of all valid keys for the paylo
     'matchId', 'teamId', 'tournamentId', 'tournamentCode', 'championId',
     'leagueId', 'queue', 'tier', 'division', 'gameName', 'tagLine',
     'game', 'actId', 'version', 'locale', 'champion', 'skin', 'spell',
-    'assetId', 'lorSet', 'lorRegion', 'card',
+    'assetId', 'assetPath', 'lorSet', 'lorRegion', 'card',
 ];
 
 export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(payload, {
@@ -153,6 +154,11 @@ export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(paylo
                 throw new Error(`[galeforce]: Invalid ${name} provided (failed regex check).`);
             }
             break;
+        case 'assetPath':
+            // Regex check for valid assetPaths
+            if (typeof value !== 'string' || !(/^(\/.*)+$/.test(value))) {
+                throw new Error(`[galeforce]: Invalid ${name} provided (failed regex check).`)
+            }
         default:
             // Throw an error if the key does not exist on the payload interface
             if (!payloadKeys.includes(name)) {

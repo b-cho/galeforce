@@ -123,6 +123,7 @@ const replyValues = {
             details: require('./test-data/ddragon.champion.details.json'),
         },
         item: require('./test-data/ddragon.item.list.json'),
+        rune: require(`./test-data/ddragon.runes.list.json`),
         profileIcon: require('./test-data/ddragon.profile-icon.list.json'),
         region: require('./test-data/ddragon.region.json'),
         summonerSpells: require('./test-data/ddragon.summoner-spells.list.json'),
@@ -306,15 +307,23 @@ const dataDragonAPI = nock('https://ddragon.leagueoflegends.com')
     .reply(200, replyValues.ddragon.champion.list)
     .get('/cdn/11.2.1/data/en_US/champion/Xayah.json')
     .reply(200, replyValues.ddragon.champion.details)
+    .get('/cdn%2F11.17.1%2Fdata%2Fen_US%2Fchampion%2FXayah.json')
+    .reply(200, replyValues.ddragon.champion.details)
     .get('/cdn/11.2.1/data/en_US/item.json')
     .reply(200, replyValues.ddragon.item)
     .get('/cdn/11.2.1/data/en_US/summoner.json')
     .reply(200, replyValues.ddragon.summonerSpells)
     .get('/cdn/11.2.1/data/en_US/profileicon.json')
     .reply(200, replyValues.ddragon.profileIcon)
+    .get('/cdn/11.17.1/data/en_US/runesReforged.json')
+    .reply(200, replyValues.ddragon.rune)
+    .get('/cdn/img/perk-images%2FStyles%2F7201_Precision.png')
+    .replyWithFile(200, `${__dirname}/test-data/example-image.png`)
     .get('/cdn/img/champion/loading/Xayah_0.jpg')
     .replyWithFile(200, `${__dirname}/test-data/example-image.jpg`)
     .get('/cdn/img/champion/splash/Xayah_0.jpg')
+    .replyWithFile(200, `${__dirname}/test-data/example-image.jpg`)
+    .get('/cdn/img/champion/tiles/Xayah_0.jpg')
     .replyWithFile(200, `${__dirname}/test-data/example-image.jpg`)
     .get('/cdn/11.2.1/img/champion/Xayah.png')
     .replyWithFile(200, `${__dirname}/test-data/example-image.png`)
@@ -743,6 +752,17 @@ describe('/galeforce/actions', () => {
                     it('should pull JSON from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.languages().exec())
                         .to.eventually.be.a('Array'));
                 });
+                describe('.asset()', () => {
+                    it('should pull JSON from the appropriate Data Dragon URL', () => {
+                        return Galeforce.lol.ddragon.asset().assetPath('/11.17.1/data/en_US/champion/Xayah.json').exec().then((data) => {
+                            const jsonValue = JSON.parse(data.toString());
+                            expect(jsonValue).to.deep.equal(replyValues.ddragon.champion.details);
+                        });
+                    });
+                    it('should throw when passed an invalid assetPath', () => {
+                        expect(() => Galeforce.lol.ddragon.asset().assetPath('invalid path')).to.throw('[galeforce]: Invalid assetPath provided (failed regex check).')
+                    })
+                });
                 describe('.champion', () => {
                     describe('.list()', () => {
                         describe('.version().locale()', () => {
@@ -775,6 +795,12 @@ describe('/galeforce/actions', () => {
                         describe('.loading()', () => {
                             describe('.champion().skin()', () => {
                                 it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.champion.art.loading().champion('Xayah').skin(0).exec())
+                                    .to.eventually.be.instanceof(Buffer));
+                            });
+                        });
+                        describe('.tile()', () => {
+                            describe('.champion().skin()', () => {
+                                it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.champion.art.tile().champion('Xayah').skin(0).exec())
                                     .to.eventually.be.instanceof(Buffer));
                             });
                         });
@@ -814,6 +840,20 @@ describe('/galeforce/actions', () => {
                         });
                     });
                 });
+                describe('.rune', () => {
+                    describe('.list()', () => {
+                        describe('.version().locale()', () => {
+                            it('should pull JSON from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.rune.list().version('11.17.1').locale('en_US').exec())
+                                .to.eventually.deep.equal(replyValues.ddragon.rune));
+                        });
+                    });
+                    describe('.art()', () => {
+                        describe('.assetPath()', () => {
+                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.rune.art().assetPath('/Styles/7201_Precision.png').exec())
+                                .to.eventually.be.instanceof(Buffer));
+                        });
+                    });
+                });
                 describe('.summonerSpell', () => {
                     describe('.list()', () => {
                         describe('.version().locale()', () => {
@@ -839,7 +879,7 @@ describe('/galeforce/actions', () => {
                 describe('.minimap', () => {
                     describe('.art()', () => {
                         describe('.version().assetId()', () => {
-                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.minimap.art().version('11.2.1').assetId(11).exec())
+                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.minimap.art().version('11.2.1').assetId('map11').exec())
                                 .to.eventually.be.instanceof(Buffer));
                         });
                     });
@@ -847,7 +887,7 @@ describe('/galeforce/actions', () => {
                 describe('.sprite', () => {
                     describe('.art()', () => {
                         describe('.version().assetId()', () => {
-                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.sprite.art().version('11.2.1').assetId(0).exec())
+                            it('should pull image from the appropriate Data Dragon URL', () => expect(Galeforce.lol.ddragon.sprite.art().version('11.2.1').assetId('spell0').exec())
                                 .to.eventually.be.instanceof(Buffer));
                         });
                     });
