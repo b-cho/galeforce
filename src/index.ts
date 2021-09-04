@@ -506,7 +506,7 @@ class Galeforce {
                  * - (**GET**) `/cdn/img/perk-images${assetPath}`
                  *
                  * Returns art for Runes Reforged given a specified asset path.
-                 * 
+                 *
                  * Stat runes are found under the `/StatMods` folder, while rune tree icons, rune icons (including keystones),
                  * and the runes logo are found under the `/Styles` folder.
                  *

@@ -28,16 +28,16 @@ Automatically-generated **documentation** is available [here](https://bcho04.git
 
 ## Table of Contents
 
-- [Galeforce](#galeforce)
-  - [Features](#features)
-  - [Table of Contents](#table-of-contents)
-  - [Examples](#examples)
-  - [Guide](#guide)
-    - [Actions](#actions)
-    - [Using DTOs](#using-dtos)
-    - [Config structure](#config-structure)
-    - [Documentation](#documentation)
-  - [Disclaimer](#disclaimer)
+*   [Galeforce](#galeforce)
+    *   [Features](#features)
+    *   [Table of Contents](#table-of-contents)
+    *   [Examples](#examples)
+    *   [Guide](#guide)
+        *   [Actions](#actions)
+        *   [Using DTOs](#using-dtos)
+        *   [Config structure](#config-structure)
+        *   [Documentation](#documentation)
+    *   [Disclaimer](#disclaimer)
 
 ***
 
