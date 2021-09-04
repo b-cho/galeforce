@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ***
 
+### \[0.5.1] (2021-09-04)
+
+#### Added
+
+- Add additional methods under `galeforce.lol.ddragon`
+    - Retrieve assets from an arbitrary path using **`galeforce.lol.ddragon.asset()`**
+    - Fetch Runes Reforged data and image assets with **`galeforce.lol.ddragon.rune`** ([#12](https://github.com/bcho04/galeforce/issues/12))
+    - Get champion tile image assets with **`galeforce.lol.ddragon.champion.art.tile()`**
+
+#### Changed
+
+- Update DTOs corresponding to `val-match-v1` endpoints ([#6](https://github.com/bcho04/galeforce/issues/6))
+- **\[breaking]** Update the handling of the `assetId` parameter in `galeforce.lol.ddragon.sprite.art()` and `galeforce.lol.ddragon.minimap.art()`
+    - `.sprite.art().assetId()` now requires the type of sprite to be specified (see the filenames in the Data Dragon compressed tarball for more information)
+    - `.sprite.map().assetId()` now requires the word *map* to be included (for example, ~~`.assetId(11)`~~ → `.assetId('map11')`)
+- Fixed the valid region input types for the `tournament-v4` set of endpoints
+
+
 ### \[0.5.0] (2021-08-07)
 
 #### Changed
@@ -68,11 +86,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
         }
         ```
 *   **\[breaking]** Rename enums to have singular names
-    *   \~~`galeforce.regions`~~ → **`galeforce.region`**
-    *   \~~`galeforce.queues`~~ → **`galeforce.queue`**
-    *   \~~`galeforce.tiers`~~ → **`galeforce.tier`**
-    *   \~~`galeforce.divisions`~~ → **`galeforce.division`**
-    *   \~~`galeforce.games`~~ → **`galeforce.game`**
+    *   ~~`galeforce.regions`~~ → **`galeforce.region`**
+    *   ~~`galeforce.queues`~~ → **`galeforce.queue`**
+    *   ~~`galeforce.tiers`~~ → **`galeforce.tier`**
+    *   ~~`galeforce.divisions`~~ → **`galeforce.division`**
+    *   ~~`galeforce.games`~~ → **`galeforce.game`**
 *   Update the **`galeforce.region`** object to better represent available API regions
     *   Add an `esports` routing value to associated Riot and Valorant region objects (check Riot documentation for endpoints where this is valid)
     *   **\[breaking]** Split off Legends of Runeterra request regions into their own **`galeforce.region.lor`** enum, which is now used in all `galeforce.lor.*` endpoints
