@@ -191,36 +191,6 @@ const na1API = nock('https://na1.api.riotgames.com')
     .reply(200, replyValues.v4.spectator.active)
     .get('/lol/spectator/v4/featured-games')
     .reply(200, replyValues.v4.spectator.featured)
-    .get('/lol/tournament/v4/lobby-events/by-code/1234')
-    .reply(200, replyValues.v4.tournament.events)
-    .post('/lol/tournament/v4/providers', {
-        region: 'NA',
-        url: 'https://example.com',
-    })
-    .reply(200, 1)
-    .post('/lol/tournament/v4/tournaments', {
-        providerId: 10,
-        name: 'name',
-    })
-    .reply(200, 2)
-    .post('/lol/tournament/v4/codes?tournamentId=1234', {
-        allowedSummonerIds: ['a', 'b', 'c'],
-        metadata: '',
-        teamSize: 5,
-        pickType: 'TOURNAMENT_DRAFT',
-        mapType: 'SUMMONERS_RIFT',
-        spectatorType: 'NONE',
-    })
-    .reply(200, ['a', 'b'])
-    .put('/lol/tournament/v4/codes/1234', {
-        allowedSummonerIds: ['a', 'b', 'c'],
-        pickType: 'TOURNAMENT_DRAFT',
-        mapType: 'SUMMONERS_RIFT',
-        spectatorType: 'NONE',
-    })
-    .reply(200)
-    .get('/lol/tournament/v4/codes/1234')
-    .reply(200, replyValues.v4.tournament.codes)
     .get('/tft/league/v1/entries/by-summoner/fOD4gGvxJG-_Bfcj7tqmHxYKAmbtOqoZrMz-Dk0ayGXulb7x')
     .reply(200, replyValues.v1.tftLeague.entriesBySummonerId)
     .get('/tft/league/v1/challenger')
@@ -273,6 +243,36 @@ const americasAPI = nock('https://americas.api.riotgames.com')
     .reply(200, replyValues.v5.match.matchlist)
     .get('/lol/match/v5/matches/by-puuid/jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g/ids?start=0&count=1')
     .reply(200, replyValues.v5.match.matchlistFiltered)
+    .get('/lol/tournament/v4/lobby-events/by-code/1234')
+    .reply(200, replyValues.v4.tournament.events)
+    .post('/lol/tournament/v4/providers', {
+        region: 'NA',
+        url: 'https://example.com',
+    })
+    .reply(200, 1)
+    .post('/lol/tournament/v4/tournaments', {
+        providerId: 10,
+        name: 'name',
+    })
+    .reply(200, 2)
+    .post('/lol/tournament/v4/codes?tournamentId=1234', {
+        allowedSummonerIds: ['a', 'b', 'c'],
+        metadata: '',
+        teamSize: 5,
+        pickType: 'TOURNAMENT_DRAFT',
+        mapType: 'SUMMONERS_RIFT',
+        spectatorType: 'NONE',
+    })
+    .reply(200, ['a', 'b'])
+    .put('/lol/tournament/v4/codes/1234', {
+        allowedSummonerIds: ['a', 'b', 'c'],
+        pickType: 'TOURNAMENT_DRAFT',
+        mapType: 'SUMMONERS_RIFT',
+        spectatorType: 'NONE',
+    })
+    .reply(200)
+    .get('/lol/tournament/v4/codes/1234')
+    .reply(200, replyValues.v4.tournament.codes)
 
 const naAPI = nock('https://na.api.riotgames.com')
     .get('/val/content/v1/contents')
@@ -669,7 +669,7 @@ describe('/galeforce/actions', () => {
             describe('.tournament', () => {
                 describe('.code()', () => {
                     describe('.create()', () => {
-                        it('should return correct JSON for the /lol/tournament/v4/codes Riot API endpoint', () => expect(Galeforce.lol.tournament.code.create().region(Galeforce.region.lol.NORTH_AMERICA).body({
+                        it('should return correct JSON for the /lol/tournament/v4/codes Riot API endpoint', () => expect(Galeforce.lol.tournament.code.create().region(Galeforce.region.riot.AMERICAS).body({
                             allowedSummonerIds: ['a', 'b', 'c'],
                             metadata: '',
                             teamSize: 5,
@@ -679,7 +679,7 @@ describe('/galeforce/actions', () => {
                         }).query({ tournamentId: 1234 })
                             .exec())
                             .to.eventually.deep.equal(['a', 'b']));
-                        it('should reject when not provided a query with a tournamentId parameter', () => expect(Galeforce.lol.tournament.code.create().region(Galeforce.region.lol.NORTH_AMERICA).body({
+                        it('should reject when not provided a query with a tournamentId parameter', () => expect(Galeforce.lol.tournament.code.create().region(Galeforce.region.riot.AMERICAS).body({
                             allowedSummonerIds: ['a', 'b', 'c'],
                             metadata: '',
                             teamSize: 5,
@@ -688,11 +688,11 @@ describe('/galeforce/actions', () => {
                             spectatorType: 'NONE',
                         }).exec())
                             .to.eventually.be.rejectedWith('[galeforce]: POST to /lol/tournament/v4/codes requires a query with a tournamentId parameter.'));
-                        it('should reject when not provided a request body', () => expect(Galeforce.lol.tournament.code.create().region(Galeforce.region.lol.NORTH_AMERICA).query({ tournamentId: 1234 }).exec())
+                        it('should reject when not provided a request body', () => expect(Galeforce.lol.tournament.code.create().region(Galeforce.region.riot.AMERICAS).query({ tournamentId: 1234 }).exec())
                             .to.eventually.be.rejectedWith('[galeforce]: Action payload body is required but undefined.'));
                     });
                     describe('.update()', () => {
-                        it('should return correct JSON for the /lol/tournament/v4/codes/{tournamentCode} Riot API endpoint', () => expect(Galeforce.lol.tournament.code.update().region(Galeforce.region.lol.NORTH_AMERICA).tournamentCode('1234').body({
+                        it('should return correct JSON for the /lol/tournament/v4/codes/{tournamentCode} Riot API endpoint', () => expect(Galeforce.lol.tournament.code.update().region(Galeforce.region.riot.AMERICAS).tournamentCode('1234').body({
                             allowedSummonerIds: ['a', 'b', 'c'],
                             pickType: 'TOURNAMENT_DRAFT',
                             mapType: 'SUMMONERS_RIFT',
@@ -700,29 +700,29 @@ describe('/galeforce/actions', () => {
                         })
                             .exec())
                             .to.eventually.deep.equal(''));
-                        it('should reject when not provided a request body', () => expect(Galeforce.lol.tournament.code.update().region(Galeforce.region.lol.NORTH_AMERICA).tournamentCode('1234').exec())
+                        it('should reject when not provided a request body', () => expect(Galeforce.lol.tournament.code.update().region(Galeforce.region.riot.AMERICAS).tournamentCode('1234').exec())
                             .to.eventually.be.rejectedWith('[galeforce]: Action payload body is required but undefined.'));
                     });
                     describe('.get()', () => {
-                        it('should return correct JSON for the /lol/tournament/v4/codes/{tournamentCode} Riot API endpoint', () => expect(Galeforce.lol.tournament.code.get().region(Galeforce.region.lol.NORTH_AMERICA).tournamentCode('1234').exec())
+                        it('should return correct JSON for the /lol/tournament/v4/codes/{tournamentCode} Riot API endpoint', () => expect(Galeforce.lol.tournament.code.get().region(Galeforce.region.riot.AMERICAS).tournamentCode('1234').exec())
                             .to.eventually.deep.equal(replyValues.v4.tournament.codes));
                     });
                 });
                 describe('.event()', () => {
                     describe('.tournamentCode()', () => {
-                        it('should return correct JSON for the /lol/tournament/v4/lobby-events/by-code Riot API endpoint', () => expect(Galeforce.lol.tournament.event().region(Galeforce.region.lol.NORTH_AMERICA).tournamentCode('1234').exec())
+                        it('should return correct JSON for the /lol/tournament/v4/lobby-events/by-code Riot API endpoint', () => expect(Galeforce.lol.tournament.event().region(Galeforce.region.riot.AMERICAS).tournamentCode('1234').exec())
                             .to.eventually.deep.equal(replyValues.v4.tournament.events));
                     });
                 });
                 describe('.provider()', () => {
-                    it('should return correct JSON for the /lol/tournament/v4/providers Riot API endpoint', () => expect(Galeforce.lol.tournament.provider().region(Galeforce.region.lol.NORTH_AMERICA).body({
+                    it('should return correct JSON for the /lol/tournament/v4/providers Riot API endpoint', () => expect(Galeforce.lol.tournament.provider().region(Galeforce.region.riot.AMERICAS).body({
                         region: 'NA',
                         url: 'https://example.com',
                     }).exec())
                         .to.eventually.deep.equal(1));
                 });
                 describe('.tournament()', () => {
-                    it('should return correct JSON for the /lol/tournament/v4/tournaments Riot API endpoint', () => expect(Galeforce.lol.tournament.tournament().region(Galeforce.region.lol.NORTH_AMERICA).body({
+                    it('should return correct JSON for the /lol/tournament/v4/tournaments Riot API endpoint', () => expect(Galeforce.lol.tournament.tournament().region(Galeforce.region.riot.AMERICAS).body({
                         providerId: 10,
                         name: 'name',
                     }).exec())
