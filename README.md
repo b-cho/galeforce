@@ -24,7 +24,7 @@ A customizable, promise-based, and command-oriented TypeScript library and fluen
 *   **Fluent interface** for seamless method chaining
 *   **Built-in, informative debugging** using `debug`
 
-Automatically-generated **documentation** is available [here](https://bcho04.github.io/galeforce/), and code **examples** can be found the section [below](#guide).
+Automatically-generated **documentation** is available [here](https://bcho04.github.io/galeforce/), and code **examples** can be found the section [below](#examples).
 
 ## Table of Contents
 

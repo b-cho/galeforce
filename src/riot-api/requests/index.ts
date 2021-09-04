@@ -55,4 +55,15 @@ export default class Request {
         requestDebug(`${chalk.italic(this.targetURL)} | ${chalk.bold.green.inverse('PUT')} \u00AB ${chalk.bold('query')} %O ${chalk.bold('body')} %O`, this.axiosOptions.params, this.body);
         return axios.put(this.targetURL, this.body, this.axiosOptions);
     }
+
+    /**
+     * @public
+     * @async
+     *
+     * @return Return JSON data as a promise (due to delayed request completion).
+     */
+     public async delete(): Promise<AxiosResponse<unknown>> {
+        requestDebug(`${chalk.italic(this.targetURL)} | ${chalk.bold.green.inverse('DELETE')} \u00AB ${chalk.bold('query')} %O ${chalk.bold('body')} %O`, this.axiosOptions.params, this.body);
+        return axios.delete(this.targetURL, this.axiosOptions);
+    }
 }
