@@ -45,7 +45,11 @@ export class RiotAPIModule {
                 return v;
             }));
         } catch (e) {
-            throw new Error(`[galeforce]: Action payload ${e.message.split(' ')[0]} is required but undefined.`);
+            if (e instanceof Error) {
+                throw new Error(`[galeforce]: Action payload ${e.message.split(' ')[0]} is required but undefined.`);
+            } else {
+                throw new Error(`[galeforce]: Failed to generate URL from template string.`)
+            }
         }
     }
 

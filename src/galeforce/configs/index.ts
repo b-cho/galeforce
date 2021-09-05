@@ -35,8 +35,12 @@ export function getConfig(filename: string): object {
             try {
                 return _.template(value)(process.env); // Substitute template string-like values with values in process.env
             } catch (e) {
-                // Throw if a required template string value is not present.
-                throw new Error(`[galeforce]: process.env.${e.message.split(' ')[0]} is required in config file but is undefined.`);
+                if (e instanceof Error) {
+                    // Throw if a required template string value is not present.
+                    throw new Error(`[galeforce]: process.env.${e.message.split(' ')[0]} is required in config file but is undefined.`);
+                } else {
+                    throw new Error(`[galeforce]: Config failed to process.`)
+                }
             }
         }
     });

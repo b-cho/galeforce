@@ -11,6 +11,7 @@ import _ from 'lodash';
 import { Payload, ModifiablePayload, CreatePayloadProxy } from './payload';
 import SubmoduleMap from '../interfaces/submodule-map';
 import Request from '../../riot-api/requests';
+import axios from 'axios';
 
 const actionDebug = debug('galeforce:action');
 
@@ -139,19 +140,23 @@ export default class Action<TResult> {
             actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('return')} \u00AB ${chalk.bold.green(200)}`);
             return response;
         } catch (e) {
-            actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('return')} \u00AB ${chalk.bold.red(e.response?.status || 'error')}`);
-            switch (e.response?.status) {
-            case 401:
-                // Handle HTTP 401 Unauthorized errors, returned when no API key is used when requesting data.
-                throw new Error('[galeforce]: No Riot API key was provided. Please ensure that your key is present in your configuration file or object. (401 Unauthorized)');
-            case 403:
-                // Handle HTTP 403 Forbidden errors, caused by the use of invalid or expired API keys.
-                throw new Error('[galeforce]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (403 Forbidden)');
-            case undefined:
-                throw e;
-            default:
-                // Generic HTTP error handling.
-                throw new Error(`[galeforce]: Data fetch failed with status code ${e.response.status}`);
+            if (axios.isAxiosError(e)) {
+                actionDebug(`${chalk.bold.magenta(this.payload._id)} | ${chalk.bold.yellow('return')} \u00AB ${chalk.bold.red(e.response?.status || 'error')}`);
+                switch (e.response?.status) {
+                case 401:
+                    // Handle HTTP 401 Unauthorized errors, returned when no API key is used when requesting data.
+                    throw new Error('[galeforce]: No Riot API key was provided. Please ensure that your key is present in your configuration file or object. (401 Unauthorized)');
+                case 403:
+                    // Handle HTTP 403 Forbidden errors, caused by the use of invalid or expired API keys.
+                    throw new Error('[galeforce]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (403 Forbidden)');
+                case undefined:
+                    throw e;
+                default:
+                    // Generic HTTP error handling.
+                    throw new Error(`[galeforce]: Data fetch failed with status code ${e.response?.status}`);
+                }
+            } else {
+                throw new Error(`[galeforce]: ${e instanceof Error ? e.message : 'Data fetch failed with an unknown error'}`)
             }
         }
     }

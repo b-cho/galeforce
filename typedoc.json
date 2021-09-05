@@ -1,9 +1,11 @@
 {
+    "mode": "file",
     "entryPoint": "./src/index.ts",
     "out": "docs",
     "theme": "default",
     "includeVersion": true,
     "excludePrivate": true,
     "excludeProtected": true,
-    "hideGenerator": true
+    "hideGenerator": true,
+    "toc": ["Galeforce"]
 }
