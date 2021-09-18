@@ -1,7 +1,7 @@
 import { Constructor, Executable } from './executable';
 
 /**
- * An interface containing method type signatures for any `.ddragon Action containing a `.version()` method.
+ * An interface containing method type signatures for any `.ddragon` Action containing a `.version()` method.
  */
 export interface VersionChainable {
     version?: <K extends VersionChainable & Executable>(this: K, version: string) => Omit<K, 'version'>;

@@ -35,28 +35,28 @@
     "node": ">=12.0"
   },
   "dependencies": {
-    "ajv": "^8.6.2",
-    "axios": "^0.21.3",
+    "ajv": "^8.6.3",
+    "axios": "^0.21.4",
     "bottleneck": "^2.19.5",
     "chalk": "^4.1.2",
     "debug": "^4.3.2",
     "lodash": "^4.17.21",
     "redis": "^3.1.2",
     "support-color": "^7.1.0",
-    "typescript-json-schema": "^0.50.1",
+    "typescript-json-schema": "^0.51.0",
     "uuid": "^8.3.2",
     "yaml": "^1.10.2"
   },
   "devDependencies": {
     "@types/chai": "^4.2.21",
     "@types/debug": "^4.1.7",
-    "@types/lodash": "^4.14.172",
+    "@types/lodash": "^4.14.173",
     "@types/mocha": "^9.0.0",
-    "@types/node": "^16.7.10",
-    "@types/redis": "^2.8.31",
+    "@types/node": "^16.9.2",
+    "@types/redis": "^2.8.32",
     "@types/uuid": "^8.3.1",
-    "@typescript-eslint/eslint-plugin": "^4.30.0",
-    "@typescript-eslint/parser": "^4.30.0",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "eslint": "^7.32.0",
@@ -68,7 +68,7 @@
     "remark-lint": "^9.0.1",
     "remark-preset-lint-recommended": "^6.0.1",
     "typedoc": "^0.19.2",
-    "typescript": "^4.4.2"
+    "typescript": "^4.4.3"
   },
   "scripts": {
     "lint": "npx eslint --ext .ts,.tsx,.js,.jsx ./src ./scripts",

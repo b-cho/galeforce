@@ -1,7 +1,7 @@
 import { Constructor, Executable } from './executable';
 
 /**
- * An interface containing method type signatures for any `.ddragon Action containing a `.spell()` method.
+ * An interface containing method type signatures for any `.ddragon` Action containing a `.spell()` method.
  */
 export interface SpellChainable {
     spell?: <K extends SpellChainable & Executable>(this: K, spell: string) => Omit<K, 'spell'>;

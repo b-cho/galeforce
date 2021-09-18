@@ -1,7 +1,7 @@
 import { Constructor, Executable } from './executable';
 
 /**
- * An interface containing method type signatures for any `.ddragon Action containing a `.skin()` method.
+ * An interface containing method type signatures for any `.ddragon` Action containing a `.skin()` method.
  */
 export interface SkinChainable {
     skin?: <K extends SkinChainable & Executable>(this: K, skin: number) => Omit<K, 'skin'>;

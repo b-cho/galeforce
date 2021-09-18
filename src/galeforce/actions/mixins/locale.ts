@@ -1,7 +1,7 @@
 import { Constructor, Executable } from './executable';
 
 /**
- * An interface containing method type signatures for any `.ddragon Action containing a `.locale()` method.
+ * An interface containing method type signatures for any `.ddragon` Action containing a `.locale()` method.
  */
 export interface LocaleChainable {
     locale?: <K extends LocaleChainable & Executable>(this: K, locale: string) => Omit<K, 'locale'>;
