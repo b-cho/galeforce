@@ -4,6 +4,10 @@ import SubmoduleMap from '../../../interfaces/submodule-map';
 import { TakesPUUID, TakesQuery, TakesRegion } from '../../mixins';
 
 type GetMatchlistQuery = {
+    starTime?: number;
+    endTime?: number;
+    queue?: number;
+    type?: 'ranked' | 'normal' | 'tourney' | 'tutorial';
     start?: number;
     count?: number;
 }

@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ***
 
+### \[0.5.2] (unreleased)
+
+#### Added
+
+
+
+#### Changed
+
+*   Fix the query parameters in the type definitions for `galeforce.lol.match.list().query()`
+
 ### \[0.5.1] (2021-09-04)
 
 #### Added
@@ -21,7 +31,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 *   **\[breaking]** Update the handling of the `assetId` parameter in `galeforce.lol.ddragon.sprite.art()` and `galeforce.lol.ddragon.minimap.art()`
     *   `.sprite.art().assetId()` now requires the type of sprite to be specified (see the filenames in the Data Dragon compressed tarball for more information)
     *   `.sprite.map().assetId()` now requires the word *map* to be included (for example, ~~`.assetId(11)`~~ → `.assetId('map11')`)
-*   Fixed the valid region input types for the `tournament-v4` set of endpoints
+*   Fix the valid region input types for the `tournament-v4` set of endpoints
 
 ### \[0.5.0] (2021-08-07)
 
@@ -32,7 +42,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
     *   Update required parameters for `galeforce.lol.match.match`, `galeforce.lol.match.list`, `galeforce.lol.match.timeline` to conform to Riot `match-v5` specifications
     *   Rewrite DTOs for match and timeline JSON responses
 *   **\[breaking]** Dropped support for Node versions *<12.0*
-*   Fixed a bug preventing the library from being used in environments where `fs` is not available
+*   Fix a bug preventing the library from being used in environments where `fs` is not available
 
 ### \[0.4.0] (2021-06-22)
 

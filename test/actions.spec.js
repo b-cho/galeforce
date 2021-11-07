@@ -241,7 +241,7 @@ const americasAPI = nock('https://americas.api.riotgames.com')
     .reply(200, replyValues.v5.match.timeline)
     .get('/lol/match/v5/matches/by-puuid/jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g/ids')
     .reply(200, replyValues.v5.match.matchlist)
-    .get('/lol/match/v5/matches/by-puuid/jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g/ids?start=0&count=1')
+    .get('/lol/match/v5/matches/by-puuid/jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g/ids?startTime=0&endTime=0&queue=420&type=ranked&start=0&count=1')
     .reply(200, replyValues.v5.match.matchlistFiltered)
     .get('/lol/tournament/v4/lobby-events/by-code/1234')
     .reply(200, replyValues.v4.tournament.events)
@@ -595,7 +595,7 @@ describe('/galeforce/actions', () => {
                         it('should return correct JSON for the /lol/match/v5/matches/by-puuid/{puuid}/ids Riot API endpoint', () => expect(Galeforce.lol.match.list().region(Galeforce.region.riot.AMERICAS).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
                             .to.eventually.deep.equal(replyValues.v5.match.matchlist));
                         describe('.query()', () => {
-                            it('should return correct JSON for the /lol/match/v5/matches/by-puuid/{puuid}/ids Riot API endpoint with query', () => expect(Galeforce.lol.match.list().region(Galeforce.region.riot.AMERICAS).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').query({ start: 0, count: 1 })
+                            it('should return correct JSON for the /lol/match/v5/matches/by-puuid/{puuid}/ids Riot API endpoint with query', () => expect(Galeforce.lol.match.list().region(Galeforce.region.riot.AMERICAS).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').query({ startTime: 0, endTime: 0, queue: 420, type: 'ranked', start: 0, count: 1 })
                                 .exec())
                                 .to.eventually.deep.equal(replyValues.v5.match.matchlistFiltered));
                         });
