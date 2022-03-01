@@ -8,10 +8,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### \[0.5.2] (unreleased)
 
-#### Added
-
-
-
 #### Changed
 
 *   Fix the query parameters in the type definitions for `galeforce.lol.match.list().query()`
