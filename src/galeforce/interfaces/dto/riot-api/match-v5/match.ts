@@ -190,6 +190,7 @@ interface Team {
 interface Info {
     gameCreation: number;
     gameDuration: number;
+    gameEndTimestamp: number;
     gameId: number;
     gameMode: string;
     gameName: string;

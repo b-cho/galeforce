@@ -21,7 +21,6 @@ enum RiotRegion {
 
 enum LorRegion {
     AMERICAS = 'americas',
-    ASIA = 'asia',
     EUROPE = 'europe',
     SOUTHEAST_ASIA = 'sea',
 }

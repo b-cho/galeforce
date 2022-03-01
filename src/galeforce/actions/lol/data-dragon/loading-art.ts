@@ -12,7 +12,7 @@ const BaseAction = TakesSkin(
 export default class GetDataDragonLoadingArt extends BaseAction<Buffer> {
     constructor(submodules: SubmoduleMap) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.LOL_DATA_DRAGON.SPLASH_ART;
+        this.payload.endpoint = ENDPOINTS.LOL_DATA_DRAGON.LOADING_ART;
         this.payload.type = 'lol-ddragon-buffer';
         this.payload.method = 'GET';
     }

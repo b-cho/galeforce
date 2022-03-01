@@ -15,6 +15,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 #### Changed
 
 *   Fix the query parameters in the type definitions for `galeforce.lol.match.list().query()`
+*   **\[breaking]** Update region parameters for the Legends of Runeterra API endpoints (`ASIA` was merged into `SEA`)
+*   Fix an issue where Data Dragon champion splash art methods returned loading art and vice versa
+*   Update `match-v5` match DTO values
 
 ### \[0.5.1] (2021-09-04)
 
