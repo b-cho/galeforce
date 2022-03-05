@@ -4,13 +4,12 @@
 
 [![NPM](https://nodei.co/npm/galeforce.png?compact=true)](https://www.npmjs.com/package/galeforce)
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![npm](https://img.shields.io/npm/dt/galeforce)
 [![Node CI](https://github.com/bcho04/galeforce/workflows/Node%20CI/badge.svg)](https://github.com/bcho04/galeforce/workflows/Node%20CI/badge.svg)
 [![CodeQL](https://github.com/bcho04/galeforce/workflows/CodeQL/badge.svg)](https://github.com/bcho04/galeforce/workflows/CodeQL/badge.svg)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/18a92440f7a5457db04632699c3546a6)](https://www.codacy.com/gh/bcho04/galeforce/dashboard?utm_source=github.com\&utm_medium=referral\&utm_content=bcho04/galeforce\&utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/bcho04/galeforce/branch/master/graph/badge.svg?token=7BJHF5KVX9)](https://codecov.io/gh/bcho04/galeforce)
-[![David](https://david-dm.org/bcho04/galeforce.svg)](https://david-dm.org/bcho04/galeforce)
+[![shields.io dependencies](https://img.shields.io/librariesio/release/npm/galeforce)](https://img.shields.io/librariesio/release/npm/galeforce)
 [![GitHub last commit](https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat)](https://img.shields.io/github/last-commit/bcho04/galeforce.svg?style=flat)
 
 A customizable, promise-based, and command-oriented TypeScript library and fluent interface for the Riot Games API.
@@ -18,7 +17,7 @@ A customizable, promise-based, and command-oriented TypeScript library and fluen
 ## Features
 
 *   **Full API support** for all Riot games, Data Dragon (LoL and LoR), and the Live Client Data API
-    *   Environment variable config integration for API keys and other values on both the desktop and platforms including Heroku.
+    *   Environment variable config integration for API keys and other values on both the desktop and platforms including Heroku
 *   **Customizable rate limiting** with Redis clustering support and automated retries
 *   **Fully-typed DTOs and parameters** for *all* endpoints
 *   **Fluent interface** for seamless method chaining
