@@ -5,8 +5,10 @@ import { LobbyEventDTOWrapper } from '../../../interfaces/dto';
 import { TakesTournamentCode, TakesRegion } from '../../mixins';
 
 const BaseAction = TakesTournamentCode(
-    TakesRegion({} as RiotRegion,
-        Action),
+    TakesRegion(
+        {} as RiotRegion,
+        Action,
+    ),
 );
 
 export default class GetLobbyEvents extends BaseAction<LobbyEventDTOWrapper> {

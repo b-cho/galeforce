@@ -4,8 +4,10 @@ import SubmoduleMap from '../../../interfaces/submodule-map';
 import { TakesRegion, TakesSummonerId } from '../../mixins';
 
 const BaseAction = TakesSummonerId(
-    TakesRegion({} as LeagueRegion,
-        Action),
+    TakesRegion(
+        {} as LeagueRegion,
+        Action,
+    ),
 );
 
 export default class GetMasteryScore extends BaseAction<number> {

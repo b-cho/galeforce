@@ -6,8 +6,10 @@ import { TakesPUUID, TakesRiotId, TakesRegion } from '../../mixins';
 
 const BaseAction = TakesPUUID(
     TakesRiotId(
-        TakesRegion({} as RiotRegion,
-            Action),
+        TakesRegion(
+            {} as RiotRegion,
+            Action,
+        ),
     ),
 );
 

@@ -8,9 +8,13 @@ type GetValorantContentQuery = {
     locale?: string;
 }
 
-const BaseAction = TakesQuery({} as GetValorantContentQuery,
-    TakesRegion({} as ValorantRegion,
-        Action));
+const BaseAction = TakesQuery(
+    {} as GetValorantContentQuery,
+    TakesRegion(
+        {} as ValorantRegion,
+        Action,
+    ),
+);
 
 export default class GetValorantContent extends BaseAction<ValContentDTO> {
     constructor(submodules: SubmoduleMap) {

@@ -8,10 +8,10 @@ import debug from 'debug';
 import chalk from 'chalk';
 import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash';
+import axios from 'axios';
 import { Payload, ModifiablePayload, CreatePayloadProxy } from './payload';
 import SubmoduleMap from '../interfaces/submodule-map';
 import Request from '../../riot-api/requests';
-import axios from 'axios';
 
 const actionDebug = debug('galeforce:action');
 
@@ -156,7 +156,7 @@ export default class Action<TResult> {
                     throw new Error(`[galeforce]: Data fetch failed with status code ${e.response?.status}`);
                 }
             } else {
-                throw new Error(`[galeforce]: ${e instanceof Error ? e.message : 'Data fetch failed with an unknown error'}`)
+                throw new Error(`[galeforce]: ${e instanceof Error ? e.message : 'Data fetch failed with an unknown error'}`);
             }
         }
     }

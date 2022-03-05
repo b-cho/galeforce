@@ -5,8 +5,10 @@ import SubmoduleMap from '../../../interfaces/submodule-map';
 import { TakesSummonerId, TakesRegion } from '../../mixins';
 
 const BaseAction = TakesSummonerId(
-    TakesRegion({} as LeagueRegion,
-        Action),
+    TakesRegion(
+        {} as LeagueRegion,
+        Action,
+    ),
 );
 
 export default class GetClashPlayers extends BaseAction<PlayerDTO[]> {

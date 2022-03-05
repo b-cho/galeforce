@@ -12,15 +12,19 @@ type GetTFTLeagueEntriesQuery = {
     page?: number;
 }
 
-const BaseAction = TakesQuery({} as GetTFTLeagueEntriesQuery,
+const BaseAction = TakesQuery(
+    {} as GetTFTLeagueEntriesQuery,
     TakesTier(
         TakesDivision(
             TakesSummonerId(
-                TakesRegion({} as LeagueRegion,
-                    Action),
+                TakesRegion(
+                    {} as LeagueRegion,
+                    Action,
+                ),
             ),
         ),
-    ));
+    ),
+);
 
 export default class GetTFTLeagueEntries extends BaseAction<LeagueEntryDTO[]> {
     constructor(submodules: SubmoduleMap) {

@@ -10,9 +10,13 @@ type GetValorantRankedLeaderboardQuery = {
 }
 
 const BaseAction = TakesActId(
-    TakesQuery({} as GetValorantRankedLeaderboardQuery,
-        TakesRegion({} as ValorantRegion,
-            Action)),
+    TakesQuery(
+        {} as GetValorantRankedLeaderboardQuery,
+        TakesRegion(
+            {} as ValorantRegion,
+            Action,
+        ),
+    ),
 );
 
 export default class GetValorantRankedLeaderboard extends BaseAction<ValLeaderboardDTO> {

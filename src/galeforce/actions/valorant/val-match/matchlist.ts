@@ -5,8 +5,10 @@ import SubmoduleMap from '../../../interfaces/submodule-map';
 import { TakesPUUID, TakesRegion } from '../../mixins';
 
 const BaseAction = TakesPUUID(
-    TakesRegion({} as ValorantRegion,
-        Action),
+    TakesRegion(
+        {} as ValorantRegion,
+        Action,
+    ),
 );
 
 export default class GetValorantMatchlist extends BaseAction<ValMatchlistDTO> {

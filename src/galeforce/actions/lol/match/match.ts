@@ -5,8 +5,10 @@ import SubmoduleMap from '../../../interfaces/submodule-map';
 import { TakesMatchId, TakesRegion } from '../../mixins';
 
 const BaseAction = TakesMatchId(
-    TakesRegion({} as RiotRegion,
-        Action),
+    TakesRegion(
+        {} as RiotRegion,
+        Action,
+    ),
 );
 
 export default class GetMatch extends BaseAction<MatchDTO> {

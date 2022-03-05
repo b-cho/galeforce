@@ -12,16 +12,22 @@ type GetLeagueEntriesQuery = {
     page?: number;
 }
 
-const BaseAction = TakesQueue({} as LeagueQueue,
+const BaseAction = TakesQueue(
+    {} as LeagueQueue,
     TakesTier(
         TakesDivision(
             TakesSummonerId(
-                TakesQuery({} as GetLeagueEntriesQuery,
-                    TakesRegion({} as LeagueRegion,
-                        Action)),
+                TakesQuery(
+                    {} as GetLeagueEntriesQuery,
+                    TakesRegion(
+                        {} as LeagueRegion,
+                        Action,
+                    ),
+                ),
             ),
         ),
-    ));
+    ),
+);
 
 export default class GetLeagueEntries extends BaseAction<LeagueEntryDTO[]> {
     constructor(submodules: SubmoduleMap) {

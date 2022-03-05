@@ -8,9 +8,13 @@ type GetTFTMatchlistQuery = {
 }
 
 const BaseAction = TakesPUUID(
-    TakesQuery({} as GetTFTMatchlistQuery,
-        TakesRegion({} as RiotRegion,
-            Action)),
+    TakesQuery(
+        {} as GetTFTMatchlistQuery,
+        TakesRegion(
+            {} as RiotRegion,
+            Action,
+        ),
+    ),
 );
 
 export default class GetTFTMatchlist extends BaseAction<string[]> {

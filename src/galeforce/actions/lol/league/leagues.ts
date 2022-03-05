@@ -8,13 +8,17 @@ import {
     TakesQueue, TakesTier, TakesLeagueId, TakesRegion,
 } from '../../mixins';
 
-const BaseAction = TakesQueue({} as LeagueQueue,
+const BaseAction = TakesQueue(
+    {} as LeagueQueue,
     TakesTier(
         TakesLeagueId(
-            TakesRegion({} as LeagueRegion,
-                Action),
+            TakesRegion(
+                {} as LeagueRegion,
+                Action,
+            ),
         ),
-    ));
+    ),
+);
 
 export default class GetLeagueList extends BaseAction<LeagueListDTO> {
     constructor(submodules: SubmoduleMap) {

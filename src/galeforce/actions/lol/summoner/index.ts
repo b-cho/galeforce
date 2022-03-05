@@ -10,8 +10,10 @@ const BaseAction = TakesSummonerName(
     TakesSummonerId(
         TakesAccountId(
             TakesPUUID(
-                TakesRegion({} as LeagueRegion,
-                    Action),
+                TakesRegion(
+                    {} as LeagueRegion,
+                    Action,
+                ),
             ),
         ),
     ),

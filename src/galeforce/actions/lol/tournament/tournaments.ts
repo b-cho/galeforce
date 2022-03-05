@@ -4,9 +4,13 @@ import SubmoduleMap from '../../../interfaces/submodule-map';
 import { TournamentRegistrationParameters } from '../../../interfaces/parameters';
 import { TakesBody, TakesRegion } from '../../mixins';
 
-const BaseAction = TakesBody({} as TournamentRegistrationParameters,
-    TakesRegion({} as RiotRegion,
-        Action));
+const BaseAction = TakesBody(
+    {} as TournamentRegistrationParameters,
+    TakesRegion(
+        {} as RiotRegion,
+        Action,
+    ),
+);
 
 export default class PostTournaments extends BaseAction<number> {
     constructor(submodules: SubmoduleMap) {

@@ -13,9 +13,13 @@ type GetMatchlistQuery = {
 }
 
 const BaseAction = TakesPUUID(
-    TakesQuery({} as GetMatchlistQuery,
-        TakesRegion({} as RiotRegion,
-            Action)),
+    TakesQuery(
+        {} as GetMatchlistQuery,
+        TakesRegion(
+            {} as RiotRegion,
+            Action,
+        ),
+    ),
 );
 
 export default class GetMatchlist extends BaseAction<string[]> {

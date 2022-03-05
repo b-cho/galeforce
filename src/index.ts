@@ -610,7 +610,7 @@ class Galeforce {
                 },
             },
         },
-    }
+    };
 
     /**
      * Object containing actions corresponding to the `/riot` set of endpoints.
@@ -632,7 +632,7 @@ class Galeforce {
              */
             activeShard: (): GetActiveShard => new GetActiveShard(this.submodules),
         },
-    }
+    };
 
     /**
      * Object containing actions corresponding to the `/lor` set of endpoints.
@@ -788,7 +788,7 @@ class Galeforce {
                 },
             },
         },
-    }
+    };
 
     /**
      * Object containing actions corresponding to the `/tft` set of endpoints.
@@ -833,7 +833,7 @@ class Galeforce {
          * - (**GET**) `/lor/ranked/v1/leaderboards`
          */
         summoner: (): GetTFTSummoner => new GetTFTSummoner(this.submodules),
-    }
+    };
 
     /**
      * Object containing actions corresponding to the `/val` set of endpoints.
@@ -881,7 +881,7 @@ class Galeforce {
          * - (**GET**) `/val/status/v1/platform-data`
          */
         status: (): GetValorantPlatformData => new GetValorantPlatformData(this.submodules),
-    }
+    };
 
     /**
      * Object containing actions corresponding to the Game Client API specifications.
@@ -906,7 +906,7 @@ class Galeforce {
          * Requests the *OpenAPI v3* specs for the Game Client API.
          */
         openAPI: (): GetGameClientOpenAPI => new GetGameClientOpenAPI(this.submodules),
-    }
+    };
 
     /**
      * Object containing actions corresponding to the Live Client Data endpoints.

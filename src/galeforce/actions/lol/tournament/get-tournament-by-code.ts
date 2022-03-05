@@ -5,8 +5,10 @@ import { TournamentCodeDTO } from '../../../interfaces/dto';
 import { TakesRegion, TakesTournamentCode } from '../../mixins';
 
 const BaseAction = TakesTournamentCode(
-    TakesRegion({} as RiotRegion,
-        Action),
+    TakesRegion(
+        {} as RiotRegion,
+        Action,
+    ),
 );
 
 export default class GetTournamentCodes extends BaseAction<TournamentCodeDTO> {

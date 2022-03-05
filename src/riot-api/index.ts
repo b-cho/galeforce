@@ -48,7 +48,7 @@ export class RiotAPIModule {
             if (e instanceof Error) {
                 throw new Error(`[galeforce]: Action payload ${e.message.split(' ')[0]} is required but undefined.`);
             } else {
-                throw new Error(`[galeforce]: Failed to generate URL from template string.`)
+                throw new Error('[galeforce]: Failed to generate URL from template string.');
             }
         }
     }

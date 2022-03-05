@@ -5,8 +5,10 @@ import SubmoduleMap from '../../../interfaces/submodule-map';
 import { TakesMatchId, TakesRegion } from '../../mixins';
 
 const BaseAction = TakesMatchId(
-    TakesRegion({} as LorRegion,
-        Action),
+    TakesRegion(
+        {} as LorRegion,
+        Action,
+    ),
 );
 
 export default class GetLorMatch extends BaseAction<LorMatchDTO> {

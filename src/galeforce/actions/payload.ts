@@ -159,6 +159,7 @@ export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(paylo
             if (typeof value !== 'string' || !(/^\/.*$/.test(value))) {
                 throw new Error(`[galeforce]: Invalid ${name} provided (failed regex check).`);
             }
+            break;
         default:
             // Throw an error if the key does not exist on the payload interface
             if (!payloadKeys.includes(name)) {
