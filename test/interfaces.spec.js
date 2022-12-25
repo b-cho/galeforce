@@ -92,8 +92,8 @@ describe('/galeforce/interfaces', () => {
         describe('PlatformDataDTO', () => {
             const schema = generator.getSchemaForSymbol('PlatformDataDTO');
             // Manually edit schema to match interface
-            schema.definitions.StatusDTO.properties.maintenance_status.type = ['string', 'null'];
-            schema.definitions.StatusDTO.properties.maintenance_status.enum.push(null);
+            schema.definitions.MaintenanceStatus.type = ['string', 'null'];
+            schema.definitions.MaintenanceStatus.enum.push(null);
             schema.definitions.StatusDTO.properties.archive_at.type = ['string', 'null'];
             schema.definitions.StatusDTO.properties.updated_at.type = ['string', 'null'];
 
@@ -355,9 +355,9 @@ describe('/galeforce/interfaces', () => {
         describe('DataDragonSummonerSpellListDTO', () => {
             it('should match with Data Dragon region JSON data', () => {
                 const schema = generator.getSchemaForSymbol('DataDragonSummonerSpellListDTO');
-                schema.definitions.Data_2.additionalProperties
+                schema.definitions.Data.additionalProperties
                     .properties.effect.items = { anyOf: [{ type: 'null' }, { type: 'array', items: { type: 'number' } }] }; // Override schema type to match interface
-                schema.definitions.Data_2.additionalProperties
+                schema.definitions.Data.additionalProperties
                     .properties.effectBurn.items.type = ['string', 'null']; // Override schema type to match interface
 
                 const validate = ajv.compile(schema);
