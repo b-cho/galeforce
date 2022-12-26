@@ -27,7 +27,7 @@
     "url": "https://github.com/bcho04/galeforce.git"
   },
   "bugs": "https://github.com/bcho04/galeforce/issues",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "license": "Apache-2.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

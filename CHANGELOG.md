@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ***
 
+### \[0.6.0] (2022-12-26)
+
+#### Added
+
+*   Add support for `lol-challenges-v1` under **`galeforce.lol.challenges`**
+*   Add the SEA routing value for OC1 shard `match-v5` requests ([#22](https://github.com/bcho04/galeforce/issues/22))
+*   Add support for `tournament-stub-v4`
+    *   Accessible by passing in `true` to the action constructor
+    > ```typescript
+    > const events = await galeforce.lol.tournament.events(true) // use tournament-stub-v4
+    >   ...
+    > ```
+
+#### Changed
+
+*   Remove ~~`galeforce.lol.platform.thirdPartyCode()`~~ (deprecated by Riot, see [here](https://twitter.com/RiotGamesDevRel/status/1491217397965258752))
+*   **[breaking]** Dropped support for Node versions *<14.0*
+*   Fixed an issue where using Redis caching would prevent API requests from properly executing ([#21](https://github.com/bcho04/galeforce/issues/21))
+
 ### \[0.5.2] (2022-03-05)
 
 #### Changed
