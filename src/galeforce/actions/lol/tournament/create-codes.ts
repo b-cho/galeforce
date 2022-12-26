@@ -21,9 +21,9 @@ const BaseAction = TakesBody(
 );
 
 export default class PostTournamentCodes extends BaseAction<string[]> {
-    constructor(submodules: SubmoduleMap) {
+    constructor(submodules: SubmoduleMap, stub: boolean) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.TOURNAMENT.CREATE_CODE;
+        this.payload.endpoint = stub ? ENDPOINTS.TOURNAMENT_STUB.CREATE_CODE : ENDPOINTS.TOURNAMENT.CREATE_CODE;
         this.payload.type = 'riot';
         this.payload.method = 'POST';
     }

@@ -12,9 +12,9 @@ const BaseAction = TakesTournamentCode(
 );
 
 export default class GetLobbyEvents extends BaseAction<LobbyEventDTOWrapper> {
-    constructor(submodules: SubmoduleMap) {
+    constructor(submodules: SubmoduleMap, stub: boolean) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.TOURNAMENT.EVENTS;
+        this.payload.endpoint = stub ? ENDPOINTS.TOURNAMENT_STUB.EVENTS : ENDPOINTS.TOURNAMENT.EVENTS;
         this.payload.type = 'riot';
         this.payload.method = 'GET';
     }

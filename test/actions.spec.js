@@ -46,9 +46,6 @@ const replyValues = {
             byChampionId: require('./test-data/v4.champion-mastery.by-summoner.by-champion.json'),
             score: require('./test-data/v4.champion-mastery.by-summoner.score.json'),
         },
-        thirdPartyCode: {
-            bySummonerId: require('./test-data/v4.third-party-code.json'),
-        },
         status: require('./test-data/v4.lol-status.platform-data.json'),
         spectator: {
             active: require('./test-data/v4.spectator.active.json'),
@@ -71,6 +68,18 @@ const replyValues = {
             },
             players: require('./test-data/v1.clash.players.json'),
             team: require('./test-data/v1.clash.teams.json'),
+        },
+        challenges: {
+            config: {
+                one: require('./test-data/v1.challenges.config.json'),
+                list: require('./test-data/v1.challenges.config-list.json'),
+            },
+            percentiles: {
+                one: require('./test-data/v1.challenges.percentiles.json'),
+                list: require('./test-data/v1.challenges.percentiles-list.json'),
+            },
+            leaderboard: require('./test-data/v1.challenges.leaderboard.json'),
+            playerData: require('./test-data/v1.challenges.player-data.json'),
         },
         account: {
             account: require('./test-data/v1.account.accounts.json'),
@@ -171,8 +180,6 @@ const na1API = nock('https://na1.api.riotgames.com')
     .reply(200, replyValues.v4.championMastery.byChampionId)
     .get('/lol/champion-mastery/v4/scores/by-summoner/l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w')
     .reply(200, replyValues.v4.championMastery.score)
-    .get('/lol/platform/v4/third-party-code/by-summoner/l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w')
-    .reply(200, replyValues.v4.thirdPartyCode.bySummonerId)
     .get('/lol/status/v4/platform-data')
     .reply(200, replyValues.v4.status)
     .get('/lol/platform/v3/champion-rotations')
@@ -187,6 +194,18 @@ const na1API = nock('https://na1.api.riotgames.com')
     .reply(200, replyValues.v1.clash.players)
     .get('/lol/clash/v1/teams/971374dd-d9bd-4ff9-a06d-b21044ba0c92')
     .reply(200, replyValues.v1.clash.team)
+    .get('/lol/challenges/v1/challenges/config')
+    .reply(200, replyValues.v1.challenges.config.list)
+    .get('/lol/challenges/v1/challenges/percentiles')
+    .reply(200, replyValues.v1.challenges.percentiles.list)
+    .get('/lol/challenges/v1/challenges/203102/config')
+    .reply(200, replyValues.v1.challenges.config.one)
+    .get('/lol/challenges/v1/challenges/203102/percentiles')
+    .reply(200, replyValues.v1.challenges.percentiles.one)
+    .get('/lol/challenges/v1/challenges/203102/leaderboards/by-level/CHALLENGER')
+    .reply(200, replyValues.v1.challenges.leaderboard)
+    .get('/lol/challenges/v1/player-data/jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g')
+    .reply(200, replyValues.v1.challenges.playerData)
     .get('/lol/spectator/v4/active-games/by-summoner/W0UKG702c2bD7rwhOqZAn-pQ0ggk27_M0WMEVkPDodr-I-g')
     .reply(200, replyValues.v4.spectator.active)
     .get('/lol/spectator/v4/featured-games')
@@ -273,6 +292,27 @@ const americasAPI = nock('https://americas.api.riotgames.com')
     .reply(200)
     .get('/lol/tournament/v4/codes/1234')
     .reply(200, replyValues.v4.tournament.codes)
+    .get('/lol/tournament-stub/v4/lobby-events/by-code/5678')
+    .reply(200, replyValues.v4.tournament.events)
+    .post('/lol/tournament-stub/v4/providers', {
+        region: 'NA',
+        url: 'https://example.com',
+    })
+    .reply(200, 3)
+    .post('/lol/tournament-stub/v4/tournaments', {
+        providerId: 10,
+        name: 'name',
+    })
+    .reply(200, 4)
+    .post('/lol/tournament-stub/v4/codes?tournamentId=1234', {
+        allowedSummonerIds: ['a', 'b', 'c'],
+        metadata: '',
+        teamSize: 5,
+        pickType: 'TOURNAMENT_DRAFT',
+        mapType: 'SUMMONERS_RIFT',
+        spectatorType: 'NONE',
+    })
+    .reply(200, ['c', 'd'])
 
 const naAPI = nock('https://na.api.riotgames.com')
     .get('/val/content/v1/contents')
@@ -602,14 +642,6 @@ describe('/galeforce/actions', () => {
                     });
                 });
             });
-            describe('.platform', () => {
-                describe('.thirdPartyCode()', () => {
-                    describe('.summonerId()', () => {
-                        it('should return correct JSON for the /lol/platform/v4/third-party-code/by-summoner/ Riot API endpoint', () => expect(Galeforce.lol.platform.thirdPartyCode().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
-                            .to.eventually.deep.equal(replyValues.v4.thirdPartyCode.bySummonerId));
-                    });
-                });
-            });
             describe('.status', () => {
                 describe('.platformData()', () => {
                     it('should return correct JSON for the /lol/status/v4/platform-data Riot API endpoint', () => expect(Galeforce.lol.status().region(Galeforce.region.lol.NORTH_AMERICA).exec())
@@ -654,6 +686,34 @@ describe('/galeforce/actions', () => {
                     });
                 });
             });
+            describe('.challenges', () => {
+                describe('.config()', () => {
+                    it('should return correct JSON for the /lol/challenges/v1/challenges/{challengeId}/config Riot API endpoint', () => expect(Galeforce.lol.challenges.config().region(Galeforce.region.lol.NORTH_AMERICA).challengeId(203102).exec())
+                        .to.eventually.deep.equal(replyValues.v1.challenges.config.one));
+                });
+                describe('.configList()', () => {
+                    it('should return correct JSON for the /lol/challenges/v1/challenges/config Riot API endpoint', () => expect(Galeforce.lol.challenges.configList().region(Galeforce.region.lol.NORTH_AMERICA).exec())
+                        .to.eventually.deep.equal(replyValues.v1.challenges.config.list));
+                });
+                describe('.percentiles()', () => {
+                    it('should return correct JSON for the /lol/challenges/v1/percentiles/{challengeId}/config Riot API endpoint', () => expect(Galeforce.lol.challenges.percentiles().region(Galeforce.region.lol.NORTH_AMERICA).challengeId(203102).exec())
+                        .to.eventually.deep.equal(replyValues.v1.challenges.percentiles.one));
+                });
+                describe('.percentilesList()', () => {
+                    it('should return correct JSON for the /lol/challenges/v1/percentiles/config Riot API endpoint', () => expect(Galeforce.lol.challenges.percentilesList().region(Galeforce.region.lol.NORTH_AMERICA).exec())
+                        .to.eventually.deep.equal(replyValues.v1.challenges.percentiles.list));
+                });
+                describe('.player()', () => {
+                    it('should return correct JSON for the /lol/challenges/v1/player-data/{puuid} Riot API endpoint', () => expect(Galeforce.lol.challenges.player().region(Galeforce.region.lol.NORTH_AMERICA).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
+                        .to.eventually.deep.equal(replyValues.v1.challenges.playerData));
+                });
+                describe('.leaderboard()', () => {
+                    it('should return correct JSON for the /lol/challenges/v1/challenges/{challengeId}/leaderboards/by-level/{level} Riot API endpoint', () => expect(Galeforce.lol.challenges.leaderboard().region(Galeforce.region.lol.NORTH_AMERICA).challengeId(203102).tier(Galeforce.tier.CHALLENGER).exec())
+                        .to.eventually.deep.equal(replyValues.v1.challenges.leaderboard));
+                    it('should throw when provided a non-apex tier', () => expect(Galeforce.lol.challenges.leaderboard().region(Galeforce.region.lol.NORTH_AMERICA).challengeId(203102).tier(Galeforce.tier.IRON).exec())
+                        .to.eventually.rejectedWith('[galeforce]: .tier() must be CHALLENGER, GRANDMASTER, or MASTER.'));
+                });
+            });
             describe('.spectator', () => {
                 describe('.active()', () => {
                     describe('.summonerId()', () => {
@@ -679,6 +739,16 @@ describe('/galeforce/actions', () => {
                         }).query({ tournamentId: 1234 })
                             .exec())
                             .to.eventually.deep.equal(['a', 'b']));
+                        it('should return correct JSON for the /lol/tournament-stub/v4/codes Riot API endpoint', () => expect(Galeforce.lol.tournament.code.create(true).region(Galeforce.region.riot.AMERICAS).body({
+                                allowedSummonerIds: ['a', 'b', 'c'],
+                                metadata: '',
+                                teamSize: 5,
+                                pickType: 'TOURNAMENT_DRAFT',
+                                mapType: 'SUMMONERS_RIFT',
+                                spectatorType: 'NONE',
+                            }).query({ tournamentId: 1234 })
+                                .exec())
+                                .to.eventually.deep.equal(['c', 'd']));
                         it('should reject when not provided a query with a tournamentId parameter', () => expect(Galeforce.lol.tournament.code.create().region(Galeforce.region.riot.AMERICAS).body({
                             allowedSummonerIds: ['a', 'b', 'c'],
                             metadata: '',
@@ -713,6 +783,10 @@ describe('/galeforce/actions', () => {
                         it('should return correct JSON for the /lol/tournament/v4/lobby-events/by-code Riot API endpoint', () => expect(Galeforce.lol.tournament.event().region(Galeforce.region.riot.AMERICAS).tournamentCode('1234').exec())
                             .to.eventually.deep.equal(replyValues.v4.tournament.events));
                     });
+                    describe('.tournamentCode()', () => {
+                        it('should return correct JSON for the /lol/tournament-stub/v4/lobby-events/by-code Riot API endpoint', () => expect(Galeforce.lol.tournament.event(true).region(Galeforce.region.riot.AMERICAS).tournamentCode('5678').exec())
+                            .to.eventually.deep.equal(replyValues.v4.tournament.events));
+                    });
                 });
                 describe('.provider()', () => {
                     it('should return correct JSON for the /lol/tournament/v4/providers Riot API endpoint', () => expect(Galeforce.lol.tournament.provider().region(Galeforce.region.riot.AMERICAS).body({
@@ -720,6 +794,11 @@ describe('/galeforce/actions', () => {
                         url: 'https://example.com',
                     }).exec())
                         .to.eventually.deep.equal(1));
+                    it('should return correct JSON for the /lol/tournament-stub/v4/providers Riot API endpoint', () => expect(Galeforce.lol.tournament.provider(true).region(Galeforce.region.riot.AMERICAS).body({
+                            region: 'NA',
+                            url: 'https://example.com',
+                        }).exec())
+                            .to.eventually.deep.equal(3));
                 });
                 describe('.tournament()', () => {
                     it('should return correct JSON for the /lol/tournament/v4/tournaments Riot API endpoint', () => expect(Galeforce.lol.tournament.tournament().region(Galeforce.region.riot.AMERICAS).body({
@@ -727,6 +806,11 @@ describe('/galeforce/actions', () => {
                         name: 'name',
                     }).exec())
                         .to.eventually.deep.equal(2));
+                    it('should return correct JSON for the /lol/tournament-stub/v4/tournaments Riot API endpoint', () => expect(Galeforce.lol.tournament.tournament(true).region(Galeforce.region.riot.AMERICAS).body({
+                            providerId: 10,
+                            name: 'name',
+                        }).exec())
+                            .to.eventually.deep.equal(4));
                 });
             });
             describe('.ddragon', () => {

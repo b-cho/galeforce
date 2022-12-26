@@ -1,7 +1,7 @@
 export { SummonerDTO } from './dto/riot-api/summoner-v4/summoner';
 export { MatchDTO } from './dto/riot-api/match-v5/match';
 export { MatchTimelineDTO } from './dto/riot-api/match-v5/match-timeline';
-export { LeagueEntryDTO } from './dto/riot-api/league/league-entry';
+export { LeagueEntryDTO } from './dto/riot-api/league-v4/league-entry';
 export { ChampionMasteryDTO } from './dto/riot-api/champion-mastery-v4/champion-mastery';
 export { PlatformDataDTO } from './dto/riot-api/platform/platform-data';
 export { ChampionInfoDTO } from './dto/riot-api/champion-v3/champion-info';
@@ -10,7 +10,7 @@ export { TeamDTO } from './dto/riot-api/clash-v1/team';
 export { TournamentDTO } from './dto/riot-api/clash-v1/tournament';
 export { CurrentGameInfoDTO } from './dto/riot-api/spectator-v4/current-game-info';
 export { FeaturedGamesDTO } from './dto/riot-api/spectator-v4/featured-games';
-export { LeagueListDTO } from './dto/riot-api/league/league-list';
+export { LeagueListDTO } from './dto/riot-api/league-v4/league-list';
 export { AccountDTO } from './dto/riot-api/account-v1/account';
 export { ActiveShardDTO } from './dto/riot-api/account-v1/active-shard';
 export { TournamentCodeDTO } from './dto/riot-api/tournament-v4/tournament-code';
@@ -42,3 +42,7 @@ export { LiveClientFullRunesDTO, LiveClientMainRunesDTO } from './dto/game-clien
 export { LiveClientSummonerSpellsDTO } from './dto/game-client/summoner-spells';
 export { LorDataDragonSetDataDTO } from './dto/lor-data-dragon/set-data';
 export { LorDataDragonGlobalsDTO } from './dto/lor-data-dragon/globals';
+export { ApexPlayerInfoDTO } from './dto/riot-api/lol-challenges-v1/apex-player-info';
+export { ChallengeConfigInfoDTO } from './dto/riot-api/lol-challenges-v1/challenge-config-info';
+export { PercentilesDTO } from './dto/riot-api/lol-challenges-v1/percentiles';
+export { PlayerInfoDTO } from './dto/riot-api/lol-challenges-v1/player-info';

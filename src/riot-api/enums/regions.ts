@@ -16,6 +16,7 @@ enum RiotRegion {
     AMERICAS = 'americas',
     ASIA = 'asia',
     EUROPE = 'europe',
+    SEA = 'sea',
     ESPORTS = 'esports',
 }
 

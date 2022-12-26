@@ -27,3 +27,4 @@ export { TakesVersion } from './version';
 export { TakesLorSet } from './lor-set';
 export { TakesLorRegion } from './lor-region';
 export { TakesCard } from './card';
+export { TakesChallengeId } from './challenge-id';

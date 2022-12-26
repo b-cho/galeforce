@@ -1,0 +1,158 @@
+{
+    "id": 203102,
+    "localizedNames": {
+        "ar_AE": {
+            "description": "",
+            "name": "",
+            "shortDescription": ""
+        },
+        "cs_CZ": {
+            "description": "Uhni během osmi sekund pěti ručně mířeným střelám (schopnostem sesílaným na dálku bez automatického zaměřování).",
+            "name": "Kluzký jako úhoř",
+            "shortDescription": "Uhni během osmi sekund pěti ručně mířeným střelám."
+        },
+        "de_DE": {
+            "description": "Weiche fünf Skillshots (nicht zielgerichtete Fernkampffähigkeiten) innerhalb von acht Sekunden aus.",
+            "name": "Finten!",
+            "shortDescription": "Weiche fünf Skillshots innerhalb von acht Sekunden aus."
+        },
+        "el_GR": {
+            "description": "Αποφύγετε πέντε επιδέξιες βολές (ικανότητες από απόσταση χωρίς στόχο) εντός οκτώ δευτ.",
+            "name": "Παραπλάνηση!",
+            "shortDescription": "Αποφύγετε πέντε επιδέξιες βολές εντός οκτώ δευτ."
+        },
+        "en_AU": {
+            "description": "Dodge five skillshots (ranged untargeted abilities) within eight seconds",
+            "name": "The Jukes!",
+            "shortDescription": "Dodge five skillshots within eight seconds"
+        },
+        "en_GB": {
+            "description": "Dodge five skillshots (ranged untargeted abilities) within eight seconds",
+            "name": "The Jukes!",
+            "shortDescription": "Dodge five skillshots within eight seconds"
+        },
+        "en_PH": {
+            "description": "Dodge five skillshots (ranged untargeted abilities) within eight seconds",
+            "name": "The Jukes!",
+            "shortDescription": "Dodge five skillshots within eight seconds"
+        },
+        "en_SG": {
+            "description": "Dodge five skillshots (ranged untargeted abilities) within eight seconds",
+            "name": "The Jukes!",
+            "shortDescription": "Dodge five skillshots within eight seconds"
+        },
+        "en_US": {
+            "description": "Dodge five skillshots (ranged untargeted abilities) within eight seconds",
+            "name": "The Jukes!",
+            "shortDescription": "Dodge five skillshots within eight seconds"
+        },
+        "es_AR": {
+            "description": "Esquiva cinco disparos de habilidad (habilidades a distancia sin objetivo fijo) en ocho segundos.",
+            "name": "¡Los esquives!",
+            "shortDescription": "Esquiva cinco disparos de habilidad en ocho segundos."
+        },
+        "es_ES": {
+            "description": "Esquiva cinco tiros de habilidad (habilidades a distancia sin objetivo) en un margen de 8 s.",
+            "name": "¡Fintas!",
+            "shortDescription": "Esquiva cinco tiros de habilidad en un margen de 8 s."
+        },
+        "es_MX": {
+            "description": "Esquiva cinco disparos de habilidad (habilidades a distancia sin objetivo fijo) en ocho segundos.",
+            "name": "¡Los esquives!",
+            "shortDescription": "Esquiva cinco disparos de habilidad en ocho segundos."
+        },
+        "fr_FR": {
+            "description": "Esquivez 5 compétences de tir (compétences non ciblées à distance) en moins de 8 secondes.",
+            "name": "Quel jeu de jambes !",
+            "shortDescription": "Esquivez cinq compétences de tir en 8 sec."
+        },
+        "hu_HU": {
+            "description": "Kerülj el öt irányított képességet (nem célzott távolsági képességet) nyolc másodpercen belül",
+            "name": "Érinthetetlen!",
+            "shortDescription": "Kerülj el öt irányított képességet nyolc másodpercen belül"
+        },
+        "it_IT": {
+            "description": "Schiva cinque colpi mirati (abilità a distanza senza bersaglio) entro otto secondi",
+            "name": "Jukes!",
+            "shortDescription": "Schiva cinque colpi mirati entro otto secondi"
+        },
+        "ja_JP": {
+            "description": "8秒以内に5つのスキルショット(遠隔攻撃の非対象指定スキル)を回避",
+            "name": "サイドステップ！",
+            "shortDescription": "8秒以内に5つのスキルショットを回避"
+        },
+        "ko_KR": {
+            "description": "8초 이내에 대상을 지정하지 않는 원거리 스킬 5회 회피",
+            "name": "현란한 몸놀림",
+            "shortDescription": "8초 이내에 스킬 5회 회피"
+        },
+        "pl_PL": {
+            "description": "Uniknij pięciu umiejętności mierzonych (dystansowe umiejętności nienamierzające automatycznie) w ciągu 8 sek.",
+            "name": "Te uniki!",
+            "shortDescription": "Uniknij pięciu umiejętności mierzonych w ciągu 8 sek."
+        },
+        "pt_BR": {
+            "description": "Desvie de 5 disparos de precisão (habilidades de longo alcance sem alvo) em 8s",
+            "name": "Olé!",
+            "shortDescription": "Desvie de 5 disparos de precisão em 8s ou menos"
+        },
+        "ro_RO": {
+            "description": "Evită cinci lovituri de îndemânare (abilități la distanță fără țintire) în decurs de opt secunde",
+            "name": "Ce eschive!",
+            "shortDescription": "Evită cinci lovituri de îndemânare în decurs de opt secunde"
+        },
+        "ru_RU": {
+            "description": "Увернитесь от 5 направленных умений (дальнобойных умений без выбора цели) в течение 8 секунд",
+            "name": "Изворотливость",
+            "shortDescription": "Увернитесь от 5 направленных умений в течение 8 секунд"
+        },
+        "th_TH": {
+            "description": "หลบสกิล 5 ครั้ง (สกิลระยะไกลไม่ล็อกเป้า) ภายใน 8 วินาที",
+            "name": "The Jukes!",
+            "shortDescription": "หลบสกิล 5 ครั้งภายใน 8 วินาที"
+        },
+        "tr_TR": {
+            "description": "Sekiz saniye içinde 5 yetenek atışından (yönlendirilebilir menzilli yetenekler) kaçın.",
+            "name": "Yakalayamaz Ki!",
+            "shortDescription": "Sekiz saniye içinde 5 yetenek atışından kaçın."
+        },
+        "vi_VN": {
+            "description": "Né 5 chiêu thức định hướng (kỹ năng tầm xa không chỉ định) trong vòng 8 giây ",
+            "name": "Luồn Lách",
+            "shortDescription": "Né 5 chiêu thức định hướng (kỹ năng tầm xa không chỉ định) trong vòng 8 giây"
+        },
+        "vn_VN": {
+            "description": "Né 5 chiêu thức định hướng (kỹ năng tầm xa không chỉ định) trong vòng 8 giây ",
+            "name": "Luồn Lách",
+            "shortDescription": "Né 5 chiêu thức định hướng (kỹ năng tầm xa không chỉ định) trong vòng 8 giây"
+        },
+        "zh_CN": {
+            "description": "在8秒内躲避5个技巧射击（远程的非选取技能）",
+            "name": "假动作",
+            "shortDescription": "在8秒内躲避5个技巧射击"
+        },
+        "zh_MY": {
+            "description": "在 8 秒内，闪躲 5 个投射技能（远程的非指定技能）",
+            "name": "扭腰摆臀",
+            "shortDescription": "在 8 秒内闪躲 5 个投射技能"
+        },
+        "zh_TW": {
+            "description": "在 8 秒內，閃躲 5 個投射技能（遠程的非指定技能）",
+            "name": "扭腰擺臀",
+            "shortDescription": "在 8 秒內閃躲 5 個投射技能"
+        }
+    },
+    "state": "ENABLED",
+    "leaderboard": true,
+    "thresholds": {
+        "MASTER": 1000,
+        "PLATINUM": 350,
+        "SILVER": 45,
+        "GOLD": 120,
+        "BRONZE": 20,
+        "DIAMOND": 600,
+        "IRON": 5,
+        "GRANDMASTER": 1500,
+        "CHALLENGER": 2000
+    }
+}

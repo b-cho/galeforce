@@ -42,6 +42,7 @@ export type Payload = { // Payload keys and corresponding valid types
     lorSet?: number;
     lorRegion?: string;
     card?: string;
+    challengeId?: number;
 }
 
 export type ModifiablePayload = Omit<Payload, '_id' | 'type' | 'method' | 'endpoint'>;
@@ -52,7 +53,7 @@ const payloadKeys: (keyof Payload)[] = [ // List of all valid keys for the paylo
     'matchId', 'teamId', 'tournamentId', 'tournamentCode', 'championId',
     'leagueId', 'queue', 'tier', 'division', 'gameName', 'tagLine',
     'game', 'actId', 'version', 'locale', 'champion', 'skin', 'spell',
-    'assetId', 'assetPath', 'lorSet', 'lorRegion', 'card',
+    'assetId', 'assetPath', 'lorSet', 'lorRegion', 'card', 'challengeId',
 ];
 
 export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(payload, {

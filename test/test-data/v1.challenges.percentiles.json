@@ -1,0 +1,12 @@
+{
+    "SILVER": 0.261,
+    "MASTER": 0.059,
+    "CHALLENGER": 0.003,
+    "IRON": 0.359,
+    "GOLD": 0.201,
+    "PLATINUM": 0.131,
+    "GRANDMASTER": 0.015,
+    "DIAMOND": 0.094,
+    "BRONZE": 0.305,
+    "NONE": 1
+}

@@ -13,9 +13,9 @@ const BaseAction = TakesBody(
 );
 
 export default class PostTournaments extends BaseAction<number> {
-    constructor(submodules: SubmoduleMap) {
+    constructor(submodules: SubmoduleMap, stub: boolean) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.TOURNAMENT.TOURNAMENTS;
+        this.payload.endpoint = stub ? ENDPOINTS.TOURNAMENT_STUB.TOURNAMENTS : ENDPOINTS.TOURNAMENT.TOURNAMENTS;
         this.payload.type = 'riot';
         this.payload.method = 'POST';
     }

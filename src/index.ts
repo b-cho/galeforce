@@ -9,7 +9,6 @@ import { ConfigInterface } from './galeforce/interfaces/config';
 import SubmoduleMap from './galeforce/interfaces/submodule-map';
 import GetMatch from './galeforce/actions/lol/match/match';
 import GetSummoner from './galeforce/actions/lol/summoner';
-import GetThirdPartyCode from './galeforce/actions/lol/third-party-code';
 import GetTimeline from './galeforce/actions/lol/match/timeline';
 import GetMatchlist from './galeforce/actions/lol/match/matchlist';
 import GetMasteryList from './galeforce/actions/lol/champion-mastery/by-summoner';
@@ -96,6 +95,12 @@ import GetLorDataDragonCoreGlobals from './galeforce/actions/lor/data-dragon/cor
 import GetLorDataDragonSetData from './galeforce/actions/lor/data-dragon/set-data';
 import GetLorDataDragonCoreRegionIcons from './galeforce/actions/lor/data-dragon/core-region-icons';
 import GetLorDataDragonSetCardArt from './galeforce/actions/lor/data-dragon/set-card-art';
+import GetPlayerChallengeData from './galeforce/actions/lol/challenges/player-data';
+import GetChallengeLeaderboard from './galeforce/actions/lol/challenges/leaderboard';
+import GetChallengeConfig from './galeforce/actions/lol/challenges/config';
+import GetChallengeConfigList from './galeforce/actions/lol/challenges/config-list';
+import GetChallengePercentiles from './galeforce/actions/lol/challenges/percentiles';
+import GetChallengePercentilesList from './galeforce/actions/lol/challenges/percentiles-list';
 
 const Region = {
     lol: LeagueRegion,
@@ -211,6 +216,41 @@ class Galeforce {
             league: (): GetLeagueList => new GetLeagueList(this.submodules),
         },
         /**
+         * Object containing actions corresponding to the `/lol/challenges` set of endpoint.
+         */
+        challenges: {
+            /**
+             * Action constructor corresponding to the following endpoints:
+             * - (**GET**) `/lol/challenges/v1/challenges/{challengeId}/config`
+             */
+            config: (): GetChallengeConfig => new GetChallengeConfig(this.submodules),
+            /**
+             * Action constructor corresponding to the following endpoints:
+             * - (**GET**) `/lol/challenges/v1/challenges/config`
+             */
+            configList: (): GetChallengeConfigList => new GetChallengeConfigList(this.submodules),
+            /**
+             * Action constructor corresponding to the following endpoints:
+             * - (**GET**) `/lol/challenges/v1/challenges/{challengeId}/percentiles`
+             */
+            percentiles: (): GetChallengePercentiles => new GetChallengePercentiles(this.submodules),
+            /**
+             * Action constructor corresponding to the following endpoints:
+             * - (**GET**) `/lol/challenges/v1/challenges/percentiles`
+             */
+            percentilesList: (): GetChallengePercentilesList => new GetChallengePercentilesList(this.submodules),
+            /**
+             * Action constructor corresponding to the following endpoints:
+             * - (**GET**) `/lol/challenges/v1/player-data/{puuid}`
+             */
+            player: (): GetPlayerChallengeData => new GetPlayerChallengeData(this.submodules),
+            /**
+             * Action constructor corresponding to the following endpoints:
+             * - (**GET**) `/lol/challenges/v1/challenges/{challengeId}/leaderboards/by-level/{level}`
+             */
+            leaderboard: (): GetChallengeLeaderboard => new GetChallengeLeaderboard(this.submodules),
+        },
+        /**
          * Object containing actions corresponding to the `/lol/match` set of endpoints.
          */
         match: {
@@ -232,14 +272,9 @@ class Galeforce {
         },
         /**
          * Object containing actions corresponding to the `/lol/platform` set of endpoints.
-         * This includes the **THIRD-PARTY-CODE-V4** and **CHAMPION-V3** API sections.
+         * This includes the **CHAMPION-V3** API section.
          */
         platform: {
-            /**
-             * Action constructor corresponding to the following endpoints:
-             * - (**GET**) `/lol/platform/v4/third-party-code/by-summoner/{encryptedSummonerId}`
-             */
-            thirdPartyCode: (): GetThirdPartyCode => new GetThirdPartyCode(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**)  `/lol/platform/v3/champion-rotations`
@@ -305,8 +340,11 @@ class Galeforce {
                 /**
                  * Action constructor corresponding to the following endpoints:
                  * - (**POST**) `/lol/tournament/v4/codes`
+                 * - (**POST**) `/lol/tournament-stub/v4/codes`
+                 * 
+                 * Tournament stub endpoints can be accessed by passing in `true`.
                  */
-                create: (): PostTournamentCodes => new PostTournamentCodes(this.submodules),
+                create: (stub: boolean = false): PostTournamentCodes => new PostTournamentCodes(this.submodules, stub),
                 /**
                  * Action constructor corresponding to the following endpoints:
                  * - (**GET**) `/lol/tournament/v4/codes/{tournamentCode}`
@@ -321,18 +359,27 @@ class Galeforce {
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/tournament/v4/lobby-events/by-code/{tournamentCode}`
+             * - (**GET**) `/lol/tournament-stub/v4/lobby-events/by-code/{tournamentCode}`
+             * 
+             * Tournament stub endpoints can be accessed by passing in `true`.
              */
-            event: (): GetLobbyEvents => new GetLobbyEvents(this.submodules),
+            event: (stub: boolean = false): GetLobbyEvents => new GetLobbyEvents(this.submodules, stub),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**POST**) `/lol/tournament/v4/providers`
+             * - (**POST**) `/lol/tournament-stub/v4/providers`
+             * 
+             * Tournament stub endpoints can be accessed by passing in `true`.
              */
-            provider: (): PostProviders => new PostProviders(this.submodules),
+            provider: (stub: boolean = false): PostProviders => new PostProviders(this.submodules, stub),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**POST**) `/lol/tournament/v4/tournaments`
+             * - (**POST**) `/lol/tournament-stub/v4/tournaments`
+             * 
+             * Tournament stub endpoints can be accessed by passing in `true`.
              */
-            tournament: (): PostTournaments => new PostTournaments(this.submodules),
+            tournament: (stub: boolean = false): PostTournaments => new PostTournaments(this.submodules, stub),
         },
         /**
          * Object containing actions corresponding to League of Legends Data Dragon endpoints. See the official Data

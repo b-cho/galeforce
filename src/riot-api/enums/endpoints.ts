@@ -34,14 +34,19 @@ export const LEAGUE = {
     ENTRIES_BY_RANK_EXP: 'https://${region}.api.riotgames.com/lol/league-exp/v4/entries/${queue}/${tier}/${division}',
 };
 
+export const CHALLENGES = {
+    CONFIG_LIST: 'https://${region}.api.riotgames.com/lol/challenges/v1/challenges/config',
+    PERCENTILES_LIST: 'https://${region}.api.riotgames.com/lol/challenges/v1/challenges/percentiles',
+    CONFIG: 'https://${region}.api.riotgames.com/lol/challenges/v1/challenges/${challengeId}/config',
+    LEADERBOARD: 'https://${region}.api.riotgames.com/lol/challenges/v1/challenges/${challengeId}/leaderboards/by-level/${tier}',
+    PERCENTILES: 'https://${region}.api.riotgames.com/lol/challenges/v1/challenges/${challengeId}/percentiles',
+    PLAYER_DATA: 'https://${region}.api.riotgames.com/lol/challenges/v1/player-data/${puuid}'
+};
+
 export const MATCH = {
     MATCHLIST: 'https://${region}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids',
     MATCH_ID: 'https://${region}.api.riotgames.com/lol/match/v5/matches/${matchId}',
     TIMELINE: 'https://${region}.api.riotgames.com/lol/match/v5/matches/${matchId}/timeline',
-};
-
-export const PLATFORM = {
-    THIRD_PARTY_CODE: 'https://${region}.api.riotgames.com/lol/platform/v4/third-party-code/by-summoner/${summonerId}',
 };
 
 export const STATUS = {
@@ -66,6 +71,13 @@ export const TOURNAMENT = {
     EVENTS: 'https://${region}.api.riotgames.com/lol/tournament/v4/lobby-events/by-code/${tournamentCode}',
     PROVIDERS: 'https://${region}.api.riotgames.com/lol/tournament/v4/providers',
     TOURNAMENTS: 'https://${region}.api.riotgames.com/lol/tournament/v4/tournaments',
+};
+
+export const TOURNAMENT_STUB = {
+    CREATE_CODE: 'https://${region}.api.riotgames.com/lol/tournament-stub/v4/codes',
+    EVENTS: 'https://${region}.api.riotgames.com/lol/tournament-stub/v4/lobby-events/by-code/${tournamentCode}',
+    PROVIDERS: 'https://${region}.api.riotgames.com/lol/tournament-stub/v4/providers',
+    TOURNAMENTS: 'https://${region}.api.riotgames.com/lol/tournament-stub/v4/tournaments',
 };
 
 export const LOR_MATCH = {
