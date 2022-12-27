@@ -5,7 +5,7 @@ import { PlayerInfoDTO } from '../../../interfaces/dto';
 import { TakesPUUID, TakesRegion } from '../../mixins';
 
 const BaseAction = TakesPUUID(
-    TakesRegion({} as LeagueRegion, Action)
+    TakesRegion({} as LeagueRegion, Action),
 );
 
 export default class GetPlayerChallengeData extends BaseAction<PlayerInfoDTO> {

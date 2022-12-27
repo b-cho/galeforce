@@ -5,7 +5,7 @@ import { ChallengeConfigInfoDTO } from '../../../interfaces/dto';
 import { TakesChallengeId, TakesRegion } from '../../mixins';
 
 const BaseAction = TakesChallengeId(
-    TakesRegion({} as LeagueRegion, Action)
+    TakesRegion({} as LeagueRegion, Action),
 );
 
 export default class GetChallengeConfig extends BaseAction<ChallengeConfigInfoDTO> {

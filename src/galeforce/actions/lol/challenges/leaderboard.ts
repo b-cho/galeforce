@@ -6,8 +6,8 @@ import { TakesChallengeId, TakesRegion, TakesTier } from '../../mixins';
 
 const BaseAction = TakesTier(
     TakesChallengeId(
-        TakesRegion({} as LeagueRegion, Action)
-    )
+        TakesRegion({} as LeagueRegion, Action),
+    ),
 );
 
 export default class GetChallengeLeaderboard extends BaseAction<ApexPlayerInfoDTO> {
@@ -24,7 +24,7 @@ export default class GetChallengeLeaderboard extends BaseAction<ApexPlayerInfoDT
         } else {
             throw new Error('[galeforce]: .tier() must be CHALLENGER, GRANDMASTER, or MASTER.');
         }
-        
+
         return super.exec();
     }
 }

@@ -40,7 +40,7 @@ export const CHALLENGES = {
     CONFIG: 'https://${region}.api.riotgames.com/lol/challenges/v1/challenges/${challengeId}/config',
     LEADERBOARD: 'https://${region}.api.riotgames.com/lol/challenges/v1/challenges/${challengeId}/leaderboards/by-level/${tier}',
     PERCENTILES: 'https://${region}.api.riotgames.com/lol/challenges/v1/challenges/${challengeId}/percentiles',
-    PLAYER_DATA: 'https://${region}.api.riotgames.com/lol/challenges/v1/player-data/${puuid}'
+    PLAYER_DATA: 'https://${region}.api.riotgames.com/lol/challenges/v1/player-data/${puuid}',
 };
 
 export const MATCH = {

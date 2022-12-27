@@ -341,10 +341,10 @@ class Galeforce {
                  * Action constructor corresponding to the following endpoints:
                  * - (**POST**) `/lol/tournament/v4/codes`
                  * - (**POST**) `/lol/tournament-stub/v4/codes`
-                 * 
+                 *
                  * Tournament stub endpoints can be accessed by passing in `true`.
                  */
-                create: (stub: boolean = false): PostTournamentCodes => new PostTournamentCodes(this.submodules, stub),
+                create: (stub = false): PostTournamentCodes => new PostTournamentCodes(this.submodules, stub),
                 /**
                  * Action constructor corresponding to the following endpoints:
                  * - (**GET**) `/lol/tournament/v4/codes/{tournamentCode}`
@@ -360,26 +360,26 @@ class Galeforce {
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/lol/tournament/v4/lobby-events/by-code/{tournamentCode}`
              * - (**GET**) `/lol/tournament-stub/v4/lobby-events/by-code/{tournamentCode}`
-             * 
+             *
              * Tournament stub endpoints can be accessed by passing in `true`.
              */
-            event: (stub: boolean = false): GetLobbyEvents => new GetLobbyEvents(this.submodules, stub),
+            event: (stub = false): GetLobbyEvents => new GetLobbyEvents(this.submodules, stub),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**POST**) `/lol/tournament/v4/providers`
              * - (**POST**) `/lol/tournament-stub/v4/providers`
-             * 
+             *
              * Tournament stub endpoints can be accessed by passing in `true`.
              */
-            provider: (stub: boolean = false): PostProviders => new PostProviders(this.submodules, stub),
+            provider: (stub = false): PostProviders => new PostProviders(this.submodules, stub),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**POST**) `/lol/tournament/v4/tournaments`
              * - (**POST**) `/lol/tournament-stub/v4/tournaments`
-             * 
+             *
              * Tournament stub endpoints can be accessed by passing in `true`.
              */
-            tournament: (stub: boolean = false): PostTournaments => new PostTournaments(this.submodules, stub),
+            tournament: (stub = false): PostTournaments => new PostTournaments(this.submodules, stub),
         },
         /**
          * Object containing actions corresponding to League of Legends Data Dragon endpoints. See the official Data
