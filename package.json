@@ -52,10 +52,11 @@
     "@types/debug": "^4.1.7",
     "@types/lodash": "^4.14.191",
     "@types/mocha": "^10.0.1",
-    "@types/node": "^18.11.17",
+    "@types/node": "^18.11.18",
+    "@types/redis": "^2.8.32",
     "@types/uuid": "^9.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.47.0",
-    "@typescript-eslint/parser": "^5.47.0",
+    "@typescript-eslint/eslint-plugin": "^5.47.1",
+    "@typescript-eslint/parser": "^5.47.1",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
     "eslint": "^8.30.0",
@@ -66,7 +67,6 @@
     "remark-cli": "^11.0.0",
     "remark-lint": "^9.1.1",
     "remark-preset-lint-recommended": "^6.1.2",
-    "typedoc": "^0.19.2",
     "typescript": "^4.9.4"
   },
   "scripts": {
@@ -76,7 +76,7 @@
     "build": "npx tsc --project tsconfig.json",
     "test": "mocha --exit",
     "postinstall": "node ./scripts/postinstall.js",
-    "docs": "npx typedoc"
+    "docs": "npx typedoc@0.19.2"
   },
   "remarkConfig": {
     "plugins": [

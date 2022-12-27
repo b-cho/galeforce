@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ***
 
-### \[0.6.0] (2022-12-26)
+### \[0.6.0] (2022-12-27)
 
 #### Added
 

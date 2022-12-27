@@ -2,6 +2,7 @@ import Bottleneck from 'bottleneck';
 import _ from 'lodash';
 import debug from 'debug';
 import chalk from 'chalk';
+import * as Redis from 'redis';
 import RateLimiter from './rate-limiter';
 import { ConfigInterface } from '../interfaces/config';
 import { Region } from '../../riot-api';
@@ -29,6 +30,9 @@ export default class BottleneckRateLimiter extends RateLimiter {
                 },
                 // timeout should default to 300 seconds
                 timeout: (_.max(Object.keys(config.options.intervals).map((time) => parseInt(time, 10))) || 300) * 1000,
+
+                // Explicitly pass in Redis object to prevent conflict with node-redis@4.x
+                Redis,
             };
         } else if (config.cache.type === 'internal') {
             options = {
