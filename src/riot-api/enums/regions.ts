@@ -10,6 +10,11 @@ enum LeagueRegion {
     RUSSIA = 'ru',
     TURKEY = 'tr1',
     JAPAN = 'jp1',
+    PHILLIPINES = 'ph2',
+    SINGAPORE = 'sg2',
+    TAIWAN = 'tw2',
+    THAILAND = 'th2',
+    VIETNAM = 'vn2',
 }
 
 enum RiotRegion {
