@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ***
 
+### \[0.6.1] (2023-01-13)
+
+#### Added
+
+*   Update region parameters for the League of Legends API endpoints (new servers in Southeast Asia) ([#24](https://github.com/bcho04/galeforce/pull/24), by [xEcEz](https://github.com/xEcEz))
+
 ### \[0.6.0] (2022-12-27)
 
 #### Added
