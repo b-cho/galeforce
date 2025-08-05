@@ -14,6 +14,7 @@ export default class GetDataDragonTail extends BaseAction<Buffer> {
 
     protected inferEndpoint(): void {
         if (this.payload.version === '10.10.5') {
+            // Patch 10.10 was uploaded as a zip archive (.zip) instead of the typical compressed tarball (.tgz)
             this.payload.endpoint = ENDPOINTS.LOL_DATA_DRAGON.DRAGON_TAIL_ZIP;
         } else {
             this.payload.endpoint = ENDPOINTS.LOL_DATA_DRAGON.DRAGON_TAIL;

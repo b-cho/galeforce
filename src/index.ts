@@ -2,7 +2,7 @@ import debug from 'debug';
 import {
     RiotAPIModule, Tier, Division, Game,
     ValorantRegion, LeagueRegion, RiotRegion,
-    LeagueQueue, ValorantQueue, DataDragonRegion, LorRegion,
+    LeagueQueue, ValorantQueue, TFTQueue, DataDragonRegion, LorRegion,
 } from './riot-api';
 import { getConfig, validate, mergeWithDefaultConfig } from './galeforce/configs';
 import { ConfigInterface } from './galeforce/interfaces/config';
@@ -11,7 +11,7 @@ import GetMatch from './galeforce/actions/lol/match/match';
 import GetSummoner from './galeforce/actions/lol/summoner';
 import GetTimeline from './galeforce/actions/lol/match/timeline';
 import GetMatchlist from './galeforce/actions/lol/match/matchlist';
-import GetMasteryList from './galeforce/actions/lol/champion-mastery/by-summoner';
+import GetMasteryList from './galeforce/actions/lol/champion-mastery/by-puuid';
 import GetLeagueEntries from './galeforce/actions/lol/league/entries';
 import GetLeagueList from './galeforce/actions/lol/league/leagues';
 import GetLeaguePlatformData from './galeforce/actions/lol/lol-status';
@@ -101,6 +101,12 @@ import GetChallengeConfig from './galeforce/actions/lol/challenges/config';
 import GetChallengeConfigList from './galeforce/actions/lol/challenges/config-list';
 import GetChallengePercentiles from './galeforce/actions/lol/challenges/percentiles';
 import GetChallengePercentilesList from './galeforce/actions/lol/challenges/percentiles-list';
+import GetMasteryTop from './galeforce/actions/lol/champion-mastery/top';
+import GetTFTFeaturedGames from './galeforce/actions/tft/tft-spectator/featured-games';
+import GetTFTCurrentGameInfo from './galeforce/actions/tft/tft-spectator/active-games';
+import GetTFTPlatformData from './galeforce/actions/tft/tft-status';
+import GetTournamentGames from './galeforce/actions/lol/tournament/games';
+import GetTFTTopRatedLadderEntries from './galeforce/actions/tft/tft-league/top';
 
 const Region = {
     lol: LeagueRegion,
@@ -113,6 +119,7 @@ const Region = {
 const Queue = {
     lol: LeagueQueue,
     val: ValorantQueue,
+    tft: TFTQueue,
 };
 
 class Galeforce {
@@ -170,10 +177,7 @@ class Galeforce {
     public lol = {
         /**
          * Action constructor corresponding to the following endpoints:
-         * - (**GET**) `/lol/summoner/v4/summoners/by-account/{encryptedAccountId}`
-         * - (**GET**) `/lol/summoner/v4/summoners/by-name/{summonerName}`
          * - (**GET**) `/lol/summoner/v4/summoners/by-puuid/{encryptedPUUID}`
-         * - (**GET**) `/lol/summoner/v4/summoners/{encryptedSummonerId}`
          */
         summoner: (): GetSummoner => new GetSummoner(this.submodules),
         /**
@@ -182,19 +186,24 @@ class Galeforce {
         mastery: {
             /**
              * Action constructor corresponding to the following endpoints:
-             * - (**GET**) `/lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}`
+             * - (**GET**) `/lol/champion-mastery/v4/champion-masteries/by-puuid/{encryptedPUUID}`
              */
             list: (): GetMasteryList => new GetMasteryList(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
-             * - (**GET**) `/lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}/by-champion/{championId}`
+             * - (**GET**) `/lol/champion-mastery/v4/champion-masteries/by-puuid/{encryptedPUUID}/by-champion/{championId}`
              */
             champion: (): GetMasteryByChampion => new GetMasteryByChampion(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
-             * - (**GET**) `/lol/champion-mastery/v4/scores/by-summoner/{encryptedSummonerId}`
+             * - (**GET**) `/lol/champion-mastery/v4/scores/by-puuid/{encryptedPUUID}`
              */
             score: (): GetMasteryScore => new GetMasteryScore(this.submodules),
+            /**
+             * Action constructor corresponding to the following endpoints:
+             * - (**GET**) `/lol/champion-mastery/v4/champion-masteries/by-puuid/{encryptedPUUID}/top`
+             */
+            top: (): GetMasteryTop => new GetMasteryTop(this.submodules),
         },
         /**
          * Object containing actions corresponding to the `/lol/league` set of endpoints.
@@ -202,7 +211,7 @@ class Galeforce {
         league: {
             /**
              * Action constructor corresponding to the following endpoints:
-             * - (**GET**) `/lol/league/v4/entries/by-summoner/{encryptedSummonerId}`
+             * - (**GET**) `/lol/league/v4/entries/by-puuid/{encryptedPUUID}`
              * - (**GET**) `/lol/league/v4/entries/{queue}/{tier}/{division}`
              */
             entries: (): GetLeagueEntries => new GetLeagueEntries(this.submodules),
@@ -211,7 +220,6 @@ class Galeforce {
              * - (**GET**) `/lol/league/v4/challengerleagues/by-queue/{queue}`
              * - (**GET**) `/lol/league/v4/grandmasterleagues/by-queue/{queue}`
              * - (**GET**) `/lol/league/v4/masterleagues/by-queue/{queue}`
-             * - (**GET**) `/lol/league/v4/entries/by-summoner/{encryptedSummonerId}`
              */
             league: (): GetLeagueList => new GetLeagueList(this.submodules),
         },
@@ -292,7 +300,7 @@ class Galeforce {
         clash: {
             /**
              * Action constructor corresponding to the following endpoints:
-             * - (**GET**) `/lol/clash/v1/players/by-summoner/{summonerId}`
+             * - (**GET**) `/lol/clash/v1/players/by-puuid/{puuid}`
              */
             players: (): GetClashPlayers => new GetClashPlayers(this.submodules),
             /**
@@ -318,12 +326,12 @@ class Galeforce {
         spectator: {
             /**
              * Action constructor corresponding to the following endpoints:
-             * - (**GET**) `/lol/spectator/v4/active-games/by-summoner/{encryptedSummonerId}`
+             * - (**GET**) `/lol/spectator/v5/active-games/by-summoner/{encryptedPUUID}`
              */
             active: (): GetCurrentGameInfo => new GetCurrentGameInfo(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
-             * - (**GET**) `/lol/spectator/v4/featured-games`
+             * - (**GET**) `/lol/spectator/v5/featured-games`
              */
             featured: (): GetFeaturedGames => new GetFeaturedGames(this.submodules),
         },
@@ -334,50 +342,57 @@ class Galeforce {
          */
         tournament: {
             /**
-             * Object containing actions corresponding to the `/lol/tournament/v4/codes` set of endpoints.
+             * Object containing actions corresponding to the `/lol/tournament/v5/codes` set of endpoints.
              */
             code: {
                 /**
                  * Action constructor corresponding to the following endpoints:
-                 * - (**POST**) `/lol/tournament/v4/codes`
-                 * - (**POST**) `/lol/tournament-stub/v4/codes`
+                 * - (**POST**) `/lol/tournament/v5/codes`
+                 * - (**POST**) `/lol/tournament-stub/v5/codes`
                  *
-                 * Tournament stub endpoints can be accessed by passing in `true`.
+                 * Tournament stub endpoints can be accessed by passing in `stub=true`.
                  */
                 create: (stub = false): PostTournamentCodes => new PostTournamentCodes(this.submodules, stub),
                 /**
                  * Action constructor corresponding to the following endpoints:
-                 * - (**GET**) `/lol/tournament/v4/codes/{tournamentCode}`
+                 * - (**GET**) `/lol/tournament/v5/codes/{tournamentCode}`
                  */
                 get: (): GetTournamentCodes => new GetTournamentCodes(this.submodules),
                 /**
                  * Action constructor corresponding to the following endpoints:
-                 * - (**PUT**) `/lol/tournament/v4/codes/{tournamentCode}`
+                 * - (**PUT**) `/lol/tournament/v5/codes/{tournamentCode}`
                  */
                 update: (): PutTournamentCodes => new PutTournamentCodes(this.submodules),
             },
             /**
              * Action constructor corresponding to the following endpoints:
-             * - (**GET**) `/lol/tournament/v4/lobby-events/by-code/{tournamentCode}`
-             * - (**GET**) `/lol/tournament-stub/v4/lobby-events/by-code/{tournamentCode}`
+             * - (**GET**) `/lol/tournament/v5/games/by-code/{tournamentCode}`
              *
-             * Tournament stub endpoints can be accessed by passing in `true`.
+             * Tournament stub endpoints can be accessed by passing in `stub=true`.
+             */
+            game: (): GetTournamentGames => new GetTournamentGames(this.submodules),
+            /**
+             * Action constructor corresponding to the following endpoints:
+             * - (**GET**) `/lol/tournament/v5/lobby-events/by-code/{tournamentCode}`
+             * - (**GET**) `/lol/tournament-stub/v5/lobby-events/by-code/{tournamentCode}`
+             *
+             * Tournament stub endpoints can be accessed by passing in `stub=true`.
              */
             event: (stub = false): GetLobbyEvents => new GetLobbyEvents(this.submodules, stub),
             /**
              * Action constructor corresponding to the following endpoints:
-             * - (**POST**) `/lol/tournament/v4/providers`
-             * - (**POST**) `/lol/tournament-stub/v4/providers`
+             * - (**POST**) `/lol/tournament/v5/providers`
+             * - (**POST**) `/lol/tournament-stub/v5/providers`
              *
-             * Tournament stub endpoints can be accessed by passing in `true`.
+             * Tournament stub endpoints can be accessed by passing in `stub=true`.
              */
             provider: (stub = false): PostProviders => new PostProviders(this.submodules, stub),
             /**
              * Action constructor corresponding to the following endpoints:
-             * - (**POST**) `/lol/tournament/v4/tournaments`
-             * - (**POST**) `/lol/tournament-stub/v4/tournaments`
+             * - (**POST**) `/lol/tournament/v5/tournaments`
+             * - (**POST**) `/lol/tournament-stub/v5/tournaments`
              *
-             * Tournament stub endpoints can be accessed by passing in `true`.
+             * Tournament stub endpoints can be accessed by passing in `stub=true`.
              */
             tournament: (stub = false): PostTournaments => new PostTournaments(this.submodules, stub),
         },
@@ -859,6 +874,16 @@ class Galeforce {
              * - (**GET**) `/tft/league/v1/leagues/{leagueId} `
              */
             league: (): GetTFTLeagueList => new GetTFTLeagueList(this.submodules),
+            /**
+             * Object containing actions corresponding to the `/tft/league/v1/rated-ladders` set of endpoints.
+             */
+            ladders: {
+                /**
+                 * Action constructor corresponding to the following endpoints:
+                 * - (**GET**) `/tft/league/v1/rated-ladders/{queue}/top
+                 */
+                top: (): GetTFTTopRatedLadderEntries => new GetTFTTopRatedLadderEntries(this.submodules),
+            },
         },
         /**
          * Object containing actions corresponding to the `/tft/match` set of endpoints.
@@ -866,20 +891,40 @@ class Galeforce {
         match: {
             /**
              * Action constructor corresponding to the following endpoints:
-             * - (**GET**) `/lor/ranked/v1/leaderboards`
+             * - (**GET**) `/tft/match/v1/matches/{matchId}`
              */
             match: (): GetTFTMatch => new GetTFTMatch(this.submodules),
             /**
              * Action constructor corresponding to the following endpoints:
-             * - (**GET**) `/lor/ranked/v1/leaderboards`
+             * - (**GET**) `/tft/match/v1/matches/by-puuid/{puuid}/ids`
              */
             list: (): GetTFTMatchlist => new GetTFTMatchlist(this.submodules),
         },
         /**
          * Action constructor corresponding to the following endpoints:
-         * - (**GET**) `/lor/ranked/v1/leaderboards`
+         * - (**GET**) `/tft/summoner/v1/summoners/by-puuid/{encryptedPUUID}`
          */
         summoner: (): GetTFTSummoner => new GetTFTSummoner(this.submodules),
+        /**
+         * Object containing actions corresponding to the `/lol/spectator/tft` set of endpoints.
+         */
+        spectator: {
+            /**
+             * Action constructor corresponding to the following endpoints:
+             * - (**GET**) `/lol/spectator/tft/v5/active-games/by-puuid/{encryptedPUUID}`
+             */
+            active: (): GetTFTCurrentGameInfo => new GetTFTCurrentGameInfo(this.submodules),
+            /**
+             * Action constructor corresponding to the following endpoints:
+             * - (**GET**) `/lol/spectator/tft/v5/featured-games`
+             */
+            featured: (): GetTFTFeaturedGames => new GetTFTFeaturedGames(this.submodules),
+        },
+        /**
+         * Action constructor corresponding to the following endpoints:
+         * - (**GET**)  `/tft/status/v1/platform-data`
+         */
+        status: (): GetTFTPlatformData => new GetTFTPlatformData(this.submodules),
     };
 
     /**
@@ -900,18 +945,27 @@ class Galeforce {
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/val/match/v1/matches/{matchId}`
+             * - (**GET**) `/val/match/console/v1/matches/{matchId}`
+             * 
+             * Console endpoints can be accessed by passing in `console=True`.
              */
-            match: (): GetValorantMatch => new GetValorantMatch(this.submodules),
+            match: (console = false): GetValorantMatch => new GetValorantMatch(this.submodules, console),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/val/match/v1/matchlists/by-puuid/{puuid}`
+             * - (**GET**) `/val/match/console/v1/matchlists/by-puuid/{puuid}`
+             * 
+             * Console endpoints can be accessed by passing in `console=True`.
              */
-            list: (): GetValorantMatchlist => new GetValorantMatchlist(this.submodules),
+            list: (console = false): GetValorantMatchlist => new GetValorantMatchlist(this.submodules, console),
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/val/match/v1/recent-matches/by-queue/{queue}`
+             * - (**GET**) `/val/match/console/v1/recent-matches/by-queue/{queue}`
+             * 
+             * Console endpoints can be accessed by passing in `console=True`.
              */
-            recent: (): GetValorantRecentMatches => new GetValorantRecentMatches(this.submodules),
+            recent: (console = false): GetValorantRecentMatches => new GetValorantRecentMatches(this.submodules, console),
         },
         /**
          * Object containing actions corresponding to the `/val/ranked` set of endpoints.
@@ -920,8 +974,11 @@ class Galeforce {
             /**
              * Action constructor corresponding to the following endpoints:
              * - (**GET**) `/val/ranked/v1/leaderboards/by-act/{actId}`
+             * - (**GET**) `/val/console/ranked/v1/leaderboards/by-act/{actId}`
+             * 
+             * Console endpoints can be accessed by passing in `console=True`.
              */
-            leaderboard: (): GetValorantRankedLeaderboard => new GetValorantRankedLeaderboard(this.submodules),
+            leaderboard: (console = false): GetValorantRankedLeaderboard => new GetValorantRankedLeaderboard(this.submodules, console),
         },
         /**
          * Action constructor corresponding to the following endpoints:

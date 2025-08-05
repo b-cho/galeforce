@@ -1,10 +1,10 @@
 import Action from '../../action';
 import { ENDPOINTS } from '../../../../riot-api';
 import SubmoduleMap from '../../../interfaces/submodule-map';
-import { TakesSummonerName } from '../../mixins';
+import { TakesRiotId } from '../../mixins';
 import { LiveClientMainRunesDTO } from '../../../interfaces/dto';
 
-const BaseAction = TakesSummonerName(Action);
+const BaseAction = TakesRiotId(Action);
 
 export default class GetLiveClientPlayerRunes extends BaseAction<LiveClientMainRunesDTO> {
     constructor(submodules: SubmoduleMap) {

@@ -5,7 +5,7 @@ import {
 } from '../../../../riot-api';
 import SubmoduleMap from '../../../interfaces/submodule-map';
 import {
-    TakesDivision, TakesQuery, TakesQueue, TakesRegion, TakesSummonerId, TakesTier,
+    TakesDivision, TakesQuery, TakesQueue, TakesRegion, TakesPUUID, TakesTier,
 } from '../../mixins';
 
 type GetLeagueEntriesQuery = {
@@ -16,7 +16,7 @@ const BaseAction = TakesQueue(
     {} as LeagueQueue,
     TakesTier(
         TakesDivision(
-            TakesSummonerId(
+            TakesPUUID(
                 TakesQuery(
                     {} as GetLeagueEntriesQuery,
                     TakesRegion(
@@ -37,8 +37,8 @@ export default class GetLeagueEntries extends BaseAction<LeagueEntryDTO[]> {
     }
 
     protected inferEndpoint(): void {
-        if (typeof this.payload.summonerId !== 'undefined') {
-            this.payload.endpoint = ENDPOINTS.LEAGUE.SUMMONER_ID;
+        if (typeof this.payload.puuid !== 'undefined') {
+            this.payload.endpoint = ENDPOINTS.LEAGUE.PUUID;
         } else if (typeof this.payload.queue !== 'undefined' || typeof this.payload.tier !== 'undefined' || typeof this.payload.division !== 'undefined') {
             if (typeof this.payload.tier !== 'undefined' && [Tier.MASTER, Tier.GRANDMASTER, Tier.CHALLENGER].includes(this.payload.tier)) {
                 // set to experimental endpoint for support

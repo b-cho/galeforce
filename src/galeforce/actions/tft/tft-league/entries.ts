@@ -5,7 +5,7 @@ import {
 } from '../../../../riot-api';
 import SubmoduleMap from '../../../interfaces/submodule-map';
 import {
-    TakesDivision, TakesQuery, TakesRegion, TakesSummonerId, TakesTier,
+    TakesDivision, TakesPUUID, TakesQuery, TakesRegion, TakesTier,
 } from '../../mixins';
 
 type GetTFTLeagueEntriesQuery = {
@@ -16,7 +16,7 @@ const BaseAction = TakesQuery(
     {} as GetTFTLeagueEntriesQuery,
     TakesTier(
         TakesDivision(
-            TakesSummonerId(
+            TakesPUUID(
                 TakesRegion(
                     {} as LeagueRegion,
                     Action,
@@ -34,8 +34,8 @@ export default class GetTFTLeagueEntries extends BaseAction<LeagueEntryDTO[]> {
     }
 
     protected inferEndpoint(): void {
-        if (typeof this.payload.summonerId !== 'undefined') {
-            this.payload.endpoint = ENDPOINTS.TFT_LEAGUE.SUMMONER_ID;
+        if (typeof this.payload.puuid !== 'undefined') {
+            this.payload.endpoint = ENDPOINTS.TFT_LEAGUE.PUUID;
         } else if (typeof this.payload.division !== 'undefined' || typeof this.payload.tier !== 'undefined') {
             if (this.payload.tier && [Tier.MASTER, Tier.GRANDMASTER, Tier.CHALLENGER].includes(this.payload.tier)) {
                 throw new Error('[galeforce]: /tft/league/v1/entries does not currently support the apex tiers.');

@@ -20,9 +20,9 @@ const BaseAction = TakesActId(
 );
 
 export default class GetValorantRankedLeaderboard extends BaseAction<ValLeaderboardDTO> {
-    constructor(submodules: SubmoduleMap) {
+    constructor(submodules: SubmoduleMap, console: boolean) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.VAL_RANKED.LEADERBOARDS;
+        this.payload.endpoint = console ? ENDPOINTS.VAL_CONSOLE_RANKED.LEADERBOARDS : ENDPOINTS.VAL_RANKED.LEADERBOARDS;
         this.payload.type = 'val';
         this.payload.method = 'GET';
     }

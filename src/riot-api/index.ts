@@ -8,7 +8,7 @@ import * as ENDPOINTS from './enums/endpoints';
 import {
     Region, LeagueRegion, RiotRegion, ValorantRegion, DataDragonRegion, LorRegion,
 } from './enums/regions';
-import { Queue, LeagueQueue, ValorantQueue } from './enums/queues';
+import { Queue, LeagueQueue, ValorantQueue, TFTQueue } from './enums/queues';
 import Tier from './enums/tiers';
 import Division from './enums/divisions';
 import Game from './enums/games';
@@ -104,5 +104,5 @@ export class RiotAPIModule {
 
 export {
     ENDPOINTS, Region, LeagueRegion, RiotRegion, ValorantRegion, DataDragonRegion, LorRegion,
-    Queue, LeagueQueue, ValorantQueue, Tier, Division, Game,
+    Queue, LeagueQueue, ValorantQueue, TFTQueue, Tier, Division, Game,
 };

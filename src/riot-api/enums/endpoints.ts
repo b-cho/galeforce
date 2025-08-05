@@ -7,25 +7,23 @@ export const ACCOUNT = {
 };
 
 export const SUMMONER = {
-    SUMMONER_NAME: 'https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}',
     PUUID: 'https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}',
-    ACCOUNT_ID: 'https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-account/${accountId}',
-    SUMMONER_ID: 'https://${region}.api.riotgames.com/lol/summoner/v4/summoners/${summonerId}',
 };
 
 export const CHAMPION_MASTERY = {
-    LIST: 'https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}',
-    CHAMPION: 'https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}/by-champion/${championId}',
-    SCORE: 'https://${region}.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/${summonerId}',
+    LIST: 'https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}',
+    CHAMPION: 'https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}/by-champion/${championId}',
+    TOP: 'https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}/top',
+    SCORE: 'https://${region}.api.riotgames.com/lol/champion-mastery/v4/scores/by-puuid/${puuid}',
 };
 
 export const SPECTATOR = {
-    SUMMONER_ID: 'https://${region}.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${summonerId}',
-    FEATURED: 'https://${region}.api.riotgames.com/lol/spectator/v4/featured-games',
+    PUUID: 'https://${region}.api.riotgames.com/lol/spectator/v5/active-games/by-summoner/${puuid}',
+    FEATURED: 'https://${region}.api.riotgames.com/lol/spectator/v5/featured-games',
 };
 
 export const LEAGUE = {
-    SUMMONER_ID: 'https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerId}',
+    PUUID: 'https://${region}.api.riotgames.com/lol/league/v4/entries/by-puuid/${puuid}',
     LEAGUE_ID: 'https://${region}.api.riotgames.com/lol/league/v4/leagues/${leagueId}',
     ENTRIES_BY_RANK: 'https://${region}.api.riotgames.com/lol/league/v4/entries/${queue}/${tier}/${division}',
     CHALLENGER_LEAGUE: 'https://${region}.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/${queue}',
@@ -58,7 +56,7 @@ export const CHAMPION = {
 };
 
 export const CLASH = {
-    PLAYERS: 'https://${region}.api.riotgames.com/lol/clash/v1/players/by-summoner/${summonerId}',
+    PLAYERS: 'https://${region}.api.riotgames.com/lol/clash/v1/players/by-puuid/${puuid}',
     TEAMS: 'https://${region}.api.riotgames.com/lol/clash/v1/teams/${teamId}',
     ALL_TOURNAMENTS: 'https://${region}.api.riotgames.com/lol/clash/v1/tournaments',
     GET_TEAM_TOURNAMENT: 'https://${region}.api.riotgames.com/lol/clash/v1/tournaments/by-team/${teamId}',
@@ -66,18 +64,19 @@ export const CLASH = {
 };
 
 export const TOURNAMENT = {
-    CREATE_CODE: 'https://${region}.api.riotgames.com/lol/tournament/v4/codes',
-    BY_CODE: 'https://${region}.api.riotgames.com/lol/tournament/v4/codes/${tournamentCode}',
-    EVENTS: 'https://${region}.api.riotgames.com/lol/tournament/v4/lobby-events/by-code/${tournamentCode}',
-    PROVIDERS: 'https://${region}.api.riotgames.com/lol/tournament/v4/providers',
-    TOURNAMENTS: 'https://${region}.api.riotgames.com/lol/tournament/v4/tournaments',
+    CREATE_CODE: 'https://${region}.api.riotgames.com/lol/tournament/v5/codes',
+    BY_CODE: 'https://${region}.api.riotgames.com/lol/tournament/v5/codes/${tournamentCode}',
+    EVENTS: 'https://${region}.api.riotgames.com/lol/tournament/v5/lobby-events/by-code/${tournamentCode}',
+    GAMES: 'https://${region}.api.riotgames.com/lol/tournament/v5/games/by-code/${tournamentCode}',
+    PROVIDERS: 'https://${region}.api.riotgames.com/lol/tournament/v5/providers',
+    TOURNAMENTS: 'https://${region}.api.riotgames.com/lol/tournament/v5/tournaments',
 };
 
 export const TOURNAMENT_STUB = {
-    CREATE_CODE: 'https://${region}.api.riotgames.com/lol/tournament-stub/v4/codes',
-    EVENTS: 'https://${region}.api.riotgames.com/lol/tournament-stub/v4/lobby-events/by-code/${tournamentCode}',
-    PROVIDERS: 'https://${region}.api.riotgames.com/lol/tournament-stub/v4/providers',
-    TOURNAMENTS: 'https://${region}.api.riotgames.com/lol/tournament-stub/v4/tournaments',
+    CREATE_CODE: 'https://${region}.api.riotgames.com/lol/tournament-stub/v5/codes',
+    EVENTS: 'https://${region}.api.riotgames.com/lol/tournament-stub/v5/lobby-events/by-code/${tournamentCode}',
+    PROVIDERS: 'https://${region}.api.riotgames.com/lol/tournament-stub/v5/providers',
+    TOURNAMENTS: 'https://${region}.api.riotgames.com/lol/tournament-stub/v5/tournaments',
 };
 
 export const LOR_MATCH = {
@@ -94,12 +93,13 @@ export const LOR_STATUS = {
 };
 
 export const TFT_LEAGUE = {
-    SUMMONER_ID: 'https://${region}.api.riotgames.com/tft/league/v1/entries/by-summoner/${summonerId}',
+    PUUID: 'https://${region}.api.riotgames.com/tft/league/v1/entries/by-puuid/${puuid}',
     LEAGUE_ID: 'https://${region}.api.riotgames.com/tft/league/v1/leagues/${leagueId}',
     ENTRIES_BY_RANK: 'https://${region}.api.riotgames.com/tft/league/v1/entries/${tier}/${division}',
     CHALLENGER_LEAGUE: 'https://${region}.api.riotgames.com/tft/league/v1/challenger',
     GRANDMASTER_LEAGUE: 'https://${region}.api.riotgames.com/tft/league/v1/grandmaster',
     MASTER_LEAGUE: 'https://${region}.api.riotgames.com/tft/league/v1/master',
+    RATED_LADDERS_TOP: 'https://${region}.api.riotgames.com/tft/league/v1/rated-ladders/${queue}/top',
 };
 
 export const TFT_MATCH = {
@@ -108,10 +108,16 @@ export const TFT_MATCH = {
 };
 
 export const TFT_SUMMONER = {
-    SUMMONER_NAME: 'https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-name/${summonerName}',
     PUUID: 'https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${puuid}',
-    ACCOUNT_ID: 'https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-account/${accountId}',
-    SUMMONER_ID: 'https://${region}.api.riotgames.com/tft/summoner/v1/summoners/${summonerId}',
+};
+
+export const TFT_SPECTATOR = {
+    PUUID: 'https://${region}.api.riotgames.com/lol/spectator/tft/v5/active-games/by-puuid/${puuid}',
+    FEATURED: 'https://${region}.api.riotgames.com/lol/spectator/tft/v5/featured-games',
+}
+
+export const TFT_STATUS = {
+    PLATFORM_DATA: 'https://${region}.api.riotgames.com/tft/status/v1/platform-data',
 };
 
 export const VAL_CONTENT = {
@@ -124,8 +130,18 @@ export const VAL_MATCH = {
     RECENT: 'https://${region}.api.riotgames.com/val/match/v1/recent-matches/by-queue/${queue}',
 };
 
+export const VAL_CONSOLE_MATCH = {
+    MATCH: 'https://${region}.api.riotgames.com/val/match/console/v1/matches/${matchId}',
+    MATCHLIST: 'https://${region}.api.riotgames.com/val/match/console/v1/matchlists/by-puuid/${puuid}',
+    RECENT: 'https://${region}.api.riotgames.com/val/match/console/v1/recent-matches/by-queue/${queue}',
+};
+
 export const VAL_RANKED = {
     LEADERBOARDS: 'https://${region}.api.riotgames.com/val/ranked/v1/leaderboards/by-act/${actId}',
+};
+
+export const VAL_CONSOLE_RANKED = {
+    LEADERBOARDS: 'https://${region}.api.riotgames.com/val/console/ranked/v1/leaderboards/by-act/${actId}',
 };
 
 export const VAL_STATUS = {
@@ -180,10 +196,10 @@ export const GAME_CLIENT = {
     ACTIVE_PLAYER_ABILITIES: 'https://127.0.0.1:2999/liveclientdata/activeplayerabilities',
     ACTIVE_PLAYER_RUNES: 'https://127.0.0.1:2999/liveclientdata/activeplayerrunes',
     PLAYER_LIST: 'https://127.0.0.1:2999/liveclientdata/playerlist',
-    PLAYER_SCORES: 'https://127.0.0.1:2999/liveclientdata/playerscores?summonerName=${summonerName}',
-    PLAYER_SUMMONER_SPELLS: 'https://127.0.0.1:2999/liveclientdata/playersummonerspells?summonerName=${summonerName}',
-    PLAYER_RUNES: 'https://127.0.0.1:2999/liveclientdata/playermainrunes?summonerName=${summonerName}',
-    PLAYER_ITEMS: 'https://127.0.0.1:2999/liveclientdata/playeritems?summonerName=${summonerName}',
+    PLAYER_SCORES: 'https://127.0.0.1:2999/liveclientdata/playerscores?riotId=${gameName}#${tagLine}',
+    PLAYER_SUMMONER_SPELLS: 'https://127.0.0.1:2999/liveclientdata/playersummonerspells?riotId=${gameName}#${tagLine}',
+    PLAYER_RUNES: 'https://127.0.0.1:2999/liveclientdata/playermainrunes?riotId=${gameName}#${tagLine}',
+    PLAYER_ITEMS: 'https://127.0.0.1:2999/liveclientdata/playeritems?riotId=${gameName}#${tagLine}',
     EVENTS: 'https://127.0.0.1:2999/liveclientdata/eventdata',
     GAME_STATS: 'https://127.0.0.1:2999/liveclientdata/gamestats',
 };

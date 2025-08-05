@@ -12,7 +12,7 @@ const BaseAction = TakesBody(
     ),
 );
 
-export default class PostProviders extends BaseAction<string[]> {
+export default class PostProviders extends BaseAction<number> {
     constructor(submodules: SubmoduleMap, stub: boolean) {
         super(submodules);
         this.payload.endpoint = stub ? ENDPOINTS.TOURNAMENT_STUB.PROVIDERS : ENDPOINTS.TOURNAMENT.PROVIDERS;

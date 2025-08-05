@@ -1,19 +1,15 @@
 import Action from '../../action';
 import { ENDPOINTS, LeagueRegion } from '../../../../riot-api';
 import SubmoduleMap from '../../../interfaces/submodule-map';
-import { TakesRegion, TakesPUUID } from '../../mixins';
+import { FeaturedGamesDTO } from '../../../interfaces/dto';
+import { TakesRegion } from '../../mixins';
 
-const BaseAction = TakesPUUID(
-    TakesRegion(
-        {} as LeagueRegion,
-        Action,
-    ),
-);
+const BaseAction = TakesRegion({} as LeagueRegion, Action);
 
-export default class GetMasteryScore extends BaseAction<number> {
+export default class GetTFTFeaturedGames extends BaseAction<FeaturedGamesDTO> {
     constructor(submodules: SubmoduleMap) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.CHAMPION_MASTERY.SCORE;
+        this.payload.endpoint = ENDPOINTS.TFT_SPECTATOR.FEATURED;
         this.payload.type = 'lol';
         this.payload.method = 'GET';
     }

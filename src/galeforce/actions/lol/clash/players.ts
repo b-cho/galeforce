@@ -2,9 +2,9 @@ import Action from '../../action';
 import { PlayerDTO } from '../../../interfaces/dto';
 import { ENDPOINTS, LeagueRegion } from '../../../../riot-api';
 import SubmoduleMap from '../../../interfaces/submodule-map';
-import { TakesSummonerId, TakesRegion } from '../../mixins';
+import { TakesPUUID, TakesRegion } from '../../mixins';
 
-const BaseAction = TakesSummonerId(
+const BaseAction = TakesPUUID(
     TakesRegion(
         {} as LeagueRegion,
         Action,

@@ -30,16 +30,16 @@ interface Team {
 }
 
 interface Objectives {
-  baron: Baron;
-  champion: Baron;
-  dragon: Baron;
-  horde: Baron;
-  inhibitor: Baron;
-  riftHerald: Baron;
-  tower: Baron;
+  baron: Objective;
+  champion: Objective;
+  dragon: Objective;
+  horde: Objective;
+  inhibitor: Objective;
+  riftHerald: Objective;
+  tower: Objective;
 }
 
-interface Baron {
+interface Objective {
   first: boolean;
   kills: number;
 }

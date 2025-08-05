@@ -12,9 +12,9 @@ const BaseAction = TakesPUUID(
 );
 
 export default class GetValorantMatchlist extends BaseAction<ValMatchlistDTO> {
-    constructor(submodules: SubmoduleMap) {
+    constructor(submodules: SubmoduleMap, console: boolean) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.VAL_MATCH.MATCHLIST;
+        this.payload.endpoint = console ? ENDPOINTS.VAL_CONSOLE_MATCH.MATCHLIST : ENDPOINTS.VAL_MATCH.MATCHLIST;
         this.payload.type = 'val';
         this.payload.method = 'GET';
     }

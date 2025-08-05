@@ -1,20 +1,20 @@
 import Action from '../../action';
-import { ChampionMasteryDTO } from '../../../interfaces/dto';
 import { ENDPOINTS, LeagueRegion } from '../../../../riot-api';
 import SubmoduleMap from '../../../interfaces/submodule-map';
-import { TakesRegion, TakesSummonerId } from '../../mixins';
+import { CurrentGameInfoDTO } from '../../../interfaces/dto';
+import { TakesRegion, TakesPUUID } from '../../mixins';
 
-const BaseAction = TakesSummonerId(
+const BaseAction = TakesPUUID(
     TakesRegion(
         {} as LeagueRegion,
         Action,
     ),
 );
 
-export default class GetMasteryList extends BaseAction<ChampionMasteryDTO[]> {
+export default class GetTFTCurrentGameInfo extends BaseAction<CurrentGameInfoDTO> {
     constructor(submodules: SubmoduleMap) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.CHAMPION_MASTERY.LIST;
+        this.payload.endpoint = ENDPOINTS.TFT_SPECTATOR.PUUID;
         this.payload.type = 'lol';
         this.payload.method = 'GET';
     }

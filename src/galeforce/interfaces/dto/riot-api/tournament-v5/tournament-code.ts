@@ -36,16 +36,17 @@ export interface TournamentCodeDTO {
 }
 
 export interface TournamentCodeParameters {
-    allowedSummonerIds: string[];
+    allowedParticipants: string[];
     metadata: string;
     teamSize: TeamSize;
     pickType: PickType;
     mapType: MapType;
     spectatorType: SpectatorType;
+    enoughPlayers: boolean;
 }
 
 export interface TournamentCodeUpdateParameters {
-    allowedSummonerIds: string[];
+    allowedParticipants: string[];
     pickType: PickType;
     mapType: MapType;
     spectatorType: SpectatorType;

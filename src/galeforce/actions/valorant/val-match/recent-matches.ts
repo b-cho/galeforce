@@ -13,9 +13,9 @@ const BaseAction = TakesQueue(
 );
 
 export default class GetValorantRecentMatches extends BaseAction<ValRecentMatchesDTO> {
-    constructor(submodules: SubmoduleMap) {
+    constructor(submodules: SubmoduleMap, console: boolean) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.VAL_MATCH.RECENT;
+        this.payload.endpoint = console ? ENDPOINTS.VAL_CONSOLE_MATCH.RECENT : ENDPOINTS.VAL_MATCH.RECENT;
         this.payload.type = 'val';
         this.payload.method = 'GET';
     }

@@ -10,5 +10,9 @@ enum ValorantQueue {
     SPIKE_RUSH = 'spikerush',
 }
 
-type Queue = LeagueQueue | ValorantQueue;
-export { LeagueQueue, ValorantQueue, Queue };
+enum TFTQueue {
+    TURBO = 'RANKED_TFT_TURBO',
+}
+
+type Queue = LeagueQueue | ValorantQueue | TFTQueue;
+export { LeagueQueue, ValorantQueue, TFTQueue, Queue };

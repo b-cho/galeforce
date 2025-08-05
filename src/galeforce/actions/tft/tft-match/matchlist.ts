@@ -5,6 +5,9 @@ import { TakesPUUID, TakesQuery, TakesRegion } from '../../mixins';
 
 type GetTFTMatchlistQuery = {
     count?: number;
+    start?: number;
+    startTime?: number;
+    endTime?: number;
 }
 
 const BaseAction = TakesPUUID(

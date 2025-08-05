@@ -1,10 +1,8 @@
 import Action from '../../action';
-import { SummonerDTO } from '../../../interfaces/dto';
+import { ChampionMasteryDTO } from '../../../interfaces/dto';
 import { ENDPOINTS, LeagueRegion } from '../../../../riot-api';
 import SubmoduleMap from '../../../interfaces/submodule-map';
-import {
-    TakesPUUID, TakesRegion
-} from '../../mixins';
+import { TakesRegion, TakesPUUID } from '../../mixins';
 
 const BaseAction = TakesPUUID(
     TakesRegion(
@@ -13,10 +11,10 @@ const BaseAction = TakesPUUID(
     ),
 );
 
-export default class GetSummoner extends BaseAction<SummonerDTO> {
+export default class GetMasteryList extends BaseAction<ChampionMasteryDTO[]> {
     constructor(submodules: SubmoduleMap) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.SUMMONER.PUUID;
+        this.payload.endpoint = ENDPOINTS.CHAMPION_MASTERY.LIST;
         this.payload.type = 'lol';
         this.payload.method = 'GET';
     }

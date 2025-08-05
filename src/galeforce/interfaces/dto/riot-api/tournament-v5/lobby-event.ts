@@ -1,7 +1,7 @@
 interface LobbyEventDTO {
     timestamp: string;
     eventType: string;
-    summonerId: string | null;
+    puuid: string | null;
 }
 
 export interface LobbyEventDTOWrapper {

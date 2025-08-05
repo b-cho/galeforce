@@ -12,9 +12,9 @@ const BaseAction = TakesMatchId(
 );
 
 export default class GetValorantMatch extends BaseAction<ValMatchDTO> {
-    constructor(submodules: SubmoduleMap) {
+    constructor(submodules: SubmoduleMap, console: boolean) {
         super(submodules);
-        this.payload.endpoint = ENDPOINTS.VAL_MATCH.MATCH;
+        this.payload.endpoint = console ? ENDPOINTS.VAL_CONSOLE_MATCH.MATCH : ENDPOINTS.VAL_MATCH.MATCH;
         this.payload.type = 'val';
         this.payload.method = 'GET';
     }

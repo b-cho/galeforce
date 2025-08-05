@@ -6,6 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ***
 
+### \[0.7.0] (2025-08-04)
+
+#### Added
+
+*   Add support for `tft-spectator-v5` and `tft-status-v1` under **`galeforce.tft.spectator`** and **`galeforce.tft.status`**, respectively
+*   Add support for `val-console` endpoints under the existing `galeforce.val.match` and `galeforce.val.ranked` endpoints
+    *   Accessible by passing in `true` to the action constructor
+    > ```typescript
+    > const list = await galeforce.val.match.list(true) // access val-console endpoints
+    >   ...
+    > ```
+*   Include top champion mastery entries endpoint under **`galeforce.lol.mastery.top`**
+
+#### Changed
+
+*   Update DTOs corresponding to `spectator-v5`, `tft-league-v1`, and `tournament-v5` endpoints to match current API specifications.
+*   Update enums to include new tiers (`galeforce.tier.EMERALD`)
+*   Expose new TFTQueue object at top-level under **`galeforce.queue.tft`**
+*   Update `galeforce.lol.tournament` to be compatible with `tournament-v5`
+
+#### Removed
+
+*   **\[breaking]** Remove support for ~~`.summonerId()`~~, ~~`.accountId()`~~, and ~~`.summonerName()`~~ mixins following Riot's decision to [deprecate](https://developer.riotgames.com/docs/lol#summoner-names-to-riot-ids) these fields in November 2023. All endpoints should now take encrypted PUUIDs.
+
+
 ### \[0.6.1] (2023-01-13)
 
 #### Added
