@@ -167,6 +167,12 @@ interface Data {
         tags: string[];
         maps: Maps;
         stats: StatsOptional;
+        consumed?: boolean;
+        consumeOnFull?: boolean;
+        inStore?: boolean;
+        from?: string[];
+        requiredAlly?: string;
+        depth?: number;
     };
 }
 
