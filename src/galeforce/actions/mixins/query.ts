@@ -1,4 +1,4 @@
-import { Constructor, Executable } from './executable';
+import { Constructor, Executable, MixinResult } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.query()` method.
@@ -17,7 +17,7 @@ export interface QueryChainable<TQuery extends object = object> {
  * @param Base The target class.
  */
 export function TakesQuery<TQuery extends object, TBase extends Constructor>(type: TQuery, Base: TBase) {
-    return class extends Base implements QueryChainable<TQuery> {
+    class MixinClass extends (Base as Constructor)<any> implements QueryChainable<TQuery> {
         /**
          * Modifies the **query** associated with the Action object it is called from.
          * @param query The request query to update the calling Action object with.
@@ -27,5 +27,7 @@ export function TakesQuery<TQuery extends object, TBase extends Constructor>(typ
             this.query = undefined;
             return this;
         }
-    };
+    }
+
+    return MixinClass as unknown as MixinResult<TBase, QueryChainable<TQuery>>;
 }

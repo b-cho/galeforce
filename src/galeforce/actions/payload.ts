@@ -1,8 +1,8 @@
 import debug from 'debug';
 import chalk from 'chalk';
 import {
-    Region, Queue, Tier, Division, Game, DataDragonRegion,
-    LeagueRegion, ValorantRegion, RiotRegion, LeagueQueue, ValorantQueue, LorRegion,
+    Region, Queue, Tier, Division, ShardGame, DataDragonRegion,
+    LeagueRegion, ValorantRegion, RiotRegion, LeagueQueue, ValorantQueue, TFTQueue, LorRegion, RegionGame,
 } from '../../riot-api';
 
 const payloadDebug = debug('galeforce:payload');
@@ -30,7 +30,8 @@ export type Payload = { // Payload keys and corresponding valid types
     division?: Division;
     gameName?: string;
     tagLine?: string;
-    game?: Game;
+    game?: ShardGame;
+    regionGame?: RegionGame;
     actId?: string;
     version?: string;
     locale?: string;
@@ -52,7 +53,7 @@ const payloadKeys: (keyof Payload)[] = [ // List of all valid keys for the paylo
     'region', 'summonerId', 'accountId', 'puuid', 'summonerName',
     'matchId', 'teamId', 'tournamentId', 'tournamentCode', 'championId',
     'leagueId', 'queue', 'tier', 'division', 'gameName', 'tagLine',
-    'game', 'actId', 'version', 'locale', 'champion', 'skin', 'spell',
+    'game', 'regionGame', 'actId', 'version', 'locale', 'champion', 'skin', 'spell',
     'assetId', 'assetPath', 'lorSet', 'lorRegion', 'card', 'challengeId',
 ];
 
@@ -97,7 +98,11 @@ export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(paylo
         }
 
         case 'queue': // Queue check in case types are not followed
-            if (target.type === 'lol' && !Object.values(LeagueQueue).includes(value as LeagueQueue)) {
+            // Note that the TFT endpoints also use the 'lol' payload type (they share the
+            // League regions), so TFT queues are valid here as well.
+            if (target.type === 'lol'
+                && !Object.values(LeagueQueue).includes(value as LeagueQueue)
+                && !Object.values(TFTQueue).includes(value as TFTQueue)) {
                 throw new Error('[galeforce]: Invalid /lol queue type provided.');
             } else if (target.type === 'val' && !Object.values(ValorantQueue).includes(value as ValorantQueue)) {
                 throw new Error('[galeforce]: Invalid /val queue type provided.');
@@ -113,8 +118,13 @@ export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(paylo
                 throw new Error('[galeforce]: Invalid ranked division provided.');
             }
             break;
-        case 'game': // Game check in case types are not followed
-            if (!Object.values(Game).includes(value as Game)) {
+        case 'game': // Game check for the account-v1 active shard endpoint
+            if (!Object.values(ShardGame).includes(value as ShardGame)) {
+                throw new Error('[galeforce]: Invalid game provided.');
+            }
+            break;
+        case 'regionGame': // Game check for the account-v1 active region endpoint
+            if (!Object.values(RegionGame).includes(value as RegionGame)) {
                 throw new Error('[galeforce]: Invalid game provided.');
             }
             break;

@@ -1,6 +1,12 @@
-const chai = require('chai');
-const nock = require('nock');
-const chaiAsPromised = require('chai-as-promised');
+import * as chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import nock from 'nock';
+import { createRequire } from 'module';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const require = createRequire(import.meta.url);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 chai.use(chaiAsPromised);
 const { expect } = chai;
@@ -21,6 +27,7 @@ const GaleforceNull = new GaleforceModule({
 });
 
 // Set up nock
+nock.disableNetConnect();
 const replyValues = {
     v5: {
         match: {
@@ -28,6 +35,24 @@ const replyValues = {
             timeline: require('./test-data/v5.match.timeline.by-match.json'),
             matchlist: require('./test-data/v5.match.matchlist.by-puuid.json'),
             matchlistFiltered: require('./test-data/v5.match.matchlist.by-puuid.filtered.json'),
+            // Captured from the live match-v5 API. Presigned S3 query parameters have been
+            // stripped from the replay URLs, as they expire and carry request credentials.
+            replays: require('./test-data/v5.match.replays.json'),
+        },
+        riftbound: {
+            // Placeholder fixture: sample values that satisfy the published riftbound-content-v1
+            // RiftboundContentDTO schema. This is NOT a captured API response — the endpoint
+            // returns HTTP 403 for development keys. Replace it with a real response once a key
+            // with Riftbound access is available.
+            contents: require('./test-data/v1.riftbound-content.contents.json'),
+        },
+        spectator: {
+            active: require('./test-data/v5.spectator.active.json'),
+            featured: require('./test-data/v5.spectator.featured.json'),
+        },
+        tournament: {
+            events: require('./test-data/v5.tournament.lobby-events.json'),
+            codes: require('./test-data/v5.tournament.codes.json'),
         },
     },
     v4: {
@@ -45,16 +70,10 @@ const replyValues = {
             bySummonerId: require('./test-data/v4.champion-mastery.by-summoner.json'),
             byChampionId: require('./test-data/v4.champion-mastery.by-summoner.by-champion.json'),
             score: require('./test-data/v4.champion-mastery.by-summoner.score.json'),
+            // Captured from the live champion-mastery-v4 API.
+            top: require('./test-data/v4.champion-mastery.by-summoner.top.json'),
         },
         status: require('./test-data/v4.lol-status.platform-data.json'),
-        spectator: {
-            active: require('./test-data/v4.spectator.active.json'),
-            featured: require('./test-data/v4.spectator.featured.json'),
-        },
-        tournament: {
-            events: require('./test-data/v4.tournament.lobby-events.json'),
-            codes: require('./test-data/v4.tournament.codes.json'),
-        },
     },
     v3: {
         champion: require('./test-data/v3.champion.champion-rotations.json'),
@@ -84,6 +103,8 @@ const replyValues = {
         account: {
             account: require('./test-data/v1.account.accounts.json'),
             activeShard: require('./test-data/v1.account.active-shards.json'),
+            // Captured from the live account-v1 API.
+            activeRegion: require('./test-data/v1.account.active-region.json'),
         },
         lorMatch: {
             match: require('./test-data/v1.lor-match.match.json'),
@@ -102,6 +123,9 @@ const replyValues = {
             grandmaster: require('./test-data/v1.tft-league.grandmaster.json'),
             challenger: require('./test-data/v1.tft-league.challenger.json'),
             diamondIV: require('./test-data/v1.tft-league.diamond4.json'),
+            // Captured from the live tft-league-v1 API (RANKED_TFT_TURBO currently has no
+            // rated ladder, so the real response is an empty array).
+            topRatedLadder: require('./test-data/v1.tft-league.top-rated-ladder-entry.json'),
         },
         tftMatch: {
             match: require('./test-data/v1.tft-match.match.json'),
@@ -142,23 +166,17 @@ const replyValues = {
 
 const na1API = nock('https://na1.api.riotgames.com')
     .persist()
-    .get('/lol/summoner/v4/summoners/by-name/SSG%20Xayah')
-    .reply(200, replyValues.v4.summoner)
-    .get('/lol/summoner/v4/summoners/by-name/429')
+    .get('/lol/summoner/v4/summoners/by-puuid/429')
     .reply(429, {}, { 'retry-after': 5 })
-    .get('/lol/summoner/v4/summoners/by-name/404')
+    .get('/lol/summoner/v4/summoners/by-puuid/404')
     .reply(404)
-    .get('/lol/summoner/v4/summoners/by-name/403')
+    .get('/lol/summoner/v4/summoners/by-puuid/403')
     .reply(403)
-    .get('/lol/summoner/v4/summoners/by-name/401')
+    .get('/lol/summoner/v4/summoners/by-puuid/401')
     .reply(401)
-    .get('/lol/summoner/v4/summoners/l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w')
-    .reply(200, replyValues.v4.summoner)
-    .get('/lol/summoner/v4/summoners/by-account/xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4')
-    .reply(200, replyValues.v4.summoner)
     .get('/lol/summoner/v4/summoners/by-puuid/jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g')
     .reply(200, replyValues.v4.summoner)
-    .get('/lol/league/v4/entries/by-summoner/l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w')
+    .get('/lol/league/v4/entries/by-puuid/1ROEyykCT6G9qmzvTBqsfOlcbgZO0n2tvxyhxfv_jqDVdQZa1T6ErOx0SZzgWBU61dP4gs0xdu77pQ')
     .reply(200, replyValues.v4.league.entriesBySummonerId)
     .get('/lol/league/v4/masterleagues/by-queue/RANKED_SOLO_5x5')
     .reply(200, replyValues.v4.league.master)
@@ -172,13 +190,11 @@ const na1API = nock('https://na1.api.riotgames.com')
     .reply(200, replyValues.v4.league.diamondIV)
     .get('/lol/league-exp/v4/entries/RANKED_SOLO_5x5/MASTER/I')
     .reply(200, replyValues.v4.league.masterExp)
-    .get('/lol/league/v4/leagues/df776d6f-4101-4817-a36d-689a4be85887')
-    .reply(200, replyValues.v4.league.league)
-    .get('/lol/champion-mastery/v4/champion-masteries/by-summoner/l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w')
+    .get('/lol/champion-mastery/v4/champion-masteries/by-puuid/1ROEyykCT6G9qmzvTBqsfOlcbgZO0n2tvxyhxfv_jqDVdQZa1T6ErOx0SZzgWBU61dP4gs0xdu77pQ')
     .reply(200, replyValues.v4.championMastery.bySummonerId)
-    .get('/lol/champion-mastery/v4/champion-masteries/by-summoner/l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w/by-champion/498')
+    .get('/lol/champion-mastery/v4/champion-masteries/by-puuid/1ROEyykCT6G9qmzvTBqsfOlcbgZO0n2tvxyhxfv_jqDVdQZa1T6ErOx0SZzgWBU61dP4gs0xdu77pQ/by-champion/92')
     .reply(200, replyValues.v4.championMastery.byChampionId)
-    .get('/lol/champion-mastery/v4/scores/by-summoner/l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w')
+    .get('/lol/champion-mastery/v4/scores/by-puuid/1ROEyykCT6G9qmzvTBqsfOlcbgZO0n2tvxyhxfv_jqDVdQZa1T6ErOx0SZzgWBU61dP4gs0xdu77pQ')
     .reply(200, replyValues.v4.championMastery.score)
     .get('/lol/status/v4/platform-data')
     .reply(200, replyValues.v4.status)
@@ -190,7 +206,7 @@ const na1API = nock('https://na1.api.riotgames.com')
     .reply(200, replyValues.v1.clash.tournaments.byTournament)
     .get('/lol/clash/v1/tournaments/by-team/971374dd-d9bd-4ff9-a06d-b21044ba0c92')
     .reply(200, replyValues.v1.clash.tournaments.byTeam)
-    .get('/lol/clash/v1/players/by-summoner/l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w')
+    .get('/lol/clash/v1/players/by-puuid/1ROEyykCT6G9qmzvTBqsfOlcbgZO0n2tvxyhxfv_jqDVdQZa1T6ErOx0SZzgWBU61dP4gs0xdu77pQ')
     .reply(200, replyValues.v1.clash.players)
     .get('/lol/clash/v1/teams/971374dd-d9bd-4ff9-a06d-b21044ba0c92')
     .reply(200, replyValues.v1.clash.team)
@@ -206,12 +222,14 @@ const na1API = nock('https://na1.api.riotgames.com')
     .reply(200, replyValues.v1.challenges.leaderboard)
     .get('/lol/challenges/v1/player-data/jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g')
     .reply(200, replyValues.v1.challenges.playerData)
-    .get('/lol/spectator/v4/active-games/by-summoner/W0UKG702c2bD7rwhOqZAn-pQ0ggk27_M0WMEVkPDodr-I-g')
-    .reply(200, replyValues.v4.spectator.active)
-    .get('/lol/spectator/v4/featured-games')
-    .reply(200, replyValues.v4.spectator.featured)
-    .get('/tft/league/v1/entries/by-summoner/fOD4gGvxJG-_Bfcj7tqmHxYKAmbtOqoZrMz-Dk0ayGXulb7x')
+    .get('/lol/spectator/v5/active-games/by-summoner/W0UKG702c2bD7rwhOqZAn-pQ0ggk27_M0WMEVkPDodr-I-g')
+    .reply(200, replyValues.v5.spectator.active)
+    .get('/tft/league/v1/by-puuid/jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g')
     .reply(200, replyValues.v1.tftLeague.entriesBySummonerId)
+    .get('/lol/champion-mastery/v4/champion-masteries/by-puuid/1ROEyykCT6G9qmzvTBqsfOlcbgZO0n2tvxyhxfv_jqDVdQZa1T6ErOx0SZzgWBU61dP4gs0xdu77pQ/top')
+    .reply(200, replyValues.v4.championMastery.top)
+    .get('/tft/league/v1/rated-ladders/RANKED_TFT_TURBO/top')
+    .reply(200, replyValues.v1.tftLeague.topRatedLadder)
     .get('/tft/league/v1/challenger')
     .reply(200, replyValues.v1.tftLeague.challenger)
     .get('/tft/league/v1/grandmaster')
@@ -222,14 +240,6 @@ const na1API = nock('https://na1.api.riotgames.com')
     .reply(200, replyValues.v1.tftLeague.diamondIV)
     .get('/tft/league/v1/entries/GOLD/IV?page=3')
     .reply(200, replyValues.v1.tftLeague.diamondIV)
-    .get('/tft/league/v1/leagues/560312d9-a701-411c-b63c-474fdf46ea52')
-    .reply(200, replyValues.v1.tftLeague.league)
-    .get('/tft/summoner/v1/summoners/by-name/SSG%20Xayah')
-    .reply(200, replyValues.v1.tftSummoner)
-    .get('/tft/summoner/v1/summoners/l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w')
-    .reply(200, replyValues.v1.tftSummoner)
-    .get('/tft/summoner/v1/summoners/by-account/xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4')
-    .reply(200, replyValues.v1.tftSummoner)
     .get('/tft/summoner/v1/summoners/by-puuid/jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g')
     .reply(200, replyValues.v1.tftSummoner);
 
@@ -238,6 +248,14 @@ const americasAPI = nock('https://americas.api.riotgames.com')
     .reply(200, replyValues.v1.account.account)
     .get('/riot/account/v1/accounts/by-riot-id/SSG%20Xayah/NA1')
     .reply(200, replyValues.v1.account.account)
+    .get('/riot/account/v1/region/by-game/lol/by-puuid/1ROEyykCT6G9qmzvTBqsfOlcbgZO0n2tvxyhxfv_jqDVdQZa1T6ErOx0SZzgWBU61dP4gs0xdu77pQ')
+    .reply(200, replyValues.v1.account.activeRegion)
+    .get('/riftbound/content/v1/contents')
+    .reply(200, replyValues.v5.riftbound.contents)
+    .get('/lol/match/v5/matches/by-puuid/1ROEyykCT6G9qmzvTBqsfOlcbgZO0n2tvxyhxfv_jqDVdQZa1T6ErOx0SZzgWBU61dP4gs0xdu77pQ/replays')
+    .reply(200, replyValues.v5.match.replays)
+    .get('/lol/tournament-stub/v5/codes/5678')
+    .reply(200, replyValues.v5.tournament.codes)
     .get('/riot/account/v1/active-shards/by-game/val/by-puuid/jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g')
     .reply(200, replyValues.v1.account.activeShard)
     .get('/lor/match/v1/matches/by-puuid/jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g/ids')
@@ -262,19 +280,19 @@ const americasAPI = nock('https://americas.api.riotgames.com')
     .reply(200, replyValues.v5.match.matchlist)
     .get('/lol/match/v5/matches/by-puuid/jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g/ids?startTime=0&endTime=0&queue=420&type=ranked&start=0&count=1')
     .reply(200, replyValues.v5.match.matchlistFiltered)
-    .get('/lol/tournament/v4/lobby-events/by-code/1234')
-    .reply(200, replyValues.v4.tournament.events)
-    .post('/lol/tournament/v4/providers', {
+    .get('/lol/tournament/v5/lobby-events/by-code/1234')
+    .reply(200, replyValues.v5.tournament.events)
+    .post('/lol/tournament/v5/providers', {
         region: 'NA',
         url: 'https://example.com',
     })
     .reply(200, 1)
-    .post('/lol/tournament/v4/tournaments', {
+    .post('/lol/tournament/v5/tournaments', {
         providerId: 10,
         name: 'name',
     })
     .reply(200, 2)
-    .post('/lol/tournament/v4/codes?tournamentId=1234', {
+    .post('/lol/tournament/v5/codes?tournamentId=1234', {
         allowedSummonerIds: ['a', 'b', 'c'],
         metadata: '',
         teamSize: 5,
@@ -283,28 +301,28 @@ const americasAPI = nock('https://americas.api.riotgames.com')
         spectatorType: 'NONE',
     })
     .reply(200, ['a', 'b'])
-    .put('/lol/tournament/v4/codes/1234', {
+    .put('/lol/tournament/v5/codes/1234', {
         allowedSummonerIds: ['a', 'b', 'c'],
         pickType: 'TOURNAMENT_DRAFT',
         mapType: 'SUMMONERS_RIFT',
         spectatorType: 'NONE',
     })
     .reply(200)
-    .get('/lol/tournament/v4/codes/1234')
-    .reply(200, replyValues.v4.tournament.codes)
-    .get('/lol/tournament-stub/v4/lobby-events/by-code/5678')
-    .reply(200, replyValues.v4.tournament.events)
-    .post('/lol/tournament-stub/v4/providers', {
+    .get('/lol/tournament/v5/codes/1234')
+    .reply(200, replyValues.v5.tournament.codes)
+    .get('/lol/tournament-stub/v5/lobby-events/by-code/5678')
+    .reply(200, replyValues.v5.tournament.events)
+    .post('/lol/tournament-stub/v5/providers', {
         region: 'NA',
         url: 'https://example.com',
     })
     .reply(200, 3)
-    .post('/lol/tournament-stub/v4/tournaments', {
+    .post('/lol/tournament-stub/v5/tournaments', {
         providerId: 10,
         name: 'name',
     })
     .reply(200, 4)
-    .post('/lol/tournament-stub/v4/codes?tournamentId=1234', {
+    .post('/lol/tournament-stub/v5/codes?tournamentId=1234', {
         allowedSummonerIds: ['a', 'b', 'c'],
         metadata: '',
         teamSize: 5,
@@ -403,13 +421,13 @@ const gameClientAPI = nock('https://127.0.0.1:2999')
     .reply(200, replyValues.gc.activePlayer.fullRunes)
     .get('/liveclientdata/playerlist')
     .reply(200, replyValues.gc.allPlayers)
-    .get('/liveclientdata/playerscores?summonerName=SSG%20Xayah')
+    .get('/liveclientdata/playerscores?riotId=SSG%20Xayah')
     .reply(200, replyValues.gc.allPlayers[0].scores)
-    .get('/liveclientdata/playersummonerspells?summonerName=SSG%20Xayah')
+    .get('/liveclientdata/playersummonerspells?riotId=SSG%20Xayah')
     .reply(200, replyValues.gc.allPlayers[0].summonerSpells)
-    .get('/liveclientdata/playermainrunes?summonerName=SSG%20Xayah')
+    .get('/liveclientdata/playermainrunes?riotId=SSG%20Xayah')
     .reply(200, replyValues.gc.allPlayers[0].runes)
-    .get('/liveclientdata/playeritems?summonerName=SSG%20Xayah')
+    .get('/liveclientdata/playeritems?riotId=SSG%20Xayah')
     .reply(200, replyValues.gc.allPlayers[0].items)
     .get('/liveclientdata/eventdata')
     .reply(200, replyValues.gc.events)
@@ -466,88 +484,72 @@ describe('/galeforce/actions', () => {
     });
     describe('payload checks', () => {
         it('should not set a non-existent field', () => {
-            expect(() => {
-                let action = new Action();
-                action.payload['invalid'] = true;
-                if (typeof action.payload.invalid !== 'undefined') throw new Error('invalid field present!');
-            }).to.not.throw();
+            const action = new Action();
+            // The payload proxy rejects unknown keys. Note that these spec files are ES modules,
+            // which are always in strict mode, so the rejected assignment throws a TypeError
+            // rather than failing silently.
+            expect(() => { action.payload.invalid = true; }).to.throw(TypeError);
+            expect(action.payload.invalid).to.be.undefined;
         });
     });
     describe('galeforce', () => {
         describe('.lol', () => {
             describe('.summoner()', () => {
-                describe('.name()', () => {
-                    it('should return correct JSON for the /lol/summoner/v4/summoners/by-name Riot API endpoint', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).name('SSG Xayah').exec())
-                        .to.eventually.deep.equal(replyValues.v4.summoner));
+                describe('.puuid()', () => {
                     it('should throw when provided an invalid region', () => expect(() => Galeforce.lol.summoner().region(Galeforce.region.riot.AMERICAS))
                         .to.throw('[galeforce]: Invalid /lol region provided.'));
                     it('should throw when .region() is called twice', () => expect(() => Galeforce.lol.summoner().region(Galeforce.region.riot.AMERICAS).region(Galeforce.region.riot.ASIA))
                         .to.throw());
-                    it('should throw when not provided a region', () => expect(Galeforce.lol.summoner().name('SSG Xayah').exec())
+                    it('should throw when not provided a region', () => expect(Galeforce.lol.summoner().puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
                         .to.eventually.be.rejectedWith('[galeforce]: Action payload region is required but undefined.'));
-                    it('should reject with correct error message when receiving a 404 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).name('404').exec())
+                    it('should reject with correct error message when receiving a 404 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).puuid('404').exec())
                         .to.eventually.be.rejectedWith('[galeforce]: Data fetch failed with status code 404'));
                     it('should retry on timer and not throw when response rate limit exceeded', () => new Promise((resolve, reject) => {
                         const autoTimeout = setTimeout(resolve, 500);
-                        Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).name('429').exec()
+                        Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).puuid('429').exec()
                             .then(() => {
                                 clearTimeout(autoTimeout);
                                 reject(new Error('Rate limiting failed!'));
                             });
                     }));
-                    it('should reject with correct error message when receiving a 403 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).name('403').exec())
+                    it('should reject with correct error message when receiving a 403 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).puuid('403').exec())
                         .to.eventually.be.rejectedWith('[galeforce]: The provided Riot API key is invalid or has expired. Please verify its authenticity. (403 Forbidden)'));
-                    it('should reject with correct error message when receiving a 403 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).name('401').exec())
+                    it('should reject with correct error message when receiving a 401 status code', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).puuid('401').exec())
                         .to.eventually.be.rejectedWith('[galeforce]: No Riot API key was provided. Please ensure that your key is present in your configuration file or object. (401 Unauthorized)'));
                     it('should timeout when interval rate limit exceeded', () => new Promise((resolve, reject) => {
                         const GaleforceRL = new GaleforceModule('./test/test-configs/1.yaml');
                         const autoTimeout = setTimeout(resolve, 500);
-                        GaleforceRL.lol.summoner().region(GaleforceRL.region.lol.NORTH_AMERICA).name('SSG Xayah').exec()
+                        GaleforceRL.lol.summoner().region(GaleforceRL.region.lol.NORTH_AMERICA).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec()
                             .then(() => {
                                 clearTimeout(autoTimeout);
                                 reject(new Error('Rate limiting failed!'));
                             });
                     }));
-                    it('should work with the null rate limiter', () => expect(GaleforceNull.lol.summoner().region(GaleforceNull.region.lol.NORTH_AMERICA).name('SSG Xayah').exec())
+                    it('should work with the null rate limiter', () => expect(GaleforceNull.lol.summoner().region(GaleforceNull.region.lol.NORTH_AMERICA).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
                         .to.eventually.deep.equal(replyValues.v4.summoner));
-                    it('should return correct the correct URL for the /lol/summoner/v4/summoners/by-name Riot API endpoint with the .URL() method', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).name('SSG Xayah').URL())
-                        .to.equal('https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/SSG%20Xayah'));
+                    it('should return correct the correct URL for the /lol/summoner/v4/summoners/by-puuid Riot API endpoint with the .URL() method', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').URL())
+                        .to.equal('https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g'));
                     describe('.set()', () => {
-                        it('should return correct JSON for the /lol/summoner/v4/summoners/by-name Riot API endpoint', () => expect(Galeforce.lol.summoner().set({
-                            summonerName: 'SSG Xayah',
+                        it('should return correct JSON for the /lol/summoner/v4/summoners/by-puuid Riot API endpoint', () => expect(Galeforce.lol.summoner().set({
+                            puuid: 'jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g',
                             region: Galeforce.region.lol.NORTH_AMERICA,
                             fakeProperty: null,
                         }).exec())
                         .to.eventually.deep.equal(replyValues.v4.summoner));
                     });
-                });
-                describe('.accountId()', () => {
-                    it('should return correct JSON for the /lol/summoner/v4/summoners/by-account Riot API endpoint', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).accountId('xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4').exec())
-                        .to.eventually.deep.equal(replyValues.v4.summoner));
-                    it('should throw when provided an invalid accountId (length check)', () => expect(() => Galeforce.lol.summoner().accountId('X'.repeat(100)))
-                        .to.throw('[galeforce]: accountId is invalid according to Riot specifications (length > 56).'));
-                    it('should throw when provided an invalid accountId (type check)', () => expect(() => Galeforce.lol.summoner().accountId(5))
-                        .to.throw('[galeforce]: accountId must be a string.'));
-                });
-                describe('.summonerId()', () => {
-                    it('should return correct JSON for the /lol/summoner/v4/summoners Riot API endpoint', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
-                        .to.eventually.deep.equal(replyValues.v4.summoner));
-                    it('should throw when provided an invalid summonerId (length check)', () => expect(() => Galeforce.lol.summoner().summonerId('X'.repeat(100)))
-                        .to.throw('[galeforce]: summonerId is invalid according to Riot specifications (length > 63).'));
-                });
-                describe('.puuid()', () => {
+
                     it('should return correct JSON for the /lol/summoner/v4/summoners/by-puuid Riot API endpoint', () => expect(Galeforce.lol.summoner().region(Galeforce.region.lol.NORTH_AMERICA).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
                         .to.eventually.deep.equal(replyValues.v4.summoner));
                     it('should throw when provided an invalid puuid (length check)', () => expect(() => Galeforce.lol.summoner().puuid('X'.repeat(100)))
                         .to.throw('[galeforce]: puuid is invalid according to Riot specifications (length > 78).'));
                 });
-                it('should throw when not provided enough parameters to specify endpoint', () => expect(Galeforce.lol.summoner().exec())
-                    .to.eventually.be.rejectedWith('[galeforce]: Not enough parameters provided to select API endpoint.'));
+                it('should throw when not provided a region', () => expect(Galeforce.lol.summoner().exec())
+                    .to.eventually.be.rejectedWith('[galeforce]: Action payload region is required but undefined.'));
             });
             describe('.league', () => {
                 describe('.entries()', () => {
-                    describe('.summonerId()', () => {
-                        it('should return correct JSON for the /lol/league/v4/entries/by-summoner Riot API endpoint', () => expect(Galeforce.lol.league.entries().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                    describe('.puuid()', () => {
+                        it('should return correct JSON for the /lol/league/v4/entries/by-puuid/{puuid} Riot API endpoint', () => expect(Galeforce.lol.league.entries().region(Galeforce.region.lol.NORTH_AMERICA).puuid('1ROEyykCT6G9qmzvTBqsfOlcbgZO0n2tvxyhxfv_jqDVdQZa1T6ErOx0SZzgWBU61dP4gs0xdu77pQ').exec())
                             .to.eventually.deep.equal(replyValues.v4.league.entriesBySummonerId));
                     });
                     describe('.queue().tier().division()', () => {
@@ -575,10 +577,6 @@ describe('/galeforce/actions', () => {
                         .to.eventually.be.rejectedWith('[galeforce]: Not enough parameters provided to select API endpoint.'));
                 });
                 describe('.league()', () => {
-                    describe('.leagueId()', () => {
-                        it('should return correct JSON for the /lol/league/v4/leagues/ Riot API endpoint', () => expect(Galeforce.lol.league.league().region(Galeforce.region.lol.NORTH_AMERICA).leagueId('df776d6f-4101-4817-a36d-689a4be85887').exec())
-                            .to.eventually.deep.equal(replyValues.v4.league.league));
-                    });
                     describe('.queue().tier()', () => {
                         it('should return correct JSON for the /lol/league/v4/challengerleagues/by-queue/ Riot API endpoint', () => expect(Galeforce.lol.league.league().region(Galeforce.region.lol.NORTH_AMERICA).queue(Galeforce.queue.lol.RANKED_SOLO).tier(Galeforce.tier.CHALLENGER)
                             .exec())
@@ -599,21 +597,29 @@ describe('/galeforce/actions', () => {
                 });
             });
             describe('.mastery', () => {
-                describe('.summoner()', () => {
-                    describe('.summonerId()', () => {
-                        it('should return correct JSON for the /lol/champion-mastery/v4/champion-masteries/by-summoner Riot API endpoint', () => expect(Galeforce.lol.mastery.list().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                describe('.list()', () => {
+                    describe('.puuid()', () => {
+                        it('should return correct JSON for the /lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid} Riot API endpoint', () => expect(Galeforce.lol.mastery.list().region(Galeforce.region.lol.NORTH_AMERICA).puuid('1ROEyykCT6G9qmzvTBqsfOlcbgZO0n2tvxyhxfv_jqDVdQZa1T6ErOx0SZzgWBU61dP4gs0xdu77pQ').exec())
                             .to.eventually.deep.equal(replyValues.v4.championMastery.bySummonerId));
-                        describe('.championId()', () => {
-                            it('should return correct JSON for the /lol/champion-mastery/v4/champion-masteries/by-summoner/{}/by-champion Riot API endpoint', () => expect(Galeforce.lol.mastery.champion().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').championId(498)
-                                .exec())
-                                .to.eventually.deep.equal(replyValues.v4.championMastery.byChampionId));
-                        });
+                    });
+                });
+                describe('.champion()', () => {
+                    describe('.puuid().championId()', () => {
+                        it('should return correct JSON for the /lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/by-champion/{championId} Riot API endpoint', () => expect(Galeforce.lol.mastery.champion().region(Galeforce.region.lol.NORTH_AMERICA).puuid('1ROEyykCT6G9qmzvTBqsfOlcbgZO0n2tvxyhxfv_jqDVdQZa1T6ErOx0SZzgWBU61dP4gs0xdu77pQ').championId(92)
+                            .exec())
+                            .to.eventually.deep.equal(replyValues.v4.championMastery.byChampionId));
                     });
                 });
                 describe('.score()', () => {
-                    describe('.summonerId()', () => {
-                        it('should return correct JSON for the /lol/champion-mastery/v4/scores/by-summoner/ Riot API endpoint', () => expect(Galeforce.lol.mastery.score().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                    describe('.puuid()', () => {
+                        it('should return correct JSON for the /lol/champion-mastery/v4/scores/by-puuid/{puuid} Riot API endpoint', () => expect(Galeforce.lol.mastery.score().region(Galeforce.region.lol.NORTH_AMERICA).puuid('1ROEyykCT6G9qmzvTBqsfOlcbgZO0n2tvxyhxfv_jqDVdQZa1T6ErOx0SZzgWBU61dP4gs0xdu77pQ').exec())
                             .to.eventually.deep.equal(replyValues.v4.championMastery.score));
+                    });
+                });
+                describe('.top()', () => {
+                    describe('.puuid()', () => {
+                        it('should return correct JSON for the /lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/top Riot API endpoint', () => expect(Galeforce.lol.mastery.top().region(Galeforce.region.lol.NORTH_AMERICA).puuid('1ROEyykCT6G9qmzvTBqsfOlcbgZO0n2tvxyhxfv_jqDVdQZa1T6ErOx0SZzgWBU61dP4gs0xdu77pQ').exec())
+                            .to.eventually.deep.equal(replyValues.v4.championMastery.top));
                     });
                 });
             });
@@ -628,6 +634,12 @@ describe('/galeforce/actions', () => {
                     describe('.matchId()', () => {
                         it('should return correct JSON for the /lol/match/v5/matches/{matchId}/timeline Riot API endpoint', () => expect(Galeforce.lol.match.timeline().region(Galeforce.region.riot.AMERICAS).matchId('NA1_3891319810').exec())
                             .to.eventually.deep.equal(replyValues.v5.match.timeline));
+                    });
+                });
+                describe('.replay()', () => {
+                    describe('.puuid()', () => {
+                        it('should return correct JSON for the /lol/match/v5/matches/by-puuid/{puuid}/replays Riot API endpoint', () => expect(Galeforce.lol.match.replay().region(Galeforce.region.riot.AMERICAS).puuid('1ROEyykCT6G9qmzvTBqsfOlcbgZO0n2tvxyhxfv_jqDVdQZa1T6ErOx0SZzgWBU61dP4gs0xdu77pQ').exec())
+                            .to.eventually.deep.equal(replyValues.v5.match.replays));
                     });
                 });
                 describe('.list()', () => {
@@ -674,8 +686,8 @@ describe('/galeforce/actions', () => {
                         .to.eventually.be.rejectedWith('[galeforce]: Not enough parameters provided to select API endpoint.'));
                 });
                 describe('.players()', () => {
-                    describe('.summonerId()', () => {
-                        it('should return correct JSON for the /lol/clash/v1/players/by-summoner Riot API endpoint', () => expect(Galeforce.lol.clash.players().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
+                    describe('.puuid()', () => {
+                        it('should return correct JSON for the /lol/clash/v1/players/by-puuid/{puuid} Riot API endpoint', () => expect(Galeforce.lol.clash.players().region(Galeforce.region.lol.NORTH_AMERICA).puuid('1ROEyykCT6G9qmzvTBqsfOlcbgZO0n2tvxyhxfv_jqDVdQZa1T6ErOx0SZzgWBU61dP4gs0xdu77pQ').exec())
                             .to.eventually.deep.equal(replyValues.v1.clash.players));
                     });
                 });
@@ -716,14 +728,10 @@ describe('/galeforce/actions', () => {
             });
             describe('.spectator', () => {
                 describe('.active()', () => {
-                    describe('.summonerId()', () => {
-                        it('should return correct JSON for the /lol/spectator/v4/active-games/by-summoner Riot API endpoint', () => expect(Galeforce.lol.spectator.active().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('W0UKG702c2bD7rwhOqZAn-pQ0ggk27_M0WMEVkPDodr-I-g').exec())
-                            .to.eventually.deep.equal(replyValues.v4.spectator.active));
+                    describe('.puuid()', () => {
+                        it('should return correct JSON for the /lol/spectator/v5/active-games/by-summoner Riot API endpoint', () => expect(Galeforce.lol.spectator.active().region(Galeforce.region.lol.NORTH_AMERICA).puuid('W0UKG702c2bD7rwhOqZAn-pQ0ggk27_M0WMEVkPDodr-I-g').exec())
+                            .to.eventually.deep.equal(replyValues.v5.spectator.active));
                     });
-                });
-                describe('.featured()', () => {
-                    it('should return correct JSON for the /lol/spectator/v4/featured-games Riot API endpoint', () => expect(Galeforce.lol.spectator.featured().region(Galeforce.region.lol.NORTH_AMERICA).exec())
-                        .to.eventually.deep.equal(replyValues.v4.spectator.featured));
                 });
             });
             describe('.tournament', () => {
@@ -774,18 +782,20 @@ describe('/galeforce/actions', () => {
                             .to.eventually.be.rejectedWith('[galeforce]: Action payload body is required but undefined.'));
                     });
                     describe('.get()', () => {
-                        it('should return correct JSON for the /lol/tournament/v4/codes/{tournamentCode} Riot API endpoint', () => expect(Galeforce.lol.tournament.code.get().region(Galeforce.region.riot.AMERICAS).tournamentCode('1234').exec())
-                            .to.eventually.deep.equal(replyValues.v4.tournament.codes));
+                        it('should return correct JSON for the /lol/tournament/v5/codes/{tournamentCode} Riot API endpoint', () => expect(Galeforce.lol.tournament.code.get().region(Galeforce.region.riot.AMERICAS).tournamentCode('1234').exec())
+                            .to.eventually.deep.equal(replyValues.v5.tournament.codes));
+                        it('should return correct JSON for the /lol/tournament-stub/v5/codes/{tournamentCode} Riot API endpoint', () => expect(Galeforce.lol.tournament.code.get(true).region(Galeforce.region.riot.AMERICAS).tournamentCode('5678').exec())
+                            .to.eventually.deep.equal(replyValues.v5.tournament.codes));
                     });
                 });
                 describe('.event()', () => {
                     describe('.tournamentCode()', () => {
                         it('should return correct JSON for the /lol/tournament/v4/lobby-events/by-code Riot API endpoint', () => expect(Galeforce.lol.tournament.event().region(Galeforce.region.riot.AMERICAS).tournamentCode('1234').exec())
-                            .to.eventually.deep.equal(replyValues.v4.tournament.events));
+                            .to.eventually.deep.equal(replyValues.v5.tournament.events));
                     });
                     describe('.tournamentCode()', () => {
                         it('should return correct JSON for the /lol/tournament-stub/v4/lobby-events/by-code Riot API endpoint', () => expect(Galeforce.lol.tournament.event(true).region(Galeforce.region.riot.AMERICAS).tournamentCode('5678').exec())
-                            .to.eventually.deep.equal(replyValues.v4.tournament.events));
+                            .to.eventually.deep.equal(replyValues.v5.tournament.events));
                     });
                 });
                 describe('.provider()', () => {
@@ -1015,17 +1025,26 @@ describe('/galeforce/actions', () => {
                         it('should return correct JSON for the /riot/account/v1/accounts/by-riot-id/ Riot API endpoint', () => expect(Galeforce.riot.account.account().region(Galeforce.region.riot.AMERICAS).gameName('SSG Xayah').tagLine('NA1')
                             .exec())
                             .to.eventually.deep.equal(replyValues.v1.account.account));
-                        it('should reject when .gameName() is not chained with .tagLine()', () => expect(Galeforce.riot.account.account().region(Galeforce.region.riot.AMERICAS).gameName(Galeforce.game.VALORANT).exec())
+                        it('should reject when .gameName() is not chained with .tagLine()', () => expect(Galeforce.riot.account.account().region(Galeforce.region.riot.AMERICAS).gameName('SSG Xayah').exec())
                             .to.eventually.be.rejectedWith('[galeforce]: .gameName() must be chained with .tagLine().'));
                     });
                     it('should throw when not provided enough parameters to specify endpoint', () => expect(Galeforce.riot.account.account().exec())
                         .to.eventually.be.rejectedWith('[galeforce]: Not enough parameters provided to select API endpoint.'));
                 });
                 describe('.activeShard()', () => {
-                    it('should return correct JSON for the /riot/account/v1/active-shards Riot API endpoint', () => expect(Galeforce.riot.account.activeShard().region(Galeforce.region.riot.AMERICAS).game(Galeforce.game.VALORANT).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g')
+                    it('should return correct JSON for the /riot/account/v1/active-shards Riot API endpoint', () => expect(Galeforce.riot.account.activeShard().region(Galeforce.region.riot.AMERICAS).game(Galeforce.game.shard.VALORANT).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g')
                         .exec())
                         .to.eventually.deep.equal(replyValues.v1.account.activeShard));
                     it('should throw when provided an invalid game', () => expect(() => Galeforce.riot.account.activeShard().game('invalid game'))
+                        .to.throw('[galeforce]: Invalid game provided.'));
+                });
+                describe('.activeRegion()', () => {
+                    it('should return correct JSON for the /riot/account/v1/region Riot API endpoint', () => expect(Galeforce.riot.account.activeRegion().region(Galeforce.region.riot.AMERICAS).game(Galeforce.game.region.LEAGUE_OF_LEGENDS).puuid('1ROEyykCT6G9qmzvTBqsfOlcbgZO0n2tvxyhxfv_jqDVdQZa1T6ErOx0SZzgWBU61dP4gs0xdu77pQ')
+                        .exec())
+                        .to.eventually.deep.equal(replyValues.v1.account.activeRegion));
+                    it('should throw when provided an invalid game', () => expect(() => Galeforce.riot.account.activeRegion().game('invalid game'))
+                        .to.throw('[galeforce]: Invalid game provided.'));
+                    it('should throw when provided a game the endpoint does not accept', () => expect(() => Galeforce.riot.account.activeRegion().game(Galeforce.game.shard.VALORANT))
                         .to.throw('[galeforce]: Invalid game provided.'));
                 });
             });
@@ -1141,8 +1160,8 @@ describe('/galeforce/actions', () => {
         describe('.tft', () => {
             describe('.league', () => {
                 describe('.entries()', () => {
-                    describe('.summonerId()', () => {
-                        it('should return correct JSON for the /lol/league/v4/entries/by-summoner Riot API endpoint', () => expect(Galeforce.tft.league.entries().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('fOD4gGvxJG-_Bfcj7tqmHxYKAmbtOqoZrMz-Dk0ayGXulb7x').exec())
+                    describe('.puuid()', () => {
+                        it('should return correct JSON for the /tft/league/v1/by-puuid/{puuid} Riot API endpoint', () => expect(Galeforce.tft.league.entries().region(Galeforce.region.lol.NORTH_AMERICA).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
                             .to.eventually.deep.equal(replyValues.v1.tftLeague.entriesBySummonerId));
                     });
                     describe('.tier().division()', () => {
@@ -1164,10 +1183,6 @@ describe('/galeforce/actions', () => {
                         .to.eventually.be.rejectedWith('[galeforce]: Not enough parameters provided to select API endpoint.'));
                 });
                 describe('.league()', () => {
-                    describe('.leagueId()', () => {
-                        it('should return correct JSON for the /tft/league/v1/leagues Riot API endpoint', () => expect(Galeforce.tft.league.league().region(Galeforce.region.lol.NORTH_AMERICA).leagueId('560312d9-a701-411c-b63c-474fdf46ea52').exec())
-                            .to.eventually.deep.equal(replyValues.v1.tftLeague.league));
-                    });
                     describe('.queue().tier()', () => {
                         it('should return correct JSON for the /tft/league/v1/challenger Riot API endpoint', () => expect(Galeforce.tft.league.league().region(Galeforce.region.lol.NORTH_AMERICA).tier(Galeforce.tier.CHALLENGER).exec())
                             .to.eventually.deep.equal(replyValues.v1.tftLeague.challenger));
@@ -1180,6 +1195,16 @@ describe('/galeforce/actions', () => {
                     });
                     it('should throw when not provided enough parameters to specify endpoint', () => expect(Galeforce.tft.league.league().exec())
                         .to.eventually.be.rejectedWith('[galeforce]: Not enough parameters provided to select API endpoint.'));
+                });
+                describe('.ladders', () => {
+                    describe('.top()', () => {
+                        it('should return correct JSON for the /tft/league/v1/rated-ladders/{queue}/top Riot API endpoint', () => expect(Galeforce.tft.league.ladders.top().region(Galeforce.region.lol.NORTH_AMERICA).queue(Galeforce.queue.tft.TURBO).exec())
+                            .to.eventually.deep.equal(replyValues.v1.tftLeague.topRatedLadder));
+                        it('should accept a TFT queue on a /lol-typed payload', () => expect(() => Galeforce.tft.league.ladders.top().region(Galeforce.region.lol.NORTH_AMERICA).queue(Galeforce.queue.tft.TURBO))
+                            .to.not.throw());
+                        it('should throw when provided an invalid queue', () => expect(() => Galeforce.tft.league.ladders.top().region(Galeforce.region.lol.NORTH_AMERICA).queue('INVALID_QUEUE'))
+                            .to.throw('[galeforce]: Invalid /lol queue type provided.'));
+                    });
                 });
             });
             describe('.match', () => {
@@ -1200,24 +1225,12 @@ describe('/galeforce/actions', () => {
                 });
             });
             describe('.summoner()', () => {
-                describe('.name()', () => {
-                    it('should return correct JSON for the /tft/summoner/v1/summoners/by-name Riot API endpoint', () => expect(Galeforce.tft.summoner().region(Galeforce.region.lol.NORTH_AMERICA).name('SSG Xayah').exec())
-                        .to.eventually.deep.equal(replyValues.v1.tftSummoner));
-                });
-                describe('.accountId()', () => {
-                    it('should return correct JSON for the /tft/summoner/v1/summoners/by-account Riot API endpoint', () => expect(Galeforce.tft.summoner().region(Galeforce.region.lol.NORTH_AMERICA).accountId('xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4').exec())
-                        .to.eventually.deep.equal(replyValues.v1.tftSummoner));
-                });
-                describe('.summonerId()', () => {
-                    it('should return correct JSON for the /tft/summoner/v1/summoners Riot API endpoint', () => expect(Galeforce.tft.summoner().region(Galeforce.region.lol.NORTH_AMERICA).summonerId('l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w').exec())
-                        .to.eventually.deep.equal(replyValues.v1.tftSummoner));
-                });
                 describe('.puuid()', () => {
                     it('should return correct JSON for the /tft/summoner/v1/summoners/by-puuid Riot API endpoint', () => expect(Galeforce.tft.summoner().region(Galeforce.region.lol.NORTH_AMERICA).puuid('jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g').exec())
                         .to.eventually.deep.equal(replyValues.v1.tftSummoner));
                 });
-                it('should throw when not provided enough parameters to specify endpoint', () => expect(Galeforce.tft.summoner().exec())
-                    .to.eventually.be.rejectedWith('[galeforce]: Not enough parameters provided to select API endpoint.'));
+                it('should throw when not provided a region', () => expect(Galeforce.tft.summoner().exec())
+                    .to.eventually.be.rejectedWith('[galeforce]: Action payload region is required but undefined.'));
             });
         });
         describe('.val', () => {
@@ -1263,6 +1276,14 @@ describe('/galeforce/actions', () => {
                     .to.throw('[galeforce]: Invalid /val region provided.'));
             });
         });
+        describe('.riftbound', () => {
+            describe('.content()', () => {
+                it('should return correct JSON for the /riftbound/content/v1/contents Riot API endpoint', () => expect(Galeforce.riftbound.content().region(Galeforce.region.riot.AMERICAS).exec())
+                    .to.eventually.deep.equal(replyValues.v5.riftbound.contents));
+                it('should throw when provided an invalid region', () => expect(() => Galeforce.riftbound.content().region(Galeforce.region.lol.NORTH_AMERICA))
+                    .to.throw('[galeforce]: Invalid /riot region provided.'));
+            });
+        });
         describe('.gc', () => {
             describe('.swagger()', () => {
                 it('should pull JSON from the appropriate Game Client URL', () => expect(Galeforce.gc.swagger().exec())
@@ -1281,10 +1302,6 @@ describe('/galeforce/actions', () => {
                     it('should pull JSON from the appropriate Live Client Data URL', () => expect(Galeforce.lcd.active.player().exec())
                         .to.eventually.deep.equal(replyValues.gc.activePlayer));
                 });
-                describe('.name()', () => {
-                    it('should pull JSON from the appropriate Live Client Data URL', () => expect(Galeforce.lcd.active.name().exec())
-                        .to.eventually.deep.equal(replyValues.gc.activePlayer.summonerName));
-                });
                 describe('.abilities()', () => {
                     it('should pull JSON from the appropriate Live Client Data URL', () => expect(Galeforce.lcd.active.abilities().exec())
                         .to.eventually.deep.equal(replyValues.gc.activePlayer.abilities));
@@ -1300,19 +1317,19 @@ describe('/galeforce/actions', () => {
                         .to.eventually.deep.equal(replyValues.gc.allPlayers));
                 });
                 describe('.scores()', () => {
-                    it('should pull JSON from the appropriate Live Client Data URL', () => expect(Galeforce.lcd.player.scores().name('SSG Xayah').exec())
+                    it('should pull JSON from the appropriate Live Client Data URL', () => expect(Galeforce.lcd.player.scores().gameName('SSG Xayah').tagLine('NA1').exec())
                         .to.eventually.deep.equal(replyValues.gc.allPlayers[0].scores));
                 });
                 describe('.summonerSpells()', () => {
-                    it('should pull JSON from the appropriate Live Client Data URL', () => expect(Galeforce.lcd.player.summonerSpells().name('SSG Xayah').exec())
+                    it('should pull JSON from the appropriate Live Client Data URL', () => expect(Galeforce.lcd.player.summonerSpells().gameName('SSG Xayah').tagLine('NA1').exec())
                         .to.eventually.deep.equal(replyValues.gc.allPlayers[0].summonerSpells));
                 });
                 describe('.runes()', () => {
-                    it('should pull JSON from the appropriate Live Client Data URL', () => expect(Galeforce.lcd.player.runes().name('SSG Xayah').exec())
+                    it('should pull JSON from the appropriate Live Client Data URL', () => expect(Galeforce.lcd.player.runes().gameName('SSG Xayah').tagLine('NA1').exec())
                         .to.eventually.deep.equal(replyValues.gc.allPlayers[0].runes));
                 });
                 describe('.items()', () => {
-                    it('should pull JSON from the appropriate Live Client Data URL', () => expect(Galeforce.lcd.player.items().name('SSG Xayah').exec())
+                    it('should pull JSON from the appropriate Live Client Data URL', () => expect(Galeforce.lcd.player.items().gameName('SSG Xayah').tagLine('NA1').exec())
                         .to.eventually.deep.equal(replyValues.gc.allPlayers[0].items));
                 });
             });

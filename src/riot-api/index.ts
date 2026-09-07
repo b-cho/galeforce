@@ -11,7 +11,7 @@ import {
 import { Queue, LeagueQueue, ValorantQueue, TFTQueue } from './enums/queues';
 import Tier from './enums/tiers';
 import Division from './enums/divisions';
-import Game from './enums/games';
+import { ShardGame, RegionGame } from './enums/games';
 import Request from './requests';
 import { ConfigInterface } from '../galeforce/interfaces/config';
 
@@ -104,5 +104,5 @@ export class RiotAPIModule {
 
 export {
     ENDPOINTS, Region, LeagueRegion, RiotRegion, ValorantRegion, DataDragonRegion, LorRegion,
-    Queue, LeagueQueue, ValorantQueue, TFTQueue, Tier, Division, Game,
+    Queue, LeagueQueue, ValorantQueue, TFTQueue, Tier, Division, ShardGame, RegionGame,
 };

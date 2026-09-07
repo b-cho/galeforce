@@ -1,6 +1,9 @@
-const chai = require('chai');
-const nock = require('nock');
-const chaiAsPromised = require('chai-as-promised');
+import * as chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import nock from 'nock';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 
 chai.use(chaiAsPromised);
 const { expect } = chai;
@@ -10,7 +13,7 @@ const { ENDPOINTS, RiotRegion } = require('../dist/riot-api');
 
 const testAccountReply = {'test': 'reply'};
 
-const na1API = nock('https://na1.api.riotgames.com')
+const na1API = nock('https://americas.api.riotgames.com')
     .persist()
     .get('/riot/account/v1/accounts/by-puuid/test-puuid')
     .reply(200, testAccountReply);
@@ -24,7 +27,7 @@ describe('/riot-api', () => {
     describe('URL generation', () => {
         it('should generate correct RiotAPI.request URLs from template strings', () => {
             expect(RiotAPI.request(ENDPOINTS.ACCOUNT.PUUID, { region: RiotRegion.AMERICAS, puuid: 'test-puuid' }).targetURL)
-                .to.equal('https://na1.api.riotgames.com/riot/account/v1/accounts/by-puuid/test-puuid');
+                .to.equal('https://americas.api.riotgames.com/riot/account/v1/accounts/by-puuid/test-puuid');
         });
         it('should throw when a required parameter is missing', () => {
             expect(() => RiotAPI.request(ENDPOINTS.ACCOUNT.PUUID, { region: RiotRegion.AMERICAS }))

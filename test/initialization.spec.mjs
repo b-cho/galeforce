@@ -1,6 +1,9 @@
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
-const process = require('process');
+import * as chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import process from 'process';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 
 chai.use(chaiAsPromised);
 const { expect } = chai;

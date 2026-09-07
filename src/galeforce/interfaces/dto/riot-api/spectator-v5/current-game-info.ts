@@ -25,12 +25,14 @@ export interface Observer {
 
 interface CurrentGameParticipantDTO {
     championId: number;
-    perks: Perks;
+    perks?: Perks;
     profileIconId: number;
-    bot: boolean;
+    bot?: boolean;
     teamId: number;
-    summonerName: string;
-    summonerId: string;
+    puuid?: string;
+    riotId?: string;
+    summonerName?: string;
+    summonerId?: string;
     spell1Id: number;
     spell2Id: number;
     gameCustomizationObjects: GameCustomizationObjectDTO[];

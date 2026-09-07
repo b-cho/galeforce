@@ -1,4 +1,4 @@
-import { Constructor, Executable } from './executable';
+import { Constructor, Executable, MixinResult } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.tournamentCode()` method.
@@ -13,7 +13,7 @@ export interface LeagueIdChainable {
  * @param Base The target class.
  */
 export function TakesLeagueId<TBase extends Constructor>(Base: TBase) {
-    return class extends Base implements LeagueIdChainable {
+    class MixinClass extends (Base as Constructor)<any> implements LeagueIdChainable {
         /**
          * Modifies the **leagueId** associated with the Action object it is called from.
          * @param leagueId The league ID to update the calling Action object with.
@@ -23,5 +23,7 @@ export function TakesLeagueId<TBase extends Constructor>(Base: TBase) {
             this.leagueId = undefined;
             return this;
         }
-    };
+    }
+
+    return MixinClass as unknown as MixinResult<TBase, LeagueIdChainable>;
 }

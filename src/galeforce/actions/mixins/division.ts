@@ -1,5 +1,5 @@
 import { Division } from '../../../riot-api';
-import { Constructor, Executable } from './executable';
+import { Constructor, Executable, MixinResult } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.division()` method.
@@ -14,7 +14,7 @@ export interface DivisionChainable {
  * @param Base The target class.
  */
 export function TakesDivision<TBase extends Constructor>(Base: TBase) {
-    return class extends Base implements DivisionChainable {
+    class MixinClass extends (Base as Constructor)<any> implements DivisionChainable {
         /**
          * Modifies the **division** associated with the Action object it is called from.
          * Note that associated runtime type checks are performed to ensure that
@@ -28,5 +28,7 @@ export function TakesDivision<TBase extends Constructor>(Base: TBase) {
             this.division = undefined;
             return this;
         }
-    };
+    }
+
+    return MixinClass as unknown as MixinResult<TBase, DivisionChainable>;
 }

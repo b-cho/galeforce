@@ -55,7 +55,7 @@ interface Participant {
   assists: number;
   baronKills: number;
   basicPings: number;
-  bountyLevel: number;
+  bountyLevel?: number;
   challenges: Challenges;
   champExperience: number;
   champLevel: number;
@@ -124,23 +124,23 @@ interface Participant {
   physicalDamageDealtToChampions: number;
   physicalDamageTaken: number;
   placement: number;
-  playerAugment1: number;
-  playerAugment2: number;
-  playerAugment3: number;
-  playerAugment4: number;
-  playerScore0: number;
-  playerScore1: number;
-  playerScore10: number;
-  playerScore11: number;
-  playerScore2: number;
-  playerScore3: number;
-  playerScore4: number;
-  playerScore5: number;
-  playerScore6: number;
-  playerScore7: number;
-  playerScore8: number;
-  playerScore9: number;
-  playerSubteamId: number;
+  playerAugment1?: number;
+  playerAugment2?: number;
+  playerAugment3?: number;
+  playerAugment4?: number;
+  playerScore0?: number;
+  playerScore1?: number;
+  playerScore10?: number;
+  playerScore11?: number;
+  playerScore2?: number;
+  playerScore3?: number;
+  playerScore4?: number;
+  playerScore5?: number;
+  playerScore6?: number;
+  playerScore7?: number;
+  playerScore8?: number;
+  playerScore9?: number;
+  playerSubteamId?: number;
   profileIcon: number;
   pushPings: number;
   puuid: string;
@@ -219,18 +219,18 @@ interface StatPerks {
 }
 
 interface Missions {
-  playerScore0: number;
-  playerScore1: number;
-  playerScore10: number;
-  playerScore11: number;
-  playerScore2: number;
-  playerScore3: number;
-  playerScore4: number;
-  playerScore5: number;
-  playerScore6: number;
-  playerScore7: number;
-  playerScore8: number;
-  playerScore9: number;
+  playerScore0?: number;
+  playerScore1?: number;
+  playerScore10?: number;
+  playerScore11?: number;
+  playerScore2?: number;
+  playerScore3?: number;
+  playerScore4?: number;
+  playerScore5?: number;
+  playerScore6?: number;
+  playerScore7?: number;
+  playerScore8?: number;
+  playerScore9?: number;
 }
 
 interface Challenges {

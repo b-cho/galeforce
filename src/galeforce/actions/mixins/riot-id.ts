@@ -1,4 +1,4 @@
-import { Constructor, Executable } from './executable';
+import { Constructor, Executable, MixinResult } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.gameName()` method
@@ -15,7 +15,7 @@ export interface RiotIdChainable {
  * @param Base The target class.
  */
 export function TakesRiotId<TBase extends Constructor>(Base: TBase) {
-    return class extends Base implements RiotIdChainable {
+    class MixinClass extends (Base as Constructor)<any> implements RiotIdChainable {
         /**
          * Modifies the **gameName** associated with the Action object it is called from.
          * @param gameName The Riot ID name to update the calling Action object with.
@@ -35,5 +35,7 @@ export function TakesRiotId<TBase extends Constructor>(Base: TBase) {
             delete this.tagLine;
             return this;
         }
-    };
+    }
+
+    return MixinClass as unknown as MixinResult<TBase, RiotIdChainable>;
 }

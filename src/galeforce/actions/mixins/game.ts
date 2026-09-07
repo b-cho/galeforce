@@ -1,11 +1,11 @@
-import { Game } from '../../../riot-api';
-import { Constructor, Executable } from './executable';
+import { ShardGame } from '../../../riot-api';
+import { Constructor, Executable, MixinResult } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.game()` method.
  */
 export interface GameChainable {
-    game?: <K extends GameChainable & Executable>(this: K, game: Game) => Omit<K, 'game'>;
+    game?: <K extends GameChainable & Executable>(this: K, game: ShardGame) => Omit<K, 'game'>;
 }
 
 /**
@@ -14,7 +14,7 @@ export interface GameChainable {
  * @param Base The target class.
  */
 export function TakesGame<TBase extends Constructor>(Base: TBase) {
-    return class extends Base implements GameChainable {
+    class MixinClass extends (Base as Constructor)<any> implements GameChainable {
         /**
          * Modifies the **game** associated with the Action object it is called from.
          * Note that associated runtime type checks are performed to ensure that
@@ -23,10 +23,12 @@ export function TakesGame<TBase extends Constructor>(Base: TBase) {
          * @throws Will throw an error if an invalid game is provided or the provided
          * game fails the runtime type check.
          */
-        public game<K extends GameChainable & Executable>(this: K, game: Game): Omit<K, 'game'> {
+        public game<K extends GameChainable & Executable>(this: K, game: ShardGame): Omit<K, 'game'> {
             this.payload.game = game;
             this.game = undefined;
             return this;
         }
-    };
+    }
+
+    return MixinClass as unknown as MixinResult<TBase, GameChainable>;
 }

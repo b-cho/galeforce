@@ -3,6 +3,7 @@ export { TakesBody } from './body';
 export { TakesChampionId } from './champion-id';
 export { TakesDivision } from './division';
 export { TakesGame } from './game';
+export { TakesRegionGame } from './region-game';
 export { TakesLeagueId } from './league-id';
 export { TakesMatchId } from './match-id';
 export { TakesPUUID } from './puuid';

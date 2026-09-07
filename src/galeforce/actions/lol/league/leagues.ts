@@ -5,17 +5,15 @@ import {
 } from '../../../../riot-api';
 import SubmoduleMap from '../../../interfaces/submodule-map';
 import {
-    TakesQueue, TakesTier, TakesLeagueId, TakesRegion,
+    TakesQueue, TakesTier, TakesRegion,
 } from '../../mixins';
 
 const BaseAction = TakesQueue(
     {} as LeagueQueue,
     TakesTier(
-        TakesLeagueId(
-            TakesRegion(
-                {} as LeagueRegion,
-                Action,
-            ),
+        TakesRegion(
+            {} as LeagueRegion,
+            Action,
         ),
     ),
 );
@@ -28,9 +26,7 @@ export default class GetLeagueList extends BaseAction<LeagueListDTO> {
     }
 
     protected inferEndpoint(): void {
-        if (typeof this.payload.leagueId !== 'undefined') {
-            this.payload.endpoint = ENDPOINTS.LEAGUE.LEAGUE_ID;
-        } else if (typeof this.payload.tier !== 'undefined') {
+        if (typeof this.payload.tier !== 'undefined') {
             switch (this.payload.tier) {
             case Tier.CHALLENGER:
                 this.payload.endpoint = ENDPOINTS.LEAGUE.CHALLENGER_LEAGUE;

@@ -1,11 +1,24 @@
 {
-    "championId": 498,
-    "championLevel": 7,
-    "championPoints": 550276,
-    "lastPlayTime": 1609316101000,
-    "championPointsSinceLastLevel": 528676,
-    "championPointsUntilNextLevel": 0,
-    "chestGranted": false,
-    "tokensEarned": 0,
-    "summonerId": "l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w"
+    "puuid": "1ROEyykCT6G9qmzvTBqsfOlcbgZO0n2tvxyhxfv_jqDVdQZa1T6ErOx0SZzgWBU61dP4gs0xdu77pQ",
+    "championId": 92,
+    "championLevel": 182,
+    "championPoints": 1969515,
+    "lastPlayTime": 1788583383000,
+    "championPointsSinceLastLevel": 1915,
+    "championPointsUntilNextLevel": 9085,
+    "markRequiredForNextLevel": 2,
+    "tokensEarned": 96,
+    "championSeasonMilestone": 8,
+    "milestoneGrades": [
+        "S+",
+        "A"
+    ],
+    "nextSeasonMilestone": {
+        "requireGradeCounts": {
+            "S-": 2
+        },
+        "rewardMarks": 1,
+        "bonus": true,
+        "totalGamesRequires": 2
+    }
 }

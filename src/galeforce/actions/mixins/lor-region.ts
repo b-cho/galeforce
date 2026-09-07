@@ -1,4 +1,4 @@
-import { Constructor, Executable } from './executable';
+import { Constructor, Executable, MixinResult } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.lorRegion()` method.
@@ -13,7 +13,7 @@ export interface LorRegionChainable {
  * @param Base The target class.
  */
 export function TakesLorRegion<TBase extends Constructor>(Base: TBase) {
-    return class extends Base implements LorRegionChainable {
+    class MixinClass extends (Base as Constructor)<any> implements LorRegionChainable {
         /**
          * Modifies the Legends of Runeterra in-game **lorRegion** associated with the Action object it is called from.
          * @param lorRegion The lorRegion to update the calling Action object with.
@@ -23,5 +23,7 @@ export function TakesLorRegion<TBase extends Constructor>(Base: TBase) {
             this.lorRegion = undefined;
             return this;
         }
-    };
+    }
+
+    return MixinClass as unknown as MixinResult<TBase, LorRegionChainable>;
 }

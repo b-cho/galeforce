@@ -1,4 +1,4 @@
-import { Constructor, Executable } from './executable';
+import { Constructor, Executable, MixinResult } from './executable';
 
 /**
  * An interface containing method type signatures for any `.ddragon` Action containing a `.locale()` method.
@@ -13,7 +13,7 @@ export interface LocaleChainable {
  * @param Base The target class.
  */
 export function TakesLocale<TBase extends Constructor>(Base: TBase) {
-    return class extends Base implements LocaleChainable {
+    class MixinClass extends (Base as Constructor)<any> implements LocaleChainable {
         /**
          * Modifies the **locale** (language) associated with the Action object it is called from.
          * The regex `/^[a-z]{2}_[A-Z]{2}$/` will be run against the provided input to ensure that
@@ -26,5 +26,7 @@ export function TakesLocale<TBase extends Constructor>(Base: TBase) {
             this.locale = undefined;
             return this;
         }
-    };
+    }
+
+    return MixinClass as unknown as MixinResult<TBase, LocaleChainable>;
 }

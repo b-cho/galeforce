@@ -1,4 +1,4 @@
-import { Constructor, Executable } from './executable';
+import { Constructor, Executable, MixinResult } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.body()` method.
@@ -17,7 +17,7 @@ export interface BodyChainable<TBody extends object = object> {
  * @param Base The target class.
  */
 export function TakesBody<TBody extends object, TBase extends Constructor>(type: TBody, Base: TBase) {
-    return class extends Base implements BodyChainable<TBody> {
+    class MixinClass extends (Base as Constructor)<any> implements BodyChainable<TBody> {
         /**
          * Modifies the **body** associated with the Action object it is called from.
          * @param body The request body to update the calling Action object with.
@@ -27,5 +27,7 @@ export function TakesBody<TBody extends object, TBase extends Constructor>(type:
             this.body = undefined;
             return this;
         }
-    };
+    }
+
+    return MixinClass as unknown as MixinResult<TBase, BodyChainable<TBody>>;
 }

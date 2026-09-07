@@ -1,4 +1,4 @@
-import { Constructor, Executable } from './executable';
+import { Constructor, Executable, MixinResult } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.actId()` method.
@@ -13,7 +13,7 @@ export interface ActIdChainable {
  * @param Base The target class.
  */
 export function TakesActId<TBase extends Constructor>(Base: TBase) {
-    return class extends Base implements ActIdChainable {
+    class MixinClass extends (Base as Constructor)<any> implements ActIdChainable {
         /**
          * Modifies the **actId** associated with the Action object it is called from.
          * @param actId The act ID to update the calling Action object with.
@@ -23,5 +23,7 @@ export function TakesActId<TBase extends Constructor>(Base: TBase) {
             this.actId = undefined;
             return this;
         }
-    };
+    }
+
+    return MixinClass as unknown as MixinResult<TBase, ActIdChainable>;
 }

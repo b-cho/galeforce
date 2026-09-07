@@ -1,4 +1,4 @@
-import { Constructor, Executable } from './executable';
+import { Constructor, Executable, MixinResult } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.tournamentId()` method.
@@ -13,7 +13,7 @@ export interface TournamentIdChainable {
  * @param Base The target class.
  */
 export function TakesTournamentId<TBase extends Constructor>(Base: TBase) {
-    return class extends Base implements TournamentIdChainable {
+    class MixinClass extends (Base as Constructor)<any> implements TournamentIdChainable {
         /**
          * Modifies the **tournamentId** associated with the Action object it is called from.
          * @param tournamentId The tournament ID to update the calling Action object with.
@@ -23,5 +23,7 @@ export function TakesTournamentId<TBase extends Constructor>(Base: TBase) {
             this.tournamentId = undefined;
             return this;
         }
-    };
+    }
+
+    return MixinClass as unknown as MixinResult<TBase, TournamentIdChainable>;
 }

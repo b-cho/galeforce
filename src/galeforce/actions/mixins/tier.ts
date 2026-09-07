@@ -1,5 +1,5 @@
 import { Tier } from '../../../riot-api';
-import { Constructor, Executable } from './executable';
+import { Constructor, Executable, MixinResult } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.tier()` method.
@@ -14,7 +14,7 @@ export interface TierChainable {
  * @param Base The target class.
  */
 export function TakesTier<TBase extends Constructor>(Base: TBase) {
-    return class extends Base implements TierChainable {
+    class MixinClass extends (Base as Constructor)<any> implements TierChainable {
         /**
          * Modifies the **tier** associated with the Action object it is called from.
          * Note that associated runtime type checks are performed to ensure that
@@ -28,5 +28,7 @@ export function TakesTier<TBase extends Constructor>(Base: TBase) {
             this.tier = undefined;
             return this;
         }
-    };
+    }
+
+    return MixinClass as unknown as MixinResult<TBase, TierChainable>;
 }

@@ -1,5 +1,11 @@
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
+import * as chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import { createRequire } from 'module';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const require = createRequire(import.meta.url);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const TJS = require('typescript-json-schema');
 const { resolve } = require('path');
 const Ajv = require('ajv').default;
@@ -153,19 +159,19 @@ describe('/galeforce/interfaces', () => {
             });
         });
         describe('CurrentGameInfoDTO', () => {
-            it('should match with /lol/spectator/v4/active-games/by-summoner JSON data', () => {
+            it('should match with /lol/spectator/v5/active-games/by-summoner JSON data', () => {
                 const schema = generator.getSchemaForSymbol('CurrentGameInfoDTO');
                 const validate = ajv.compile(schema);
-                const valid = validate(require('./test-data/v4.spectator.active.json'));
+                const valid = validate(require('./test-data/v5.spectator.active.json'));
                 if (!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
         });
         describe('FeaturedGamesDTO', () => {
-            it('should match with /lol/spectator/v4/featured-games JSON data', () => {
+            it('should match with /lol/spectator/v5/featured-games JSON data', () => {
                 const schema = generator.getSchemaForSymbol('FeaturedGamesDTO');
                 const validate = ajv.compile(schema);
-                const valid = validate(require('./test-data/v4.spectator.featured.json'));
+                const valid = validate(require('./test-data/v5.spectator.featured.json'));
                 if (!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
@@ -188,23 +194,80 @@ describe('/galeforce/interfaces', () => {
                 expect(valid).to.be.true;
             });
         });
+        describe('ChampionMasteryDTO (top)', () => {
+            it('should match with /lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/top JSON data', () => {
+                const schema = generator.getSchemaForSymbol('ChampionMasteryDTO');
+                const validate = ajv.compile(schema);
+                const valid = validate(require('./test-data/v4.champion-mastery.by-summoner.top.json')[0]);
+                if (!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('CurrentGameInfoDTO (TFT)', () => {
+            it('should match with /lol/spectator/tft/v5/active-games/by-puuid JSON data', () => {
+                const schema = generator.getSchemaForSymbol('CurrentGameInfoDTO');
+                const validate = ajv.compile(schema);
+                const valid = validate(require('./test-data/v5.spectator-tft.active.json'));
+                if (!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('PlatformDataDTO (TFT)', () => {
+            it('should match with /tft/status/v1/platform-data JSON data', () => {
+                const schema = generator.getSchemaForSymbol('PlatformDataDTO');
+                schema.definitions.MaintenanceStatus.type = ['string', 'null'];
+                schema.definitions.MaintenanceStatus.enum.push(null);
+                schema.definitions.StatusDTO.properties.archive_at.type = ['string', 'null'];
+                schema.definitions.StatusDTO.properties.updated_at.type = ['string', 'null'];
+                const validate = ajv.compile(schema);
+                const valid = validate(require('./test-data/v1.tft-status.platform-data.json'));
+                if (!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('AccountRegionDTO', () => {
+            it('should match with /riot/account/v1/region JSON data', () => {
+                const schema = generator.getSchemaForSymbol('AccountRegionDTO');
+                const validate = ajv.compile(schema);
+                const valid = validate(require('./test-data/v1.account.active-region.json'));
+                if (!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('ReplayDTO', () => {
+            it('should match with /lol/match/v5/matches/by-puuid/{puuid}/replays JSON data', () => {
+                const schema = generator.getSchemaForSymbol('ReplayDTO');
+                const validate = ajv.compile(schema);
+                const valid = validate(require('./test-data/v5.match.replays.json'));
+                if (!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
+        describe('RiftboundContentDTO', () => {
+            it('should match with /riftbound/content/v1/contents JSON data', () => {
+                const schema = generator.getSchemaForSymbol('RiftboundContentDTO');
+                const validate = ajv.compile(schema);
+                const valid = validate(require('./test-data/v1.riftbound-content.contents.json'));
+                if (!valid) throw validate.errors;
+                expect(valid).to.be.true;
+            });
+        });
         describe('LobbyEventDTOWrapper', () => {
-            it('should match with /lol/tournament/v4/lobby-events/by-code JSON data', () => {
+            it('should match with /lol/tournament/v5/lobby-events/by-code JSON data', () => {
                 const schema = generator.getSchemaForSymbol('LobbyEventDTOWrapper');
-                schema.definitions.LobbyEventDTO.properties.summonerId.type = ['string', 'null']; // Override schema type
 
                 const validate = ajv.compile(schema);
-                const valid = validate(require('./test-data/v4.tournament.lobby-events.json'));
+                const valid = validate(require('./test-data/v5.tournament.lobby-events.json'));
                 if (!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });
         });
         describe('TournamentCodeDTO', () => {
-            it('should match with /lol/tournament/v4/codes/{tournamentCode} JSON data', () => {
+            it('should match with /lol/tournament/v5/codes/{tournamentCode} JSON data', () => {
                 const schema = generator.getSchemaForSymbol('TournamentCodeDTO');
 
                 const validate = ajv.compile(schema);
-                const valid = validate(require('./test-data/v4.tournament.codes.json'));
+                const valid = validate(require('./test-data/v5.tournament.codes.json'));
                 if (!valid) throw validate.errors;
                 expect(valid).to.be.true;
             });

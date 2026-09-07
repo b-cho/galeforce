@@ -21,7 +21,7 @@ enum SpectatorType {
 
 export interface TournamentCodeDTO {
     code: string;
-    spectators: string;
+    spectators?: string;
     lobbyName: string;
     metaData: string;
     password: string;
@@ -30,9 +30,10 @@ export interface TournamentCodeDTO {
     pickType: PickType;
     tournamentId: number;
     id: number;
-    region: 'BR' | 'EUNE' | 'EUW' | 'JP' | 'LAN' | 'LAS' | 'NA' | 'OCE' | 'PBE' | 'RU' | 'TR';
+    region: 'BR' | 'EUNE' | 'EUW' | 'JP' | 'LAN' | 'LAS' | 'NA' | 'OCE' | 'PBE' | 'RU' | 'TR'
+    | 'KR' | 'PH' | 'SG' | 'TH' | 'TW' | 'VN' | 'STUB';
     map: string;
-    participants: string[];
+    participants?: string[];
 }
 
 export interface TournamentCodeParameters {

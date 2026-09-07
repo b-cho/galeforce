@@ -1,0 +1,41 @@
+{
+    "game": "sample-game",
+    "version": "0.0.0",
+    "lastUpdated": "1970-01-01T00:00:00Z",
+    "sets": [
+        {
+            "id": "sample-set-id",
+            "name": "Sample Set Name",
+            "cards": [
+                {
+                    "id": "sample-card-id",
+                    "collectorNumber": 0,
+                    "set": "sample-set-id",
+                    "name": "Sample Card Name",
+                    "description": "Sample card description.",
+                    "type": "sample-type",
+                    "rarity": "sample-rarity",
+                    "faction": "sample-faction",
+                    "stats": {
+                        "energy": 0,
+                        "might": 0,
+                        "cost": 0,
+                        "power": 0
+                    },
+                    "keywords": [
+                        "sample-keyword"
+                    ],
+                    "art": {
+                        "thumbnailURL": "https://example.invalid/sample-thumbnail.png",
+                        "fullURL": "https://example.invalid/sample-full.png",
+                        "artist": "Sample Artist"
+                    },
+                    "flavorText": "Sample flavor text.",
+                    "tags": [
+                        "sample-tag"
+                    ]
+                }
+            ]
+        }
+    ]
+}

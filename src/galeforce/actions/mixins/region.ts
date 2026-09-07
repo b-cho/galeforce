@@ -1,5 +1,5 @@
 import { Region } from '../../../riot-api';
-import { Constructor, Executable } from './executable';
+import { Constructor, Executable, MixinResult } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.region()` method.
@@ -18,7 +18,7 @@ export interface RegionChainable<TRegion extends Region = Region> {
  * @param Base The target class.
  */
 export function TakesRegion<TRegion extends Region, TBase extends Constructor>(type: TRegion, Base: TBase) {
-    return class extends Base implements RegionChainable<TRegion> {
+    class MixinClass extends (Base as Constructor)<any> implements RegionChainable<TRegion> {
         /**
          * Modifies the **region** associated with the Action object it is called from.
          * Note that associated runtime type checks are performed to ensure that
@@ -32,5 +32,7 @@ export function TakesRegion<TRegion extends Region, TBase extends Constructor>(t
             this.region = undefined;
             return this;
         }
-    };
+    }
+
+    return MixinClass as unknown as MixinResult<TBase, RegionChainable<TRegion>>;
 }

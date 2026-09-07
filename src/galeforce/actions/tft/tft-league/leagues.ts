@@ -4,14 +4,12 @@ import {
     ENDPOINTS, LeagueRegion, Tier,
 } from '../../../../riot-api';
 import SubmoduleMap from '../../../interfaces/submodule-map';
-import { TakesTier, TakesRegion, TakesLeagueId } from '../../mixins';
+import { TakesTier, TakesRegion } from '../../mixins';
 
 const BaseAction = TakesTier(
-    TakesLeagueId(
-        TakesRegion(
-            {} as LeagueRegion,
-            Action,
-        ),
+    TakesRegion(
+        {} as LeagueRegion,
+        Action,
     ),
 );
 
@@ -23,9 +21,7 @@ export default class GetTFTLeagueList extends BaseAction<LeagueListDTO> {
     }
 
     protected inferEndpoint(): void {
-        if (typeof this.payload.leagueId !== 'undefined') {
-            this.payload.endpoint = ENDPOINTS.TFT_LEAGUE.LEAGUE_ID;
-        } else if (typeof this.payload.tier !== 'undefined') {
+        if (typeof this.payload.tier !== 'undefined') {
             switch (this.payload.tier) {
             case Tier.CHALLENGER:
                 this.payload.endpoint = ENDPOINTS.TFT_LEAGUE.CHALLENGER_LEAGUE;

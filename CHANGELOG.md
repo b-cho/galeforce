@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ***
 
-### \[0.7.0] (2025-08-04)
+### \[0.7.0] (unreleased)
 
 #### Added
 
@@ -15,6 +15,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
     *   Accessible by passing in `true` to the action constructor
     > ```typescript
     > const list = await galeforce.val.match.list(true) // access val-console endpoints
+    >   ...
+    > ```
+*   Add support for `riftbound-content-v1` under **`galeforce.riftbound.content`**, along with the corresponding `RiftboundContentDTO`
+*   Add support for the `account-v1` active region endpoint (`/riot/account/v1/region/by-game/{game}/by-puuid/{puuid}`) under **`galeforce.riot.account.activeRegion`**, along with the corresponding `AccountRegionDTO`
+    *   Note that this endpoint accepts a *different* set of games (`lol`, `tft`) than the active shard endpoint (`val`, `lor`), so `galeforce.game` is now namespaced by endpoint in the same way as `galeforce.region` and `galeforce.queue`
+    > ```typescript
+    > const region = await galeforce.riot.account.activeRegion()
+    >   .game(galeforce.game.region.LEAGUE_OF_LEGENDS) // lol, tft
+    >   ...
+    >
+    > const shard = await galeforce.riot.account.activeShard()
+    >   .game(galeforce.game.shard.VALORANT) // val, lor
+    >   ...
+    > ```
+*   Add support for the `match-v5` replay endpoint (`/lol/match/v5/matches/by-puuid/{puuid}/replays`) under **`galeforce.lol.match.replay`**, along with the corresponding `ReplayDTO`
+*   Add support for the `tournament-stub-v5` code lookup endpoint (`/lol/tournament-stub/v5/codes/{tournamentCode}`) under the existing `galeforce.lol.tournament.code.get`
+    *   Accessible by passing in `true` to the action constructor
+    > ```typescript
+    > const code = await galeforce.lol.tournament.code.get(true) // access tournament-stub endpoints
     >   ...
     > ```
 
@@ -27,11 +46,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 *   Update `galeforce.lol.tournament` to be compatible with `tournament-v5`
 *   Include top champion mastery entries endpoint under **`galeforce.lol.mastery.top`**
 *   Include top rated ladder entries for TFT queues under **`galeforce.tft.league.ladders.top`**
+*   Update `galeforce.tft.league.entries` to use the current `tft-league-v1` path (`/tft/league/v1/by-puuid/{puuid}`), which replaces the removed ~~`/tft/league/v1/entries/by-puuid/{puuid}`~~ path
+*   Restore the full `DataDragonChampionDTO` interface (`spells`, `passive`, `skins`, `lore`, `allytips`, `enemytips`, and `recommended`), which was replaced by the champion *list* shape in [#28](https://github.com/bcho04/galeforce/pull/28)
+*   Update DTOs to match current API specifications: `summonerId` is no longer returned by `spectator-v5` (replaced by `riotId`/`puuid`), and fields that Riot marks as optional (`MatchDTO.bountyLevel`, the Arena-only `playerScore*`/`playerAugment*` fields, `TournamentCodeDTO.participants` and `spectators`, `LobbyEventDTO.puuid`) are now optional
+*   Add the missing `KR`, `PH`, `SG`, `TH`, `TW`, and `VN` regions to `TournamentCodeDTO`
+*   Migrate the test suite to ES modules to support `chai` v5 and `chai-as-promised` v8, and update the specs to match the current API surface
+
+#### Fixed
+
+*   Fix **`galeforce.tft.league.ladders.top`**, which rejected every valid input. The action sets a `lol` payload type (TFT shares the League regions), but the runtime queue guard only accepted `LeagueQueue` values, so the endpoint's only valid queue (`RANKED_TFT_TURBO`) always threw `Invalid /lol queue type provided.` TFT queues are now accepted on `lol`-typed payloads.
 
 #### Removed
 
 *   **\[breaking]** Remove support for ~~`.summonerId()`~~, ~~`.accountId()`~~, and ~~`.summonerName()`~~ mixins following Riot's decision to [deprecate](https://developer.riotgames.com/docs/lol#summoner-names-to-riot-ids) these fields in November 2023. All endpoints should now take encrypted PUUIDs.
-
+*   **\[breaking]** Namespace `galeforce.game` by endpoint, matching the existing `galeforce.region` and `galeforce.queue` pattern. ~~`galeforce.game.VALORANT`~~ is now `galeforce.game.shard.VALORANT`, and ~~`galeforce.game.LOR`~~ is now `galeforce.game.shard.LOR`
+*   **\[breaking]** Remove support for ~~`galeforce.lol.spectator.featured()`~~ and ~~`galeforce.tft.spectator.featured()`~~ following Riot's removal of the featured games endpoints from `spectator-v5` and `spectator-tft-v5`
+*   **\[breaking]** Remove support for the ~~`.leagueId()`~~ mixin on `galeforce.lol.league.league` and `galeforce.tft.league.league` following Riot's removal of the ~~`/lol/league/v4/leagues/{leagueId}`~~ and ~~`/tft/league/v1/leagues/{leagueId}`~~ endpoints
 
 ### \[0.6.1] (2023-01-13)
 

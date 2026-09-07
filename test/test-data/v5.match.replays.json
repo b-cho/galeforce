@@ -1,0 +1,10 @@
+{
+    "total": 5,
+    "matchFileURLs": [
+        "https://s3.us-west-2.amazonaws.com/lol-prod-us-west-2-match-history-replay/na1_5635706834/0.replay",
+        "https://s3.us-west-2.amazonaws.com/lol-prod-us-west-2-match-history-replay/na1_5635615878/0.replay",
+        "https://s3.us-west-2.amazonaws.com/lol-prod-us-west-2-match-history-replay/na1_5635591737/0.replay",
+        "https://s3.us-west-2.amazonaws.com/lol-prod-us-west-2-match-history-replay/na1_5635524367/0.replay",
+        "https://s3.us-west-2.amazonaws.com/lol-prod-us-west-2-match-history-replay/na1_5635469639/0.replay"
+    ]
+}

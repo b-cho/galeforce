@@ -1,4 +1,4 @@
-import { Constructor, Executable } from './executable';
+import { Constructor, Executable, MixinResult } from './executable';
 
 /**
  * An interface containing method type signatures for any `.ddragon` Action containing a `.version()` method.
@@ -13,7 +13,7 @@ export interface VersionChainable {
  * @param Base The target class.
  */
 export function TakesVersion<TBase extends Constructor>(Base: TBase) {
-    return class extends Base implements VersionChainable {
+    class MixinClass extends (Base as Constructor)<any> implements VersionChainable {
         /**
          * Modifies the **version** (patch) associated with the Action object it is called from.
          * Tests the provided version against the following regex expressions:
@@ -29,5 +29,7 @@ export function TakesVersion<TBase extends Constructor>(Base: TBase) {
             this.version = undefined;
             return this;
         }
-    };
+    }
+
+    return MixinClass as unknown as MixinResult<TBase, VersionChainable>;
 }

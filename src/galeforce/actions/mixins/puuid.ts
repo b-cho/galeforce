@@ -1,4 +1,4 @@
-import { Constructor, Executable } from './executable';
+import { Constructor, Executable, MixinResult } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.puuid()` method.
@@ -13,7 +13,7 @@ export interface PUUIDChainable {
  * @param Base The target class.
  */
 export function TakesPUUID<TBase extends Constructor>(Base: TBase) {
-    return class extends Base implements PUUIDChainable {
+    class MixinClass extends (Base as Constructor)<any> implements PUUIDChainable {
         /**
          * Modifies the **puuid** associated with the Action object it is called from.
          * Note that associated runtime type checks are performed to ensure that
@@ -27,5 +27,7 @@ export function TakesPUUID<TBase extends Constructor>(Base: TBase) {
             this.puuid = undefined;
             return this;
         }
-    };
+    }
+
+    return MixinClass as unknown as MixinResult<TBase, PUUIDChainable>;
 }

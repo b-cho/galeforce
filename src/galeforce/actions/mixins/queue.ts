@@ -1,5 +1,5 @@
 import { Queue } from '../../../riot-api';
-import { Constructor, Executable } from './executable';
+import { Constructor, Executable, MixinResult } from './executable';
 
 /**
  * An interface containing method type signatures for any Action containing a `.queue()` method.
@@ -18,7 +18,7 @@ export interface QueueChainable<TQueue extends Queue = Queue> {
  * @param Base The target class.
  */
 export function TakesQueue<TQueue extends Queue, TBase extends Constructor>(type: TQueue, Base: TBase) {
-    return class extends Base implements QueueChainable<TQueue> {
+    class MixinClass extends (Base as Constructor)<any> implements QueueChainable<TQueue> {
         /**
          * Modifies the **queue** associated with the Action object it is called from.
          * Note that associated runtime type checks are performed to ensure that
@@ -32,5 +32,7 @@ export function TakesQueue<TQueue extends Queue, TBase extends Constructor>(type
             this.queue = undefined;
             return this;
         }
-    };
+    }
+
+    return MixinClass as unknown as MixinResult<TBase, QueueChainable<TQueue>>;
 }

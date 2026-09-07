@@ -1,6 +1,6 @@
 import debug from 'debug';
 import {
-    RiotAPIModule, Tier, Division, Game,
+    RiotAPIModule, Tier, Division, ShardGame, RegionGame,
     ValorantRegion, LeagueRegion, RiotRegion,
     LeagueQueue, ValorantQueue, TFTQueue, DataDragonRegion, LorRegion,
 } from './riot-api';
@@ -20,10 +20,10 @@ import GetClashPlayers from './galeforce/actions/lol/clash/players';
 import GetClashTeam from './galeforce/actions/lol/clash/teams';
 import GetClashTournament from './galeforce/actions/lol/clash/tournaments';
 import GetCurrentGameInfo from './galeforce/actions/lol/spectator/active-games';
-import GetFeaturedGames from './galeforce/actions/lol/spectator/featured-games';
 import GetMasteryScore from './galeforce/actions/lol/champion-mastery/score';
 import GetAccount from './galeforce/actions/riot/account/account';
 import GetActiveShard from './galeforce/actions/riot/account/active-shard';
+import GetActiveRegion from './galeforce/actions/riot/account/active-region';
 import PostTournamentCodes from './galeforce/actions/lol/tournament/create-codes';
 import GetTournamentCodes from './galeforce/actions/lol/tournament/get-tournament-by-code';
 import PutTournamentCodes from './galeforce/actions/lol/tournament/update-tournament';
@@ -102,11 +102,12 @@ import GetChallengeConfigList from './galeforce/actions/lol/challenges/config-li
 import GetChallengePercentiles from './galeforce/actions/lol/challenges/percentiles';
 import GetChallengePercentilesList from './galeforce/actions/lol/challenges/percentiles-list';
 import GetMasteryTop from './galeforce/actions/lol/champion-mastery/top';
-import GetTFTFeaturedGames from './galeforce/actions/tft/tft-spectator/featured-games';
 import GetTFTCurrentGameInfo from './galeforce/actions/tft/tft-spectator/active-games';
 import GetTFTPlatformData from './galeforce/actions/tft/tft-status';
 import GetTournamentGames from './galeforce/actions/lol/tournament/games';
 import GetTFTTopRatedLadderEntries from './galeforce/actions/tft/tft-league/top';
+import GetReplay from './galeforce/actions/lol/match/replay';
+import GetRiftboundContent from './galeforce/actions/riftbound/riftbound-content/contents';
 
 const Region = {
     lol: LeagueRegion,
@@ -114,6 +115,11 @@ const Region = {
     riot: RiotRegion,
     ddragon: DataDragonRegion,
     lor: LorRegion,
+};
+
+const Game = {
+    shard: ShardGame,
+    region: RegionGame,
 };
 
 const Queue = {
@@ -277,6 +283,11 @@ class Galeforce {
              * - (**GET**) `/lol/match/v5/matches/by-puuid/{puuid}/ids`
              */
             list: (): GetMatchlist => new GetMatchlist(this.submodules),
+            /**
+             * Action constructor corresponding to the following endpoints:
+             * - (**GET**) `/lol/match/v5/matches/by-puuid/{puuid}/replays`
+             */
+            replay: (): GetReplay => new GetReplay(this.submodules),
         },
         /**
          * Object containing actions corresponding to the `/lol/platform` set of endpoints.
@@ -329,11 +340,6 @@ class Galeforce {
              * - (**GET**) `/lol/spectator/v5/active-games/by-summoner/{encryptedPUUID}`
              */
             active: (): GetCurrentGameInfo => new GetCurrentGameInfo(this.submodules),
-            /**
-             * Action constructor corresponding to the following endpoints:
-             * - (**GET**) `/lol/spectator/v5/featured-games`
-             */
-            featured: (): GetFeaturedGames => new GetFeaturedGames(this.submodules),
         },
         /**
          * Object containing actions corresponding to the `/lol/tournament` set of endpoints.
@@ -356,8 +362,11 @@ class Galeforce {
                 /**
                  * Action constructor corresponding to the following endpoints:
                  * - (**GET**) `/lol/tournament/v5/codes/{tournamentCode}`
+                 * - (**GET**) `/lol/tournament-stub/v5/codes/{tournamentCode}`
+                 *
+                 * Tournament stub endpoints can be accessed by passing in `stub=true`.
                  */
-                get: (): GetTournamentCodes => new GetTournamentCodes(this.submodules),
+                get: (stub = false): GetTournamentCodes => new GetTournamentCodes(this.submodules, stub),
                 /**
                  * Action constructor corresponding to the following endpoints:
                  * - (**PUT**) `/lol/tournament/v5/codes/{tournamentCode}`
@@ -693,6 +702,11 @@ class Galeforce {
              * - (**GET**) `/riot/account/v1/active-shards/by-game/{game}/by-puuid/{puuid}`
              */
             activeShard: (): GetActiveShard => new GetActiveShard(this.submodules),
+            /**
+             * Action constructor corresponding to the following endpoints:
+             * - (**GET**) `/riot/account/v1/region/by-game/{game}/by-puuid/{puuid}`
+             */
+            activeRegion: (): GetActiveRegion => new GetActiveRegion(this.submodules),
         },
     };
 
@@ -862,7 +876,7 @@ class Galeforce {
         league: {
             /**
              * Action constructor corresponding to the following endpoints:
-             * - (**GET**) `/tft/league/v1/entries/by-summoner/{encryptedSummonerId}`
+             * - (**GET**) `/tft/league/v1/by-puuid/{puuid}`
              * - (**GET**) `/tft/league/v1/entries/{tier}/{division}`
              */
             entries: (): GetTFTLeagueEntries => new GetTFTLeagueEntries(this.submodules),
@@ -871,7 +885,6 @@ class Galeforce {
              * - (**GET**) `/tft/league/v1/challenger`
              * - (**GET**) `/tft/league/v1/grandmaster`
              * - (**GET**) `/tft/league/v1/master`
-             * - (**GET**) `/tft/league/v1/leagues/{leagueId} `
              */
             league: (): GetTFTLeagueList => new GetTFTLeagueList(this.submodules),
             /**
@@ -914,11 +927,6 @@ class Galeforce {
              * - (**GET**) `/lol/spectator/tft/v5/active-games/by-puuid/{encryptedPUUID}`
              */
             active: (): GetTFTCurrentGameInfo => new GetTFTCurrentGameInfo(this.submodules),
-            /**
-             * Action constructor corresponding to the following endpoints:
-             * - (**GET**) `/lol/spectator/tft/v5/featured-games`
-             */
-            featured: (): GetTFTFeaturedGames => new GetTFTFeaturedGames(this.submodules),
         },
         /**
          * Action constructor corresponding to the following endpoints:
@@ -985,6 +993,17 @@ class Galeforce {
          * - (**GET**) `/val/status/v1/platform-data`
          */
         status: (): GetValorantPlatformData => new GetValorantPlatformData(this.submodules),
+    };
+
+    /**
+     * Object containing actions corresponding to the `/riftbound` set of endpoints.
+     */
+    public riftbound = {
+        /**
+         * Action constructor corresponding to the following endpoints:
+         * - (**GET**) `/riftbound/content/v1/contents`
+         */
+        content: (): GetRiftboundContent => new GetRiftboundContent(this.submodules),
     };
 
     /**
@@ -1141,10 +1160,12 @@ class Galeforce {
     public division: typeof Division = Division;
 
     /**
-     * Enum corresponding to games for the
-     * `/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}` endpoint.
+     * Object containing enums corresponding to the games accepted by the `account-v1`
+     * endpoints. Note that the two endpoints accept *disjoint* sets of games:
+     * - **`game.shard`** (`val`, `lor`) for `/riot/account/v1/active-shards/by-game/{game}/by-puuid/{puuid}`
+     * - **`game.region`** (`lol`, `tft`) for `/riot/account/v1/region/by-game/{game}/by-puuid/{puuid}`
      */
-    public game: typeof Game = Game;
+    public game = Game;
 }
 
 declare namespace Galeforce {
@@ -1153,7 +1174,7 @@ declare namespace Galeforce {
      */
     export import dto = DTO;
     export {
-        Division, Tier, Game, Region, Queue,
+        Division, Tier, Game, ShardGame, RegionGame, Region, Queue,
     };
 }
 
