@@ -2,7 +2,7 @@
   "name": "galeforce",
   "author": {
     "name": "Brandon Cho",
-    "email": "brandon.cho@gmail.com",
+    "email": "galeforce@bcho.me",
     "url": "https://github.com/bcho04"
   },
   "description": "A customizable, promise-based, and command-oriented TypeScript library for the Riot Games API.",
@@ -27,7 +27,7 @@
     "url": "https://github.com/bcho04/galeforce.git"
   },
   "bugs": "https://github.com/bcho04/galeforce/issues",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "license": "Apache-2.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -76,7 +76,7 @@
     "build": "npx tsc --project tsconfig.json",
     "test": "mocha --exit",
     "postinstall": "node ./scripts/postinstall.js",
-    "docs": "npx typedoc@0.19.2"
+    "docs": "npx typedoc"
   },
   "remarkConfig": {
     "plugins": [

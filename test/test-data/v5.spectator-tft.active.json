@@ -1,0 +1,96 @@
+{
+    "gameId": 5339772916,
+    "mapId": 22,
+    "gameMode": "TFT",
+    "gameType": "MATCHED",
+    "gameQueueConfigId": 1090,
+    "participants": [
+        {
+            "puuid": "CB0vSSRlehoR6fo42mgSmpnx30ln4lduCsfMYZAdu7WH8AZQcNrSWyi-TqY2Y9_i40uOHRis8HSJSg",
+            "teamId": 100,
+            "spell1Id": 6,
+            "spell2Id": 7,
+            "championId": 145,
+            "profileIconId": 6919,
+            "riotId": "Miyari#Floof",
+            "gameCustomizationObjects": []
+        },
+        {
+            "puuid": "WXilsTR-xMPWh2wiSALhn9r3XyUISZdJrVMofWIM9MSKUxcnA3C3czN3hu2hD63SZwhrsHBtJUxExA",
+            "teamId": 100,
+            "spell1Id": 6,
+            "spell2Id": 7,
+            "championId": 145,
+            "profileIconId": 5213,
+            "riotId": "TwFT Park#6097",
+            "gameCustomizationObjects": []
+        },
+        {
+            "puuid": "4UTh3RP7rS8RkuHSDX1_aV9fCLgO0avWXq7ZMIwtgkqBQCBu56kFHqwsQIId083hyCAXtioyiuCxMw",
+            "teamId": 100,
+            "spell1Id": 6,
+            "spell2Id": 7,
+            "championId": 145,
+            "profileIconId": 5371,
+            "riotId": "Nuts345#NA1",
+            "gameCustomizationObjects": []
+        },
+        {
+            "puuid": "yAyNHocGd2dSFftOmX5VM-3SxyQRsaNCVrm9KI0nhEi7oSbftm_jlalm7XvHC6Zrwz7A9ubccFLpSQ",
+            "teamId": 100,
+            "spell1Id": 6,
+            "spell2Id": 7,
+            "championId": 145,
+            "profileIconId": 5368,
+            "riotId": "SuperRoseful#NA1",
+            "gameCustomizationObjects": []
+        },
+        {
+            "puuid": "RZ1vYQyK57ornxl5jbXc39XjwoaY_OiU3Vnzi0nmOuJtDn-hmJhg2S8rNgS_mcNedIvRfTTJa51BZQ",
+            "teamId": 100,
+            "spell1Id": 6,
+            "spell2Id": 7,
+            "championId": 145,
+            "profileIconId": 2072,
+            "riotId": "yequari#2049",
+            "gameCustomizationObjects": []
+        },
+        {
+            "puuid": "gmyBhRYowaZ0Oot7K9ozrlo_Ob3e6cGlG1e6nMADwx5t_8xI7mdv_uQudEwtbJtaSyO8yztcZXUTVQ",
+            "teamId": 100,
+            "spell1Id": 6,
+            "spell2Id": 7,
+            "championId": 145,
+            "profileIconId": 5089,
+            "riotId": "jaekng#NA1",
+            "gameCustomizationObjects": []
+        },
+        {
+            "puuid": "7ApXlEikT4eatfD_nAOaj3xOuWzmNHNI1qf17fMbKTXaJt0Uv_Es7Z_ot2wQ1SpTUqI6TegN9J5SMA",
+            "teamId": 100,
+            "spell1Id": 6,
+            "spell2Id": 7,
+            "championId": 145,
+            "profileIconId": 6709,
+            "riotId": "Twice Sana#Twice",
+            "gameCustomizationObjects": []
+        },
+        {
+            "puuid": "dQSybRNcg9N7fN1xkseWbUFP9ziTtYRoirwA5S9Z2lfokOHW7YGZbPLCN5X5snowMJj13Y5PenrHow",
+            "teamId": 100,
+            "spell1Id": 6,
+            "spell2Id": 7,
+            "championId": 145,
+            "profileIconId": 6315,
+            "riotId": "냉면먹고싶다#Dice",
+            "gameCustomizationObjects": []
+        }
+    ],
+    "observers": {
+        "encryptionKey": "3TSKbZ+7oaWpH67sAMfD0Iu53jAzziVk"
+    },
+    "platformId": "NA1",
+    "bannedChampions": [],
+    "gameStartTime": 1754360443018,
+    "gameLength": 241
+}

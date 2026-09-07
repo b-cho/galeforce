@@ -1,0 +1,16 @@
+{
+    "eventList": [
+        {
+            "timestamp": "Tue Aug 05 02:22:10 UTC 2025",
+            "eventType": "PracticeGameCreatedEvent"
+        },
+        {
+            "timestamp": "Tue Aug 05 02:22:10 UTC 2025",
+            "eventType": "ChampSelectStartedEvent"
+        },
+        {
+            "timestamp": "Tue Aug 05 02:22:10 UTC 2025",
+            "eventType": "GameAllocationStartedEvent"
+        }
+    ]
+}

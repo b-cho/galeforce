@@ -10,21 +10,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 #### Added
 
-*   Add support for `tft-spectator-v5` and `tft-status-v1` under **`galeforce.tft.spectator`** and **`galeforce.tft.status`**, respectively
+*   Add support for `spectator-tft-v5` and `tft-status-v1` under **`galeforce.tft.spectator`** and **`galeforce.tft.status`**, respectively
 *   Add support for `val-console` endpoints under the existing `galeforce.val.match` and `galeforce.val.ranked` endpoints
     *   Accessible by passing in `true` to the action constructor
     > ```typescript
     > const list = await galeforce.val.match.list(true) // access val-console endpoints
     >   ...
     > ```
-*   Include top champion mastery entries endpoint under **`galeforce.lol.mastery.top`**
 
 #### Changed
 
 *   Update DTOs corresponding to `spectator-v5`, `tft-league-v1`, and `tournament-v5` endpoints to match current API specifications.
+*   Updated `match-v5` DTOs ([#28](https://github.com/bcho04/galeforce/pull/28)) and Data Dragon DTOs ([#28](https://github.com/bcho04/galeforce/pull/28), [#26](https://github.com/bcho04/galeforce/pull/26))
 *   Update enums to include new tiers (`galeforce.tier.EMERALD`)
 *   Expose new TFTQueue object at top-level under **`galeforce.queue.tft`**
 *   Update `galeforce.lol.tournament` to be compatible with `tournament-v5`
+*   Include top champion mastery entries endpoint under **`galeforce.lol.mastery.top`**
+*   Include top rated ladder entries for TFT queues under **`galeforce.tft.league.ladders.top`**
 
 #### Removed
 

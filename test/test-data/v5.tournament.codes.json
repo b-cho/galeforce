@@ -1,0 +1,13 @@
+{
+    "id": 0,
+    "providerId": 1,
+    "tournamentId": 2,
+    "code": "STUB04f51-1c1bbc64-6b62-43e9-901e-9d8d2cdcdf59",
+    "region": "STUB",
+    "map": "SUMMONERS_RIFT",
+    "teamSize": 5,
+    "pickType": "DRAFT_MODE",
+    "lobbyName": "STUB_LOBBY",
+    "password": "22fcfa1aadcd9814238898a4275271",
+    "metaData": "metadata"
+}

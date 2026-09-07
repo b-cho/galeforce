@@ -1,0 +1,276 @@
+{
+    "gameId": 5339767526,
+    "mapId": 12,
+    "gameMode": "ARAM",
+    "gameType": "MATCHED",
+    "gameQueueConfigId": 450,
+    "participants": [
+        {
+            "puuid": "X23SHcghVNYo7rHw-K4Zpn1U0_S2Hix_T0ekV1K9KuNmvIZeASCZMlqYy8-svKMbx52697CRW0TzmQ",
+            "teamId": 100,
+            "spell1Id": 4,
+            "spell2Id": 32,
+            "championId": 76,
+            "profileIconId": 3015,
+            "riotId": "RatDoto#NA1",
+            "bot": false,
+            "gameCustomizationObjects": [],
+            "perks": {
+                "perkIds": [
+                    8128,
+                    8143,
+                    8140,
+                    8135,
+                    8014,
+                    8009,
+                    5008,
+                    5008,
+                    5001
+                ],
+                "perkStyle": 8100,
+                "perkSubStyle": 8000
+            }
+        },
+        {
+            "puuid": "d4Z9QZyGmcGk26vd3aoDhs5AaRJeGqF1EooYFFxuXHQwN9u85Nv7_Kbx90XJ4EkuhU-q3FRBMSHPsQ",
+            "teamId": 100,
+            "spell1Id": 1,
+            "spell2Id": 4,
+            "championId": 42,
+            "profileIconId": 688,
+            "riotId": "PersonC#NA1",
+            "bot": false,
+            "gameCustomizationObjects": [],
+            "perks": {
+                "perkIds": [
+                    8010,
+                    8009,
+                    9103,
+                    8017,
+                    8140,
+                    8135,
+                    5005,
+                    5008,
+                    5001
+                ],
+                "perkStyle": 8000,
+                "perkSubStyle": 8100
+            }
+        },
+        {
+            "puuid": "8xvD9FJ3LWHn8nGKSNLalK71wcJqPGMTyTfKXYT8YjZkNxvCd39UQaKiJG40_o6LJ4OqS_rFwLjvzg",
+            "teamId": 100,
+            "spell1Id": 4,
+            "spell2Id": 6,
+            "championId": 145,
+            "profileIconId": 6002,
+            "riotId": "Bulbatile#Saur",
+            "bot": false,
+            "gameCustomizationObjects": [],
+            "perks": {
+                "perkIds": [
+                    8128,
+                    8139,
+                    8140,
+                    8135,
+                    8226,
+                    8210,
+                    5008,
+                    5008,
+                    5001
+                ],
+                "perkStyle": 8100,
+                "perkSubStyle": 8200
+            }
+        },
+        {
+            "puuid": "YaYBlAIGRFuhhpq8pFyF-gf88yubrrNWNIaSF3fhuQ7RDOouiUDjgNbmAI1JGy4OiL5lUSnRExFoAw",
+            "teamId": 100,
+            "spell1Id": 32,
+            "spell2Id": 4,
+            "championId": 238,
+            "profileIconId": 1637,
+            "riotId": "Olums#NA1",
+            "bot": false,
+            "gameCustomizationObjects": [],
+            "perks": {
+                "perkIds": [
+                    8128,
+                    8143,
+                    8140,
+                    8106,
+                    8014,
+                    8009,
+                    5008,
+                    5008,
+                    5001
+                ],
+                "perkStyle": 8100,
+                "perkSubStyle": 8000
+            }
+        },
+        {
+            "puuid": "01yTR8QQpmNDJa0ivqvfz-e5Jl1Qge-eb0jgql_dAxYLy9PoI3o9yEA2Yt5vxg3VN1MmpYrm-m5XyA",
+            "teamId": 100,
+            "spell1Id": 32,
+            "spell2Id": 4,
+            "championId": 154,
+            "profileIconId": 654,
+            "riotId": "HK Reporter#NA1",
+            "bot": false,
+            "gameCustomizationObjects": [],
+            "perks": {
+                "perkIds": [
+                    8437,
+                    8463,
+                    8429,
+                    8451,
+                    9105,
+                    9111,
+                    5007,
+                    5001,
+                    5001
+                ],
+                "perkStyle": 8400,
+                "perkSubStyle": 8000
+            }
+        },
+        {
+            "puuid": "0qLKBaWSA9AJYmophRWmTxgV3rOBJKX6sOSsYlyxekJk89lzIQBHgREUXTwbSeyt-gUsxfvdboLGcw",
+            "teamId": 200,
+            "spell1Id": 6,
+            "spell2Id": 4,
+            "championId": 112,
+            "profileIconId": 4895,
+            "riotId": "O0ps#12345",
+            "bot": false,
+            "gameCustomizationObjects": [],
+            "perks": {
+                "perkIds": [
+                    8128,
+                    8139,
+                    8140,
+                    8135,
+                    8014,
+                    8009,
+                    5008,
+                    5008,
+                    5001
+                ],
+                "perkStyle": 8100,
+                "perkSubStyle": 8000
+            }
+        },
+        {
+            "puuid": "GPEhX8iXMnUvmV70mmVJKL_WUaltIf-XFLhvNiooow7sLU23dJXOvTXjoEjzNX2rvMQRuDmejW9wKQ",
+            "teamId": 200,
+            "spell1Id": 4,
+            "spell2Id": 6,
+            "championId": 235,
+            "profileIconId": 4964,
+            "riotId": "masterkiller1015#NA1",
+            "bot": false,
+            "gameCustomizationObjects": [],
+            "perks": {
+                "perkIds": [
+                    8021,
+                    8009,
+                    9104,
+                    8017,
+                    8226,
+                    8236,
+                    5008,
+                    5008,
+                    5001
+                ],
+                "perkStyle": 8000,
+                "perkSubStyle": 8200
+            }
+        },
+        {
+            "puuid": "nBGcx5A-8GXMPHkjeiwACCQ8vUgFuh8z6chfzp_ZdnnJahBE15GTwcSaw2VmifGa_nsR2WAu4KHcTQ",
+            "teamId": 200,
+            "spell1Id": 4,
+            "spell2Id": 32,
+            "championId": 54,
+            "profileIconId": 4793,
+            "riotId": "Dying Rose#NA1",
+            "bot": false,
+            "gameCustomizationObjects": [],
+            "perks": {
+                "perkIds": [
+                    8229,
+                    8226,
+                    8210,
+                    8237,
+                    8304,
+                    8347,
+                    5008,
+                    5008,
+                    5001
+                ],
+                "perkStyle": 8200,
+                "perkSubStyle": 8300
+            }
+        },
+        {
+            "puuid": "arXxa6StAbafhO-MLyhVGPAiYK1mpHuvwLDrbcz-mLHtIRhT1Z4cEFZ2socHCtHyi1dv-ThtM37ssA",
+            "teamId": 200,
+            "spell1Id": 4,
+            "spell2Id": 32,
+            "championId": 777,
+            "profileIconId": 3459,
+            "riotId": "KGFaker#NA1",
+            "bot": false,
+            "gameCustomizationObjects": [],
+            "perks": {
+                "perkIds": [
+                    8008,
+                    9111,
+                    9104,
+                    8014,
+                    8451,
+                    8473,
+                    5005,
+                    5008,
+                    5001
+                ],
+                "perkStyle": 8000,
+                "perkSubStyle": 8400
+            }
+        },
+        {
+            "puuid": "W5d19Xu0iAtbrxq7BSSia3-qFTXDtDLFc01NZuoWGp2b8RThJCg3ec8Ib-B30LzljpMcm0OIr1vsNw",
+            "teamId": 200,
+            "spell1Id": 4,
+            "spell2Id": 32,
+            "championId": 35,
+            "profileIconId": 977,
+            "riotId": "Fam0us32#NA1",
+            "bot": false,
+            "gameCustomizationObjects": [],
+            "perks": {
+                "perkIds": [
+                    8128,
+                    8126,
+                    8140,
+                    8106,
+                    8226,
+                    8210,
+                    5008,
+                    5008,
+                    5001
+                ],
+                "perkStyle": 8100,
+                "perkSubStyle": 8200
+            }
+        }
+    ],
+    "observers": {
+        "encryptionKey": "FEIKX+wOC7qf+VPqr7PQbBnvlE1jX/GH"
+    },
+    "platformId": "NA1",
+    "bannedChampions": [],
+    "gameStartTime": 1754360434067,
+    "gameLength": 316
+}

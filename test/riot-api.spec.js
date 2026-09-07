@@ -6,22 +6,14 @@ chai.use(chaiAsPromised);
 const { expect } = chai;
 
 const { RiotAPIModule } = require('../dist/riot-api');
-const { ENDPOINTS, LeagueRegion } = require('../dist/riot-api');
+const { ENDPOINTS, RiotRegion } = require('../dist/riot-api');
 
-const v4SummonerByNameReply = {
-    id: 'l3ZbR4AKKKK47w170ZOqcu7kmSV2qb38RV7zK_4n1GucI0w',
-    accountId: 'xG5uPpEaSFc8LvOmi4wIumQZHbTlI6WJqECcgsW-_qu_BG4',
-    puuid: 'jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g',
-    name: 'SSG Xayah',
-    profileIconId: 4851,
-    revisionDate: 1609317629000,
-    summonerLevel: 138,
-};
+const testAccountReply = {'test': 'reply'};
 
 const na1API = nock('https://na1.api.riotgames.com')
     .persist()
-    .get('/lol/summoner/v4/summoners/by-name/SSG%20Xayah')
-    .reply(200, v4SummonerByNameReply);
+    .get('/riot/account/v1/accounts/by-puuid/test-puuid')
+    .reply(200, testAccountReply);
 
 const RiotAPI = new RiotAPIModule({ key: 'RIOT-API-KEY' });
 
@@ -31,16 +23,16 @@ describe('/riot-api', () => {
     });
     describe('URL generation', () => {
         it('should generate correct RiotAPI.request URLs from template strings', () => {
-            expect(RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { region: LeagueRegion.NORTH_AMERICA, summonerName: 'TEST' }).targetURL)
-                .to.equal('https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/TEST');
+            expect(RiotAPI.request(ENDPOINTS.ACCOUNT.PUUID, { region: RiotRegion.AMERICAS, puuid: 'test-puuid' }).targetURL)
+                .to.equal('https://na1.api.riotgames.com/riot/account/v1/accounts/by-puuid/test-puuid');
         });
         it('should throw when a required parameter is missing', () => {
-            expect(() => RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { region: LeagueRegion.NORTH_AMERICA }))
-                .to.throw('[galeforce]: Action payload summonerName is required but undefined.');
+            expect(() => RiotAPI.request(ENDPOINTS.ACCOUNT.PUUID, { region: RiotRegion.AMERICAS }))
+                .to.throw('[galeforce]: Action payload puuid is required but undefined.');
         });
     });
     describe('API calls', () => {
-        it('should return correct JSON for the /summoner/v4/summoners/by-name Riot API endpoint', () => expect(RiotAPI.request(ENDPOINTS.SUMMONER.SUMMONER_NAME, { region: LeagueRegion.NORTH_AMERICA, summonerName: 'SSG Xayah' }).get())
-            .to.eventually.have.property('data').to.deep.equal(v4SummonerByNameReply));
+        it('should return correct JSON for the /riot/account/v1/accounts Riot API endpoint', () => expect(RiotAPI.request(ENDPOINTS.ACCOUNT.PUUID, { region: RiotRegion.AMERICAS, puuid: 'test-puuid' }).get())
+            .to.eventually.have.property('data').to.deep.equal(testAccountReply));
     });
 });

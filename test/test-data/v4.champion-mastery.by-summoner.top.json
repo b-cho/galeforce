@@ -1,0 +1,65 @@
+[
+    {
+        "puuid": "jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g",
+        "championId": 498,
+        "championLevel": 63,
+        "championPoints": 710708,
+        "lastPlayTime": 1754196504000,
+        "championPointsSinceLastLevel": 52108,
+        "championPointsUntilNextLevel": -41108,
+        "markRequiredForNextLevel": 2,
+        "tokensEarned": 0,
+        "championSeasonMilestone": 0,
+        "milestoneGrades": [
+            "C+"
+        ],
+        "nextSeasonMilestone": {
+            "requireGradeCounts": {
+                "A-": 1
+            },
+            "rewardMarks": 1,
+            "bonus": false,
+            "totalGamesRequires": 1
+        }
+    },
+    {
+        "puuid": "jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g",
+        "championId": 55,
+        "championLevel": 9,
+        "championPoints": 96684,
+        "lastPlayTime": 1643435146000,
+        "championPointsSinceLastLevel": 32084,
+        "championPointsUntilNextLevel": -21084,
+        "markRequiredForNextLevel": 2,
+        "tokensEarned": 0,
+        "championSeasonMilestone": 0,
+        "nextSeasonMilestone": {
+            "requireGradeCounts": {
+                "A-": 1
+            },
+            "rewardMarks": 1,
+            "bonus": false,
+            "totalGamesRequires": 1
+        }
+    },
+    {
+        "puuid": "jkxCVExyvEawqoKz-BfIgcvOyT4z8YbYmRSISvxObtrq-JAfX8mCJ4OpEvQ_b9aHJRLZ-NNIfhHr8g",
+        "championId": 22,
+        "championLevel": 9,
+        "championPoints": 83142,
+        "lastPlayTime": 1673653852000,
+        "championPointsSinceLastLevel": 18542,
+        "championPointsUntilNextLevel": -7542,
+        "markRequiredForNextLevel": 2,
+        "tokensEarned": 0,
+        "championSeasonMilestone": 0,
+        "nextSeasonMilestone": {
+            "requireGradeCounts": {
+                "A-": 1
+            },
+            "rewardMarks": 1,
+            "bonus": false,
+            "totalGamesRequires": 1
+        }
+    }
+]
