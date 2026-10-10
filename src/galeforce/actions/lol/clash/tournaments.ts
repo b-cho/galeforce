@@ -21,9 +21,9 @@ export default class GetClashTournament extends BaseAction<TournamentDTO> {
     }
 
     protected inferEndpoint(): void {
-        if (this.payload.tournamentId) {
+        if (typeof this.payload.tournamentId !== 'undefined') {
             this.payload.endpoint = ENDPOINTS.CLASH.GET_TOURNAMENT;
-        } else if (this.payload.teamId) {
+        } else if (typeof this.payload.teamId !== 'undefined') {
             this.payload.endpoint = ENDPOINTS.CLASH.GET_TEAM_TOURNAMENT;
         } else {
             throw new Error('[galeforce]: Not enough parameters provided to select API endpoint.');

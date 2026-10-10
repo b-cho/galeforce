@@ -54,6 +54,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 #### Fixed
 
+*   Fix `.set()` silently disabling all runtime payload validation. It replaced the validating payload proxy with a plain object, so invalid values (an unknown region, an over-length PUUID) were accepted and flowed into the request URL — and validation stayed disabled for the remaining lifetime of the Action. Values assigned through `.set()` are now subject to the same checks as the equivalent chainable methods.
+*   Fix `galeforce.lol.clash.tournament().tournamentId(0)` being rejected with `Not enough parameters provided to select API endpoint.` The endpoint check used truthiness rather than an `undefined` check, so a tournament ID of `0` was treated as absent.
+*   Fix an unguarded `error.response` access in the Bottleneck rate limiter's retry handler, which threw a `TypeError` inside the handler for any non-HTTP failure (e.g. `ECONNRESET`, request timeouts).
 *   Fix **`galeforce.tft.league.ladders.top`**, which rejected every valid input. The action sets a `lol` payload type (TFT shares the League regions), but the runtime queue guard only accepted `LeagueQueue` values, so the endpoint's only valid queue (`RANKED_TFT_TURBO`) always threw `Invalid /lol queue type provided.` TFT queues are now accepted on `lol`-typed payloads.
 
 #### Removed
@@ -62,6 +65,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 *   **\[breaking]** Namespace `galeforce.game` by endpoint, matching the existing `galeforce.region` and `galeforce.queue` pattern. ~~`galeforce.game.VALORANT`~~ is now `galeforce.game.shard.VALORANT`, and ~~`galeforce.game.LOR`~~ is now `galeforce.game.shard.LOR`
 *   **\[breaking]** Remove support for ~~`galeforce.lol.spectator.featured()`~~ and ~~`galeforce.tft.spectator.featured()`~~ following Riot's removal of the featured games endpoints from `spectator-v5` and `spectator-tft-v5`
 *   **\[breaking]** Remove support for the ~~`.leagueId()`~~ mixin on `galeforce.lol.league.league` and `galeforce.tft.league.league` following Riot's removal of the ~~`/lol/league/v4/leagues/{leagueId}`~~ and ~~`/tft/league/v1/leagues/{leagueId}`~~ endpoints
+*   Remove the unused ~~`summonerId`~~, ~~`accountId`~~, ~~`summonerName`~~, and ~~`leagueId`~~ payload keys (and the `TakesLeagueId` mixin export) left behind by the removal of the corresponding mixins and endpoints. These were reachable only through `.set()`, where they had no effect.
 
 ### \[0.6.1] (2023-01-13)
 

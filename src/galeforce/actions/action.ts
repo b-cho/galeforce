@@ -48,7 +48,16 @@ export default class Action<TResult> {
      * @returns The current Action (with the updated payload state).
      */
     public set(payload: ModifiablePayload): this {
-        this.payload = { ...this.payload, ..._.pick(payload, Object.getOwnPropertyNames(this.payload)) };
+        // Assign through the existing payload proxy so that each value is still subject to the
+        // same runtime type checks as the equivalent chainable method. Note that replacing
+        // this.payload with a plain object here would silently disable validation for the
+        // remaining lifetime of the Action.
+        Object.entries(_.pick(payload, Object.getOwnPropertyNames(this.payload)))
+            .forEach(([key, value]) => {
+                if (typeof value !== 'undefined') {
+                    this.payload[key as keyof ModifiablePayload] = value as never;
+                }
+            });
         return this;
     }
 

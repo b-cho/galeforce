@@ -66,7 +66,7 @@ export default class BottleneckRateLimiter extends RateLimiter {
             limiter.on('failed', async (error, jobInfo) => {
                 ratelimitDebug(`${chalk.bold.red(key)} | ${chalk.bold.redBright('failed')}`);
                 // Retry if (1) an HTTP 429 error is returned, (2) a retry-after header is provided, and (3) the number of retry attempts is less than the configured maximum
-                if (error.response.status === 429 && error.response.headers['retry-after'] && jobInfo.retryCount < config.options['retry-count-after-429']) {
+                if (error.response?.status === 429 && error.response.headers['retry-after'] && jobInfo.retryCount < config.options['retry-count-after-429']) {
                     const waitTime = parseInt(error.response.headers['retry-after'], 10) * 1000;
                     ratelimitDebug(`${chalk.bold.red(key)} | ${chalk.bold.magenta('retry')} (${chalk.bold.cyan(jobInfo.retryCount + 1)}/${chalk.bold.blue(config.options['retry-count-after-429'])}) in ${chalk.bold.magenta(waitTime)} ms`);
                     return waitTime; // Retry the original request after the amount of time specified by the response headers

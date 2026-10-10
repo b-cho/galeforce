@@ -202,6 +202,8 @@ const na1API = nock('https://na1.api.riotgames.com')
     .reply(200, replyValues.v3.champion)
     .get('/lol/clash/v1/tournaments')
     .reply(200, replyValues.v1.clash.tournaments.all)
+    .get('/lol/clash/v1/tournaments/0')
+    .reply(200, replyValues.v1.clash.tournaments.byTournament)
     .get('/lol/clash/v1/tournaments/2001')
     .reply(200, replyValues.v1.clash.tournaments.byTournament)
     .get('/lol/clash/v1/tournaments/by-team/971374dd-d9bd-4ff9-a06d-b21044ba0c92')
@@ -483,6 +485,16 @@ describe('/galeforce/actions', () => {
         });
     });
     describe('payload checks', () => {
+        it('should still validate values assigned through .set()', () => {
+            expect(() => Galeforce.lol.summoner().set({ region: 'not-a-region' }))
+                .to.throw('[galeforce]: Invalid /lol region provided.');
+            expect(() => Galeforce.lol.summoner().set({ puuid: 'x'.repeat(200) }))
+                .to.throw('[galeforce]: puuid is invalid according to Riot specifications (length > 78).');
+        });
+        it('should keep validating after .set() is called', () => {
+            const action = Galeforce.lol.summoner().set({ region: Galeforce.region.lol.NORTH_AMERICA });
+            expect(() => { action.payload.region = 'not-a-region'; }).to.throw('[galeforce]: Invalid /lol region provided.');
+        });
         it('should not set a non-existent field', () => {
             const action = new Action();
             // The payload proxy rejects unknown keys. Note that these spec files are ES modules,
@@ -675,6 +687,8 @@ describe('/galeforce/actions', () => {
                 });
                 describe('.tournaments()', () => {
                     describe('.tournamentId()', () => {
+                        it('should select the tournament endpoint when given a tournamentId of 0', () => expect(Galeforce.lol.clash.tournament().tournamentId(0).region(Galeforce.region.lol.NORTH_AMERICA).exec())
+                            .to.eventually.deep.equal(replyValues.v1.clash.tournaments.byTournament));
                         it('should return correct JSON for the /lol/clash/v1/tournaments/{} Riot API endpoint', () => expect(Galeforce.lol.clash.tournament().tournamentId(2001).region(Galeforce.region.lol.NORTH_AMERICA).exec())
                             .to.eventually.deep.equal(replyValues.v1.clash.tournaments.byTournament));
                     });

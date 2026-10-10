@@ -15,16 +15,12 @@ export type Payload = { // Payload keys and corresponding valid types
     query?: object;
     body?: object;
     region?: Region;
-    summonerId?: string;
-    accountId?: string;
     puuid?: string;
-    summonerName?: string;
     matchId?: string;
     teamId?: string;
     tournamentId?: number;
     tournamentCode?: string;
     championId?: number;
-    leagueId?: string;
     queue?: Queue;
     tier?: Tier;
     division?: Division;
@@ -50,9 +46,9 @@ export type ModifiablePayload = Omit<Payload, '_id' | 'type' | 'method' | 'endpo
 
 const payloadKeys: (keyof Payload)[] = [ // List of all valid keys for the payload
     '_id', 'type', 'method', 'endpoint', 'query', 'body',
-    'region', 'summonerId', 'accountId', 'puuid', 'summonerName',
+    'region', 'puuid',
     'matchId', 'teamId', 'tournamentId', 'tournamentCode', 'championId',
-    'leagueId', 'queue', 'tier', 'division', 'gameName', 'tagLine',
+    'queue', 'tier', 'division', 'gameName', 'tagLine',
     'game', 'regionGame', 'actId', 'version', 'locale', 'champion', 'skin', 'spell',
     'assetId', 'assetPath', 'lorSet', 'lorRegion', 'card', 'challengeId',
 ];
@@ -128,18 +124,12 @@ export const CreatePayloadProxy = (payload: Payload): Payload => new Proxy(paylo
                 throw new Error('[galeforce]: Invalid game provided.');
             }
             break;
-        case 'summonerId':
-        case 'accountId':
         case 'puuid':
             if (typeof value !== 'string') {
                 throw new Error(`[galeforce]: ${name} must be a string.`);
             }
-            // Enforce length requirements for summonerId, accountId, puuid as dictated by Riot specifications
-            if (name === 'summonerId' && value.length > 63) {
-                throw new Error('[galeforce]: summonerId is invalid according to Riot specifications (length > 63).');
-            } else if (name === 'accountId' && value.length > 56) {
-                throw new Error('[galeforce]: accountId is invalid according to Riot specifications (length > 56).');
-            } else if (name === 'puuid' && value.length > 78) {
+            // Enforce length requirements for puuid as dictated by Riot specifications
+            if (value.length > 78) {
                 throw new Error('[galeforce]: puuid is invalid according to Riot specifications (length > 78).');
             }
             break;
